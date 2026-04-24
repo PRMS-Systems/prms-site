@@ -1,0 +1,28 @@
+// nav.js — shared navigation injected into every page
+(function () {
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+
+  const links = [
+    { href: '/', label: 'Home' },
+    { href: '/framework', label: 'Framework' },
+    { href: '/principles', label: 'Principles' },
+    { href: '/taxonomy', label: 'Taxonomy' },
+    { href: '/metrics', label: 'Metrics' },
+    { href: '/applications', label: 'Applications' },
+    { href: '/publications', label: 'Publications' },
+    { href: '/about', label: 'About' },
+  ];
+
+  const nav = document.getElementById('main-nav');
+  if (!nav) return;
+
+  nav.innerHTML = `
+    <a class="nav-logo" href="/">PRMS<span>.systems</span></a>
+    <ul class="nav-links">
+      ${links.map(l => {
+        const isActive = currentPath === l.href || currentPath === l.href + '/index';
+        return `<li><a href="${l.href}" ${isActive ? 'class="active"' : ''}>${l.label}</a></li>`;
+      }).join('')}
+    </ul>
+  `;
+})();

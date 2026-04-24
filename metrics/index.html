@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrics — PRMS</title>
+  <meta name="description" content="PRMS KPIs, measurement protocols, and the PEAR-ROI Score methodology." />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav id="main-nav"></nav>
+
+<main>
+
+  <div class="hero">
+    <div class="container">
+      <p class="hero-label">Performance Measurement</p>
+      <h1>Metrics &<br><em>KPIs</em></h1>
+      <p class="hero-sub">
+        What gets measured, how it is measured, and what it means. The instrumentation and indicator system that makes PRMS demonstrable rather than declarative.
+      </p>
+    </div>
+  </div>
+
+  <!-- PEAR-ROI SCORE -->
+  <section>
+    <div class="container">
+      <p class="section-label" data-num="01">Composite Indicator</p>
+      <h2>The PEAR-ROI Score</h2>
+      <p style="font-size:1.05rem; color:var(--black); font-weight:400; max-width:58ch; margin-bottom:1.5rem;">
+        The PEAR-ROI Score is PRMS's composite performance index — a single dimensionless value (0–1) that integrates energy efficiency, water balance, ecological performance, and system autonomy into a verifiable measure of metabolic health.
+      </p>
+      <p>It is not a rating assigned by a certifier. It is calculated continuously from operational data and updates as the building's performance evolves. A score of 0.78 — the Year 1 value for SmartLiving Milenio III — represents Level 3 Autónomo performance across all four metabolic layers.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px; background:var(--gray-100); border:1px solid var(--gray-100); margin-top:3rem;">
+        <div class="metric-card">
+          <div class="metric-value">0.0</div>
+          <div class="metric-label">Baseline — conventional building</div>
+          <p class="metric-desc">No metabolic instrumentation or intentional performance design</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">0.50</div>
+          <div class="metric-label">Threshold — Eficiente (L2)</div>
+          <p class="metric-desc">System is integrated and monitored. Optimization cycles established</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">0.78</div>
+          <div class="metric-label">Milenio III — Year 1</div>
+          <p class="metric-desc">Autónomo level. Validated with first-year IoT data. EDGE certified</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">0.90+</div>
+          <div class="metric-label">Target — Regenerativo (L4)</div>
+          <p class="metric-desc">Net-positive energy. Closed water cycle. Ecological restoration active</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI TABLE -->
+  <section>
+    <div class="container">
+      <p class="section-label" data-num="02">Key Performance Indicators</p>
+      <h2>What PRMS measures</h2>
+
+      <p style="margin-bottom:0.5rem; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent);">Energy Domain</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>KPI</th>
+            <th>Unit</th>
+            <th>L1 Threshold</th>
+            <th>L2 Threshold</th>
+            <th>L3 Threshold</th>
+            <th>L4 Threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Energy Self-Sufficiency Index</td>
+            <td>%</td>
+            <td>≥20%</td>
+            <td>≥40%</td>
+            <td>≥70%</td>
+            <td>≥100% (net-positive)</td>
+          </tr>
+          <tr>
+            <td>Solar Generation Ratio</td>
+            <td>kWh generated / kWh consumed</td>
+            <td>—</td>
+            <td>≥0.4</td>
+            <td>≥0.7</td>
+            <td>≥1.0</td>
+          </tr>
+          <tr>
+            <td>Peak Demand Reduction</td>
+            <td>%</td>
+            <td>≥15%</td>
+            <td>≥30%</td>
+            <td>≥50%</td>
+            <td>≥70%</td>
+          </tr>
+          <tr>
+            <td>Energy Intensity</td>
+            <td>kWh/m²/year</td>
+            <td>≤100</td>
+            <td>≤60</td>
+            <td>≤30</td>
+            <td>Net positive</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:2rem; margin-bottom:0.5rem; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent);">Water Domain</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>KPI</th>
+            <th>Unit</th>
+            <th>L1 Threshold</th>
+            <th>L2 Threshold</th>
+            <th>L3 Threshold</th>
+            <th>L4 Threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Water Balance Index</td>
+            <td>L consumed / L recovered</td>
+            <td>—</td>
+            <td>≥0.3</td>
+            <td>≥0.6</td>
+            <td>≥1.0 (closed cycle)</td>
+          </tr>
+          <tr>
+            <td>Potable Water Reduction</td>
+            <td>%</td>
+            <td>≥20%</td>
+            <td>≥40%</td>
+            <td>≥60%</td>
+            <td>≥90%</td>
+          </tr>
+          <tr>
+            <td>Greywater Reuse Rate</td>
+            <td>%</td>
+            <td>—</td>
+            <td>≥30%</td>
+            <td>≥60%</td>
+            <td>≥90%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:2rem; margin-bottom:0.5rem; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent);">Ecological & System Domain</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>KPI</th>
+            <th>Unit</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Metabolic Performance Index (MPI)</td>
+            <td>Dimensionless 0–1</td>
+            <td>Composite score integrating energy, water, and thermal domains</td>
+          </tr>
+          <tr>
+            <td>System Autonomy Ratio (SAR)</td>
+            <td>%</td>
+            <td>Percentage of operational needs met without external network input</td>
+          </tr>
+          <tr>
+            <td>Ecological Footprint Delta</td>
+            <td>m² / occupant</td>
+            <td>Reduction in ecological footprint vs. equivalent conventional building</td>
+          </tr>
+          <tr>
+            <td>Thermal Comfort Hours</td>
+            <td>% of occupied hours within comfort range</td>
+            <td>ASHRAE 55 or equivalent standard, measured by sensors</td>
+          </tr>
+          <tr>
+            <td>Data Continuity Index</td>
+            <td>% uptime</td>
+            <td>Percentage of time IoT instrumentation generates valid data</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- INSTRUMENTATION -->
+  <section>
+    <div class="container">
+      <p class="section-label" data-num="03">Instrumentation</p>
+      <h2>How PRMS measures</h2>
+      <p style="margin-bottom:2rem; max-width:60ch;">All PRMS KPIs require physical instrumentation. Simulation, modeling, or estimation may support design but cannot substitute for operational data.</p>
+      <div class="grid-2">
+        <div class="grid-cell">
+          <h3>IoT Sensor Network</h3>
+          <p>Distributed sensor array measuring temperature, humidity, CO₂, light, occupancy, and flow rates at points defined by the PRMS instrumentation protocol.</p>
+        </div>
+        <div class="grid-cell">
+          <h3>Energy Metering</h3>
+          <p>Smart meters at generation, storage, consumption, and grid-exchange points. Measurement interval: 15 minutes or finer.</p>
+        </div>
+        <div class="grid-cell">
+          <h3>Water Monitoring</h3>
+          <p>Flow meters at potable supply, greywater output, rainwater collection, and treatment system points. Continuous logging.</p>
+        </div>
+        <div class="grid-cell">
+          <h3>Data Infrastructure</h3>
+          <p>Local gateway + cloud storage with minimum 5-year retention. Open data format preferred for third-party verification and research use.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-logo">PRMS.systems</span>
+  <div class="footer-meta">
+    ORCID: <a href="https://orcid.org/0009-0005-2474-4834" target="_blank">0009-0005-2474-4834</a><br>
+    Zenodo DOI: <a href="https://doi.org/10.5281/zenodo.19472797" target="_blank">10.5281/zenodo.19472797</a><br>
+    © 2025 Oscar A. Hernández García — PEAR-ROI Studio Architects
+  </div>
+</footer>
+
+<script src="/nav.js"></script>
+</body>
+</html>
