@@ -10,6 +10,7 @@
     { href: '/metrics', label: 'Metrics' },
     { href: '/applications', label: 'Applications' },
     { href: '/publications', label: 'Publications' },
+    { href: '/lab', label: 'Architecture Lab' },
     { href: '/about', label: 'About' },
   ];
 
