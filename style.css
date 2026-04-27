@@ -536,3 +536,26 @@ footer {
 .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
 .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
 .hero .link-arrow { animation: fadeUp 0.6s 0.3s ease both; }
+
+/* SYSTEM CYCLE SECTION */
+
+.system-cycle {
+  margin-top: 140px;
+  padding: 80px 20px;
+  border-top: 1px solid #ddd;
+  background: #fafafa;
+}
+.cycle-grid {
+  margin-top: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+.ecosystem-logos {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ecosystem-logos img {
+  height: 40px;
+}
