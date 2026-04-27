@@ -17,7 +17,9 @@
   if (!nav) return;
 
   nav.innerHTML = `
-    <a class="nav-logo" href="/">PRMS<span>.systems</span></a>
+    <a class="nav-logo" href="/">
+  <img src="/favicon.png" alt="PRMS">
+</a>
     <ul class="nav-links">
       ${links.map(l => {
         const isActive = currentPath === l.href || currentPath === l.href + '/index';
