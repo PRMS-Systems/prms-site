@@ -651,3 +651,44 @@ footer {
   display: block;
   margin-bottom: 0.3rem;
 }
+
+/* ========================= */
+
+/* PRMS — Institutional UI   */
+
+/* ========================= */
+
+.identity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 3rem; /* vertical / horizontal */
+  margin-top: 2rem;
+}
+
+.identity-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.identity-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 0.3rem;
+}
+
+.identity-value {
+  font-size: 1rem;
+  color: #111;
+}
+
+/* Para que Affiliation ocupe todo el ancho */
+.identity-item.full {
+  grid-column: span 2;
+}
+
+.identity-note {
+  color: #888;
+  font-size: 0.9em;
+}
