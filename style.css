@@ -559,3 +559,41 @@ footer {
 .ecosystem-logos img {
   height: 40px;
 }
+
+/* ── SUBNAV FRAMEWORK (SYSTEM NAVIGATION) ── */
+
+.subnav-framework {
+  padding: clamp(4rem, 8vw, 6rem) 0;
+}
+.subnav-title {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+.subnav-links {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+.subnav-link {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease, gap 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.subnav-link:hover {
+  opacity: 0.6;
+  gap: 0.7rem;
+}
+.subnav-link.active {
+  opacity: 1;
+}
