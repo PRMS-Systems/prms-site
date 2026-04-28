@@ -597,3 +597,9 @@ footer {
 .subnav-link.active {
   opacity: 1;
 }
+
+.data-table td:nth-child(2) {
+  color: var(--gray-500);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
