@@ -10,7 +10,7 @@ const links = [
   { href: '/applications', label: 'Applications' },
   { href: '/publications', label: 'Publications' },
   { href: '/renewable-horizons', label: 'Renewable Horizons' },
-  { href: '/about', label: 'About' },
+  { href: '/about', label: 'About' }, 
 ];
 
   const nav = document.getElementById('main-nav');
