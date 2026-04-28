@@ -2,17 +2,16 @@
 (function () {
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
 
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/framework', label: 'Framework' },
-    { href: '/principles', label: 'Principles' },
-    { href: '/taxonomy', label: 'Taxonomy' },
-    { href: '/metrics', label: 'Metrics' },
-    { href: '/applications', label: 'Applications' },
-    { href: '/publications', label: 'Publications' },
-    { href: '/lab', label: 'Architecture Lab' },
-    { href: '/about', label: 'About' },
-  ];
+const links = [
+
+  { href: '/', label: 'Home' },
+  { href: '/lab', label: 'PRMS Lab' },
+  { href: '/framework', label: 'Framework' },
+  { href: '/applications', label: 'Applications' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/renewable-horizons', label: 'Renewable Horizons' },
+  { href: '/about', label: 'About' },
+];
 
   const nav = document.getElementById('main-nav');
   if (!nav) return;
