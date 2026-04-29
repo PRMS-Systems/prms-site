@@ -5,7 +5,7 @@
 const links = [
 
   { href: '/', label: 'Home' },
-  { href: '/lab', label: 'PRMS Lab' },
+  { href: '/lab', label: 'PRMS Architecture Lab' },
   { href: '/framework', label: 'Framework' },
   { href: '/applications', label: 'Applications' },
   { href: '/publications', label: 'Publications' },
