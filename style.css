@@ -702,3 +702,169 @@ footer {
   background: #fafafa;
   box-shadow: 0 4px 20px rgba(0,0,0,0.03);
 }
+
+/* ══════════════════════════════════════════
+   PRMS Identity Card
+   ══════════════════════════════════════════ */
+
+.prms-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 0.5px solid #D8D8D2;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 680px;
+  margin: 0 auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.prms-card__header {
+  background: #FFFFFF;
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.prms-card__eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #8A8A82;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.prms-card__name {
+  font-size: 20px;
+  font-weight: 500;
+  color: #0D0D0D;
+  margin: 0 0 0.25rem;
+}
+
+.prms-card__desc {
+  font-size: 13px;
+  color: #5A5A52;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.prms-card__rule {
+  height: 0.5px;
+  background: #D8D8D2;
+}
+
+.prms-card__grid {
+  background: #FFFFFF;
+  padding: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+.prms-card__field-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #8A8A82;
+  text-transform: uppercase;
+  margin: 0 0 3px;
+}
+
+.prms-card__field-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0D0D0D;
+  margin: 0;
+}
+
+.prms-card__field-note {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8A8A82;
+}
+
+.prms-card__links {
+  background: #F5F5F2;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.prms-card__link-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.prms-card__link-icon {
+  flex-shrink: 0;
+  opacity: 0.4;
+  color: #0D0D0D;
+}
+
+.prms-card__link-row a {
+  font-size: 13px;
+  color: #5A5A52;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  transition: color 0.15s;
+}
+
+.prms-card__link-row a:hover {
+  color: #0D0D0D;
+}
+
+.prms-card__badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #FEF3C7;
+  color: #92400E;
+  font-weight: 500;
+}
+
+.prms-card__affiliation {
+  background: #FFFFFF;
+  padding: 1rem 1.5rem;
+}
+
+.prms-card__affiliation-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #8A8A82;
+  text-transform: uppercase;
+  margin: 0 0 0.65rem;
+}
+
+.prms-card__affiliation-string {
+  font-family: 'Courier New', monospace;
+  font-size: 12.5px;
+  color: #0D0D0D;
+  background: #F5F5F2;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  display: inline-block;
+  border: 0.5px solid #D8D8D2;
+}
+
+.prms-card__affiliation-note {
+  font-size: 11px;
+  color: #8A8A82;
+  margin: 0.5rem 0 0;
+}
+
+.prms-card__footer {
+  background: #F5F5F2;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.prms-card__footer-text {
+  font-size: 11px;
+  color: #8A8A82;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+}
