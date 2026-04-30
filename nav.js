@@ -3,8 +3,8 @@
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
 
   const links = [
-    { href: '/', label: 'Home' },
     { href: '/lab', label: 'PRMS Architecture Lab' },
+    { href: '/', label: 'PRMS Methodology' },
     { href: '/framework', label: 'Framework' },
     { href: '/applications', label: 'Applications' },
     { href: '/publications', label: 'Publications' },
