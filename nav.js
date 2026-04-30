@@ -4,7 +4,7 @@
 
   const links = [
     { href: '/lab', label: 'PRMS Architecture Lab' },
-    { href: '/', label: 'PRMS Methodology' },
+    { href: '/', label: 'Methodology' },
     { href: '/framework', label: 'Framework' },
     { href: '/applications', label: 'Applications' },
     { href: '/publications', label: 'Publications' },
