@@ -930,7 +930,7 @@ footer {
   align-self: start;
 }
 
-.grid-2 {
+.grid-research {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
