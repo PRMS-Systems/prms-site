@@ -936,7 +936,13 @@ footer {
   gap: 0;
 }
 
-.grid-cell {
+.grid-research .grid-cell {
   padding: 2rem;
   border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* FIX GLOBAL */
+section:not(.grid-research) .grid-cell {
+  padding: 0 !important;
+  border: none !important;
 }
