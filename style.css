@@ -929,3 +929,14 @@ footer {
   white-space: nowrap;
   align-self: start;
 }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.grid-cell {
+  padding: 2rem;
+  border: 1px solid rgba(0,0,0,0.06);
+}
