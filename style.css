@@ -940,3 +940,67 @@ footer {
   padding: 2rem;
   border: 1px solid rgba(0,0,0,0.06);
 }
+
+/* =========================================
+   ECOSYSTEM FOOTER
+========================================= */
+
+.ecosystem-footer{
+    width:100%;
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:3rem;
+    padding:2rem 0 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:2rem;
+    flex-wrap:wrap;
+}
+.ecosystem-brand{
+    color:rgba(255,255,255,.88);
+    font-size:0.95rem;
+    letter-spacing:0.04em;
+    white-space:nowrap;
+}
+.ecosystem-links{
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center;
+    justify-content:center;
+    gap:2.5rem;
+    list-style:none !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+.ecosystem-links li{
+    list-style:none !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+.ecosystem-links a{
+    color:rgba(255,255,255,.38);
+    text-decoration:none;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    transition:all .25s ease;
+}
+.ecosystem-links a:hover{
+    color:rgba(255,255,255,.9);
+}
+.ecosystem-copy{
+    color:rgba(255,255,255,.35);
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    white-space:nowrap;
+}
+/* RESPONSIVE */
+@media (max-width:900px){
+    .ecosystem-footer{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    .ecosystem-links{
+        gap:1.2rem;
+    }
+}
