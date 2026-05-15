@@ -174,7 +174,7 @@
     </div>
   </section>
 
-  <!-- Publicaciones en por publicar -->
+  <!-- Publicaciones  por publicar -->
   <section>
     <div class="container">
       <p class="section-label" data-num="03">In Preparation — 2026</p>
@@ -188,9 +188,20 @@
           <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">This paper proposes a phased retrofit methodology (envelope → systems → monitoring), quantifying payback periods and performance improvements in mid-income housing.
            </p>
         </div>
-        <span class="pub-doi" style="color:var(--gray-500);">In preparation</span>
-      </div>
-
+        
+        <div class="pub-release">
+  <span class="pub-status">
+    Scheduled Release
+  </span>
+  <div class="pub-release-date">
+    Friday · May 29 · 2026 · 19:00 CST
+  </div>
+  <div class="pub-countdown" id="countdown-paper05">
+    ⏳ Loading countdown...
+  </div>
+</div>
+        
+</div>
       <div class="pub-entry">
         <div>
           <p class="pub-type">PREPRINT — ZENODO 06</p>
@@ -318,6 +329,27 @@
   </div>
 </footer>
 
+<script>
+function updateCountdown() {
+  const countdownEl = document.getElementById("countdown-paper05");
+  if (!countdownEl) return;
+  const releaseDate = new Date("2026-05-29T19:00:00-06:00");
+  const now = new Date();
+  const diff = releaseDate - now;
+  if (diff <= 0) {
+    countdownEl.innerHTML = "DOI Release Available";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  countdownEl.innerHTML =
+  `⏳ ${days} days · ${hours} hours · ${minutes} minutes`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+  
 <script src="/nav.js"></script>
 </body>
 </html>
