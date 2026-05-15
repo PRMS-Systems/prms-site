@@ -1003,4 +1003,26 @@ footer {
     .ecosystem-links{
         gap:1.2rem;
     }
+ /* publicacion programada por publicar */ 
+}
+.pub-release{
+  margin-top:0.4rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.15rem;
+}
+.pub-status{
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--gray-500);
+}
+.pub-release-date{
+  font-size:0.82rem;
+  color:var(--gray-700);
+}
+.pub-countdown{
+  font-size:0.78rem;
+  color:var(--gray-500);
+  font-family:"DM Mono", monospace;
 }
