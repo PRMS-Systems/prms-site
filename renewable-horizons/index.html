@@ -281,7 +281,16 @@ The collection is structured into six thematic domains: fundamentals, biomass sy
       <td>8</td>
       <td>9798280581197</td>
       <td>Spanish</td>
-      <td>—</td>
+      
+      <td>
+  <div class="doi-release">
+    <span class="doi-status">DOI Release Scheduled</span>
+    <span class="doi-release-date">31 July 2026</span>
+    <span class="doi-countdown" id="countdown-book08">
+      ⏳ Loading countdown...
+    </span>
+  </div>
+</td>
       <td>Calentadores para Piscinas</td>
     </tr>
 
@@ -580,7 +589,28 @@ The collection is structured into six thematic domains: fundamentals, biomass sy
     </span>
   </div>
 </footer>
-
+<!-- tiempo -->
+<script>
+function updateBook08Countdown() {
+  const countdownEl = document.getElementById("countdown-book08");
+  if (!countdownEl) return;
+  const releaseDate = new Date("2026-07-31T19:00:00-06:00");
+  const now = new Date();
+  const diff = releaseDate - now;
+  if (diff <= 0) {
+    countdownEl.innerHTML = "DOI Release Available";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  countdownEl.innerHTML =
+    `⏳ ${days} days · ${hours} hours · ${minutes} minutes`;
+}
+updateBook08Countdown();
+setInterval(updateBook08Countdown, 60000);
+</script>
+  <!-- tiempo fin -->
 <script src="/nav.js"></script>
 </body>
 </html>
