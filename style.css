@@ -1093,6 +1093,11 @@ footer {
   margin-bottom:2rem;
 }
 
+.atlas-hero h1 em{
+  font-style:italic;
+  color:var(--green);
+  font-weight:400;
+}
 .atlas-hero p{
   max-width:980px;
   font-size:1.15rem;
