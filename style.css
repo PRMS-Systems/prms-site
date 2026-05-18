@@ -1047,3 +1047,39 @@ footer {
   color:var(--gray-500);
   font-family:"DM Mono", monospace;
 }
+ /* publicacion diagrama */ 
+body{
+  margin:0;
+  background:#0a0a0a;
+  color:white;
+  font-family:Arial, sans-serif;
+}
+
+.atlas-hero{
+  padding:60px 40px;
+}
+
+.atlas-header h1{
+  font-size:64px;
+  margin-bottom:10px;
+  letter-spacing:2px;
+}
+
+.atlas-header p{
+  color:#999;
+  max-width:700px;
+  line-height:1.6;
+}
+
+.diagram-container{
+  margin-top:50px;
+  display:flex;
+  justify-content:center;
+}
+
+.atlas-image{
+  width:100%;
+  max-width:1400px;
+  border-radius:20px;
+  box-shadow:0 20px 80px rgba(0,0,0,0.5);
+}
