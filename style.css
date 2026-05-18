@@ -1057,12 +1057,12 @@ footer {
 }
 
 .atlas-main{
-  padding:160px 6vw 80px;
+  padding:180px 6vw 90px;
 }
 
 .atlas-hero{
   max-width:980px;
-  margin:0 auto 60px;
+  margin:0 auto 70px;
 }
 
 .atlas-kicker{
@@ -1070,21 +1070,22 @@ footer {
   letter-spacing:0.28em;
   font-size:12px;
   text-transform:uppercase;
-  margin-bottom:24px;
+  margin-bottom:28px;
 }
 
 .atlas-hero h1{
   font-family:serif;
-  font-size:clamp(56px, 8vw, 120px);
+  font-size:clamp(64px, 8vw, 120px);
   line-height:0.9;
   margin:0 0 28px;
+  color:#111;
 }
 
 .atlas-hero p{
   font-size:22px;
   line-height:1.6;
   color:#555;
-  max-width:760px;
+  max-width:820px;
 }
 
 .diagram-section{
@@ -1097,4 +1098,5 @@ footer {
   display:block;
   border-radius:18px;
   box-shadow:0 30px 90px rgba(0,0,0,0.18);
+  background:white;
 }
