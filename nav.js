@@ -9,7 +9,7 @@
     { href: '/applications', label: 'Applications' },
     { href: '/publications', label: 'Publications' },
     { href: '/renewable-horizons', label: 'Renewable Horizons' },
-    { href: '/System Atlas', label: 'System Atlas' },
+    { href: '/system-atlas/', label: 'System Atlas' },
     { href: '/about', label: 'About' },
   ];
 
