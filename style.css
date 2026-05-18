@@ -1151,3 +1151,30 @@ footer {
 .atlas-image:hover{
   transform:translateY(-6px);
 }
+
+/* INTRO TEXT */
+
+.atlas-intro{
+  width:min(980px, 88%);
+  margin:0 auto 5rem auto;
+}
+
+.atlas-intro-label{
+  font-family:var(--mono);
+  font-size:0.72rem;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+
+  color:#17633d;
+
+  margin-bottom:1.2rem;
+}
+
+.atlas-intro-text{
+  font-size:1.25rem;
+  line-height:1.9;
+  color:var(--gray-700);
+
+  max-width:58ch;
+  font-weight:300;
+}
