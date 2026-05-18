@@ -1051,38 +1051,50 @@ footer {
 /* System Atlas page only */
 
 .system-atlas-page{
-  margin:0;
-  background:#0a0a0a;
-  color:white;
-  font-family:Arial, sans-serif;
+  background:#f4f3ef;
+  color:#111;
   min-height:100vh;
 }
 
-.system-atlas-page .atlas-hero{
-  padding:60px 40px;
+.atlas-main{
+  padding:160px 6vw 80px;
 }
 
-.system-atlas-page .atlas-header h1{
-  font-size:64px;
-  margin-bottom:10px;
-  letter-spacing:2px;
+.atlas-hero{
+  max-width:980px;
+  margin:0 auto 60px;
 }
 
-.system-atlas-page .atlas-header p{
-  color:#999;
-  max-width:700px;
+.atlas-kicker{
+  color:#17633d;
+  letter-spacing:0.28em;
+  font-size:12px;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+
+.atlas-hero h1{
+  font-family:serif;
+  font-size:clamp(56px, 8vw, 120px);
+  line-height:0.9;
+  margin:0 0 28px;
+}
+
+.atlas-hero p{
+  font-size:22px;
   line-height:1.6;
+  color:#555;
+  max-width:760px;
 }
 
-.system-atlas-page .diagram-container{
-  margin-top:50px;
-  display:flex;
-  justify-content:center;
+.diagram-section{
+  max-width:1500px;
+  margin:0 auto;
 }
 
-.system-atlas-page .atlas-image{
+.atlas-image{
   width:100%;
-  max-width:1400px;
-  border-radius:20px;
-  box-shadow:0 20px 80px rgba(0,0,0,0.5);
+  display:block;
+  border-radius:18px;
+  box-shadow:0 30px 90px rgba(0,0,0,0.18);
 }
