@@ -1048,12 +1048,14 @@ footer {
   font-family:"DM Mono", monospace;
 }
  /* publicacion diagrama */ 
+
+
 /* ─────────────────────────────────────
    SYSTEM ATLAS — PRMS
 ───────────────────────────────────── */
 
 .system-atlas-page{
-  background:var(--off-white);
+  background:#f5f4ef;
   color:var(--black);
   min-height:100vh;
 }
@@ -1069,7 +1071,7 @@ footer {
 
 .atlas-hero{
   width:min(1200px, 88%);
-  margin:0 auto 90px auto;
+  margin:0 auto 70px auto;
 }
 
 .atlas-kicker{
@@ -1083,8 +1085,8 @@ footer {
 
 .atlas-hero h1{
   font-family:var(--serif);
-  font-size:clamp(5rem, 9vw, 8rem);
-  line-height:0.9;
+  font-size:clamp(4.2rem, 7vw, 7rem);
+  line-height:0.92;
   font-weight:400;
   letter-spacing:-0.04em;
   color:var(--black);
@@ -1092,9 +1094,9 @@ footer {
 }
 
 .atlas-hero p{
-  max-width:18ch;
-  font-size:1.85rem;
-  line-height:1.45;
+  max-width:980px;
+  font-size:1.15rem;
+  line-height:1.8;
   color:var(--gray-600);
   font-weight:300;
 }
@@ -1106,27 +1108,6 @@ footer {
   margin:0 auto;
 }
 
-.atlas-image{
-  width:100%;
-  display:block;
-
-  border-radius:24px;
-
-  background:white;
-
-  box-shadow:
-    0 40px 120px rgba(0,0,0,0.10),
-    0 8px 30px rgba(0,0,0,0.06);
-
-  transition:transform .6s ease;
-}
-
-.atlas-image:hover{
-  transform:translateY(-6px);
-}
-
-/* SEPARATOR */
-
 .diagram-section::before{
   content:"";
   display:block;
@@ -1134,4 +1115,19 @@ footer {
   height:1px;
   background:#e5e2dc;
   margin-bottom:5rem;
+}
+
+.atlas-image{
+  width:100%;
+  display:block;
+  border-radius:24px;
+  background:white;
+  box-shadow:
+    0 40px 120px rgba(0,0,0,0.10),
+    0 8px 30px rgba(0,0,0,0.06);
+  transition:transform .6s ease;
+}
+
+.atlas-image:hover{
+  transform:translateY(-6px);
 }
