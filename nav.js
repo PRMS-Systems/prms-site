@@ -20,7 +20,7 @@
     <div class="nav-container">
 
       <a class="nav-logo" href="/">
-        <img src="/favicon.png" alt="PRMS">
+        <img src="/logoch.png" alt="PRMS">
       </a>
 
       <!-- BOTÓN MOBILE -->
