@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D8 Operation & Data</title>
+
+<meta name="description"
+content="D8 Operation and Data module of the PRMS Score Calculator. Evaluates IoT sensors, continuous records, historical storage, external verification, and operational data management.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#7a5fa6;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:900px;
+}
+
+.operation-table,
+.weight-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.operation-table th,
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.operation-table td,
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.operation-table td:first-child,
+.weight-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.operation-table tbody tr:nth-child(odd),
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.operation-table select,
+.weight-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.weight-table{
+width:calc(75% - 3.2rem);
+}
+
+.weight-table input{
+width:90px;
+}
+
+.score{
+font-weight:800;
+color:#7a5fa6;
+}
+
+.score-bar{
+width:75%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:75%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.audit-box{
+width:calc(75% - 3.2rem);
+margin:0 1.6rem 2rem;
+padding:1.2rem;
+background:#f7f7f7;
+border-left:5px solid #7a5fa6;
+}
+
+.audit-box h3{
+margin-top:0;
+}
+
+.audit-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:1rem;
+margin-top:1rem;
+}
+
+.audit-item{
+background:#fff;
+padding:1rem;
+border:1px solid #ddd;
+}
+
+.audit-item strong{
+display:block;
+margin-bottom:.3rem;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.purple{
+background:#7a5fa6;
+}
+
+.button.orange{
+background:#b94f00;
+}
+
+@media(max-width:900px){
+
+.operation-table,
+.weight-table,
+.score-bar,
+.score-level,
+.audit-box{
+width:calc(100% - 3.2rem);
+}
+
+.operation-table{
+font-size:.75rem;
+}
+
+.operation-table select{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.audit-grid{
+grid-template-columns:1fr;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D8 · Operation & Data — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Select whether each operational data condition is met. Each verified IoT condition contributes 20 points.
+</div>
+
+<div class="module-intro">
+
+<h2>Operation & Data Performance Module</h2>
+
+<p>
+D8 Operation & Data evaluates the digital maturity of the project. This dimension measures whether
+the building can monitor, record, store, verify, and manage operational information through
+continuous data systems.
+</p>
+
+<p>
+A building with verified IoT sensors, continuous records, historical storage, and external
+verification is more governable, auditable, and optimizable than a building based only on estimates
+or periodic utility bills.
+</p>
+
+</div>
+
+<table class="operation-table">
+
+<thead>
+<tr>
+<th>Continuous IoT Evidence</th>
+<th>Condition</th>
+<th>Meets Requirement</th>
+<th>Yes Value</th>
+<th>No Value</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>IoT energy sensor</td>
+<td>Energy monitoring</td>
+<td>
+<select id="iotEnergy">
+<option value="yes" selected>Yes</option>
+<option value="no">No</option>
+</select>
+</td>
+<td>20</td>
+<td>0</td>
+<td class="score" id="nIotEnergy">20.0</td>
+</tr>
+
+<tr>
+<td>IoT water sensor</td>
+<td>Water monitoring</td>
+<td>
+<select id="iotWater">
+<option value="yes" selected>Yes</option>
+<option value="no">No</option>
+</select>
+</td>
+<td>20</td>
+<td>0</td>
+<td class="score" id="nIotWater">20.0</td>
+</tr>
+
+<tr>
+<td>Continuous record</td>
+<td>Data capture continuity</td>
+<td>
+<select id="continuousRecord">
+<option value="yes" selected>Yes</option>
+<option value="no">No</option>
+</select>
+</td>
+<td>20</td>
+<td>0</td>
+<td class="score" id="nContinuousRecord">20.0</td>
+</tr>
+
+<tr>
+<td>Historical storage</td>
+<td>Operational data archive</td>
+<td>
+<select id="historicalStorage">
+<option value="yes" selected>Yes</option>
+<option value="no">No</option>
+</select>
+</td>
+<td>20</td>
+<td>0</td>
+<td class="score" id="nHistoricalStorage">20.0</td>
+</tr>
+
+<tr>
+<td>External verification</td>
+<td>Third-party or documented verification</td>
+<td>
+<select id="externalVerification">
+<option value="yes" selected>Yes</option>
+<option value="no">No</option>
+</select>
+</td>
+<td>20</td>
+<td>0</td>
+<td class="score" id="nExternalVerification">20.0</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Evidence Pathway</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Evidence Type</th>
+<th>Condition</th>
+<th>Score Contribution</th>
+<th>Factor Reference</th>
+<th>Level</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Continuous IoT sensors</td>
+<td>All five IoT requirements met</td>
+<td id="iotScore">100.0</td>
+<td>1.00</td>
+<td>A</td>
+<td id="iotStatus">Active</td>
+</tr>
+
+<tr>
+<td>Utility bills and meters</td>
+<td>Official monthly records only</td>
+<td id="meterScore">0.0</td>
+<td>0.80</td>
+<td>B</td>
+<td id="meterStatus">Inactive</td>
+</tr>
+
+<tr>
+<td>Estimated declaration</td>
+<td>Estimated PRMS declaration only</td>
+<td id="estimateScore">0.0</td>
+<td>0.40</td>
+<td>C</td>
+<td id="estimateStatus">Inactive</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="audit-box">
+
+<h3>Data Reliability Logic</h3>
+
+<p>
+D8 is included as a score dimension because operational intelligence is part of the metabolic
+performance of a building. Factor C remains the separate verification multiplier applied to the
+global PRMS Score.
+</p>
+
+<div class="audit-grid">
+
+<div class="audit-item">
+<strong>Level A</strong>
+Verified continuous IoT data<br>
+Factor C = 1.00
+</div>
+
+<div class="audit-item">
+<strong>Level B</strong>
+Official bills or meters<br>
+Factor C = 0.80
+</div>
+
+<div class="audit-item">
+<strong>Level C</strong>
+Estimated declaration<br>
+Factor C = 0.40
+</div>
+
+</div>
+
+</div>
+
+<div class="score-bar">
+<div>SCORE D8</div>
+<div><span id="scoreD8">100.0</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD8">
+METABOLIC ELITE
+</div>
+
+<div class="note">
+D8 measures the operational data capacity of the asset. Five verified IoT conditions produce a score of 100.
+If IoT is not available but official bills or meters exist, D8 may be assigned 40. If only estimates exist, D8 may be assigned 20.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/carbon/" class="button">Back to D7 Carbon</a>
+<a href="/score/calculator/results/" class="button orange">View Final Results</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function valueFromSelect(id){
+return document.getElementById(id).value === "yes" ? 20 : 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateOperation(){
+
+const iotEnergy = valueFromSelect("iotEnergy");
+const iotWater = valueFromSelect("iotWater");
+const continuousRecord = valueFromSelect("continuousRecord");
+const historicalStorage = valueFromSelect("historicalStorage");
+const externalVerification = valueFromSelect("externalVerification");
+
+setText("nIotEnergy",iotEnergy.toFixed(1));
+setText("nIotWater",iotWater.toFixed(1));
+setText("nContinuousRecord",continuousRecord.toFixed(1));
+setText("nHistoricalStorage",historicalStorage.toFixed(1));
+setText("nExternalVerification",externalVerification.toFixed(1));
+
+const iotTotal =
+iotEnergy +
+iotWater +
+continuousRecord +
+historicalStorage +
+externalVerification;
+
+let finalScore = iotTotal;
+let meterScore = 0;
+let estimateScore = 0;
+
+if(iotTotal === 0){
+meterScore = 40;
+estimateScore = 20;
+finalScore = 40;
+}
+
+if(iotTotal > 0 && iotTotal < 100){
+meterScore = 0;
+estimateScore = 0;
+finalScore = iotTotal;
+}
+
+if(iotTotal === 100){
+meterScore = 0;
+estimateScore = 0;
+finalScore = 100;
+}
+
+setText("iotScore",iotTotal.toFixed(1));
+setText("meterScore",meterScore.toFixed(1));
+setText("estimateScore",estimateScore.toFixed(1));
+
+setText("iotStatus",iotTotal > 0 ? "Active" : "Inactive");
+setText("meterStatus",iotTotal === 0 ? "Available fallback" : "Inactive");
+setText("estimateStatus",iotTotal === 0 ? "Available fallback" : "Inactive");
+
+setText("scoreD8",finalScore.toFixed(1));
+setText("levelD8",level(finalScore));
+
+}
+
+document.querySelectorAll("select").forEach(select => {
+select.addEventListener("change", calculateOperation);
+});
+
+calculateOperation();
+
+</script>
+
+</body>
+</html>
