@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D5 Economy</title>
+
+<meta name="description"
+content="D5 Economy module of the PRMS Score Calculator. Evaluates investment, savings, operation costs, payback, ROI, IRR, and net present value.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#00a878;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.economy-table,
+.weight-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.economy-table th,
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.economy-table td,
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.economy-table td:first-child,
+.weight-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.economy-table tbody tr:nth-child(odd),
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.economy-table input,
+.weight-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.weight-table{
+width:calc(70% - 3.2rem);
+}
+
+.weight-table input{
+width:90px;
+}
+
+.score{
+font-weight:800;
+color:#00a878;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.green{
+background:#00a878;
+}
+
+@media(max-width:900px){
+
+.economy-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.economy-table{
+font-size:.75rem;
+}
+
+.economy-table input{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D5 · Economy — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column. Yellow cells represent editable project data.
+</div>
+
+<div class="module-intro">
+
+<h2>Economic Performance Module</h2>
+
+<p>
+D5 Economy evaluates the financial performance of the project as a metabolic asset.
+This dimension measures initial investment, annual energy savings, annual water savings,
+operation and maintenance costs, simple payback, annual ROI, project IRR, and net present value.
+</p>
+
+<p>
+The objective is to determine whether the system produces measurable economic value,
+reduces operating costs, and supports long-term financial viability.
+</p>
+
+</div>
+
+<table class="economy-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Total initial investment</td>
+<td>MXN</td>
+<td><input id="initialInvestment" type="number" value="320000"></td>
+<td>50000</td>
+<td>1000000</td>
+<td class="score" id="nInitialInvestment">71.6</td>
+</tr>
+
+<tr>
+<td>Annual energy savings</td>
+<td>MXN/year</td>
+<td><input id="energySavings" type="number" value="45000"></td>
+<td>0</td>
+<td>150000</td>
+<td class="score" id="nEnergySavings">30.0</td>
+</tr>
+
+<tr>
+<td>Annual water savings</td>
+<td>MXN/year</td>
+<td><input id="waterSavings" type="number" value="3200"></td>
+<td>0</td>
+<td>20000</td>
+<td class="score" id="nWaterSavings">16.0</td>
+</tr>
+
+<tr>
+<td>Operation and maintenance costs</td>
+<td>MXN/year</td>
+<td><input id="omCosts" type="number" value="8500"></td>
+<td>0</td>
+<td>50000</td>
+<td class="score" id="nOmCosts">83.0</td>
+</tr>
+
+<tr>
+<td>Simple payback</td>
+<td>years</td>
+<td><input id="payback" type="number" value="7"></td>
+<td>1</td>
+<td>20</td>
+<td class="score" id="nPayback">68.4</td>
+</tr>
+
+<tr>
+<td>Annual ROI</td>
+<td>%</td>
+<td><input id="roi" type="number" value="15"></td>
+<td>0</td>
+<td>50</td>
+<td class="score" id="nRoi">30.0</td>
+</tr>
+
+<tr>
+<td>Project IRR</td>
+<td>%</td>
+<td><input id="irr" type="number" value="18"></td>
+<td>0</td>
+<td>50</td>
+<td class="score" id="nIrr">36.0</td>
+</tr>
+
+<tr>
+<td>NPV at 10 years</td>
+<td>MXN</td>
+<td><input id="npv" type="number" value="180000"></td>
+<td>-50000</td>
+<td>500000</td>
+<td class="score" id="nNpv">41.8</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Assigned Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Total initial investment</td>
+<td><input id="wInitialInvestment" type="number" value="10"> %</td>
+<td id="sInitialInvestment">7.2</td>
+</tr>
+
+<tr>
+<td>Annual energy savings</td>
+<td><input id="wEnergySavings" type="number" value="20"> %</td>
+<td id="sEnergySavings">6.0</td>
+</tr>
+
+<tr>
+<td>Annual water savings</td>
+<td><input id="wWaterSavings" type="number" value="5"> %</td>
+<td id="sWaterSavings">0.8</td>
+</tr>
+
+<tr>
+<td>Operation and maintenance costs</td>
+<td><input id="wOmCosts" type="number" value="10"> %</td>
+<td id="sOmCosts">8.3</td>
+</tr>
+
+<tr>
+<td>Simple payback</td>
+<td><input id="wPayback" type="number" value="15"> %</td>
+<td id="sPayback">10.3</td>
+</tr>
+
+<tr>
+<td>Annual ROI</td>
+<td><input id="wRoi" type="number" value="15"> %</td>
+<td id="sRoi">4.5</td>
+</tr>
+
+<tr>
+<td>Project IRR</td>
+<td><input id="wIrr" type="number" value="15"> %</td>
+<td id="sIrr">5.4</td>
+</tr>
+
+<tr>
+<td>NPV at 10 years</td>
+<td><input id="wNpv" type="number" value="10"> %</td>
+<td id="sNpv">4.2</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D5</div>
+<div><span id="scoreD5">46.6</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD5">
+METABOLIC BASIC
+</div>
+
+<div class="note">
+Blue values are editable input fields. Black values are calculated automatically. This beta module follows PRMS-SCORE-STD-2026-001.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/comfort/" class="button">Back to D4 Comfort</a>
+<a href="/score/calculator/resilience/" class="button green">Continue to D6 Resilience</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(value, min, max){
+return Math.max(min, Math.min(max, value));
+}
+
+function positiveNormalize(value, min, max){
+return clamp(((value - min) / (max - min)) * 100, 0, 100);
+}
+
+function negativeNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function getNumber(id){
+return Number(document.getElementById(id).value) || 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateEconomy(){
+
+const initialInvestment = getNumber("initialInvestment");
+const energySavings = getNumber("energySavings");
+const waterSavings = getNumber("waterSavings");
+const omCosts = getNumber("omCosts");
+const payback = getNumber("payback");
+const roi = getNumber("roi");
+const irr = getNumber("irr");
+const npv = getNumber("npv");
+
+const nInitialInvestment = negativeNormalize(initialInvestment,50000,1000000);
+const nEnergySavings = positiveNormalize(energySavings,0,150000);
+const nWaterSavings = positiveNormalize(waterSavings,0,20000);
+const nOmCosts = negativeNormalize(omCosts,0,50000);
+const nPayback = negativeNormalize(payback,1,20);
+const nRoi = positiveNormalize(roi,0,50);
+const nIrr = positiveNormalize(irr,0,50);
+const nNpv = positiveNormalize(npv,-50000,500000);
+
+setText("nInitialInvestment",nInitialInvestment.toFixed(1));
+setText("nEnergySavings",nEnergySavings.toFixed(1));
+setText("nWaterSavings",nWaterSavings.toFixed(1));
+setText("nOmCosts",nOmCosts.toFixed(1));
+setText("nPayback",nPayback.toFixed(1));
+setText("nRoi",nRoi.toFixed(1));
+setText("nIrr",nIrr.toFixed(1));
+setText("nNpv",nNpv.toFixed(1));
+
+const wInitialInvestment = getNumber("wInitialInvestment");
+const wEnergySavings = getNumber("wEnergySavings");
+const wWaterSavings = getNumber("wWaterSavings");
+const wOmCosts = getNumber("wOmCosts");
+const wPayback = getNumber("wPayback");
+const wRoi = getNumber("wRoi");
+const wIrr = getNumber("wIrr");
+const wNpv = getNumber("wNpv");
+
+const sInitialInvestment = nInitialInvestment * wInitialInvestment / 100;
+const sEnergySavings = nEnergySavings * wEnergySavings / 100;
+const sWaterSavings = nWaterSavings * wWaterSavings / 100;
+const sOmCosts = nOmCosts * wOmCosts / 100;
+const sPayback = nPayback * wPayback / 100;
+const sRoi = nRoi * wRoi / 100;
+const sIrr = nIrr * wIrr / 100;
+const sNpv = nNpv * wNpv / 100;
+
+setText("sInitialInvestment",sInitialInvestment.toFixed(1));
+setText("sEnergySavings",sEnergySavings.toFixed(1));
+setText("sWaterSavings",sWaterSavings.toFixed(1));
+setText("sOmCosts",sOmCosts.toFixed(1));
+setText("sPayback",sPayback.toFixed(1));
+setText("sRoi",sRoi.toFixed(1));
+setText("sIrr",sIrr.toFixed(1));
+setText("sNpv",sNpv.toFixed(1));
+
+const score =
+sInitialInvestment +
+sEnergySavings +
+sWaterSavings +
+sOmCosts +
+sPayback +
+sRoi +
+sIrr +
+sNpv;
+
+setText("scoreD5",score.toFixed(1));
+setText("levelD5",level(score));
+
+}
+
+document.querySelectorAll("input").forEach(input => {
+input.addEventListener("input", calculateEconomy);
+});
+
+calculateEconomy();
+
+</script>
+
+</body>
+</html>
