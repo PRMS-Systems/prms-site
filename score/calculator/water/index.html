@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D2 Water</title>
+
+<meta name="description"
+content="D2 Water module of the PRMS Score Calculator. Evaluates potable water consumption, rainwater capture, greywater reuse, sanitary discharge, own water coverage, and reduction against baseline consumption.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#2454d6;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.module-intro h2{
+margin-top:0;
+}
+
+.water-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.water-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.water-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.water-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.water-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.water-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.water-table .score{
+font-weight:800;
+color:#2454d6;
+}
+
+.weight-table{
+width:calc(70% - 3.2rem);
+margin:0 1.6rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.weight-table td:first-child{
+text-align:left;
+}
+
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.weight-table input{
+width:90px;
+padding:.5rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+color:#004ee4;
+text-align:center;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.blue{
+background:#2454d6;
+}
+
+@media(max-width:900px){
+
+.water-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.water-table{
+font-size:.75rem;
+}
+
+.water-table input{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D2 · Water — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column. Yellow cells represent editable project data.
+</div>
+
+<div class="module-intro">
+
+<h2>Water Performance Module</h2>
+
+<p>
+D2 Water evaluates how the project consumes, captures, reuses, and discharges water.
+This dimension measures annual potable water consumption, rainwater capture, greywater reuse,
+sanitary discharge, own water coverage, and reduction against baseline consumption.
+</p>
+
+<p>
+The objective is to determine whether the building depends entirely on external supply
+or behaves as a partially autonomous water metabolism with capture, reuse, and demand reduction.
+</p>
+
+</div>
+
+<table class="water-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Annual potable water consumption</td>
+<td>m³/year</td>
+<td><input id="potableWater" type="number" value="49"></td>
+<td>10</td>
+<td>150</td>
+<td class="score" id="nPotableWater">72.1</td>
+</tr>
+
+<tr>
+<td>Annual rainwater capture</td>
+<td>m³/year</td>
+<td><input id="rainwaterCapture" type="number" value="12"></td>
+<td>0</td>
+<td>50</td>
+<td class="score" id="nRainwaterCapture">24.0</td>
+</tr>
+
+<tr>
+<td>Reused water / greywater</td>
+<td>m³/year</td>
+<td><input id="greywaterReuse" type="number" value="9"></td>
+<td>0</td>
+<td>40</td>
+<td class="score" id="nGreywaterReuse">22.5</td>
+</tr>
+
+<tr>
+<td>Sanitary discharge</td>
+<td>m³/year</td>
+<td><input id="sanitaryDischarge" type="number" value="28"></td>
+<td>0</td>
+<td>100</td>
+<td class="score" id="nSanitaryDischarge">72.0</td>
+</tr>
+
+<tr>
+<td>Own water coverage</td>
+<td>%</td>
+<td><input id="ownWaterCoverage" type="number" value="26"></td>
+<td>0</td>
+<td>100</td>
+<td class="score" id="nOwnWaterCoverage">26.0</td>
+</tr>
+
+<tr>
+<td>Reduction vs. NOM baseline</td>
+<td>%</td>
+<td><input id="baselineReduction" type="number" value="53"></td>
+<td>0</td>
+<td>80</td>
+<td class="score" id="nBaselineReduction">66.3</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Assigned Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Annual potable water consumption</td>
+<td><input id="wPotableWater" type="number" value="20"> %</td>
+<td id="sPotableWater">14.4</td>
+</tr>
+
+<tr>
+<td>Annual rainwater capture</td>
+<td><input id="wRainwaterCapture" type="number" value="15"> %</td>
+<td id="sRainwaterCapture">3.6</td>
+</tr>
+
+<tr>
+<td>Reused water / greywater</td>
+<td><input id="wGreywaterReuse" type="number" value="15"> %</td>
+<td id="sGreywaterReuse">3.4</td>
+</tr>
+
+<tr>
+<td>Sanitary discharge</td>
+<td><input id="wSanitaryDischarge" type="number" value="10"> %</td>
+<td id="sSanitaryDischarge">7.2</td>
+</tr>
+
+<tr>
+<td>Own water coverage</td>
+<td><input id="wOwnWaterCoverage" type="number" value="20"> %</td>
+<td id="sOwnWaterCoverage">5.2</td>
+</tr>
+
+<tr>
+<td>Reduction vs. NOM baseline</td>
+<td><input id="wBaselineReduction" type="number" value="20"> %</td>
+<td id="sBaselineReduction">13.3</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D2</div>
+<div><span id="scoreD2">47.1</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD2">
+METABOLIC BASIC
+</div>
+
+<div class="note">
+Blue values are editable input fields. Black values are calculated automatically. This beta module follows PRMS-SCORE-STD-2026-001.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/energy/" class="button">Back to D1 Energy</a>
+<a href="/score/calculator/waste/" class="button blue">Continue to D3 Waste</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(value, min, max){
+return Math.max(min, Math.min(max, value));
+}
+
+function positiveNormalize(value, min, max){
+return clamp(((value - min) / (max - min)) * 100, 0, 100);
+}
+
+function negativeNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function getNumber(id){
+return Number(document.getElementById(id).value) || 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateWater(){
+
+const potableWater = getNumber("potableWater");
+const rainwaterCapture = getNumber("rainwaterCapture");
+const greywaterReuse = getNumber("greywaterReuse");
+const sanitaryDischarge = getNumber("sanitaryDischarge");
+const ownWaterCoverage = getNumber("ownWaterCoverage");
+const baselineReduction = getNumber("baselineReduction");
+
+const nPotableWater = negativeNormalize(potableWater,10,150);
+const nRainwaterCapture = positiveNormalize(rainwaterCapture,0,50);
+const nGreywaterReuse = positiveNormalize(greywaterReuse,0,40);
+const nSanitaryDischarge = negativeNormalize(sanitaryDischarge,0,100);
+const nOwnWaterCoverage = positiveNormalize(ownWaterCoverage,0,100);
+const nBaselineReduction = positiveNormalize(baselineReduction,0,80);
+
+setText("nPotableWater",nPotableWater.toFixed(1));
+setText("nRainwaterCapture",nRainwaterCapture.toFixed(1));
+setText("nGreywaterReuse",nGreywaterReuse.toFixed(1));
+setText("nSanitaryDischarge",nSanitaryDischarge.toFixed(1));
+setText("nOwnWaterCoverage",nOwnWaterCoverage.toFixed(1));
+setText("nBaselineReduction",nBaselineReduction.toFixed(1));
+
+const wPotableWater = getNumber("wPotableWater");
+const wRainwaterCapture = getNumber("wRainwaterCapture");
+const wGreywaterReuse = getNumber("wGreywaterReuse");
+const wSanitaryDischarge = getNumber("wSanitaryDischarge");
+const wOwnWaterCoverage = getNumber("wOwnWaterCoverage");
+const wBaselineReduction = getNumber("wBaselineReduction");
+
+const sPotableWater = nPotableWater * wPotableWater / 100;
+const sRainwaterCapture = nRainwaterCapture * wRainwaterCapture / 100;
+const sGreywaterReuse = nGreywaterReuse * wGreywaterReuse / 100;
+const sSanitaryDischarge = nSanitaryDischarge * wSanitaryDischarge / 100;
+const sOwnWaterCoverage = nOwnWaterCoverage * wOwnWaterCoverage / 100;
+const sBaselineReduction = nBaselineReduction * wBaselineReduction / 100;
+
+setText("sPotableWater",sPotableWater.toFixed(1));
+setText("sRainwaterCapture",sRainwaterCapture.toFixed(1));
+setText("sGreywaterReuse",sGreywaterReuse.toFixed(1));
+setText("sSanitaryDischarge",sSanitaryDischarge.toFixed(1));
+setText("sOwnWaterCoverage",sOwnWaterCoverage.toFixed(1));
+setText("sBaselineReduction",sBaselineReduction.toFixed(1));
+
+const score =
+sPotableWater +
+sRainwaterCapture +
+sGreywaterReuse +
+sSanitaryDischarge +
+sOwnWaterCoverage +
+sBaselineReduction;
+
+setText("scoreD2",score.toFixed(1));
+setText("levelD2",level(score));
+
+}
+
+document.querySelectorAll("input").forEach(input => {
+input.addEventListener("input", calculateWater);
+});
+
+calculateWater();
+
+</script>
+
+</body>
+</html>
