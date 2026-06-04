@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PRMS Score — Metabolic Performance Evaluation</title>
+  <meta name="description" content="PRMS Score is the quantitative evaluation framework developed by PRMS Architecture Lab to assess metabolic performance in buildings through energy, water, comfort, resilience, carbon, economy, waste, and operational data." />
+
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <p class="hero-label">Evaluation Framework</p>
+      <h1>PRMS Score<br><em>Metabolic Performance Evaluation</em></h1>
+      <p class="hero-sub">
+        PRMS Score is a quantitative evaluation framework developed by PRMS Architecture Lab
+        to assess the integral metabolic performance of buildings through measurable indicators,
+        weighted dimensions, verification levels, and operational data.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <h2>What PRMS Score measures</h2>
+        <p>
+          PRMS Score evaluates buildings as metabolic systems. Instead of assessing architecture
+          only by form, function, or efficiency, it measures how a project produces, consumes,
+          stores, reuses, verifies, and manages critical flows over time.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Core purpose</h3>
+        <p>
+          To provide a measurable, comparable, and verifiable performance score for residential
+          and small-scale architectural systems.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted">
+    <div class="container">
+      <h2>The 8 PRMS Score Dimensions</h2>
+
+      <div class="grid-4">
+        <div class="card"><h3>D1 · Energy</h3><p>Production, consumption, autonomy, and energy intensity.</p></div>
+        <div class="card"><h3>D2 · Water</h3><p>Rainwater capture, efficient use, reuse, and demand reduction.</p></div>
+        <div class="card"><h3>D3 · Waste</h3><p>Reduction, separation, recovery, and circularity potential.</p></div>
+        <div class="card"><h3>D4 · Comfort</h3><p>Thermal, lighting, acoustic, and indoor air quality performance.</p></div>
+        <div class="card"><h3>D5 · Economy</h3><p>Return on investment, payback, operating cost reduction, and value creation.</p></div>
+        <div class="card"><h3>D6 · Resilience</h3><p>Operational continuity under scarcity, outages, and extreme conditions.</p></div>
+        <div class="card"><h3>D7 · Carbon</h3><p>Operational emissions, avoided emissions, and net carbon balance.</p></div>
+        <div class="card"><h3>D8 · Operation & Data</h3><p>Monitoring, maintenance, data traceability, and intelligent management.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <h2>Certification scale</h2>
+        <p>
+          The global score ranges from 0 to 100 and classifies each project into a metabolic
+          performance level.
+        </p>
+
+        <table>
+          <tr><th>Level</th><th>Score</th></tr>
+          <tr><td>Metabolic Elite</td><td>90–100</td></tr>
+          <tr><td>Metabolic Advanced</td><td>75–89</td></tr>
+          <tr><td>Metabolic Standard</td><td>55–74</td></tr>
+          <tr><td>Metabolic Basic</td><td>35–54</td></tr>
+          <tr><td>Not Certified</td><td>0–34</td></tr>
+        </table>
+      </div>
+
+      <div>
+        <h2>Factor C</h2>
+        <p>
+          PRMS Score includes a confidence multiplier called Factor C. This factor adjusts the
+          final score according to the reliability of the evidence used in the evaluation.
+        </p>
+
+        <table>
+          <tr><th>Level</th><th>Evidence</th><th>Factor</th></tr>
+          <tr><td>A</td><td>Verified continuous IoT data</td><td>1.00</td></tr>
+          <tr><td>B</td><td>Official bills or utility meters</td><td>0.80</td></tr>
+          <tr><td>C</td><td>Estimated declaration</td><td>0.40</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="container">
+      <p class="hero-label">Standard Reference</p>
+      <h2>PRMS-SCORE-STD-2026-001</h2>
+      <p>
+        PRMS Score is documented as part of the PRMS research programme and is under development
+        as a measurable standard for evaluating metabolic performance in housing and small-scale
+        architectural systems.
+      </p>
+
+      <a class="button" href="/publications">View Research Publications</a>
+      <a class="button secondary" href="/score/calculator">Open Calculator</a>
+    </div>
+  </section>
+
+</main>
+
+<script src="/nav.js"></script>
+</body>
+</html>
