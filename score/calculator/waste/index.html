@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D3 Waste</title>
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#6b6765;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.waste-table,
+.weight-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+}
+
+.waste-table th,
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+}
+
+.waste-table td,
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.waste-table td:first-child,
+.weight-table td:first-child{
+text-align:left;
+}
+
+.waste-table tbody tr:nth-child(odd),
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.waste-table input,
+.weight-table input{
+width:100%;
+padding:.55rem;
+background:#fff9e8;
+border:1px solid #b94f00;
+color:#004ee4;
+text-align:center;
+}
+
+.score{
+font-weight:800;
+color:#b94f00;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+padding:1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+padding:1rem;
+background:#f5f5f5;
+text-align:center;
+font-size:1.1rem;
+color:#b94f00;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+padding:1.5rem;
+background:#24201f;
+}
+
+.button{
+padding:.9rem 1.3rem;
+text-decoration:none;
+font-weight:700;
+color:white;
+background:#1f6f4a;
+}
+
+.button.gray{
+background:#6b6765;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D3 · Waste — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column.
+</div>
+
+<div class="module-intro">
+
+<h2>Waste Performance Module</h2>
+
+<p>
+D3 evaluates waste generation, separation, recycling, composting,
+resource recovery and landfill diversion.
+</p>
+
+<p>
+The objective is to measure how efficiently the project manages
+material flows and reduces environmental burden.
+</p>
+
+</div>
+
+<table class="waste-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0-100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Total waste generated</td>
+<td>kg/year</td>
+<td><input id="wasteTotal" value="365"></td>
+<td>50</td>
+<td>800</td>
+<td class="score" id="nWasteTotal">58.0</td>
+</tr>
+
+<tr>
+<td>Recycled waste</td>
+<td>kg/year</td>
+<td><input id="wasteRecycled" value="180"></td>
+<td>0</td>
+<td>500</td>
+<td class="score" id="nWasteRecycled">36.0</td>
+</tr>
+
+<tr>
+<td>Composted waste</td>
+<td>kg/year</td>
+<td><input id="wasteComposted" value="90"></td>
+<td>0</td>
+<td>200</td>
+<td class="score" id="nWasteComposted">45.0</td>
+</tr>
+
+<tr>
+<td>Recovery rate</td>
+<td>%</td>
+<td><input id="recoveryRate" value="74"></td>
+<td>0</td>
+<td>100</td>
+<td class="score" id="nRecoveryRate">74.0</td>
+</tr>
+
+<tr>
+<td>Waste to landfill</td>
+<td>kg/year</td>
+<td><input id="landfillWaste" value="95"></td>
+<td>0</td>
+<td>400</td>
+<td class="score" id="nLandfillWaste">76.3</td>
+</tr>
+
+<tr>
+<td>Per capita generation</td>
+<td>kg/person</td>
+<td><input id="perCapitaWaste" value="91"></td>
+<td>30</td>
+<td>250</td>
+<td class="score" id="nPerCapitaWaste">72.3</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Total waste generated</td>
+<td><input id="w1" value="15"></td>
+<td id="s1">8.7</td>
+</tr>
+
+<tr>
+<td>Recycled waste</td>
+<td><input id="w2" value="20"></td>
+<td id="s2">7.2</td>
+</tr>
+
+<tr>
+<td>Composted waste</td>
+<td><input id="w3" value="15"></td>
+<td id="s3">6.8</td>
+</tr>
+
+<tr>
+<td>Recovery rate</td>
+<td><input id="w4" value="25"></td>
+<td id="s4">18.5</td>
+</tr>
+
+<tr>
+<td>Waste to landfill</td>
+<td><input id="w5" value="15"></td>
+<td id="s5">11.4</td>
+</tr>
+
+<tr>
+<td>Per capita generation</td>
+<td><input id="w6" value="10"></td>
+<td id="s6">7.2</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D3</div>
+<div id="scoreD3">59.8</div>
+<div>/100</div>
+</div>
+
+<div class="score-level" id="levelD3">
+METABOLIC STANDARD
+</div>
+
+<div class="actions">
+<a href="/score/calculator/water/" class="button">Back D2 Water</a>
+<a href="/score/calculator/comfort/" class="button gray">Continue D4 Comfort</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(v,min,max){
+return Math.max(min,Math.min(max,v));
+}
+
+function pos(v,min,max){
+return clamp(((v-min)/(max-min))*100,0,100);
+}
+
+function neg(v,min,max){
+return clamp(((max-v)/(max-min))*100,0,100);
+}
+
+function level(score){
+if(score>=90)return "METABOLIC ELITE";
+if(score>=75)return "METABOLIC ADVANCED";
+if(score>=55)return "METABOLIC STANDARD";
+if(score>=35)return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function calculate(){
+
+let n1=neg(+wasteTotal.value,50,800);
+let n2=pos(+wasteRecycled.value,0,500);
+let n3=pos(+wasteComposted.value,0,200);
+let n4=pos(+recoveryRate.value,0,100);
+let n5=neg(+landfillWaste.value,0,400);
+let n6=neg(+perCapitaWaste.value,30,250);
+
+nWasteTotal.innerHTML=n1.toFixed(1);
+nWasteRecycled.innerHTML=n2.toFixed(1);
+nWasteComposted.innerHTML=n3.toFixed(1);
+nRecoveryRate.innerHTML=n4.toFixed(1);
+nLandfillWaste.innerHTML=n5.toFixed(1);
+nPerCapitaWaste.innerHTML=n6.toFixed(1);
+
+let s1v=n1*w1.value/100;
+let s2v=n2*w2.value/100;
+let s3v=n3*w3.value/100;
+let s4v=n4*w4.value/100;
+let s5v=n5*w5.value/100;
+let s6v=n6*w6.value/100;
+
+s1.innerHTML=s1v.toFixed(1);
+s2.innerHTML=s2v.toFixed(1);
+s3.innerHTML=s3v.toFixed(1);
+s4.innerHTML=s4v.toFixed(1);
+s5.innerHTML=s5v.toFixed(1);
+s6.innerHTML=s6v.toFixed(1);
+
+let total=s1v+s2v+s3v+s4v+s5v+s6v;
+
+scoreD3.innerHTML=total.toFixed(1);
+levelD3.innerHTML=level(total);
+
+}
+
+document.querySelectorAll("input").forEach(i=>{
+i.addEventListener("input",calculate);
+});
+
+calculate();
+
+</script>
+
+</body>
+</html>
