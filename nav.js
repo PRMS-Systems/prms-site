@@ -10,6 +10,7 @@
     { href: '/publications', label: 'Publications' },
     { href: '/renewable-horizons', label: 'Renewable Horizons' },
     { href: '/system-atlas/', label: 'System Atlas' },
+    { href: '/score/', label: 'PRMS Score' },
     { href: '/about', label: 'About' },
   ];
 
