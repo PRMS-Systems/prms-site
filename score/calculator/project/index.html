@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | Project Information</title>
+
+<meta name="description"
+content="Project identification and audit level for PRMS Score evaluation.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:1.5rem;
+margin-top:2rem;
+}
+
+.field{
+display:flex;
+flex-direction:column;
+gap:.4rem;
+}
+
+.field label{
+font-size:.8rem;
+letter-spacing:.08em;
+text-transform:uppercase;
+opacity:.7;
+}
+
+.field input,
+.field select{
+padding:1rem;
+border:1px solid #d6d6d6;
+background:#fff;
+font-size:1rem;
+width:100%;
+}
+
+.audit-card{
+margin-top:3rem;
+padding:2rem;
+border:1px solid #ddd;
+background:#fafafa;
+}
+
+.audit-table{
+width:100%;
+border-collapse:collapse;
+margin-top:1rem;
+}
+
+.audit-table td{
+padding:1rem;
+border-bottom:1px solid #e5e5e5;
+}
+
+.factor{
+font-size:3rem;
+font-weight:600;
+margin-top:1rem;
+color:#1f6f4a;
+}
+
+.actions{
+margin-top:3rem;
+display:flex;
+gap:1rem;
+}
+
+.button{
+display:inline-block;
+padding:1rem 1.5rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+cursor:pointer;
+}
+
+.button-outline{
+display:inline-block;
+padding:1rem 1.5rem;
+border:1px solid #1f6f4a;
+color:#1f6f4a;
+text-decoration:none;
+}
+
+@media(max-width:900px){
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main>
+
+<section class="hero">
+
+<div class="container">
+
+<p class="hero-label">
+PRMS Score Calculator
+</p>
+
+<h1>
+Project<br>
+<em>Information</em>
+</h1>
+
+<p class="hero-sub">
+Every PRMS Score evaluation begins with project identification,
+climate context, building typology, and audit level.
+These parameters establish the traceability and verification
+framework used throughout the assessment.
+</p>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<h2>Project Identification</h2>
+
+<p>
+Complete the fields below before proceeding to the metabolic
+performance dimensions.
+</p>
+
+<form>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Project Code</label>
+<input type="text" placeholder="PRMS-VIV-2026-0001">
+</div>
+
+<div class="field">
+<label>Traceability Code</label>
+<input type="text" placeholder="PRMS-V-2026-0001">
+</div>
+
+<div class="field">
+<label>Project Name</label>
+<input type="text" placeholder="SmartLiving Milenio III-308">
+</div>
+
+<div class="field">
+<label>Owner</label>
+<input type="text" placeholder="Oscar A. Hernández García">
+</div>
+
+<div class="field">
+<label>Typology</label>
+<select>
+<option>Single Family House</option>
+<option>Multifamily Building</option>
+<option>Residential Retrofit</option>
+<option>Commercial</option>
+<option>Office</option>
+<option>Autonomous Node</option>
+</select>
+</div>
+
+<div class="field">
+<label>Country</label>
+<input type="text" placeholder="Mexico">
+</div>
+
+<div class="field">
+<label>State / Region</label>
+<input type="text" placeholder="Querétaro">
+</div>
+
+<div class="field">
+<label>City</label>
+<input type="text" placeholder="Querétaro">
+</div>
+
+<div class="field">
+<label>Address</label>
+<input type="text" placeholder="Milenio III">
+</div>
+
+<div class="field">
+<label>Köppen Climate Zone</label>
+<input type="text" placeholder="BSk">
+</div>
+
+<div class="field">
+<label>Built Area (m²)</label>
+<input type="number" placeholder="129">
+</div>
+
+<div class="field">
+<label>Habitable Area (m²)</label>
+<input type="number" placeholder="115">
+</div>
+
+<div class="field">
+<label>Number of Occupants</label>
+<input type="number" placeholder="4">
+</div>
+
+<div class="field">
+<label>Analysis Period (Months)</label>
+<input type="number" placeholder="12">
+</div>
+
+<div class="field">
+<label>Evaluation Date</label>
+<input type="date">
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+<section class="section muted">
+
+<div class="container">
+
+<h2>Audit Level & Factor C</h2>
+
+<p>
+The audit level determines the reliability of the information
+used in the evaluation and defines the verification multiplier
+(Factor C).
+</p>
+
+<div class="audit-card">
+
+<table class="audit-table">
+
+<tr>
+<td><strong>Level A</strong></td>
+<td>Verified IoT Sensors</td>
+<td>Factor C = 1.00</td>
+</tr>
+
+<tr>
+<td><strong>Level B</strong></td>
+<td>Official Bills / Meters</td>
+<td>Factor C = 0.80</td>
+</tr>
+
+<tr>
+<td><strong>Level C</strong></td>
+<td>Estimated Declaration</td>
+<td>Factor C = 0.40</td>
+</tr>
+
+</table>
+
+<div class="field" style="margin-top:2rem;max-width:400px;">
+
+<label>Active Audit Level</label>
+
+<select>
+
+<option>
+Level A — IoT Verified
+</option>
+
+<option>
+Level B — Utility Bills
+</option>
+
+<option>
+Level C — Estimated
+</option>
+
+</select>
+
+</div>
+
+<div class="factor">
+Factor C = 1.00
+</div>
+
+</div>
+
+<div class="actions">
+
+<a href="/score/calculator/" class="button-outline">
+Back
+</a>
+
+<a href="/score/calculator/energy/" class="button">
+Continue to D1 Energy
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+</body>
+</html>
