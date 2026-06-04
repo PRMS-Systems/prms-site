@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D1 Energy</title>
+
+<meta name="description"
+content="D1 Energy module of the PRMS Score Calculator. Evaluates photovoltaic generation, electricity consumption, grid exchange, installed capacity, energy autonomy, self-consumption, and energy intensity.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#b94f00;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.module-intro h2{
+margin-top:0;
+}
+
+.energy-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.energy-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.energy-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.energy-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.energy-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.energy-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.energy-table .calc{
+font-weight:700;
+}
+
+.energy-table .score{
+font-weight:800;
+color:#b94f00;
+}
+
+.weight-table{
+width:calc(70% - 3.2rem);
+margin:0 1.6rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.weight-table td:first-child{
+text-align:left;
+}
+
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.weight-table input{
+width:90px;
+padding:.5rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+color:#004ee4;
+text-align:center;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.orange{
+background:#b94f00;
+}
+
+@media(max-width:900px){
+
+.energy-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.energy-table{
+font-size:.75rem;
+}
+
+.energy-table input{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D1 · Energy — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column. Yellow cells represent editable project data.
+</div>
+
+<div class="module-intro">
+
+<h2>Energy Performance Module</h2>
+
+<p>
+D1 Energy evaluates how the project produces, consumes, exchanges, and manages electricity.
+This dimension measures photovoltaic generation, annual electricity consumption, grid import/export,
+installed photovoltaic capacity, energy autonomy, self-consumption, and energy intensity.
+</p>
+
+<p>
+The objective is to determine whether the building behaves as a passive consumer,
+a partially self-sufficient asset, or an active metabolic energy node.
+</p>
+
+</div>
+
+<table class="energy-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Annual photovoltaic generation (PV)</td>
+<td>kWh/year</td>
+<td><input id="pvGeneration" type="number" value="13985"></td>
+<td>0</td>
+<td>20000</td>
+<td class="score" id="nPvGeneration">69.9</td>
+</tr>
+
+<tr>
+<td>Annual electricity consumption</td>
+<td>kWh/year</td>
+<td><input id="electricConsumption" type="number" value="13700"></td>
+<td>3000</td>
+<td>25000</td>
+<td class="score" id="nElectricConsumption">51.4</td>
+</tr>
+
+<tr>
+<td>Energy exported to grid</td>
+<td>kWh/year</td>
+<td><input id="gridExport" type="number" value="285"></td>
+<td>0</td>
+<td>5000</td>
+<td class="score" id="nGridExport">5.7</td>
+</tr>
+
+<tr>
+<td>Energy imported from grid</td>
+<td>kWh/year</td>
+<td><input id="gridImport" type="number" value="0"></td>
+<td>0</td>
+<td>10000</td>
+<td class="score" id="nGridImport">100.0</td>
+</tr>
+
+<tr>
+<td>Installed PV capacity</td>
+<td>kWp</td>
+<td><input id="pvCapacity" type="number" value="10"></td>
+<td>0</td>
+<td>20</td>
+<td class="score" id="nPvCapacity">50.0</td>
+</tr>
+
+<tr>
+<td>Energy autonomy</td>
+<td>%</td>
+<td><input id="energyAutonomy" type="number" value="102"></td>
+<td>0</td>
+<td>100</td>
+<td class="score" id="nEnergyAutonomy">100.0</td>
+</tr>
+
+<tr>
+<td>Self-consumption factor</td>
+<td>%</td>
+<td><input id="selfConsumption" type="number" value="98"></td>
+<td>0</td>
+<td>100</td>
+<td class="score" id="nSelfConsumption">98.0</td>
+</tr>
+
+<tr>
+<td>Energy Use Intensity (EUI)</td>
+<td>kWh/m²/year</td>
+<td><input id="eui" type="number" value="107"></td>
+<td>20</td>
+<td>200</td>
+<td class="score" id="nEui">51.7</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Assigned Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Annual photovoltaic generation</td>
+<td><input id="wPvGeneration" type="number" value="15"> %</td>
+<td id="sPvGeneration">10.5</td>
+</tr>
+
+<tr>
+<td>Annual electricity consumption</td>
+<td><input id="wElectricConsumption" type="number" value="15"> %</td>
+<td id="sElectricConsumption">7.7</td>
+</tr>
+
+<tr>
+<td>Energy exported to grid</td>
+<td><input id="wGridExport" type="number" value="10"> %</td>
+<td id="sGridExport">0.6</td>
+</tr>
+
+<tr>
+<td>Energy imported from grid</td>
+<td><input id="wGridImport" type="number" value="10"> %</td>
+<td id="sGridImport">10.0</td>
+</tr>
+
+<tr>
+<td>Installed PV capacity</td>
+<td><input id="wPvCapacity" type="number" value="10"> %</td>
+<td id="sPvCapacity">5.0</td>
+</tr>
+
+<tr>
+<td>Energy autonomy</td>
+<td><input id="wEnergyAutonomy" type="number" value="20"> %</td>
+<td id="sEnergyAutonomy">20.0</td>
+</tr>
+
+<tr>
+<td>Self-consumption factor</td>
+<td><input id="wSelfConsumption" type="number" value="10"> %</td>
+<td id="sSelfConsumption">9.8</td>
+</tr>
+
+<tr>
+<td>Energy Use Intensity (EUI)</td>
+<td><input id="wEui" type="number" value="10"> %</td>
+<td id="sEui">5.2</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D1</div>
+<div><span id="scoreD1">68.7</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD1">
+METABOLIC STANDARD
+</div>
+
+<div class="note">
+Blue values are editable input fields. Black values are calculated automatically. This beta module follows PRMS-SCORE-STD-2026-001.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/project/" class="button">Back to Project Data</a>
+<a href="/score/calculator/water/" class="button orange">Continue to D2 Water</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(value, min, max){
+return Math.max(min, Math.min(max, value));
+}
+
+function positiveNormalize(value, min, max){
+return clamp(((value - min) / (max - min)) * 100, 0, 100);
+}
+
+function negativeNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function getNumber(id){
+return Number(document.getElementById(id).value) || 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateEnergy(){
+
+const pvGeneration = getNumber("pvGeneration");
+const electricConsumption = getNumber("electricConsumption");
+const gridExport = getNumber("gridExport");
+const gridImport = getNumber("gridImport");
+const pvCapacity = getNumber("pvCapacity");
+const energyAutonomy = getNumber("energyAutonomy");
+const selfConsumption = getNumber("selfConsumption");
+const eui = getNumber("eui");
+
+const nPvGeneration = positiveNormalize(pvGeneration,0,20000);
+const nElectricConsumption = negativeNormalize(electricConsumption,3000,25000);
+const nGridExport = positiveNormalize(gridExport,0,5000);
+const nGridImport = negativeNormalize(gridImport,0,10000);
+const nPvCapacity = positiveNormalize(pvCapacity,0,20);
+const nEnergyAutonomy = positiveNormalize(energyAutonomy,0,100);
+const nSelfConsumption = positiveNormalize(selfConsumption,0,100);
+const nEui = negativeNormalize(eui,20,200);
+
+setText("nPvGeneration",nPvGeneration.toFixed(1));
+setText("nElectricConsumption",nElectricConsumption.toFixed(1));
+setText("nGridExport",nGridExport.toFixed(1));
+setText("nGridImport",nGridImport.toFixed(1));
+setText("nPvCapacity",nPvCapacity.toFixed(1));
+setText("nEnergyAutonomy",nEnergyAutonomy.toFixed(1));
+setText("nSelfConsumption",nSelfConsumption.toFixed(1));
+setText("nEui",nEui.toFixed(1));
+
+const wPvGeneration = getNumber("wPvGeneration");
+const wElectricConsumption = getNumber("wElectricConsumption");
+const wGridExport = getNumber("wGridExport");
+const wGridImport = getNumber("wGridImport");
+const wPvCapacity = getNumber("wPvCapacity");
+const wEnergyAutonomy = getNumber("wEnergyAutonomy");
+const wSelfConsumption = getNumber("wSelfConsumption");
+const wEui = getNumber("wEui");
+
+const sPvGeneration = nPvGeneration * wPvGeneration / 100;
+const sElectricConsumption = nElectricConsumption * wElectricConsumption / 100;
+const sGridExport = nGridExport * wGridExport / 100;
+const sGridImport = nGridImport * wGridImport / 100;
+const sPvCapacity = nPvCapacity * wPvCapacity / 100;
+const sEnergyAutonomy = nEnergyAutonomy * wEnergyAutonomy / 100;
+const sSelfConsumption = nSelfConsumption * wSelfConsumption / 100;
+const sEui = nEui * wEui / 100;
+
+setText("sPvGeneration",sPvGeneration.toFixed(1));
+setText("sElectricConsumption",sElectricConsumption.toFixed(1));
+setText("sGridExport",sGridExport.toFixed(1));
+setText("sGridImport",sGridImport.toFixed(1));
+setText("sPvCapacity",sPvCapacity.toFixed(1));
+setText("sEnergyAutonomy",sEnergyAutonomy.toFixed(1));
+setText("sSelfConsumption",sSelfConsumption.toFixed(1));
+setText("sEui",sEui.toFixed(1));
+
+const score =
+sPvGeneration +
+sElectricConsumption +
+sGridExport +
+sGridImport +
+sPvCapacity +
+sEnergyAutonomy +
+sSelfConsumption +
+sEui;
+
+setText("scoreD1",score.toFixed(1));
+setText("levelD1",level(score));
+
+}
+
+document.querySelectorAll("input").forEach(input => {
+input.addEventListener("input", calculateEnergy);
+});
+
+calculateEnergy();
+
+</script>
+
+</body>
+</html>
