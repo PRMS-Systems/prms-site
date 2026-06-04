@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | Results Dashboard</title>
+
+<meta name="description"
+content="PRMS Score results dashboard showing global metabolic performance, Factor C, dimension scores, verified returns, and certification level.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.results-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.report{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.report-header{
+background:#24201f;
+color:#fff;
+padding:1rem 1.25rem;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:1rem;
+}
+
+.report-header h1{
+font-size:1.25rem;
+margin:0;
+color:#d65f00;
+}
+
+.report-header span{
+font-size:.85rem;
+opacity:.8;
+}
+
+.report-sub{
+background:#b94f00;
+color:#fff;
+padding:.55rem 1.25rem;
+font-size:.8rem;
+font-weight:600;
+}
+
+.project-grid{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+font-size:.78rem;
+border-bottom:1px solid #ddd;
+}
+
+.project-grid div{
+padding:.5rem;
+border-right:1px solid #ddd;
+}
+
+.project-grid .label{
+background:#565251;
+color:#fff;
+font-weight:700;
+}
+
+.score-area{
+display:grid;
+grid-template-columns:1.1fr 1fr;
+gap:0;
+margin:2rem 1.25rem;
+}
+
+.score-card{
+background:#e7e7e7;
+text-align:center;
+}
+
+.score-card h2,
+.factor-card h2{
+background:#24201f;
+color:#1f8a3b;
+padding:1rem;
+margin:0;
+font-size:1rem;
+letter-spacing:.03em;
+}
+
+.gauge{
+width:260px;
+height:260px;
+border-radius:50%;
+background:
+conic-gradient(#5a9c47 0deg 220deg, #b8b8b8 220deg 360deg);
+display:flex;
+align-items:center;
+justify-content:center;
+margin:2rem auto 1rem;
+position:relative;
+}
+
+.gauge::after{
+content:"";
+width:145px;
+height:145px;
+background:#e7e7e7;
+border-radius:50%;
+position:absolute;
+}
+
+.gauge-number{
+position:relative;
+z-index:2;
+font-size:4rem;
+font-weight:800;
+line-height:1;
+color:#000;
+}
+
+.gauge-number small{
+display:block;
+font-size:1rem;
+font-weight:600;
+color:#444;
+}
+
+.score-level{
+color:#1f8a3b;
+font-weight:800;
+font-size:1rem;
+margin-top:1rem;
+}
+
+.score-desc{
+font-size:.9rem;
+color:#444;
+margin-bottom:1.25rem;
+}
+
+.orange-bar{
+height:26px;
+background:#b94f00;
+}
+
+.factor-card{
+background:#f5f5f5;
+text-align:center;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.factor-value{
+font-size:4rem;
+color:#b94f00;
+margin-top:3rem;
+}
+
+.factor-note{
+font-size:.85rem;
+color:#555;
+}
+
+.validity{
+font-size:.8rem;
+color:#555;
+padding-bottom:1rem;
+}
+
+.section-title{
+background:#24201f;
+color:#1f8a3b;
+font-weight:800;
+font-size:1.25rem;
+padding:1rem 1.25rem;
+margin:2rem 1.25rem 0;
+}
+
+.dim-table{
+width:calc(100% - 2.5rem);
+margin:0 1.25rem;
+border-collapse:collapse;
+font-size:.85rem;
+}
+
+.dim-table th{
+background:#77716e;
+color:white;
+padding:.55rem;
+text-align:center;
+}
+
+.dim-table td{
+padding:.55rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.dim-table td:first-child{
+background:#050505;
+color:#fff;
+text-align:left;
+width:26%;
+font-weight:800;
+}
+
+.dim-table td:first-child span{
+display:block;
+font-weight:400;
+font-size:.72rem;
+margin-top:.25rem;
+opacity:.9;
+}
+
+.dim-score{
+font-size:1.15rem;
+font-weight:800;
+color:#b94f00;
+}
+
+.total-row td{
+background:#b94f00!important;
+color:#fff!important;
+font-weight:800;
+}
+
+.returns-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+width:calc(100% - 2.5rem);
+margin:0 1.25rem 2rem;
+font-size:.85rem;
+}
+
+.return-card{
+padding:1rem;
+text-align:center;
+background:#eaf8ef;
+border-right:1px solid #e0e0e0;
+border-bottom:1px solid #e0e0e0;
+}
+
+.return-card.alt{
+background:#fff3cc;
+}
+
+.return-card .label{
+font-size:.75rem;
+color:#666;
+}
+
+.return-card .value{
+font-size:1.35rem;
+font-weight:800;
+color:#006b49;
+margin:.35rem 0;
+}
+
+.return-card.alt .value{
+color:#b94f00;
+}
+
+.return-card .unit{
+font-size:.75rem;
+color:#555;
+}
+
+.scale-table{
+width:calc(100% - 2.5rem);
+margin:0 1.25rem 2rem;
+border-collapse:collapse;
+font-size:.82rem;
+}
+
+.scale-table th{
+background:#c95a00;
+color:#fff;
+padding:.6rem;
+}
+
+.scale-table td{
+padding:.55rem;
+border-bottom:1px solid #eee;
+}
+
+.scale-level{
+color:#fff;
+font-weight:800;
+}
+
+.elite{background:#f08a2a;}
+.advanced{background:#137642;}
+.standard{background:#1f5b78;}
+.basic{background:#807000;}
+.not-certified{background:#888;}
+
+.footer{
+background:#24201f;
+color:#777;
+padding:1rem;
+text-align:center;
+font-size:.75rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:1.25rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.orange{
+background:#b94f00;
+}
+
+@media(max-width:900px){
+
+.project-grid,
+.score-area,
+.returns-grid{
+grid-template-columns:1fr;
+}
+
+.gauge{
+width:220px;
+height:220px;
+}
+
+.dim-table,
+.scale-table{
+font-size:.72rem;
+}
+
+}
+
+@media print{
+
+nav,
+.actions{
+display:none;
+}
+
+body{
+background:white;
+}
+
+.results-wrap{
+padding:0;
+}
+
+.report{
+border:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="results-wrap">
+
+<section class="report">
+
+<div class="report-header">
+<h1>PRMS Score™ — Evaluación del Rendimiento Metabólico Integral</h1>
+<span>Results Dashboard</span>
+</div>
+
+<div class="report-sub">
+PRMS Architecture Lab · Querétaro, México · prms.systems
+</div>
+
+<div class="project-grid">
+
+<div class="label">Proyecto:</div>
+<div class="label">Tipología:</div>
+<div class="label">Clima:</div>
+<div class="label">Período:</div>
+<div class="label">Evaluación:</div>
+<div class="label">Código:</div>
+
+<div>SmartLiving Milenio III-308</div>
+<div>Vivienda Unifamiliar</div>
+<div>BSk — Semi-árido Templado</div>
+<div>12 meses</div>
+<div>18/06/2026</div>
+<div>PRMS-V-2026-0001</div>
+
+<div class="label">Código de Proyecto</div>
+<div class="label">Propietario</div>
+<div class="label">País</div>
+<div class="label">Área construida (m²)</div>
+<div class="label">Área habitable (m²)</div>
+<div class="label">N° de habitantes</div>
+
+<div>PRMS-VIV-2026-0001</div>
+<div>Oscar A. Hernández García</div>
+<div>México</div>
+<div>129</div>
+<div>115</div>
+<div>4</div>
+
+</div>
+
+<div class="score-area">
+
+<div class="score-card">
+<h2>PRMS SCORE GLOBAL</h2>
+
+<div class="gauge">
+<div class="gauge-number">
+61
+<small>/100</small>
+</div>
+</div>
+
+<div class="score-level">METABOLIC STANDARD</div>
+<div class="score-desc">Rendimiento Metabólico Integral</div>
+<div class="orange-bar"></div>
+</div>
+
+<div class="factor-card">
+<h2>Factor C · Nivel de Auditoría</h2>
+
+<div>
+<div class="factor-value">1.00</div>
+<div class="factor-note">Nivel A · Sensor IoT continuo verificado</div>
+</div>
+
+<div class="validity">18/06/2026 · Vigencia 36 meses</div>
+</div>
+
+</div>
+
+<div class="section-title">TABLA DE DIMENSIONES — Scores por componente</div>
+
+<table class="dim-table">
+<thead>
+<tr>
+<th>Dimensión</th>
+<th>Score 0-100</th>
+<th>Peso %</th>
+<th>Ponderado</th>
+<th>Nivel parcial</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>D1 · Energía<span>Producción, consumo y autonomía</span></td>
+<td class="dim-score">69</td>
+<td>25%</td>
+<td>17.2</td>
+<td>METABOLIC STANDARD</td>
+</tr>
+
+<tr>
+<td>D2 · Agua<span>Captación, uso eficiente y reuso</span></td>
+<td class="dim-score">47</td>
+<td>20%</td>
+<td>9.4</td>
+<td>METABOLIC BASIC</td>
+</tr>
+
+<tr>
+<td>D3 · Residuos<span>Reducción, separación y valorización</span></td>
+<td class="dim-score">60</td>
+<td>5%</td>
+<td>3.0</td>
+<td>METABOLIC STANDARD</td>
+</tr>
+
+<tr>
+<td>D4 · Confort<span>Térmico, lumínico y calidad del aire</span></td>
+<td class="dim-score">67</td>
+<td>10%</td>
+<td>6.7</td>
+<td>METABOLIC STANDARD</td>
+</tr>
+
+<tr>
+<td>D5 · Economía<span>Retorno sobre la inversión (ROI)</span></td>
+<td class="dim-score">47</td>
+<td>20%</td>
+<td>9.3</td>
+<td>METABOLIC BASIC</td>
+</tr>
+
+<tr>
+<td>D6 · Resiliencia<span>Operacional y ante condiciones extremas</span></td>
+<td class="dim-score">65</td>
+<td>10%</td>
+<td>6.5</td>
+<td>METABOLIC STANDARD</td>
+</tr>
+
+<tr>
+<td>D7 · Carbono<span>Huella de carbono dinámica</span></td>
+<td class="dim-score">72</td>
+<td>5%</td>
+<td>3.6</td>
+<td>METABOLIC STANDARD</td>
+</tr>
+
+<tr>
+<td>D8 · Operación & Datos<span>Monitoreo, mantenimiento y gestión</span></td>
+<td class="dim-score">100</td>
+<td>5%</td>
+<td>5.0</td>
+<td>METABOLIC ELITE</td>
+</tr>
+
+<tr class="total-row">
+<td>TOTAL PONDERADO</td>
+<td></td>
+<td></td>
+<td>61</td>
+<td>METABOLIC STANDARD</td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="section-title">RESUMEN DE RETORNOS VERIFICADOS</div>
+
+<div class="returns-grid">
+
+<div class="return-card">
+<div class="label">ROI Energético</div>
+<div class="value">2.1</div>
+<div class="unit">%</div>
+</div>
+
+<div class="return-card">
+<div class="label">Autonomía energética</div>
+<div class="value">13,985.0</div>
+<div class="unit">kWh/año</div>
+</div>
+
+<div class="return-card">
+<div class="label">ROI Hídrico</div>
+<div class="value">108.2</div>
+<div class="unit">%</div>
+</div>
+
+<div class="return-card">
+<div class="label">Reducción agua</div>
+<div class="value">53.0</div>
+<div class="unit">%</div>
+</div>
+
+<div class="return-card alt">
+<div class="label">ROI Económico</div>
+<div class="value">15.0</div>
+<div class="unit">%/año</div>
+</div>
+
+<div class="return-card">
+<div class="label">Payback simple</div>
+<div class="value">7.0</div>
+<div class="unit">años</div>
+</div>
+
+<div class="return-card">
+<div class="label">Emisiones evitadas</div>
+<div class="value">6,293.0</div>
+<div class="unit">kgCO₂e/año</div>
+</div>
+
+<div class="return-card">
+<div class="label">Balance neto CO₂</div>
+<div class="value">-5,773.0</div>
+<div class="unit">kgCO₂e/año</div>
+</div>
+
+</div>
+
+<div class="section-title">ESCALA DE CERTIFICACIÓN METABOLIC</div>
+
+<table class="scale-table">
+<thead>
+<tr>
+<th>Nivel de Certificación</th>
+<th>Puntos</th>
+<th>Indicador clave</th>
+<th>Descripción</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td class="scale-level elite">METABOLIC ELITE</td>
+<td>90 – 100</td>
+<td>Autonomía ≥ 90%</td>
+<td>Sistema metabólico pleno. Exporta valor al entorno. Referencia internacional.</td>
+</tr>
+
+<tr>
+<td class="scale-level advanced">METABOLIC ADVANCED</td>
+<td>75 – 89</td>
+<td>Autonomía ≥ 70%</td>
+<td>Alto rendimiento integral. ROI positivo verificado. Referencia de mercado premium.</td>
+</tr>
+
+<tr>
+<td class="scale-level standard">METABOLIC STANDARD</td>
+<td>55 – 74</td>
+<td>Autonomía ≥ 40%</td>
+<td>Rendimiento sólido. Supera regulaciones vigentes. Línea base certificable.</td>
+</tr>
+
+<tr>
+<td class="scale-level basic">METABOLIC BASIC</td>
+<td>35 – 54</td>
+<td>Autonomía ≥ 10%</td>
+<td>Rendimiento base documentado. Plan de mejora obligatorio para recertificación.</td>
+</tr>
+
+<tr>
+<td class="scale-level not-certified">NO CERTIFICADO</td>
+<td>0 – 34</td>
+<td>Requiere diagnóstico PRMS</td>
+<td>Requiere diagnóstico PRMS y plan de intervención antes de nueva evaluación.</td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="footer">
+PRMS-SCORE-STD-2026-001 · v1.0.0 · © 2026 PRMS Architecture Lab · ORCID: 0009-0005-2474-4834 · prms.systems
+</div>
+
+<div class="actions">
+<a href="/score/calculator/project/" class="button">Back to Project Data</a>
+<button class="button orange" onclick="window.print()">Export PDF</button>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+</body>
+</html>
