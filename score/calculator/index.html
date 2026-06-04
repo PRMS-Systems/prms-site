@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PRMS Score Calculator — Metabolic Performance Evaluation</title>
+  <meta name="description" content="PRMS Score Calculator is the operational tool for evaluating integral metabolic performance through eight dimensions: energy, water, waste, comfort, economy, resilience, carbon, and operation data." />
+
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <p class="hero-label">PRMS Score Tool</p>
+      <h1>PRMS Score<br><em>Calculator</em></h1>
+      <p class="hero-sub">
+        The PRMS Score Calculator is the operational implementation of the PRMS Score framework.
+        It allows a project to be evaluated through measured values, weighted indicators,
+        verification levels, and metabolic performance dimensions.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <h2>Before entering data</h2>
+        <p>
+          This calculator is structured as a step-by-step evaluation sequence. Each project must
+          first define its general information, audit level, and evidence type. Then, each of the
+          eight PRMS dimensions is completed using measured or documented values.
+        </p>
+        <p>
+          The objective is not only to obtain a numerical score, but to understand how the building
+          performs as a metabolic system: how it produces, consumes, reuses, stores, verifies, and
+          manages critical flows over time.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Current status</h3>
+        <p>
+          Beta validation version. The calculator is currently being tested through case studies,
+          including SmartLiving Milenio III in Querétaro, Mexico.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted">
+    <div class="container">
+      <h2>General Project Data</h2>
+      <p>
+        Start by entering the core project information. These fields define the evaluation context
+        and are used to generate the final PRMS Score report.
+      </p>
+
+      <div class="grid-2">
+        <div class="card"><h3>Project Code</h3><p>Unique PRMS project identification code.</p></div>
+        <div class="card"><h3>Project Name</h3><p>Name of the building or evaluated system.</p></div>
+        <div class="card"><h3>Owner</h3><p>Individual, organization, or entity responsible for the project.</p></div>
+        <div class="card"><h3>Typology</h3><p>Residential, retrofit, multifamily, small commercial, or other PRMS typology.</p></div>
+        <div class="card"><h3>Climate Zone</h3><p>Climate classification used to contextualize performance.</p></div>
+        <div class="card"><h3>Audit Level</h3><p>Evidence level used to define Factor C.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="hero-label">Evaluation Sequence</p>
+      <h2>PRMS Score Dimensions</h2>
+      <p>
+        Complete each dimension using measured values, documented evidence, or verified operational
+        data. The final score is calculated from the weighted contribution of all dimensions.
+      </p>
+
+      <div class="grid-4">
+
+        <a class="card" href="#d1-energy">
+          <h3>D1 · Energy</h3>
+          <p>Production, consumption, and autonomy.</p>
+        </a>
+
+        <a class="card" href="#d2-water">
+          <h3>D2 · Water</h3>
+          <p>Rainwater capture, efficient use, and reuse.</p>
+        </a>
+
+        <a class="card" href="#d3-waste">
+          <h3>D3 · Waste</h3>
+          <p>Reduction, separation, and recovery.</p>
+        </a>
+
+        <a class="card" href="#d4-comfort">
+          <h3>D4 · Comfort</h3>
+          <p>Thermal, lighting, and indoor air quality.</p>
+        </a>
+
+        <a class="card" href="#d5-economy">
+          <h3>D5 · Economy</h3>
+          <p>Return on investment and economic performance.</p>
+        </a>
+
+        <a class="card" href="#d6-resilience">
+          <h3>D6 · Resilience</h3>
+          <p>Operational continuity under extreme conditions.</p>
+        </a>
+
+        <a class="card" href="#d7-carbon">
+          <h3>D7 · Carbon</h3>
+          <p>Dynamic carbon footprint and avoided emissions.</p>
+        </a>
+
+        <a class="card" href="#d8-operation">
+          <h3>D8 · Operation & Data</h3>
+          <p>Monitoring, maintenance, management, and data traceability.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted" id="d1-energy">
+    <div class="container">
+      <h2>D1 · Energy</h2>
+      <p>Evaluates photovoltaic generation, electricity consumption, grid import/export, installed capacity, energy autonomy, self-consumption, and energy intensity.</p>
+      <button class="button">Start D1 Energy</button>
+    </div>
+  </section>
+
+  <section class="section" id="d2-water">
+    <div class="container">
+      <h2>D2 · Water</h2>
+      <p>Evaluates potable water demand, rainwater capture, greywater reuse, sanitary discharge, own water coverage, and reduction against baseline consumption.</p>
+      <button class="button">Start D2 Water</button>
+    </div>
+  </section>
+
+  <section class="section muted" id="d3-waste">
+    <div class="container">
+      <h2>D3 · Waste</h2>
+      <p>Evaluates total waste generation, recycling, composting, recovery rate, landfill reduction, and per-capita waste generation.</p>
+      <button class="button">Start D3 Waste</button>
+    </div>
+  </section>
+
+  <section class="section" id="d4-comfort">
+    <div class="container">
+      <h2>D4 · Comfort</h2>
+      <p>Evaluates indoor temperature, hours outside thermal comfort, daylight, indoor CO₂, relative humidity, PM2.5, and acoustic conditions.</p>
+      <button class="button">Start D4 Comfort</button>
+    </div>
+  </section>
+
+  <section class="section muted" id="d5-economy">
+    <div class="container">
+      <h2>D5 · Economy</h2>
+      <p>Evaluates initial investment, annual savings, operation and maintenance costs, payback, ROI, IRR, and net present value.</p>
+      <button class="button">Start D5 Economy</button>
+    </div>
+  </section>
+
+  <section class="section" id="d6-resilience">
+    <div class="container">
+      <h2>D6 · Resilience</h2>
+      <p>Evaluates electrical autonomy, water autonomy, redundancy of critical systems, annual continuity, recovery time, and active energy sources.</p>
+      <button class="button">Start D6 Resilience</button>
+    </div>
+  </section>
+
+  <section class="section muted" id="d7-carbon">
+    <div class="container">
+      <h2>D7 · Carbon</h2>
+      <p>Evaluates operational emissions, avoided emissions, carbon intensity, net carbon balance, and grid emission factor.</p>
+      <button class="button">Start D7 Carbon</button>
+    </div>
+  </section>
+
+  <section class="section" id="d8-operation">
+    <div class="container">
+      <h2>D8 · Operation & Data</h2>
+      <p>Evaluates IoT energy sensors, IoT water sensors, continuous records, historical data storage, external verification, and operational data management.</p>
+      <button class="button">Start D8 Operation & Data</button>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="container">
+      <p class="hero-label">Output</p>
+      <h2>Final PRMS Score Report</h2>
+      <p>
+        Once all dimensions are completed, the calculator generates a global PRMS Score,
+        a metabolic certification level, weighted dimension results, Factor C, and a printable
+        performance report.
+      </p>
+
+      <a class="button" href="/score/">Back to PRMS Score</a>
+    </div>
+  </section>
+
+</main>
+
+<script src="/nav.js"></script>
+</body>
+</html>
