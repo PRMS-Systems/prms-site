@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D4 Comfort</title>
+
+<meta name="description"
+content="D4 Comfort module of the PRMS Score Calculator. Evaluates indoor temperature, thermal comfort, daylight, CO2, humidity, PM2.5, and acoustic conditions.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#7b2ff2;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.comfort-table,
+.weight-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.comfort-table th,
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.comfort-table td,
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.comfort-table td:first-child,
+.weight-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.comfort-table tbody tr:nth-child(odd),
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.comfort-table input,
+.weight-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.weight-table{
+width:calc(70% - 3.2rem);
+}
+
+.weight-table input{
+width:90px;
+}
+
+.score{
+font-weight:800;
+color:#7b2ff2;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.purple{
+background:#7b2ff2;
+}
+
+@media(max-width:900px){
+
+.comfort-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.comfort-table{
+font-size:.75rem;
+}
+
+.comfort-table input{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D4 · Comfort — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column. Yellow cells represent editable project data.
+</div>
+
+<div class="module-intro">
+
+<h2>Comfort Performance Module</h2>
+
+<p>
+D4 Comfort evaluates the environmental quality experienced by occupants.
+This dimension measures indoor temperature, hours outside thermal comfort,
+daylight availability, indoor CO₂ concentration, relative humidity, PM2.5,
+and acoustic conditions.
+</p>
+
+<p>
+The objective is to determine whether the building supports health, comfort,
+habitability, and stable indoor environmental performance.
+</p>
+
+</div>
+
+<table class="comfort-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Average indoor temperature</td>
+<td>°C</td>
+<td><input id="indoorTemp" type="number" value="23"></td>
+<td>18</td>
+<td>26</td>
+<td class="score" id="nIndoorTemp">62.5</td>
+</tr>
+
+<tr>
+<td>Hours outside thermal comfort</td>
+<td>h/year</td>
+<td><input id="hoursOutComfort" type="number" value="320"></td>
+<td>0</td>
+<td>2000</td>
+<td class="score" id="nHoursOutComfort">84.0</td>
+</tr>
+
+<tr>
+<td>Average daylight level</td>
+<td>lux</td>
+<td><input id="daylight" type="number" value="380"></td>
+<td>100</td>
+<td>750</td>
+<td class="score" id="nDaylight">43.1</td>
+</tr>
+
+<tr>
+<td>Average indoor CO₂</td>
+<td>ppm</td>
+<td><input id="co2" type="number" value="680"></td>
+<td>400</td>
+<td>1500</td>
+<td class="score" id="nCo2">74.5</td>
+</tr>
+
+<tr>
+<td>Average relative humidity</td>
+<td>%</td>
+<td><input id="humidity" type="number" value="52"></td>
+<td>30</td>
+<td>70</td>
+<td class="score" id="nHumidity">55.0</td>
+</tr>
+
+<tr>
+<td>Indoor PM2.5</td>
+<td>µg/m³</td>
+<td><input id="pm25" type="number" value="8"></td>
+<td>0</td>
+<td>35</td>
+<td class="score" id="nPm25">77.1</td>
+</tr>
+
+<tr>
+<td>Indoor ambient noise</td>
+<td>dB(A)</td>
+<td><input id="noise" type="number" value="38"></td>
+<td>25</td>
+<td>65</td>
+<td class="score" id="nNoise">67.5</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Assigned Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Average indoor temperature</td>
+<td><input id="wIndoorTemp" type="number" value="20"> %</td>
+<td id="sIndoorTemp">12.5</td>
+</tr>
+
+<tr>
+<td>Hours outside thermal comfort</td>
+<td><input id="wHoursOutComfort" type="number" value="20"> %</td>
+<td id="sHoursOutComfort">16.8</td>
+</tr>
+
+<tr>
+<td>Average daylight level</td>
+<td><input id="wDaylight" type="number" value="15"> %</td>
+<td id="sDaylight">6.5</td>
+</tr>
+
+<tr>
+<td>Average indoor CO₂</td>
+<td><input id="wCo2" type="number" value="15"> %</td>
+<td id="sCo2">11.2</td>
+</tr>
+
+<tr>
+<td>Average relative humidity</td>
+<td><input id="wHumidity" type="number" value="10"> %</td>
+<td id="sHumidity">5.5</td>
+</tr>
+
+<tr>
+<td>Indoor PM2.5</td>
+<td><input id="wPm25" type="number" value="10"> %</td>
+<td id="sPm25">7.7</td>
+</tr>
+
+<tr>
+<td>Indoor ambient noise</td>
+<td><input id="wNoise" type="number" value="10"> %</td>
+<td id="sNoise">6.8</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D4</div>
+<div><span id="scoreD4">66.9</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD4">
+METABOLIC STANDARD
+</div>
+
+<div class="note">
+Blue values are editable input fields. Black values are calculated automatically. This beta module follows PRMS-SCORE-STD-2026-001.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/waste/" class="button">Back to D3 Waste</a>
+<a href="/score/calculator/economy/" class="button purple">Continue to D5 Economy</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(value, min, max){
+return Math.max(min, Math.min(max, value));
+}
+
+function positiveNormalize(value, min, max){
+return clamp(((value - min) / (max - min)) * 100, 0, 100);
+}
+
+function negativeNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function targetRangeNormalize(value, min, max){
+const target = (min + max) / 2;
+const halfRange = (max - min) / 2;
+return clamp(100 - (Math.abs(value - target) / halfRange) * 100, 0, 100);
+}
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function getNumber(id){
+return Number(document.getElementById(id).value) || 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateComfort(){
+
+const indoorTemp = getNumber("indoorTemp");
+const hoursOutComfort = getNumber("hoursOutComfort");
+const daylight = getNumber("daylight");
+const co2 = getNumber("co2");
+const humidity = getNumber("humidity");
+const pm25 = getNumber("pm25");
+const noise = getNumber("noise");
+
+const nIndoorTemp = targetRangeNormalize(indoorTemp,18,26);
+const nHoursOutComfort = negativeNormalize(hoursOutComfort,0,2000);
+const nDaylight = positiveNormalize(daylight,100,750);
+const nCo2 = negativeNormalize(co2,400,1500);
+const nHumidity = targetRangeNormalize(humidity,30,70);
+const nPm25 = negativeNormalize(pm25,0,35);
+const nNoise = negativeNormalize(noise,25,65);
+
+setText("nIndoorTemp",nIndoorTemp.toFixed(1));
+setText("nHoursOutComfort",nHoursOutComfort.toFixed(1));
+setText("nDaylight",nDaylight.toFixed(1));
+setText("nCo2",nCo2.toFixed(1));
+setText("nHumidity",nHumidity.toFixed(1));
+setText("nPm25",nPm25.toFixed(1));
+setText("nNoise",nNoise.toFixed(1));
+
+const wIndoorTemp = getNumber("wIndoorTemp");
+const wHoursOutComfort = getNumber("wHoursOutComfort");
+const wDaylight = getNumber("wDaylight");
+const wCo2 = getNumber("wCo2");
+const wHumidity = getNumber("wHumidity");
+const wPm25 = getNumber("wPm25");
+const wNoise = getNumber("wNoise");
+
+const sIndoorTemp = nIndoorTemp * wIndoorTemp / 100;
+const sHoursOutComfort = nHoursOutComfort * wHoursOutComfort / 100;
+const sDaylight = nDaylight * wDaylight / 100;
+const sCo2 = nCo2 * wCo2 / 100;
+const sHumidity = nHumidity * wHumidity / 100;
+const sPm25 = nPm25 * wPm25 / 100;
+const sNoise = nNoise * wNoise / 100;
+
+setText("sIndoorTemp",sIndoorTemp.toFixed(1));
+setText("sHoursOutComfort",sHoursOutComfort.toFixed(1));
+setText("sDaylight",sDaylight.toFixed(1));
+setText("sCo2",sCo2.toFixed(1));
+setText("sHumidity",sHumidity.toFixed(1));
+setText("sPm25",sPm25.toFixed(1));
+setText("sNoise",sNoise.toFixed(1));
+
+const score =
+sIndoorTemp +
+sHoursOutComfort +
+sDaylight +
+sCo2 +
+sHumidity +
+sPm25 +
+sNoise;
+
+setText("scoreD4",score.toFixed(1));
+setText("levelD4",level(score));
+
+}
+
+document.querySelectorAll("input").forEach(input => {
+input.addEventListener("input", calculateComfort);
+});
+
+calculateComfort();
+
+</script>
+
+</body>
+</html>
