@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D7 Carbon</title>
+
+<meta name="description"
+content="D7 Carbon module of the PRMS Score Calculator. Evaluates operational carbon emissions, avoided emissions, carbon intensity, net carbon balance, and grid emission factor.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#276346;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.carbon-table,
+.weight-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.carbon-table th,
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.carbon-table td,
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.carbon-table td:first-child,
+.weight-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.carbon-table tbody tr:nth-child(odd),
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.carbon-table input,
+.weight-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.weight-table{
+width:calc(70% - 3.2rem);
+}
+
+.weight-table input{
+width:90px;
+}
+
+.score{
+font-weight:800;
+color:#276346;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.green{
+background:#276346;
+}
+
+@media(max-width:900px){
+
+.carbon-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.carbon-table{
+font-size:.75rem;
+}
+
+.carbon-table input{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D7 · Carbon — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column. Yellow cells represent editable project data.
+</div>
+
+<div class="module-intro">
+
+<h2>Carbon Performance Module</h2>
+
+<p>
+D7 Carbon evaluates the operational carbon profile of the project.
+This dimension measures operational emissions, avoided emissions from photovoltaic generation,
+carbon intensity, net carbon balance, and the emission factor of the electricity grid.
+</p>
+
+<p>
+The objective is to determine whether the project reduces, offsets, or neutralizes operational
+carbon emissions through energy performance and low-carbon operation.
+</p>
+
+</div>
+
+<table class="carbon-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Operational CO₂ emissions</td>
+<td>kgCO₂e/year</td>
+<td><input id="operationalEmissions" type="number" value="520"></td>
+<td>0</td>
+<td>5000</td>
+<td class="score" id="nOperationalEmissions">89.6</td>
+</tr>
+
+<tr>
+<td>Avoided emissions — PV</td>
+<td>kgCO₂e/year</td>
+<td><input id="avoidedEmissions" type="number" value="6293"></td>
+<td>0</td>
+<td>15000</td>
+<td class="score" id="nAvoidedEmissions">42.0</td>
+</tr>
+
+<tr>
+<td>Carbon intensity</td>
+<td>kgCO₂e/m²</td>
+<td><input id="carbonIntensity" type="number" value="4"></td>
+<td>0</td>
+<td>30</td>
+<td class="score" id="nCarbonIntensity">86.7</td>
+</tr>
+
+<tr>
+<td>Net carbon balance</td>
+<td>kgCO₂e/year</td>
+<td><input id="netCarbonBalance" type="number" value="-5773"></td>
+<td>-10000</td>
+<td>5000</td>
+<td class="score" id="nNetCarbonBalance">71.8</td>
+</tr>
+
+<tr>
+<td>Grid emission factor</td>
+<td>kgCO₂e/kWh</td>
+<td><input id="gridEmissionFactor" type="number" value="0" step="0.01"></td>
+<td>0</td>
+<td>1</td>
+<td class="score" id="nGridEmissionFactor">100.0</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Assigned Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Operational CO₂ emissions</td>
+<td><input id="wOperationalEmissions" type="number" value="20"> %</td>
+<td id="sOperationalEmissions">17.9</td>
+</tr>
+
+<tr>
+<td>Avoided emissions — PV</td>
+<td><input id="wAvoidedEmissions" type="number" value="30"> %</td>
+<td id="sAvoidedEmissions">12.6</td>
+</tr>
+
+<tr>
+<td>Carbon intensity</td>
+<td><input id="wCarbonIntensity" type="number" value="20"> %</td>
+<td id="sCarbonIntensity">17.3</td>
+</tr>
+
+<tr>
+<td>Net carbon balance</td>
+<td><input id="wNetCarbonBalance" type="number" value="20"> %</td>
+<td id="sNetCarbonBalance">14.4</td>
+</tr>
+
+<tr>
+<td>Grid emission factor</td>
+<td><input id="wGridEmissionFactor" type="number" value="10"> %</td>
+<td id="sGridEmissionFactor">10.0</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D7</div>
+<div><span id="scoreD7">72.2</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD7">
+METABOLIC STANDARD
+</div>
+
+<div class="note">
+Blue values are editable input fields. Black values are calculated automatically. This beta module follows PRMS-SCORE-STD-2026-001.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/resilience/" class="button">Back to D6 Resilience</a>
+<a href="/score/calculator/operation/" class="button green">Continue to D8 Operation & Data</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(value, min, max){
+return Math.max(min, Math.min(max, value));
+}
+
+function positiveNormalize(value, min, max){
+return clamp(((value - min) / (max - min)) * 100, 0, 100);
+}
+
+function negativeNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function netCarbonNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function getNumber(id){
+return Number(document.getElementById(id).value) || 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateCarbon(){
+
+const operationalEmissions = getNumber("operationalEmissions");
+const avoidedEmissions = getNumber("avoidedEmissions");
+const carbonIntensity = getNumber("carbonIntensity");
+const netCarbonBalance = getNumber("netCarbonBalance");
+const gridEmissionFactor = getNumber("gridEmissionFactor");
+
+const nOperationalEmissions = negativeNormalize(operationalEmissions,0,5000);
+const nAvoidedEmissions = positiveNormalize(avoidedEmissions,0,15000);
+const nCarbonIntensity = negativeNormalize(carbonIntensity,0,30);
+const nNetCarbonBalance = netCarbonNormalize(netCarbonBalance,-10000,5000);
+const nGridEmissionFactor = negativeNormalize(gridEmissionFactor,0,1);
+
+setText("nOperationalEmissions",nOperationalEmissions.toFixed(1));
+setText("nAvoidedEmissions",nAvoidedEmissions.toFixed(1));
+setText("nCarbonIntensity",nCarbonIntensity.toFixed(1));
+setText("nNetCarbonBalance",nNetCarbonBalance.toFixed(1));
+setText("nGridEmissionFactor",nGridEmissionFactor.toFixed(1));
+
+const wOperationalEmissions = getNumber("wOperationalEmissions");
+const wAvoidedEmissions = getNumber("wAvoidedEmissions");
+const wCarbonIntensity = getNumber("wCarbonIntensity");
+const wNetCarbonBalance = getNumber("wNetCarbonBalance");
+const wGridEmissionFactor = getNumber("wGridEmissionFactor");
+
+const sOperationalEmissions = nOperationalEmissions * wOperationalEmissions / 100;
+const sAvoidedEmissions = nAvoidedEmissions * wAvoidedEmissions / 100;
+const sCarbonIntensity = nCarbonIntensity * wCarbonIntensity / 100;
+const sNetCarbonBalance = nNetCarbonBalance * wNetCarbonBalance / 100;
+const sGridEmissionFactor = nGridEmissionFactor * wGridEmissionFactor / 100;
+
+setText("sOperationalEmissions",sOperationalEmissions.toFixed(1));
+setText("sAvoidedEmissions",sAvoidedEmissions.toFixed(1));
+setText("sCarbonIntensity",sCarbonIntensity.toFixed(1));
+setText("sNetCarbonBalance",sNetCarbonBalance.toFixed(1));
+setText("sGridEmissionFactor",sGridEmissionFactor.toFixed(1));
+
+const score =
+sOperationalEmissions +
+sAvoidedEmissions +
+sCarbonIntensity +
+sNetCarbonBalance +
+sGridEmissionFactor;
+
+setText("scoreD7",score.toFixed(1));
+setText("levelD7",level(score));
+
+}
+
+document.querySelectorAll("input").forEach(input => {
+input.addEventListener("input", calculateCarbon);
+});
+
+calculateCarbon();
+
+</script>
+
+</body>
+</html>
