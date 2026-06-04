@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Score Calculator | D6 Resilience</title>
+
+<meta name="description"
+content="D6 Resilience module of the PRMS Score Calculator. Evaluates electrical autonomy, water autonomy, critical system redundancy, operational continuity, recovery time, and active energy sources.">
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+
+.calculator-wrap{
+max-width:1200px;
+margin:0 auto;
+padding:2rem;
+}
+
+.module{
+border:1px solid #cfcfcf;
+background:#fff;
+}
+
+.module-header{
+background:#24201f;
+color:#fff;
+padding:1.4rem 1.6rem;
+}
+
+.module-header h1{
+margin:0;
+font-size:1.9rem;
+font-weight:500;
+}
+
+.module-band{
+background:#2f75a8;
+color:#fff;
+padding:.8rem 1.6rem;
+font-weight:700;
+}
+
+.module-intro{
+padding:2rem 1.6rem;
+max-width:850px;
+}
+
+.resilience-table,
+.weight-table{
+width:calc(100% - 3.2rem);
+margin:0 1.6rem 2rem;
+border-collapse:collapse;
+font-size:.95rem;
+}
+
+.resilience-table th,
+.weight-table th{
+background:#77716e;
+color:#fff;
+padding:.75rem;
+text-align:center;
+}
+
+.resilience-table td,
+.weight-table td{
+padding:.7rem;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+.resilience-table td:first-child,
+.weight-table td:first-child{
+text-align:left;
+font-weight:500;
+}
+
+.resilience-table tbody tr:nth-child(odd),
+.weight-table tbody tr:nth-child(odd){
+background:#f5f5f5;
+}
+
+.resilience-table input,
+.weight-table input{
+width:100%;
+padding:.55rem;
+border:1px solid #b94f00;
+background:#fff9e8;
+font-size:1rem;
+color:#004ee4;
+text-align:center;
+}
+
+.weight-table{
+width:calc(70% - 3.2rem);
+}
+
+.weight-table input{
+width:90px;
+}
+
+.score{
+font-weight:800;
+color:#2f75a8;
+}
+
+.score-bar{
+width:70%;
+margin:0 1.6rem;
+background:#b94f00;
+color:#fff;
+display:grid;
+grid-template-columns:1fr 180px 100px;
+align-items:center;
+padding:.9rem 1rem;
+font-size:1.2rem;
+font-weight:800;
+}
+
+.score-level{
+width:70%;
+margin:0 1.6rem 2rem;
+text-align:center;
+padding:.85rem;
+font-size:1.15rem;
+color:#b94f00;
+background:#f7f7f7;
+}
+
+.note{
+margin:2rem 1.6rem;
+padding:1rem;
+background:#f4f4f4;
+color:#666;
+font-size:.9rem;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+padding:1.6rem;
+background:#24201f;
+}
+
+.button{
+display:inline-block;
+padding:.9rem 1.3rem;
+background:#1f6f4a;
+color:white;
+text-decoration:none;
+border:none;
+font-weight:700;
+}
+
+.button.blue{
+background:#2f75a8;
+}
+
+@media(max-width:900px){
+
+.resilience-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.resilience-table{
+font-size:.75rem;
+}
+
+.resilience-table input{
+font-size:.8rem;
+}
+
+.score-bar{
+grid-template-columns:1fr;
+gap:.3rem;
+text-align:center;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav id="main-nav"></nav>
+
+<main class="calculator-wrap">
+
+<section class="module">
+
+<div class="module-header">
+<h1>D6 · Resilience — PRMS Score™</h1>
+</div>
+
+<div class="module-band">
+Enter measured values in the “Measured Value” column. Yellow cells represent editable project data.
+</div>
+
+<div class="module-intro">
+
+<h2>Resilience Performance Module</h2>
+
+<p>
+D6 Resilience evaluates the capacity of the project to maintain operational continuity
+under scarcity, outages, system failure, or extreme conditions.
+This dimension measures electrical autonomy, water autonomy, redundancy of critical systems,
+annual continuity, recovery time, and active energy sources.
+</p>
+
+<p>
+The objective is to determine whether the building can continue operating as a metabolic
+system when external infrastructure becomes unstable or unavailable.
+</p>
+
+</div>
+
+<table class="resilience-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Unit</th>
+<th>Measured Value</th>
+<th>V min ref.</th>
+<th>V max ref.</th>
+<th>Normalized (0–100)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Electrical autonomy hours</td>
+<td>hours</td>
+<td><input id="electricAutonomyHours" type="number" value="72"></td>
+<td>0</td>
+<td>168</td>
+<td class="score" id="nElectricAutonomyHours">42.9</td>
+</tr>
+
+<tr>
+<td>Water autonomy days</td>
+<td>days</td>
+<td><input id="waterAutonomyDays" type="number" value="15"></td>
+<td>0</td>
+<td>30</td>
+<td class="score" id="nWaterAutonomyDays">50.0</td>
+</tr>
+
+<tr>
+<td>Critical system redundancy</td>
+<td>% systems</td>
+<td><input id="criticalRedundancy" type="number" value="80"></td>
+<td>0</td>
+<td>100</td>
+<td class="score" id="nCriticalRedundancy">80.0</td>
+</tr>
+
+<tr>
+<td>Annual operational continuity</td>
+<td>%</td>
+<td><input id="operationalContinuity" type="number" value="99"></td>
+<td>90</td>
+<td>100</td>
+<td class="score" id="nOperationalContinuity">90.0</td>
+</tr>
+
+<tr>
+<td>MTTR — Mean Time to Recovery</td>
+<td>hours</td>
+<td><input id="mttr" type="number" value="3"></td>
+<td>0</td>
+<td>48</td>
+<td class="score" id="nMttr">93.8</td>
+</tr>
+
+<tr>
+<td>Active energy sources</td>
+<td>No.</td>
+<td><input id="activeEnergySources" type="number" value="2"></td>
+<td>1</td>
+<td>4</td>
+<td class="score" id="nActiveEnergySources">33.3</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="module-header" style="padding:.8rem 1.6rem;">
+<h1 style="font-size:1.2rem;">Indicator Weighting</h1>
+</div>
+
+<table class="weight-table">
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Assigned Weight</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Electrical autonomy hours</td>
+<td><input id="wElectricAutonomyHours" type="number" value="20"> %</td>
+<td id="sElectricAutonomyHours">8.6</td>
+</tr>
+
+<tr>
+<td>Water autonomy days</td>
+<td><input id="wWaterAutonomyDays" type="number" value="20"> %</td>
+<td id="sWaterAutonomyDays">10.0</td>
+</tr>
+
+<tr>
+<td>Critical system redundancy</td>
+<td><input id="wCriticalRedundancy" type="number" value="20"> %</td>
+<td id="sCriticalRedundancy">16.0</td>
+</tr>
+
+<tr>
+<td>Annual operational continuity</td>
+<td><input id="wOperationalContinuity" type="number" value="20"> %</td>
+<td id="sOperationalContinuity">18.0</td>
+</tr>
+
+<tr>
+<td>MTTR — Mean Time to Recovery</td>
+<td><input id="wMttr" type="number" value="10"> %</td>
+<td id="sMttr">9.4</td>
+</tr>
+
+<tr>
+<td>Active energy sources</td>
+<td><input id="wActiveEnergySources" type="number" value="10"> %</td>
+<td id="sActiveEnergySources">3.3</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="score-bar">
+<div>SCORE D6</div>
+<div><span id="scoreD6">65.3</span></div>
+<div>/ 100</div>
+</div>
+
+<div class="score-level" id="levelD6">
+METABOLIC STANDARD
+</div>
+
+<div class="note">
+Blue values are editable input fields. Black values are calculated automatically. This beta module follows PRMS-SCORE-STD-2026-001.
+</div>
+
+<div class="actions">
+<a href="/score/calculator/economy/" class="button">Back to D5 Economy</a>
+<a href="/score/calculator/carbon/" class="button blue">Continue to D7 Carbon</a>
+</div>
+
+</section>
+
+</main>
+
+<script src="/nav.js"></script>
+
+<script>
+
+function clamp(value, min, max){
+return Math.max(min, Math.min(max, value));
+}
+
+function positiveNormalize(value, min, max){
+return clamp(((value - min) / (max - min)) * 100, 0, 100);
+}
+
+function negativeNormalize(value, min, max){
+return clamp(((max - value) / (max - min)) * 100, 0, 100);
+}
+
+function level(score){
+if(score >= 90) return "METABOLIC ELITE";
+if(score >= 75) return "METABOLIC ADVANCED";
+if(score >= 55) return "METABOLIC STANDARD";
+if(score >= 35) return "METABOLIC BASIC";
+return "NO CERTIFIED";
+}
+
+function getNumber(id){
+return Number(document.getElementById(id).value) || 0;
+}
+
+function setText(id,value){
+document.getElementById(id).textContent = value;
+}
+
+function calculateResilience(){
+
+const electricAutonomyHours = getNumber("electricAutonomyHours");
+const waterAutonomyDays = getNumber("waterAutonomyDays");
+const criticalRedundancy = getNumber("criticalRedundancy");
+const operationalContinuity = getNumber("operationalContinuity");
+const mttr = getNumber("mttr");
+const activeEnergySources = getNumber("activeEnergySources");
+
+const nElectricAutonomyHours = positiveNormalize(electricAutonomyHours,0,168);
+const nWaterAutonomyDays = positiveNormalize(waterAutonomyDays,0,30);
+const nCriticalRedundancy = positiveNormalize(criticalRedundancy,0,100);
+const nOperationalContinuity = positiveNormalize(operationalContinuity,90,100);
+const nMttr = negativeNormalize(mttr,0,48);
+const nActiveEnergySources = positiveNormalize(activeEnergySources,1,4);
+
+setText("nElectricAutonomyHours",nElectricAutonomyHours.toFixed(1));
+setText("nWaterAutonomyDays",nWaterAutonomyDays.toFixed(1));
+setText("nCriticalRedundancy",nCriticalRedundancy.toFixed(1));
+setText("nOperationalContinuity",nOperationalContinuity.toFixed(1));
+setText("nMttr",nMttr.toFixed(1));
+setText("nActiveEnergySources",nActiveEnergySources.toFixed(1));
+
+const wElectricAutonomyHours = getNumber("wElectricAutonomyHours");
+const wWaterAutonomyDays = getNumber("wWaterAutonomyDays");
+const wCriticalRedundancy = getNumber("wCriticalRedundancy");
+const wOperationalContinuity = getNumber("wOperationalContinuity");
+const wMttr = getNumber("wMttr");
+const wActiveEnergySources = getNumber("wActiveEnergySources");
+
+const sElectricAutonomyHours = nElectricAutonomyHours * wElectricAutonomyHours / 100;
+const sWaterAutonomyDays = nWaterAutonomyDays * wWaterAutonomyDays / 100;
+const sCriticalRedundancy = nCriticalRedundancy * wCriticalRedundancy / 100;
+const sOperationalContinuity = nOperationalContinuity * wOperationalContinuity / 100;
+const sMttr = nMttr * wMttr / 100;
+const sActiveEnergySources = nActiveEnergySources * wActiveEnergySources / 100;
+
+setText("sElectricAutonomyHours",sElectricAutonomyHours.toFixed(1));
+setText("sWaterAutonomyDays",sWaterAutonomyDays.toFixed(1));
+setText("sCriticalRedundancy",sCriticalRedundancy.toFixed(1));
+setText("sOperationalContinuity",sOperationalContinuity.toFixed(1));
+setText("sMttr",sMttr.toFixed(1));
+setText("sActiveEnergySources",sActiveEnergySources.toFixed(1));
+
+const score =
+sElectricAutonomyHours +
+sWaterAutonomyDays +
+sCriticalRedundancy +
+sOperationalContinuity +
+sMttr +
+sActiveEnergySources;
+
+setText("scoreD6",score.toFixed(1));
+setText("levelD6",level(score));
+
+}
+
+document.querySelectorAll("input").forEach(input => {
+input.addEventListener("input", calculateResilience);
+});
+
+calculateResilience();
+
+</script>
+
+</body>
+</html>
