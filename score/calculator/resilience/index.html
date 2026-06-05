@@ -370,7 +370,7 @@ Blue values are editable input fields. Black values are calculated automatically
 
 <div class="actions">
 <a href="/score/calculator/economy/" class="button">Back to D5 Economy</a>
-<a href="/score/calculator/carbon/" class="button blue">Continue to D7 Carbon</a>
+<a href="/score/calculator/carbon/" class="button blue" id="continueToCarbon">Continue to D7 Carbon</a>
 </div>
 
 </section>
@@ -407,6 +407,59 @@ return Number(document.getElementById(id).value) || 0;
 
 function setText(id,value){
 document.getElementById(id).textContent = value;
+}
+
+function saveInputs(){
+
+const ids = [
+"electricAutonomyHours",
+"waterAutonomyDays",
+"criticalRedundancy",
+"operationalContinuity",
+"mttr",
+"activeEnergySources",
+"wElectricAutonomyHours",
+"wWaterAutonomyDays",
+"wCriticalRedundancy",
+"wOperationalContinuity",
+"wMttr",
+"wActiveEnergySources"
+];
+
+ids.forEach(id => {
+const el = document.getElementById(id);
+if(el){
+localStorage.setItem("resilience_" + id, el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids = [
+"electricAutonomyHours",
+"waterAutonomyDays",
+"criticalRedundancy",
+"operationalContinuity",
+"mttr",
+"activeEnergySources",
+"wElectricAutonomyHours",
+"wWaterAutonomyDays",
+"wCriticalRedundancy",
+"wOperationalContinuity",
+"wMttr",
+"wActiveEnergySources"
+];
+
+ids.forEach(id => {
+const saved = localStorage.getItem("resilience_" + id);
+const el = document.getElementById(id);
+if(saved !== null && el){
+el.value = saved;
+}
+});
+
 }
 
 function calculateResilience(){
@@ -461,8 +514,23 @@ sOperationalContinuity +
 sMttr +
 sActiveEnergySources;
 
-setText("scoreD6",score.toFixed(1));
-setText("levelD6",level(score));
+const scoreText = score.toFixed(1);
+const levelText = level(score);
+
+setText("scoreD6",scoreText);
+setText("levelD6",levelText);
+
+localStorage.setItem("score_d6", scoreText);
+localStorage.setItem("level_d6", levelText);
+
+localStorage.setItem("resilience_electric_autonomy_hours", electricAutonomyHours);
+localStorage.setItem("resilience_water_autonomy_days", waterAutonomyDays);
+localStorage.setItem("resilience_critical_redundancy", criticalRedundancy);
+localStorage.setItem("resilience_operational_continuity", operationalContinuity);
+localStorage.setItem("resilience_mttr", mttr);
+localStorage.setItem("resilience_active_energy_sources", activeEnergySources);
+
+saveInputs();
 
 }
 
@@ -470,6 +538,11 @@ document.querySelectorAll("input").forEach(input => {
 input.addEventListener("input", calculateResilience);
 });
 
+document.getElementById("continueToCarbon").addEventListener("click", function(){
+calculateResilience();
+});
+
+loadInputs();
 calculateResilience();
 
 </script>
