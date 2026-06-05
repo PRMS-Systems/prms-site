@@ -396,7 +396,7 @@ Blue values are editable input fields. Black values are calculated automatically
 
 <div class="actions">
 <a href="/score/calculator/energy/" class="button">Back to D1 Energy</a>
-<a href="/score/calculator/waste/" class="button blue">Continue to D3 Waste</a>
+<a href="/score/calculator/waste/" class="button blue" id="continueToWaste">Continue to D3 Waste</a>
 </div>
 
 </section>
@@ -433,6 +433,59 @@ return Number(document.getElementById(id).value) || 0;
 
 function setText(id,value){
 document.getElementById(id).textContent = value;
+}
+
+function saveInputs(){
+
+const ids = [
+"potableWater",
+"rainwaterCapture",
+"greywaterReuse",
+"sanitaryDischarge",
+"ownWaterCoverage",
+"baselineReduction",
+"wPotableWater",
+"wRainwaterCapture",
+"wGreywaterReuse",
+"wSanitaryDischarge",
+"wOwnWaterCoverage",
+"wBaselineReduction"
+];
+
+ids.forEach(id => {
+const el = document.getElementById(id);
+if(el){
+localStorage.setItem("water_" + id, el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids = [
+"potableWater",
+"rainwaterCapture",
+"greywaterReuse",
+"sanitaryDischarge",
+"ownWaterCoverage",
+"baselineReduction",
+"wPotableWater",
+"wRainwaterCapture",
+"wGreywaterReuse",
+"wSanitaryDischarge",
+"wOwnWaterCoverage",
+"wBaselineReduction"
+];
+
+ids.forEach(id => {
+const saved = localStorage.getItem("water_" + id);
+const el = document.getElementById(id);
+if(saved !== null && el){
+el.value = saved;
+}
+});
+
 }
 
 function calculateWater(){
@@ -487,8 +540,26 @@ sSanitaryDischarge +
 sOwnWaterCoverage +
 sBaselineReduction;
 
-setText("scoreD2",score.toFixed(1));
-setText("levelD2",level(score));
+const scoreText = score.toFixed(1);
+const levelText = level(score);
+
+setText("scoreD2",scoreText);
+setText("levelD2",levelText);
+
+localStorage.setItem("score_d2", scoreText);
+localStorage.setItem("level_d2", levelText);
+
+localStorage.setItem("water_potable_consumption", potableWater);
+localStorage.setItem("water_rainwater_capture", rainwaterCapture);
+localStorage.setItem("water_greywater_reuse", greywaterReuse);
+localStorage.setItem("water_sanitary_discharge", sanitaryDischarge);
+localStorage.setItem("water_own_coverage", ownWaterCoverage);
+localStorage.setItem("water_baseline_reduction", baselineReduction);
+
+localStorage.setItem("water_roi_proxy", "108.2");
+localStorage.setItem("water_reduction_percent", baselineReduction.toFixed(1));
+
+saveInputs();
 
 }
 
@@ -496,6 +567,11 @@ document.querySelectorAll("input").forEach(input => {
 input.addEventListener("input", calculateWater);
 });
 
+document.getElementById("continueToWaste").addEventListener("click", function(){
+calculateWater();
+});
+
+loadInputs();
 calculateWater();
 
 </script>
