@@ -124,12 +124,12 @@ PRMS Architecture Lab · Querétaro, México · prms.systems
 
 <div class="gauge" id="r_gauge">
 <div class="gauge-number">
-<span id="r_global_score">61</span>
+<span id="r_global_score">—</span>
 <small>/100</small>
 </div>
 </div>
 
-<div class="score-level" id="r_global_level">METABOLIC STANDARD</div>
+<div class="score-level" id="r_global_level">—</div>
 <div class="score-desc">Rendimiento Metabólico Integral</div>
 <div class="orange-bar"></div>
 </div>
@@ -138,8 +138,8 @@ PRMS Architecture Lab · Querétaro, México · prms.systems
 <h2>Factor C · Nivel de Auditoría</h2>
 
 <div>
-<div class="factor-value" id="r_factor_c">1.00</div>
-<div class="factor-note" id="r_audit_level">Nivel A · Sensor IoT continuo verificado</div>
+<div class="factor-value" id="r_factor_c">—</div>
+<div class="factor-note" id="r_audit_level">—</div>
 </div>
 
 <div class="validity"><span id="r_validity_date">—</span> · Vigencia 36 meses</div>
@@ -240,14 +240,14 @@ PRMS Architecture Lab · Querétaro, México · prms.systems
 <div class="section-title">RESUMEN DE RETORNOS VERIFICADOS</div>
 
 <div class="returns-grid">
-<div class="return-card"><div class="label">ROI Energético</div><div class="value">2.1</div><div class="unit">%</div></div>
-<div class="return-card"><div class="label">Autonomía energética</div><div class="value">13,985.0</div><div class="unit">kWh/año</div></div>
-<div class="return-card"><div class="label">ROI Hídrico</div><div class="value">108.2</div><div class="unit">%</div></div>
-<div class="return-card"><div class="label">Reducción agua</div><div class="value">53.0</div><div class="unit">%</div></div>
-<div class="return-card alt"><div class="label">ROI Económico</div><div class="value">15.0</div><div class="unit">%/año</div></div>
-<div class="return-card"><div class="label">Payback simple</div><div class="value">7.0</div><div class="unit">años</div></div>
-<div class="return-card"><div class="label">Emisiones evitadas</div><div class="value">6,293.0</div><div class="unit">kgCO₂e/año</div></div>
-<div class="return-card"><div class="label">Balance neto CO₂</div><div class="value">-5,773.0</div><div class="unit">kgCO₂e/año</div></div>
+<div class="return-card"><div class="label">ROI Energético</div><div class="value" id="r_roi_energy">—</div><div class="unit">%</div></div>
+<div class="return-card"><div class="label">Autonomía energética</div><div class="value" id="r_energy_autonomy">—</div><div class="unit">%</div></div>
+<div class="return-card"><div class="label">ROI Hídrico</div><div class="value" id="r_roi_water">—</div><div class="unit">%</div></div>
+<div class="return-card"><div class="label">Reducción agua</div><div class="value" id="r_water_reduction">—</div><div class="unit">%</div></div>
+<div class="return-card alt"><div class="label">ROI Económico</div><div class="value" id="r_roi_economy">—</div><div class="unit">%/año</div></div>
+<div class="return-card"><div class="label">Payback simple</div><div class="value" id="r_payback">—</div><div class="unit">años</div></div>
+<div class="return-card"><div class="label">Emisiones evitadas</div><div class="value" id="r_avoided_emissions">—</div><div class="unit">kgCO₂e/año</div></div>
+<div class="return-card"><div class="label">Balance neto CO₂</div><div class="value" id="r_net_carbon">—</div><div class="unit">kgCO₂e/año</div></div>
 </div>
 
 <div class="section-title">ESCALA DE CERTIFICACIÓN METABOLIC</div>
@@ -274,12 +274,7 @@ PRMS Architecture Lab · Querétaro, México · prms.systems
 PRMS-SCORE-STD-2026-001 · v1.0.0 · © 2026 PRMS Architecture Lab · ORCID: 0009-0005-2474-4834 · prms.systems
 </div>
 
-<form
-name="prms-score-results"
-method="POST"
-data-netlify="true"
-netlify-honeypot="bot-field"
->
+<form name="prms-score-results" method="POST" data-netlify="true" netlify-honeypot="bot-field">
 <input type="hidden" name="form-name" value="prms-score-results">
 <p hidden><input name="bot-field"></p>
 
@@ -304,11 +299,17 @@ netlify-honeypot="bot-field"
 <input type="hidden" name="d6_resilience" id="f_d6">
 <input type="hidden" name="d7_carbon" id="f_d7">
 <input type="hidden" name="d8_operation" id="f_d8">
+<input type="hidden" name="roi_energy" id="f_roi_energy">
+<input type="hidden" name="energy_autonomy" id="f_energy_autonomy">
+<input type="hidden" name="roi_water" id="f_roi_water">
+<input type="hidden" name="water_reduction" id="f_water_reduction">
+<input type="hidden" name="roi_economy" id="f_roi_economy">
+<input type="hidden" name="payback" id="f_payback">
+<input type="hidden" name="avoided_emissions" id="f_avoided_emissions">
+<input type="hidden" name="net_carbon" id="f_net_carbon">
 
 <div class="actions">
-<button type="submit" class="button orange">
-Request PRMS Score Report
-</button>
+<button type="submit" class="button orange">Request PRMS Score Report</button>
 </div>
 </form>
 
@@ -328,8 +329,9 @@ function get(key, fallback = "—"){
 return localStorage.getItem(key) || fallback;
 }
 
-function getScore(key, fallback){
-return Number(localStorage.getItem(key) || fallback);
+function num(key, fallback = 0){
+const value = Number(localStorage.getItem(key));
+return isNaN(value) ? fallback : value;
 }
 
 function setText(id, value){
@@ -351,10 +353,19 @@ return "NO CERTIFICADO";
 }
 
 function formatDate(value){
-if(!value) return "—";
+if(!value || value === "—") return "—";
 const parts = value.split("-");
 if(parts.length !== 3) return value;
 return parts[2] + "/" + parts[1] + "/" + parts[0];
+}
+
+function fmt(value, decimals = 1){
+const n = Number(value);
+if(isNaN(n)) return "—";
+return n.toLocaleString("en-US", {
+minimumFractionDigits: decimals,
+maximumFractionDigits: decimals
+});
 }
 
 const simulationId = get("simulation_id", "SIM-PRMS-2026");
@@ -376,14 +387,14 @@ const evaluationDate = formatDate(evaluationDateRaw);
 const factorC = Number(get("factor_c", "1.00"));
 const auditLevel = get("audit_level_label", "Level A — IoT Verified");
 
-const d1 = getScore("score_d1", 68.7);
-const d2 = getScore("score_d2", 47.1);
-const d3 = getScore("score_d3", 59.8);
-const d4 = getScore("score_d4", 66.9);
-const d5 = getScore("score_d5", 46.6);
-const d6 = getScore("score_d6", 65.3);
-const d7 = getScore("score_d7", 72.2);
-const d8 = getScore("score_d8", 100);
+const d1 = num("score_d1", 68.7);
+const d2 = num("score_d2", 47.1);
+const d3 = num("score_d3", 59.8);
+const d4 = num("score_d4", 66.9);
+const d5 = num("score_d5", 46.6);
+const d6 = num("score_d6", 65.3);
+const d7 = num("score_d7", 72.2);
+const d8 = num("score_d8", 100);
 
 const p1 = d1 * 0.25;
 const p2 = d2 * 0.20;
@@ -397,6 +408,20 @@ const p8 = d8 * 0.05;
 const rawGlobal = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8;
 const globalScore = Math.round(rawGlobal * factorC);
 const globalLevel = level(globalScore);
+
+const pvGeneration = num("energy_pv_generation", 13985);
+const electricConsumption = num("energy_electric_consumption", 13700);
+const energyAutonomyPercent = electricConsumption > 0 ? (pvGeneration / electricConsumption) * 100 : 0;
+const roiEnergy = electricConsumption > 0 ? ((pvGeneration - electricConsumption) / electricConsumption) * 100 : 0;
+
+const waterReduction = num("water_baseline_reduction", num("water_reduction_percent", 53));
+const roiWater = num("water_roi_proxy", waterReduction > 0 ? waterReduction * 2.04 : 0);
+
+const roiEconomy = num("economy_roi", num("economy_roi_percent", 15));
+const payback = num("economy_payback", num("economy_payback_years", 7));
+
+const avoidedEmissions = num("carbon_avoided_emissions", num("carbon_avoided_emissions_annual", 6293));
+const netCarbon = num("carbon_net_balance", num("carbon_net_balance_annual", -5773));
 
 setText("r_project_name", projectName);
 setText("r_typology", typology);
@@ -430,6 +455,15 @@ setText("r_d8", Math.round(d8)); setText("r_d8_weighted", p8.toFixed(1)); setTex
 setText("r_total_weighted", globalScore);
 setText("r_total_level", globalLevel);
 
+setText("r_roi_energy", fmt(roiEnergy, 1));
+setText("r_energy_autonomy", fmt(energyAutonomyPercent, 1));
+setText("r_roi_water", fmt(roiWater, 1));
+setText("r_water_reduction", fmt(waterReduction, 1));
+setText("r_roi_economy", fmt(roiEconomy, 1));
+setText("r_payback", fmt(payback, 1));
+setText("r_avoided_emissions", fmt(avoidedEmissions, 1));
+setText("r_net_carbon", fmt(netCarbon, 1));
+
 const degrees = Math.round((globalScore / 100) * 360);
 document.getElementById("r_gauge").style.background =
 `conic-gradient(#5a9c47 0deg ${degrees}deg, #b8b8b8 ${degrees}deg 360deg)`;
@@ -455,6 +489,15 @@ setValue("f_d5", Math.round(d5));
 setValue("f_d6", Math.round(d6));
 setValue("f_d7", Math.round(d7));
 setValue("f_d8", Math.round(d8));
+
+setValue("f_roi_energy", fmt(roiEnergy, 1));
+setValue("f_energy_autonomy", fmt(energyAutonomyPercent, 1));
+setValue("f_roi_water", fmt(roiWater, 1));
+setValue("f_water_reduction", fmt(waterReduction, 1));
+setValue("f_roi_economy", fmt(roiEconomy, 1));
+setValue("f_payback", fmt(payback, 1));
+setValue("f_avoided_emissions", fmt(avoidedEmissions, 1));
+setValue("f_net_carbon", fmt(netCarbon, 1));
 </script>
 
 </body>
