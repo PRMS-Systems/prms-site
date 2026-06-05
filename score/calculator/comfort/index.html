@@ -385,7 +385,7 @@ Blue values are editable input fields. Black values are calculated automatically
 
 <div class="actions">
 <a href="/score/calculator/waste/" class="button">Back to D3 Waste</a>
-<a href="/score/calculator/economy/" class="button purple">Continue to D5 Economy</a>
+<a href="/score/calculator/economy/" class="button purple" id="continueToEconomy">Continue to D5 Economy</a>
 </div>
 
 </section>
@@ -428,6 +428,63 @@ return Number(document.getElementById(id).value) || 0;
 
 function setText(id,value){
 document.getElementById(id).textContent = value;
+}
+
+function saveInputs(){
+
+const ids = [
+"indoorTemp",
+"hoursOutComfort",
+"daylight",
+"co2",
+"humidity",
+"pm25",
+"noise",
+"wIndoorTemp",
+"wHoursOutComfort",
+"wDaylight",
+"wCo2",
+"wHumidity",
+"wPm25",
+"wNoise"
+];
+
+ids.forEach(id => {
+const el = document.getElementById(id);
+if(el){
+localStorage.setItem("comfort_" + id, el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids = [
+"indoorTemp",
+"hoursOutComfort",
+"daylight",
+"co2",
+"humidity",
+"pm25",
+"noise",
+"wIndoorTemp",
+"wHoursOutComfort",
+"wDaylight",
+"wCo2",
+"wHumidity",
+"wPm25",
+"wNoise"
+];
+
+ids.forEach(id => {
+const saved = localStorage.getItem("comfort_" + id);
+const el = document.getElementById(id);
+if(saved !== null && el){
+el.value = saved;
+}
+});
+
 }
 
 function calculateComfort(){
@@ -489,8 +546,24 @@ sHumidity +
 sPm25 +
 sNoise;
 
-setText("scoreD4",score.toFixed(1));
-setText("levelD4",level(score));
+const scoreText = score.toFixed(1);
+const levelText = level(score);
+
+setText("scoreD4",scoreText);
+setText("levelD4",levelText);
+
+localStorage.setItem("score_d4", scoreText);
+localStorage.setItem("level_d4", levelText);
+
+localStorage.setItem("comfort_indoor_temp", indoorTemp);
+localStorage.setItem("comfort_hours_out", hoursOutComfort);
+localStorage.setItem("comfort_daylight", daylight);
+localStorage.setItem("comfort_co2", co2);
+localStorage.setItem("comfort_humidity", humidity);
+localStorage.setItem("comfort_pm25", pm25);
+localStorage.setItem("comfort_noise", noise);
+
+saveInputs();
 
 }
 
@@ -498,6 +571,11 @@ document.querySelectorAll("input").forEach(input => {
 input.addEventListener("input", calculateComfort);
 });
 
+document.getElementById("continueToEconomy").addEventListener("click", function(){
+calculateComfort();
+});
+
+loadInputs();
 calculateComfort();
 
 </script>
