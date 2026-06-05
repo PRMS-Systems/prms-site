@@ -454,7 +454,7 @@ If IoT is not available but official bills or meters exist, D8 may be assigned 4
 
 <div class="actions">
 <a href="/score/calculator/carbon/" class="button">Back to D7 Carbon</a>
-<a href="/score/calculator/results/" class="button orange">View Final Results</a>
+<a href="/score/calculator/results/" class="button orange" id="viewFinalResults">View Final Results</a>
 </div>
 
 </section>
@@ -481,6 +481,45 @@ function setText(id,value){
 document.getElementById(id).textContent = value;
 }
 
+function saveInputs(){
+
+const ids = [
+"iotEnergy",
+"iotWater",
+"continuousRecord",
+"historicalStorage",
+"externalVerification"
+];
+
+ids.forEach(id => {
+const el = document.getElementById(id);
+if(el){
+localStorage.setItem("operation_" + id, el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids = [
+"iotEnergy",
+"iotWater",
+"continuousRecord",
+"historicalStorage",
+"externalVerification"
+];
+
+ids.forEach(id => {
+const saved = localStorage.getItem("operation_" + id);
+const el = document.getElementById(id);
+if(saved !== null && el){
+el.value = saved;
+}
+});
+
+}
+
 function calculateOperation(){
 
 const iotEnergy = valueFromSelect("iotEnergy");
@@ -505,23 +544,31 @@ externalVerification;
 let finalScore = iotTotal;
 let meterScore = 0;
 let estimateScore = 0;
+let pathway = "Continuous IoT sensors";
+let evidenceLevel = "A";
 
 if(iotTotal === 0){
 meterScore = 40;
 estimateScore = 20;
 finalScore = 40;
+pathway = "Utility bills and meters";
+evidenceLevel = "B";
 }
 
 if(iotTotal > 0 && iotTotal < 100){
 meterScore = 0;
 estimateScore = 0;
 finalScore = iotTotal;
+pathway = "Partial IoT evidence";
+evidenceLevel = "Partial";
 }
 
 if(iotTotal === 100){
 meterScore = 0;
 estimateScore = 0;
 finalScore = 100;
+pathway = "Continuous IoT sensors";
+evidenceLevel = "A";
 }
 
 setText("iotScore",iotTotal.toFixed(1));
@@ -532,8 +579,28 @@ setText("iotStatus",iotTotal > 0 ? "Active" : "Inactive");
 setText("meterStatus",iotTotal === 0 ? "Available fallback" : "Inactive");
 setText("estimateStatus",iotTotal === 0 ? "Available fallback" : "Inactive");
 
-setText("scoreD8",finalScore.toFixed(1));
-setText("levelD8",level(finalScore));
+const scoreText = finalScore.toFixed(1);
+const levelText = level(finalScore);
+
+setText("scoreD8",scoreText);
+setText("levelD8",levelText);
+
+localStorage.setItem("score_d8", scoreText);
+localStorage.setItem("level_d8", levelText);
+
+localStorage.setItem("operation_iot_energy", document.getElementById("iotEnergy").value);
+localStorage.setItem("operation_iot_water", document.getElementById("iotWater").value);
+localStorage.setItem("operation_continuous_record", document.getElementById("continuousRecord").value);
+localStorage.setItem("operation_historical_storage", document.getElementById("historicalStorage").value);
+localStorage.setItem("operation_external_verification", document.getElementById("externalVerification").value);
+
+localStorage.setItem("operation_iot_score", iotTotal.toFixed(1));
+localStorage.setItem("operation_meter_score", meterScore.toFixed(1));
+localStorage.setItem("operation_estimate_score", estimateScore.toFixed(1));
+localStorage.setItem("operation_pathway", pathway);
+localStorage.setItem("operation_evidence_level", evidenceLevel);
+
+saveInputs();
 
 }
 
@@ -541,6 +608,11 @@ document.querySelectorAll("select").forEach(select => {
 select.addEventListener("change", calculateOperation);
 });
 
+document.getElementById("viewFinalResults").addEventListener("click", function(){
+calculateOperation();
+});
+
+loadInputs();
 calculateOperation();
 
 </script>
