@@ -132,6 +132,22 @@ background:#1f6f4a;
 background:#6b6765;
 }
 
+@media(max-width:900px){
+
+.waste-table,
+.weight-table,
+.score-bar,
+.score-level{
+width:calc(100% - 3.2rem);
+}
+
+.actions{
+flex-direction:column;
+gap:1rem;
+}
+
+}
+
 </style>
 
 </head>
@@ -186,7 +202,7 @@ material flows and reduces environmental burden.
 <tr>
 <td>Total waste generated</td>
 <td>kg/year</td>
-<td><input id="wasteTotal" value="365"></td>
+<td><input id="wasteTotal" type="number" value="365"></td>
 <td>50</td>
 <td>800</td>
 <td class="score" id="nWasteTotal">58.0</td>
@@ -195,7 +211,7 @@ material flows and reduces environmental burden.
 <tr>
 <td>Recycled waste</td>
 <td>kg/year</td>
-<td><input id="wasteRecycled" value="180"></td>
+<td><input id="wasteRecycled" type="number" value="180"></td>
 <td>0</td>
 <td>500</td>
 <td class="score" id="nWasteRecycled">36.0</td>
@@ -204,7 +220,7 @@ material flows and reduces environmental burden.
 <tr>
 <td>Composted waste</td>
 <td>kg/year</td>
-<td><input id="wasteComposted" value="90"></td>
+<td><input id="wasteComposted" type="number" value="90"></td>
 <td>0</td>
 <td>200</td>
 <td class="score" id="nWasteComposted">45.0</td>
@@ -213,7 +229,7 @@ material flows and reduces environmental burden.
 <tr>
 <td>Recovery rate</td>
 <td>%</td>
-<td><input id="recoveryRate" value="74"></td>
+<td><input id="recoveryRate" type="number" value="74"></td>
 <td>0</td>
 <td>100</td>
 <td class="score" id="nRecoveryRate">74.0</td>
@@ -222,7 +238,7 @@ material flows and reduces environmental burden.
 <tr>
 <td>Waste to landfill</td>
 <td>kg/year</td>
-<td><input id="landfillWaste" value="95"></td>
+<td><input id="landfillWaste" type="number" value="95"></td>
 <td>0</td>
 <td>400</td>
 <td class="score" id="nLandfillWaste">76.3</td>
@@ -231,7 +247,7 @@ material flows and reduces environmental burden.
 <tr>
 <td>Per capita generation</td>
 <td>kg/person</td>
-<td><input id="perCapitaWaste" value="91"></td>
+<td><input id="perCapitaWaste" type="number" value="91"></td>
 <td>30</td>
 <td>250</td>
 <td class="score" id="nPerCapitaWaste">72.3</td>
@@ -259,37 +275,37 @@ material flows and reduces environmental burden.
 
 <tr>
 <td>Total waste generated</td>
-<td><input id="w1" value="15"></td>
+<td><input id="w1" type="number" value="15"></td>
 <td id="s1">8.7</td>
 </tr>
 
 <tr>
 <td>Recycled waste</td>
-<td><input id="w2" value="20"></td>
+<td><input id="w2" type="number" value="20"></td>
 <td id="s2">7.2</td>
 </tr>
 
 <tr>
 <td>Composted waste</td>
-<td><input id="w3" value="15"></td>
+<td><input id="w3" type="number" value="15"></td>
 <td id="s3">6.8</td>
 </tr>
 
 <tr>
 <td>Recovery rate</td>
-<td><input id="w4" value="25"></td>
+<td><input id="w4" type="number" value="25"></td>
 <td id="s4">18.5</td>
 </tr>
 
 <tr>
 <td>Waste to landfill</td>
-<td><input id="w5" value="15"></td>
+<td><input id="w5" type="number" value="15"></td>
 <td id="s5">11.4</td>
 </tr>
 
 <tr>
 <td>Per capita generation</td>
-<td><input id="w6" value="10"></td>
+<td><input id="w6" type="number" value="10"></td>
 <td id="s6">7.2</td>
 </tr>
 
@@ -309,7 +325,7 @@ METABOLIC STANDARD
 
 <div class="actions">
 <a href="/score/calculator/water/" class="button">Back D2 Water</a>
-<a href="/score/calculator/comfort/" class="button gray">Continue D4 Comfort</a>
+<a href="/score/calculator/comfort/" class="button gray" id="continueToComfort">Continue D4 Comfort</a>
 </div>
 
 </section>
@@ -340,6 +356,59 @@ if(score>=35)return "METABOLIC BASIC";
 return "NO CERTIFIED";
 }
 
+function saveInputs(){
+
+const ids=[
+"wasteTotal",
+"wasteRecycled",
+"wasteComposted",
+"recoveryRate",
+"landfillWaste",
+"perCapitaWaste",
+"w1",
+"w2",
+"w3",
+"w4",
+"w5",
+"w6"
+];
+
+ids.forEach(id=>{
+const el=document.getElementById(id);
+if(el){
+localStorage.setItem("waste_"+id,el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids=[
+"wasteTotal",
+"wasteRecycled",
+"wasteComposted",
+"recoveryRate",
+"landfillWaste",
+"perCapitaWaste",
+"w1",
+"w2",
+"w3",
+"w4",
+"w5",
+"w6"
+];
+
+ids.forEach(id=>{
+const saved=localStorage.getItem("waste_"+id);
+const el=document.getElementById(id);
+if(saved!==null && el){
+el.value=saved;
+}
+});
+
+}
+
 function calculate(){
 
 let n1=neg(+wasteTotal.value,50,800);
@@ -356,12 +425,12 @@ nRecoveryRate.innerHTML=n4.toFixed(1);
 nLandfillWaste.innerHTML=n5.toFixed(1);
 nPerCapitaWaste.innerHTML=n6.toFixed(1);
 
-let s1v=n1*w1.value/100;
-let s2v=n2*w2.value/100;
-let s3v=n3*w3.value/100;
-let s4v=n4*w4.value/100;
-let s5v=n5*w5.value/100;
-let s6v=n6*w6.value/100;
+let s1v=n1*Number(w1.value)/100;
+let s2v=n2*Number(w2.value)/100;
+let s3v=n3*Number(w3.value)/100;
+let s4v=n4*Number(w4.value)/100;
+let s5v=n5*Number(w5.value)/100;
+let s6v=n6*Number(w6.value)/100;
 
 s1.innerHTML=s1v.toFixed(1);
 s2.innerHTML=s2v.toFixed(1);
@@ -372,8 +441,23 @@ s6.innerHTML=s6v.toFixed(1);
 
 let total=s1v+s2v+s3v+s4v+s5v+s6v;
 
-scoreD3.innerHTML=total.toFixed(1);
-levelD3.innerHTML=level(total);
+const scoreText=total.toFixed(1);
+const levelText=level(total);
+
+scoreD3.innerHTML=scoreText;
+levelD3.innerHTML=levelText;
+
+localStorage.setItem("score_d3",scoreText);
+localStorage.setItem("level_d3",levelText);
+
+localStorage.setItem("waste_total_generated",wasteTotal.value);
+localStorage.setItem("waste_recycled",wasteRecycled.value);
+localStorage.setItem("waste_composted",wasteComposted.value);
+localStorage.setItem("waste_recovery_rate",recoveryRate.value);
+localStorage.setItem("waste_landfill",landfillWaste.value);
+localStorage.setItem("waste_per_capita",perCapitaWaste.value);
+
+saveInputs();
 
 }
 
@@ -381,6 +465,11 @@ document.querySelectorAll("input").forEach(i=>{
 i.addEventListener("input",calculate);
 });
 
+document.getElementById("continueToComfort").addEventListener("click",function(){
+calculate();
+});
+
+loadInputs();
 calculate();
 
 </script>
