@@ -399,7 +399,7 @@ Blue values are editable input fields. Black values are calculated automatically
 
 <div class="actions">
 <a href="/score/calculator/comfort/" class="button">Back to D4 Comfort</a>
-<a href="/score/calculator/resilience/" class="button green">Continue to D6 Resilience</a>
+<a href="/score/calculator/resilience/" class="button green" id="continueToResilience">Continue to D6 Resilience</a>
 </div>
 
 </section>
@@ -436,6 +436,67 @@ return Number(document.getElementById(id).value) || 0;
 
 function setText(id,value){
 document.getElementById(id).textContent = value;
+}
+
+function saveInputs(){
+
+const ids = [
+"initialInvestment",
+"energySavings",
+"waterSavings",
+"omCosts",
+"payback",
+"roi",
+"irr",
+"npv",
+"wInitialInvestment",
+"wEnergySavings",
+"wWaterSavings",
+"wOmCosts",
+"wPayback",
+"wRoi",
+"wIrr",
+"wNpv"
+];
+
+ids.forEach(id => {
+const el = document.getElementById(id);
+if(el){
+localStorage.setItem("economy_" + id, el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids = [
+"initialInvestment",
+"energySavings",
+"waterSavings",
+"omCosts",
+"payback",
+"roi",
+"irr",
+"npv",
+"wInitialInvestment",
+"wEnergySavings",
+"wWaterSavings",
+"wOmCosts",
+"wPayback",
+"wRoi",
+"wIrr",
+"wNpv"
+];
+
+ids.forEach(id => {
+const saved = localStorage.getItem("economy_" + id);
+const el = document.getElementById(id);
+if(saved !== null && el){
+el.value = saved;
+}
+});
+
 }
 
 function calculateEconomy(){
@@ -504,8 +565,28 @@ sRoi +
 sIrr +
 sNpv;
 
-setText("scoreD5",score.toFixed(1));
-setText("levelD5",level(score));
+const scoreText = score.toFixed(1);
+const levelText = level(score);
+
+setText("scoreD5",scoreText);
+setText("levelD5",levelText);
+
+localStorage.setItem("score_d5", scoreText);
+localStorage.setItem("level_d5", levelText);
+
+localStorage.setItem("economy_initial_investment", initialInvestment);
+localStorage.setItem("economy_energy_savings", energySavings);
+localStorage.setItem("economy_water_savings", waterSavings);
+localStorage.setItem("economy_om_costs", omCosts);
+localStorage.setItem("economy_payback", payback);
+localStorage.setItem("economy_roi", roi);
+localStorage.setItem("economy_irr", irr);
+localStorage.setItem("economy_npv", npv);
+
+localStorage.setItem("economy_roi_percent", roi.toFixed(1));
+localStorage.setItem("economy_payback_years", payback.toFixed(1));
+
+saveInputs();
 
 }
 
@@ -513,6 +594,11 @@ document.querySelectorAll("input").forEach(input => {
 input.addEventListener("input", calculateEconomy);
 });
 
+document.getElementById("continueToResilience").addEventListener("click", function(){
+calculateEconomy();
+});
+
+loadInputs();
 calculateEconomy();
 
 </script>
