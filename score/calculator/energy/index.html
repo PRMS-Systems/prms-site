@@ -91,10 +91,6 @@ color:#004ee4;
 text-align:center;
 }
 
-.energy-table .calc{
-font-weight:700;
-}
-
 .energy-table .score{
 font-weight:800;
 color:#b94f00;
@@ -430,7 +426,7 @@ Blue values are editable input fields. Black values are calculated automatically
 
 <div class="actions">
 <a href="/score/calculator/project/" class="button">Back to Project Data</a>
-<a href="/score/calculator/water/" class="button orange">Continue to D2 Water</a>
+<a href="/score/calculator/water/" class="button orange" id="continueToWater">Continue to D2 Water</a>
 </div>
 
 </section>
@@ -467,6 +463,67 @@ return Number(document.getElementById(id).value) || 0;
 
 function setText(id,value){
 document.getElementById(id).textContent = value;
+}
+
+function saveInputs(){
+
+const ids = [
+"pvGeneration",
+"electricConsumption",
+"gridExport",
+"gridImport",
+"pvCapacity",
+"energyAutonomy",
+"selfConsumption",
+"eui",
+"wPvGeneration",
+"wElectricConsumption",
+"wGridExport",
+"wGridImport",
+"wPvCapacity",
+"wEnergyAutonomy",
+"wSelfConsumption",
+"wEui"
+];
+
+ids.forEach(id => {
+const el = document.getElementById(id);
+if(el){
+localStorage.setItem("energy_" + id, el.value);
+}
+});
+
+}
+
+function loadInputs(){
+
+const ids = [
+"pvGeneration",
+"electricConsumption",
+"gridExport",
+"gridImport",
+"pvCapacity",
+"energyAutonomy",
+"selfConsumption",
+"eui",
+"wPvGeneration",
+"wElectricConsumption",
+"wGridExport",
+"wGridImport",
+"wPvCapacity",
+"wEnergyAutonomy",
+"wSelfConsumption",
+"wEui"
+];
+
+ids.forEach(id => {
+const saved = localStorage.getItem("energy_" + id);
+const el = document.getElementById(id);
+if(saved !== null && el){
+el.value = saved;
+}
+});
+
 }
 
 function calculateEnergy(){
@@ -535,8 +592,28 @@ sEnergyAutonomy +
 sSelfConsumption +
 sEui;
 
-setText("scoreD1",score.toFixed(1));
-setText("levelD1",level(score));
+const scoreText = score.toFixed(1);
+const levelText = level(score);
+
+setText("scoreD1",scoreText);
+setText("levelD1",levelText);
+
+localStorage.setItem("score_d1", scoreText);
+localStorage.setItem("level_d1", levelText);
+
+localStorage.setItem("energy_pv_generation", pvGeneration);
+localStorage.setItem("energy_consumption", electricConsumption);
+localStorage.setItem("energy_grid_export", gridExport);
+localStorage.setItem("energy_grid_import", gridImport);
+localStorage.setItem("energy_pv_capacity", pvCapacity);
+localStorage.setItem("energy_autonomy", energyAutonomy);
+localStorage.setItem("energy_self_consumption", selfConsumption);
+localStorage.setItem("energy_eui", eui);
+
+localStorage.setItem("energy_roi_proxy", "2.1");
+localStorage.setItem("energy_generation_annual", pvGeneration.toFixed(1));
+
+saveInputs();
 
 }
 
@@ -544,6 +621,11 @@ document.querySelectorAll("input").forEach(input => {
 input.addEventListener("input", calculateEnergy);
 });
 
+document.getElementById("continueToWater").addEventListener("click", function(){
+calculateEnergy();
+});
+
+loadInputs();
 calculateEnergy();
 
 </script>
