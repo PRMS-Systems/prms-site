@@ -42,6 +42,18 @@ font-size:1rem;
 width:100%;
 }
 
+.field input[readonly]{
+background:#f3f3f3;
+color:#666;
+cursor:not-allowed;
+}
+
+.field small{
+font-size:.75rem;
+color:#777;
+line-height:1.4;
+}
+
 .audit-card{
 margin-top:3rem;
 padding:2rem;
@@ -97,6 +109,10 @@ text-decoration:none;
 grid-template-columns:1fr;
 }
 
+.actions{
+flex-direction:column;
+}
+
 }
 
 </style>
@@ -144,101 +160,170 @@ Complete the fields below before proceeding to the metabolic
 performance dimensions.
 </p>
 
-<form>
+<form id="projectForm">
 
 <div class="form-grid">
 
 <div class="field">
-  <label>Simulation ID</label>
-  <input
-    type="text"
-    value="SIM-PRMS-2026"
-    readonly>
-  <small>
-    Simulation mode. Official project codes are assigned by PRMS Architecture Lab.
-  </small>
+<label>Simulation ID</label>
+<input
+id="simulation_id"
+name="simulation_id"
+type="text"
+value="SIM-PRMS-2026"
+readonly>
+<small>
+Simulation mode. Official project codes are assigned by PRMS Architecture Lab.
+</small>
 </div>
 
 <div class="field">
-  <label>Applicant Email</label>
-  <input
-    type="email"
-    name="applicant_email"
-    placeholder="name@email.com"
-    placeholder="John Smith"
-    required>
+<label>Applicant Email</label>
+<input
+id="applicant_email"
+name="applicant_email"
+type="email"
+placeholder="name@email.com"
+required>
+</div>
+
+<div class="field">
+<label>Applicant Name</label>
+<input
+id="applicant_name"
+name="applicant_name"
+type="text"
+placeholder="John Smith"
+required>
+</div>
+
+<div class="field">
+<label>Organization</label>
+<input
+id="organization"
+name="organization"
+type="text"
+placeholder="University, Company, Studio">
 </div>
 
 <div class="field">
 <label>Project Name</label>
-<input type="text" placeholder="SmartLiving Milenio III-308">
+<input
+id="project_name"
+name="project_name"
+type="text"
+placeholder="SmartLiving Milenio III-308"
+required>
 </div>
 
 <div class="field">
 <label>Project Owner</label>
-<input type="text" placeholder="Owner or Organization">
+<input
+id="project_owner"
+name="project_owner"
+type="text"
+placeholder="Owner or Organization">
 </div>
 
 <div class="field">
 <label>Typology</label>
-<select>
-<option>Single Family House</option>
-<option>Multifamily Building</option>
-<option>Residential Retrofit</option>
-<option>Commercial</option>
-<option>Office</option>
-<option>Autonomous Node</option>
+<select id="typology" name="typology">
+<option value="Single Family House">Single Family House</option>
+<option value="Multifamily Building">Multifamily Building</option>
+<option value="Residential Retrofit">Residential Retrofit</option>
+<option value="Commercial">Commercial</option>
+<option value="Office">Office</option>
+<option value="Autonomous Node">Autonomous Node</option>
 </select>
 </div>
 
 <div class="field">
 <label>Country</label>
-<input type="text" placeholder="Mexico">
+<input
+id="country"
+name="country"
+type="text"
+placeholder="Mexico">
 </div>
 
 <div class="field">
 <label>State / Region</label>
-<input type="text" placeholder="Querétaro">
+<input
+id="state_region"
+name="state_region"
+type="text"
+placeholder="Querétaro">
 </div>
 
 <div class="field">
 <label>City</label>
-<input type="text" placeholder="Querétaro">
+<input
+id="city"
+name="city"
+type="text"
+placeholder="Querétaro">
 </div>
 
 <div class="field">
 <label>Address</label>
-<input type="text" placeholder="Milenio III">
+<input
+id="address"
+name="address"
+type="text"
+placeholder="Milenio III">
 </div>
 
 <div class="field">
 <label>Köppen Climate Zone</label>
-<input type="text" placeholder="BSk">
+<input
+id="climate_zone"
+name="climate_zone"
+type="text"
+placeholder="BSk — Semi-arid Temperate">
 </div>
 
 <div class="field">
 <label>Built Area (m²)</label>
-<input type="number" placeholder="129">
+<input
+id="built_area"
+name="built_area"
+type="number"
+placeholder="129">
 </div>
 
 <div class="field">
 <label>Habitable Area (m²)</label>
-<input type="number" placeholder="115">
+<input
+id="habitable_area"
+name="habitable_area"
+type="number"
+placeholder="115">
 </div>
 
 <div class="field">
 <label>Number of Occupants</label>
-<input type="number" placeholder="4">
+<input
+id="occupants"
+name="occupants"
+type="number"
+placeholder="4">
 </div>
 
 <div class="field">
 <label>Analysis Period (Months)</label>
-<input type="number" placeholder="12">
+<input
+id="period_months"
+name="period_months"
+type="number"
+placeholder="12">
 </div>
 
 <div class="field">
 <label>Evaluation Date</label>
-<input type="date">
+<input
+id="evaluation_date"
+name="evaluation_date"
+type="date">
 </div>
 
 </div>
@@ -289,25 +374,15 @@ used in the evaluation and defines the verification multiplier
 
 <label>Active Audit Level</label>
 
-<select>
-
-<option>
-Level A — IoT Verified
-</option>
-
-<option>
-Level B — Utility Bills
-</option>
-
-<option>
-Level C — Estimated
-</option>
-
+<select id="audit_level" name="audit_level">
+<option value="A" data-factor="1.00">Level A — IoT Verified</option>
+<option value="B" data-factor="0.80">Level B — Utility Bills</option>
+<option value="C" data-factor="0.40">Level C — Estimated</option>
 </select>
 
 </div>
 
-<div class="factor">
+<div class="factor" id="factor_display">
 Factor C = 1.00
 </div>
 
@@ -319,7 +394,7 @@ Factor C = 1.00
 Back
 </a>
 
-<a href="/score/calculator/energy/" class="button">
+<a href="/score/calculator/energy/" class="button" id="continueBtn">
 Continue to D1 Energy
 </a>
 
@@ -332,6 +407,70 @@ Continue to D1 Energy
 </main>
 
 <script src="/nav.js"></script>
+
+<script>
+
+function saveProjectData(){
+
+  const fields = document.querySelectorAll("input, select");
+
+  fields.forEach(field => {
+    if(field.id){
+      localStorage.setItem(field.id, field.value);
+    }
+  });
+
+  const auditSelect = document.getElementById("audit_level");
+  const selectedOption = auditSelect.options[auditSelect.selectedIndex];
+  const factorC = selectedOption.dataset.factor || "1.00";
+
+  localStorage.setItem("factor_c", factorC);
+  localStorage.setItem("audit_level_label", selectedOption.textContent.trim());
+
+}
+
+function loadProjectData(){
+
+  const fields = document.querySelectorAll("input, select");
+
+  fields.forEach(field => {
+    if(field.id && localStorage.getItem(field.id)){
+      field.value = localStorage.getItem(field.id);
+    }
+  });
+
+  updateFactorDisplay();
+
+}
+
+function updateFactorDisplay(){
+
+  const auditSelect = document.getElementById("audit_level");
+  const selectedOption = auditSelect.options[auditSelect.selectedIndex];
+  const factorC = selectedOption.dataset.factor || "1.00";
+
+  document.getElementById("factor_display").textContent =
+    "Factor C = " + factorC;
+
+  localStorage.setItem("factor_c", factorC);
+  localStorage.setItem("audit_level_label", selectedOption.textContent.trim());
+
+}
+
+document.querySelectorAll("input, select").forEach(field => {
+  field.addEventListener("input", saveProjectData);
+  field.addEventListener("change", saveProjectData);
+});
+
+document.getElementById("audit_level").addEventListener("change", updateFactorDisplay);
+
+document.getElementById("continueBtn").addEventListener("click", function(){
+  saveProjectData();
+});
+
+loadProjectData();
+
+</script>
 
 </body>
 </html>
