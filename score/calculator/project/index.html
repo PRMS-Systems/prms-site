@@ -149,13 +149,24 @@ performance dimensions.
 <div class="form-grid">
 
 <div class="field">
-<label>Project Code</label>
-<input type="text" placeholder="PRMS-VIV-2026-0001">
+  <label>Simulation ID</label>
+  <input
+    type="text"
+    value="SIM-PRMS-2026"
+    readonly>
+  <small>
+    Simulation mode. Official project codes are assigned by PRMS Architecture Lab.
+  </small>
 </div>
 
 <div class="field">
-<label>Traceability Code</label>
-<input type="text" placeholder="PRMS-V-2026-0001">
+  <label>Applicant Email</label>
+  <input
+    type="email"
+    name="applicant_email"
+    placeholder="name@email.com"
+    placeholder="John Smith"
+    required>
 </div>
 
 <div class="field">
@@ -164,8 +175,8 @@ performance dimensions.
 </div>
 
 <div class="field">
-<label>Owner</label>
-<input type="text" placeholder="Oscar A. Hernández García">
+<label>Project Owner</label>
+<input type="text" placeholder="Owner or Organization">
 </div>
 
 <div class="field">
