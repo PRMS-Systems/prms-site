@@ -2267,28 +2267,32 @@ document.addEventListener("DOMContentLoaded", function () {
         messages.scrollTop = messages.scrollHeight;
 
 
-        message
-            .querySelectorAll(".option-button")
-            .forEach(function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        const answer =
-                            button.getAttribute("data-answer");
-
-                        addMessage(
-                            "user",
-                            escapeHTML(answer)
-                        );
-
-                        continueQuestionnaire(answer);
-
-                    }
+       message
+    .querySelectorAll(".option-button")
+    .forEach(function (button) {
+        button.addEventListener(
+            "click",
+            function () {
+                const answer =
+                    button.getAttribute("data-answer");
+                // If this option means that the user
+                // will provide a free-text answer,
+                // activate the main input instead of
+                // sending the option itself.
+                if (answer === "I will type the location below.") {
+                    chatInput.focus();
+                    chatInput.placeholder =
+                        "Enter the project location...";
+                    return;
+                }
+                addMessage(
+                    "user",
+                    escapeHTML(answer)
                 );
-
-            });
+                sendToWorker(answer);
+            }
+        );
+    });
 
     }
 
