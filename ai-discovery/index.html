@@ -2376,36 +2376,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       TEXT INPUT
+       TEXT INPUT  modificado 
        ===================================================== */
 
-    function sendMessage() {
-
-        const text = chatInput.value.trim();
-
-        if (!text) return;
-
-        addMessage(
-            "user",
-            escapeHTML(text)
-        );
-
-        chatInput.value = "";
-
-        setTimeout(function () {
-
-            if (!currentFile) {
-
-                addMessage(
-                    "ai",
-                    `
-                    Please upload an architectural plan first.
-                    `
-                );
-
-                return;
-
+async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    addMessage(
+        "user",
+        escapeHTML(text)
+    );
+    chatInput.value = "";
+    try {
+        const response = await fetch(
+            "https://prms-ai-discovery.oadrianhg.workers.dev/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: text
+                })
             }
+        );
+        if (!response.ok) {
+            throw new Error("Worker request failed");
+        }
+        const data = await response.json();
+        addMessage(
+            "ai",
+            escapeHTML(
+                data.response ||
+                "PRMS AI received the request."
+            )
+        );
+    } catch (error) {
+        console.error(error);
+        addMessage(
+            "ai",
+            "PRMS AI is temporarily unavailable."
+        );
+    }
+}
 
 
             if (questionStep === 1) {
