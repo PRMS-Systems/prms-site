@@ -2375,9 +2375,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       TEXT INPUT  modificado 
-       ===================================================== */
+/* =====================================================
+   TEXT INPUT
+   ===================================================== */
 
 async function sendMessage() {
     const text = chatInput.value.trim();
@@ -2387,6 +2387,11 @@ async function sendMessage() {
         escapeHTML(text)
     );
     chatInput.value = "";
+    /*
+     * If a project is active, send the response
+     * to the PRMS AI Discovery Worker.
+     */
+
     try {
         const response = await fetch(
             "https://prms-ai-discovery.oadrianhg.workers.dev/",
@@ -2401,7 +2406,9 @@ async function sendMessage() {
             }
         );
         if (!response.ok) {
-            throw new Error("Worker request failed");
+            throw new Error(
+                "Worker request failed"
+            );
         }
         const data = await response.json();
         addMessage(
@@ -2411,7 +2418,8 @@ async function sendMessage() {
                 "PRMS AI received the request."
             )
         );
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         addMessage(
             "ai",
@@ -2420,75 +2428,20 @@ async function sendMessage() {
     }
 }
 
-
-            if (questionStep === 1) {
-
-                questionStep++;
-
-                addMessage(
-                    "ai",
-                    `
-                    Location recorded:
-                    <strong>${escapeHTML(text)}</strong>
-                    <br><br>
-                    In the connected system,
-                    PRMS would now obtain the relevant
-                    climatic and environmental context.
-                    `
-                );
-
-                addQuestion(
-                    "What would you like PRMS to analyze first?",
-                    [
-                        "Daylight",
-                        "Thermal comfort",
-                        "Natural ventilation",
-                        "Energy"
-                    ]
-                );
-
-            }
-
-            else {
-
-                addMessage(
-                    "ai",
-                    `
-                    Response recorded.
-                    <br><br>
-                    The next stage will use this information
-                    to update the project model.
-                    `
-                );
-
-            }
-
-        }, 350);
-
-    }
-
-
-    sendButton.addEventListener(
-        "click",
-        sendMessage
-    );
-
-
+sendButton.addEventListener(
+    "click",
+    sendMessage
+);
     chatInput.addEventListener(
         "keydown",
         function (event) {
-
             if (
                 event.key === "Enter" &&
                 !event.shiftKey
             ) {
-
-                event.preventDefault();
-
+             event.preventDefault();
                 sendMessage();
-
             }
-
         }
     );
 
