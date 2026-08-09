@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Discovery — PRMS Architecture Lab</title>
+
+<meta name="description"
+      content="PRMS AI Discovery — an AI-native research infrastructure for architectural discovery, performance analysis and experimental design.">
+
+<style>
+
+/* =========================================================
+   PRMS AI DISCOVERY
+   Standalone page
+   ========================================================= */
+
+:root {
+    --bg: #ffffff;
+    --surface: #f7f7f7;
+    --surface-2: #fbfbfb;
+    --text: #161616;
+    --muted: #6b6b6b;
+    --line: #dedede;
+    --accent: #111111;
+    --accent-soft: #eeeeee;
+    --success: #287a43;
+    --warning: #9a6a00;
+
+    --max-width: 1180px;
+    --radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+.container {
+    width: min(calc(100% - 48px), var(--max-width));
+    margin: 0 auto;
+}
+
+.section {
+    padding: 110px 0;
+}
+
+.eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    max-width: 900px;
+    font-size: clamp(46px, 7vw, 82px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.lead {
+    max-width: 760px;
+    font-size: 21px;
+    line-height: 1.55;
+    color: #444;
+}
+
+.body-text {
+    max-width: 720px;
+    font-size: 17px;
+    color: #555;
+}
+
+.small {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+}
+
+.nav {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.logo-mark {
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid #222;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    font-size: 13px;
+    color: #555;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+.nav-ai {
+    font-weight: 600;
+    color: #000 !important;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    padding: 120px 0 100px;
+    border-bottom: 1px solid var(--line);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 80px;
+    align-items: end;
+}
+
+.hero-description {
+    max-width: 720px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 22px;
+    border: 1px solid #222;
+    border-radius: 7px;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    background: #292929;
+}
+
+.button.secondary {
+    background: #fff;
+    color: #111;
+    border-color: #bbb;
+}
+
+.hero-note {
+    border-left: 2px solid #222;
+    padding-left: 22px;
+    color: #555;
+    font-size: 15px;
+}
+
+/* =========================================================
+   THESIS
+   ========================================================= */
+
+.thesis {
+    background: var(--surface);
+}
+
+.thesis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+}
+
+.thesis-statement {
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    max-width: 600px;
+}
+
+.thesis-copy {
+    padding-top: 8px;
+}
+
+/* =========================================================
+   LOOP
+   ========================================================= */
+
+.loop {
+    border-bottom: 1px solid var(--line);
+}
+
+.loop-intro {
+    max-width: 760px;
+    margin-bottom: 60px;
+}
+
+.loop-diagram {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    align-items: center;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.loop-step {
+    min-height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 10px;
+    position: relative;
+}
+
+.loop-step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -8px;
+    color: #999;
+    font-size: 18px;
+}
+
+.loop-number {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 7px;
+}
+
+.loop-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.loop-caption {
+    margin-top: 30px;
+    font-size: 15px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   THREE LEVELS
+   ========================================================= */
+
+.levels {
+    background: var(--surface);
+}
+
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.level {
+    padding: 38px 30px 42px;
+    min-height: 250px;
+    border-right: 1px solid var(--line);
+}
+
+.level:last-child {
+    border-right: none;
+}
+
+.level-number {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+}
+
+.level-title {
+    font-size: 27px;
+    letter-spacing: -0.025em;
+    margin-bottom: 8px;
+}
+
+.level-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.level-flow {
+    font-size: 14px;
+}
+
+/* =========================================================
+   AI PRINCIPLE
+   ========================================================= */
+
+.ai-principle {
+    text-align: center;
+}
+
+.ai-principle h2 {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ai-principle p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: #555;
+    font-size: 18px;
+}
+
+.principle-line {
+    margin-top: 45px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   ANALYZER
+   ========================================================= */
+
+.analyzer {
+    background: #f4f4f4;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.analyzer-header {
+    max-width: 760px;
+    margin-bottom: 55px;
+}
+
+.analyzer-shell {
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+}
+
+.analyzer-top {
+    min-height: 58px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 22px;
+}
+
+.analyzer-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.project-id {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.analyzer-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    min-height: 560px;
+}
+
+/* =========================================================
+   UPLOAD PANEL
+   ========================================================= */
+
+.upload-panel {
+    padding: 30px;
+    border-right: 1px solid var(--line);
+}
+
+.upload-area {
+    height: 100%;
+    min-height: 490px;
+    border: 1.5px dashed #bdbdbd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 35px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    background: #fafafa;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: #333;
+    background: #f4f4f4;
+}
+
+.upload-content {
+    max-width: 400px;
+}
+
+.upload-icon {
+    width: 54px;
+    height: 54px;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 22px;
+    font-size: 22px;
+}
+
+.upload-area h3 {
+    margin-bottom: 8px;
+}
+
+.upload-area p {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+#fileInput {
+    display: none;
+}
+
+.file-name {
+    display: none;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #333;
+}
+
+.preview {
+    display: none;
+    width: 100%;
+    max-height: 430px;
+    object-fit: contain;
+    margin-bottom: 18px;
+}
+
+.remove-file {
+    display: none;
+    margin-top: 12px;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: #666;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* =========================================================
+   ASSISTANT PANEL
+   ========================================================= */
+
+.assistant-panel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.assistant-header {
+    padding: 22px;
+    border-bottom: 1px solid var(--line);
+}
+
+.assistant-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #999;
+}
+
+.status-dot.active {
+    background: var(--success);
+}
+
+.messages {
+    flex: 1;
+    padding: 25px 22px;
+    overflow-y: auto;
+    min-height: 300px;
+    max-height: 420px;
+}
+
+.message {
+    margin-bottom: 22px;
+}
+
+.message.ai {
+    max-width: 90%;
+}
+
+.message.user {
+    max-width: 85%;
+    margin-left: auto;
+    text-align: right;
+}
+
+.message-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.message-bubble {
+    display: inline-block;
+    padding: 13px 15px;
+    border-radius: 8px;
+    background: #f2f2f2;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message.user .message-bubble {
+    background: #111;
+    color: #fff;
+}
+
+.question-options {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.option-button {
+    border: 1px solid #bbb;
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.option-button:hover {
+    border-color: #111;
+}
+
+.input-area {
+    border-top: 1px solid var(--line);
+    padding: 15px;
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+}
+
+#chatInput {
+    flex: 1;
+    resize: none;
+    min-height: 44px;
+    max-height: 100px;
+    padding: 11px 13px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    outline: none;
+}
+
+#chatInput:focus {
+    border-color: #333;
+}
+
+.send-button {
+    width: 45px;
+    min-width: 45px;
+    border: none;
+    border-radius: 7px;
+    background: #111;
+    color: white;
+    cursor: pointer;
+}
+
+/* =========================================================
+   EVIDENCE
+   ========================================================= */
+
+.evidence {
+    padding-top: 90px;
+}
+
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.evidence-item {
+    padding: 30px 20px;
+    border-right: 1px solid var(--line);
+}
+
+.evidence-item:last-child {
+    border-right: none;
+}
+
+.evidence-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.evidence-description {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   DISCOVERY ENGINE
+   ========================================================= */
+
+.discovery-engine {
+    background: var(--surface);
+}
+
+.engine-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 90px;
+}
+
+.engine-cycle {
+    border-left: 1px solid #bbb;
+    padding-left: 30px;
+}
+
+.engine-step {
+    padding: 11px 0;
+    font-size: 16px;
+}
+
+.engine-step strong {
+    font-weight: 600;
+}
+
+.engine-arrow {
+    color: #999;
+    font-size: 12px;
+}
+
+/* =========================================================
+   KNOWLEDGE
+   ========================================================= */
+
+.knowledge-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 35px;
+    background: #fff;
+}
+
+.knowledge-flow {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    margin-top: 35px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.knowledge-step {
+    padding: 25px 12px;
+    border-right: 1px solid var(--line);
+    font-size: 13px;
+    text-align: center;
+}
+
+.knowledge-step:last-child {
+    border-right: none;
+}
+
+/* =========================================================
+   ROADMAP
+   ========================================================= */
+
+.roadmap {
+    background: #f4f4f4;
+}
+
+.roadmap-list {
+    border-top: 1px solid var(--line);
+}
+
+.roadmap-item {
+    display: grid;
+    grid-template-columns: 120px 240px 1fr;
+    gap: 30px;
+    padding: 27px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+}
+
+.roadmap-version {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.roadmap-title {
+    font-weight: 600;
+}
+
+.roadmap-description {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.final-cta {
+    padding: 130px 0;
+    text-align: center;
+}
+
+.final-cta h2 {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.final-cta p {
+    max-width: 650px;
+    margin: 0 auto 35px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    border-top: 1px solid var(--line);
+    padding: 35px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero-grid,
+    .thesis-grid,
+    .engine-layout {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .loop-diagram {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .loop-step:nth-child(2n) {
+        border-right: none;
+    }
+
+    .loop-step::after {
+        display: none;
+    }
+
+    .level-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .level {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .level:last-child {
+        border-bottom: none;
+    }
+
+    .analyzer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .evidence-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .evidence-item:nth-child(2n) {
+        border-right: none;
+    }
+
+    .knowledge-flow {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .knowledge-step:nth-child(3n) {
+        border-right: none;
+    }
+
+    .roadmap-item {
+        grid-template-columns: 90px 1fr;
+    }
+
+    .roadmap-description {
+        grid-column: 2;
+    }
+
+    .nav-links {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        width: min(calc(100% - 30px), var(--max-width));
+    }
+
+    .section {
+        padding: 75px 0;
+    }
+
+    .hero {
+        padding: 80px 0 70px;
+    }
+
+    .loop-diagram {
+        grid-template-columns: 1fr;
+    }
+
+    .loop-step {
+        min-height: 80px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .evidence-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .evidence-item {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .knowledge-flow {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .knowledge-step:nth-child(3n) {
+        border-right: 1px solid var(--line);
+    }
+
+    .knowledge-step:nth-child(2n) {
+        border-right: none;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- ======================================================
+     HEADER
+     ====================================================== -->
+
+<header>
+
+    <div class="container nav">
+
+        <a href="/" class="logo">
+
+            <span class="logo-mark">PRMS</span>
+
+            <span>PRMS Architecture Lab</span>
+
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="/framework/">Framework</a>
+            <a href="/methodology/">Methodology</a>
+            <a href="/applications/">Applications</a>
+            <a href="/publications/">Publications</a>
+            <a href="/lab/">Lab</a>
+
+            <a href="#analyze" class="nav-ai">
+                AI Discovery
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- ======================================================
+     HERO
+     ====================================================== -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <div class="hero-description">
+
+            <div class="eyebrow">
+                PRMS Architecture Lab
+            </div>
+
+            <h1>
+                AI DISCOVERY
+            </h1>
+
+            <p class="lead">
+                Continuous discovery for architecture.
+            </p>
+
+            <p class="body-text">
+
+                PRMS Architecture Lab is developing an AI-native
+                research infrastructure for investigating, testing
+                and learning from architectural performance.
+
+                The objective is not simply to generate architecture
+                with artificial intelligence, but to explore how AI
+                can help architecture generate new knowledge.
+
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#analyze" class="button">
+                    Analyze an Architecture →
+                </a>
+
+                <a href="#loop" class="button secondary">
+                    Explore the Discovery Loop
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-note">
+
+            <strong>
+                Architecture → Performance → Discovery → Knowledge
+            </strong>
+
+            <br><br>
+
+            From architectural observation to experimental
+            discovery.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     THESIS
+     ====================================================== -->
+
+<section class="section thesis">
+
+    <div class="container thesis-grid">
+
+        <div>
+
+            <div class="eyebrow">
+                The problem
+            </div>
+
+            <div class="thesis-statement">
+
+                Architectural knowledge is fragmented.
+
+            </div>
+
+        </div>
+
+
+        <div class="thesis-copy">
+
+            <p class="body-text">
+
+                Buildings can be designed, simulated, constructed
+                and measured — yet these activities often remain
+                disconnected.
+
+            </p>
+
+            <p class="body-text">
+
+                Design decisions are rarely connected to continuous
+                evidence, while measured building performance is
+                rarely transformed into structured knowledge for
+                the next architectural project.
+
+            </p>
+
+            <p class="body-text">
+
+                PRMS investigates how architectural performance can
+                become a continuous source of evidence,
+                experimentation and new knowledge.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     DISCOVERY LOOP
+     ====================================================== -->
+
+<section class="section loop" id="loop">
+
+    <div class="container">
+
+        <div class="loop-intro">
+
+            <div class="eyebrow">
+                The architectural discovery loop
+            </div>
+
+            <h2>
+                Closing the architectural learning loop.
+            </h2>
+
+            <p class="body-text">
+
+                PRMS explores how architecture can move from
+                observation and measurement toward continuous
+                experimentation and knowledge generation.
+
+            </p>
+
+        </div>
+
+
+        <div class="loop-diagram">
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">01</span>
+                    <span class="loop-label">Architecture</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">02</span>
+                    <span class="loop-label">Performance</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">03</span>
+                    <span class="loop-label">Data</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">04</span>
+                    <span class="loop-label">Hypothesis</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">05</span>
+                    <span class="loop-label">Experiment</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">06</span>
+                    <span class="loop-label">Measurement</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">07</span>
+                    <span class="loop-label">Knowledge</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <p class="loop-caption">
+            The result feeds the next architectural question.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     THREE LEVELS
+     ====================================================== -->
+
+<section class="section levels">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            PRMS architecture
+        </div>
+
+        <h2>
+            Three levels of architectural intelligence.
+        </h2>
+
+        <div class="level-grid">
+
+            <div class="level">
+
+                <div class="level-number">
+                    01 — ARCHITECTURE
+                </div>
+
+                <div class="level-title">
+                    The physical system
+                </div>
+
+                <div class="level-subtitle">
+                    Building · Habitat · City
+                </div>
+
+                <div class="level-flow">
+                    Space → Geometry → Materials → Systems
+                </div>
+
+            </div>
+
+
+            <div class="level">
+
+                <div class="level-number">
+                    02 — PERFORMANCE
+                </div>
+
+                <div class="level-title">
+                    The measurable system
+                </div>
+
+                <div class="level-subtitle">
+                    Sensors · Data · Metrics
+                </div>
+
+                <div class="level-flow">
+                    Measurement → Indicators → PRMS Score
+                </div>
+
+            </div>
+
+
+            <div class="level">
+
+                <div class="level-number">
+                    03 — DISCOVERY
+                </div>
+
+                <div class="level-title">
+                    The learning system
+                </div>
+
+                <div class="level-subtitle">
+                    AI · Hypotheses · Experiments
+                </div>
+
+                <div class="level-flow">
+                    Data → AI → Knowledge → New Architecture
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     AI PRINCIPLE
+     ====================================================== -->
+
+<section class="section ai-principle">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            AI as research infrastructure
+        </div>
+
+        <h2>
+            AI does not replace the architect.
+            It helps automate parts of the research process.
+        </h2>
+
+        <p>
+
+            PRMS AI can assist in interpreting architectural
+            information, identifying uncertainty, formulating
+            hypotheses, proposing experiments, evaluating
+            alternatives and organizing the resulting knowledge.
+
+        </p>
+
+        <div class="principle-line">
+
+            AI discovers.
+            Architect decides.
+            Measurement verifies.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     ANALYZER
+     ====================================================== -->
+
+<section class="section analyzer" id="analyze">
+
+    <div class="container">
+
+        <div class="analyzer-header">
+
+            <div class="eyebrow">
+                PRMS AI Discovery — Experimental Interface
+            </div>
+
+            <h2>
+                Analyze an Architecture
+            </h2>
+
+            <p class="body-text">
+
+                Upload a floor plan, architectural drawing or
+                image. PRMS AI will progressively request the
+                information required to begin a preliminary
+                performance analysis.
+
+            </p>
+
+        </div>
+
+
+        <div class="analyzer-shell">
+
+            <div class="analyzer-top">
+
+                <div class="analyzer-title">
+                    PRMS AI DISCOVERY
+                </div>
+
+                <div class="project-id" id="projectId">
+                    New Project
+                </div>
+
+            </div>
+
+
+            <div class="analyzer-grid">
+
+
+                <!-- ==============================
+                     UPLOAD
+                     ============================== -->
+
+                <div class="upload-panel">
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept=".jpg,.jpeg,.png,.webp,.pdf"
+                    >
+
+                    <div
+                        class="upload-area"
+                        id="uploadArea"
+                    >
+
+                        <div class="upload-content">
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                            <h3>
+                                Upload your architecture
+                            </h3>
+
+                            <p>
+                                Drag and drop a floor plan here,
+                                or click to select a file.
+                            </p>
+
+                            <p class="small">
+                                JPG · PNG · WEBP · PDF
+                            </p>
+
+                            <div
+                                class="file-name"
+                                id="fileName"
+                            ></div>
+
+                            <button
+                                class="remove-file"
+                                id="removeFile"
+                                type="button"
+                            >
+                                Remove file
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==============================
+                     AI ASSISTANT
+                     ============================== -->
+
+                <div class="assistant-panel">
+
+                    <div class="assistant-header">
+
+                        <strong>
+                            PRMS AI
+                        </strong>
+
+                        <div class="assistant-status">
+
+                            <span
+                                class="status-dot"
+                                id="statusDot"
+                            ></span>
+
+                            Preliminary research mode
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="messages"
+                        id="messages"
+                    >
+
+                        <div class="message ai">
+
+                            <div class="message-label">
+                                PRMS AI
+                            </div>
+
+                            <div class="message-bubble">
+
+                                Upload an architectural plan
+                                to begin.
+
+                                <br><br>
+
+                                The system will progressively
+                                ask for the information it needs
+                                to construct a preliminary
+                                performance model.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-area">
+
+                        <div class="input-row">
+
+                            <textarea
+                                id="chatInput"
+                                placeholder="Write your answer..."
+                                rows="1"
+                            ></textarea>
+
+                            <button
+                                class="send-button"
+                                id="sendButton"
+                                type="button"
+                            >
+                                →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     EVIDENCE
+     ====================================================== -->
+
+<section class="section evidence">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Evidence model
+        </div>
+
+        <h2>
+            Evidence before certainty.
+        </h2>
+
+        <p class="body-text">
+
+            PRMS distinguishes between what is observed,
+            declared, inferred, assumed, simulated and verified.
+            The system should never present an inference as a
+            measured fact.
+
+        </p>
+
+
+        <div class="evidence-grid">
+
+            <div class="evidence-item">
+
+                <div class="evidence-title">
+                    Observed
+                </div>
+
+                <div class="evidence-description">
+                    Directly visible or extracted from the source.
+                </div>
+
+            </div>
+
+
+            <div class="evidence-item">
+
+                <div class="evidence-title">
+                    Declared
+                </div>
+
+                <div class="evidence-description">
+                    Information provided by the user.
+                </div>
+
+            </div>
+
+
+            <div class="evidence-item">
+
+                <div class="evidence-title">
+                    Inferred
+                </div>
+
+                <div class="evidence-description">
+                    Interpretation generated from available evidence.
+                </div>
+
+            </div>
+
+
+            <div class="evidence-item">
+
+                <div class="evidence-title">
+                    Simulated
+                </div>
+
+                <div class="evidence-description">
+                    Result produced by a computational model.
+                </div>
+
+            </div>
+
+
+            <div class="evidence-item">
+
+                <div class="evidence-title">
+                    Verified
+                </div>
+
+                <div class="evidence-description">
+                    Supported by measured real-world data.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     DISCOVERY ENGINE
+     ====================================================== -->
+
+<section class="section discovery-engine">
+
+    <div class="container engine-layout">
+
+        <div>
+
+            <div class="eyebrow">
+                Discovery Engine
+            </div>
+
+            <h2>
+                From recommendation to experiment.
+            </h2>
+
+            <p class="body-text">
+
+                PRMS AI is intended to move beyond generating
+                recommendations. The system can progressively
+                formulate architectural hypotheses and compare
+                possible interventions.
+
+            </p>
+
+        </div>
+
+
+        <div class="engine-cycle">
+
+            <div class="engine-step">
+                <strong>Question</strong>
+            </div>
+
+            <div class="engine-arrow">↓</div>
+
+            <div class="engine-step">
+                <strong>Hypothesis</strong>
+            </div>
+
+            <div class="engine-arrow">↓</div>
+
+            <div class="engine-step">
+                <strong>Model</strong>
+            </div>
+
+            <div class="engine-arrow">↓</div>
+
+            <div class="engine-step">
+                <strong>Experiment</strong>
+            </div>
+
+            <div class="engine-arrow">↓</div>
+
+            <div class="engine-step">
+                <strong>Result</strong>
+            </div>
+
+            <div class="engine-arrow">↓</div>
+
+            <div class="engine-step">
+                <strong>Evaluation</strong>
+            </div>
+
+            <div class="engine-arrow">↓</div>
+
+            <div class="engine-step">
+                <strong>New hypothesis</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     KNOWLEDGE RECORD
+     ====================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="knowledge-card">
+
+            <div class="eyebrow">
+                PRMS Knowledge Record
+            </div>
+
+            <h2>
+                Every project can become a research record.
+            </h2>
+
+            <p class="body-text">
+
+                Each analysis can preserve its observations,
+                evidence, assumptions, hypotheses, alternatives
+                and results. With appropriate permissions,
+                anonymized records can contribute to the PRMS
+                Architecture Knowledge Base.
+
+            </p>
+
+
+            <div class="knowledge-flow">
+
+                <div class="knowledge-step">
+                    Observations
+                </div>
+
+                <div class="knowledge-step">
+                    Evidence
+                </div>
+
+                <div class="knowledge-step">
+                    Hypotheses
+                </div>
+
+                <div class="knowledge-step">
+                    Experiments
+                </div>
+
+                <div class="knowledge-step">
+                    Results
+                </div>
+
+                <div class="knowledge-step">
+                    Knowledge
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     LIVING LABS
+     ====================================================== -->
+
+<section class="section levels">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            From simulation to reality
+        </div>
+
+        <h2>
+            Buildings can become experimental environments.
+        </h2>
+
+        <p class="body-text">
+
+            PRMS connects computational research with
+            instrumented architecture. Simulations can generate
+            hypotheses; sensors and real buildings can later
+            verify them.
+
+        </p>
+
+
+        <div class="loop-diagram" style="margin-top:55px;">
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">01</span>
+                    <span class="loop-label">Model</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">02</span>
+                    <span class="loop-label">Simulation</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">03</span>
+                    <span class="loop-label">Design</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">04</span>
+                    <span class="loop-label">Build</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">05</span>
+                    <span class="loop-label">IoT</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">06</span>
+                    <span class="loop-label">Measurement</span>
+                </div>
+            </div>
+
+            <div class="loop-step">
+                <div>
+                    <span class="loop-number">07</span>
+                    <span class="loop-label">Validation</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     ROADMAP
+     ====================================================== -->
+
+<section class="section roadmap">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Research roadmap
+        </div>
+
+        <h2>
+            Building the discovery infrastructure progressively.
+        </h2>
+
+
+        <div class="roadmap-list">
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-version">
+                    V0.1
+                </div>
+
+                <div class="roadmap-title">
+                    Architectural Interpretation
+                </div>
+
+                <div class="roadmap-description">
+                    2D plans, spatial interpretation and
+                    progressive user questions.
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-version">
+                    V0.2
+                </div>
+
+                <div class="roadmap-title">
+                    Performance Intelligence
+                </div>
+
+                <div class="roadmap-description">
+                    Climate, geometry, openings and preliminary
+                    performance indicators.
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-version">
+                    V0.3
+                </div>
+
+                <div class="roadmap-title">
+                    Design Experiments
+                </div>
+
+                <div class="roadmap-description">
+                    Alternatives, simulation and comparative
+                    performance evaluation.
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-version">
+                    V0.4
+                </div>
+
+                <div class="roadmap-title">
+                    Discovery Agents
+                </div>
+
+                <div class="roadmap-description">
+                    AI agents capable of formulating and
+                    evaluating architectural hypotheses.
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-version">
+                    V0.5
+                </div>
+
+                <div class="roadmap-title">
+                    Living Labs
+                </div>
+
+                <div class="roadmap-description">
+                    IoT, measured building performance and
+                    real-world validation.
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-version">
+                    V1.0
+                </div>
+
+                <div class="roadmap-title">
+                    Architectural Discovery Engine
+                </div>
+
+                <div class="roadmap-description">
+                    AI + simulation + measurement + knowledge.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     FINAL CTA
+     ====================================================== -->
+
+<section class="final-cta">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Begin the experiment
+        </div>
+
+        <h2>
+            Architecture becomes a system that learns.
+        </h2>
+
+        <p>
+
+            Upload an architectural plan and begin building
+            a PRMS preliminary performance analysis.
+
+        </p>
+
+        <a href="#analyze" class="button">
+            Start Discovery →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     FOOTER
+     ====================================================== -->
+
+<footer>
+
+    <div class="container footer-content">
+
+        <div>
+            PRMS Architecture Lab ®
+        </div>
+
+        <div>
+            AI Discovery · Experimental Research Infrastructure
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ======================================================
+     JAVASCRIPT
+     Prototype interaction
+     ====================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const fileInput = document.getElementById("fileInput");
+    const uploadArea = document.getElementById("uploadArea");
+    const fileName = document.getElementById("fileName");
+    const removeFile = document.getElementById("removeFile");
+    const projectId = document.getElementById("projectId");
+
+    const messages = document.getElementById("messages");
+    const chatInput = document.getElementById("chatInput");
+    const sendButton = document.getElementById("sendButton");
+    const statusDot = document.getElementById("statusDot");
+
+    let currentFile = null;
+    let projectCreated = false;
+    let questionStep = 0;
+
+
+    /* =====================================================
+       PROJECT ID
+       ===================================================== */
+
+    function generateProjectId() {
+
+        const year = new Date().getFullYear();
+
+        const randomNumber = Math.floor(
+            1000 + Math.random() * 9000
+        );
+
+        return `PRMS-V-SIM-${year}-${randomNumber}`;
+
+    }
+
+
+    /* =====================================================
+       UPLOAD AREA
+       ===================================================== */
+
+    uploadArea.addEventListener("click", function () {
+        fileInput.click();
+    });
+
+
+    fileInput.addEventListener("change", function () {
+
+        if (fileInput.files.length > 0) {
+
+            handleFile(fileInput.files[0]);
+
+        }
+
+    });
+
+
+    uploadArea.addEventListener("dragover", function (event) {
+
+        event.preventDefault();
+
+        uploadArea.classList.add("dragover");
+
+    });
+
+
+    uploadArea.addEventListener("dragleave", function () {
+
+        uploadArea.classList.remove("dragover");
+
+    });
+
+
+    uploadArea.addEventListener("drop", function (event) {
+
+        event.preventDefault();
+
+        uploadArea.classList.remove("dragover");
+
+        const file = event.dataTransfer.files[0];
+
+        if (file) {
+
+            handleFile(file);
+
+        }
+
+    });
+
+
+    function handleFile(file) {
+
+        currentFile = file;
+
+        if (!projectCreated) {
+
+            projectId.textContent = generateProjectId();
+
+            projectCreated = true;
+
+        }
+
+        fileName.style.display = "block";
+        fileName.textContent = file.name;
+
+        removeFile.style.display = "inline-block";
+
+        statusDot.classList.add("active");
+
+        addMessage(
+            "ai",
+            `
+            I received <strong>${escapeHTML(file.name)}</strong>.
+            <br><br>
+            The project has been initialized.
+            I can begin by identifying visible spaces,
+            circulation, openings and other architectural elements.
+            `
+        );
+
+        addQuestion(
+            "Before continuing, where is North relative to this plan?",
+            [
+                "↑ Top",
+                "→ Right",
+                "↓ Bottom",
+                "← Left"
+            ]
+        );
+
+    }
+
+
+    removeFile.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        currentFile = null;
+
+        fileInput.value = "";
+
+        fileName.style.display = "none";
+
+        removeFile.style.display = "none";
+
+        projectCreated = false;
+
+        projectId.textContent = "New Project";
+
+        statusDot.classList.remove("active");
+
+    });
+
+
+    /* =====================================================
+       MESSAGES
+       ===================================================== */
+
+    function addMessage(type, text) {
+
+        const message = document.createElement("div");
+
+        message.className = `message ${type}`;
+
+        const label =
+            type === "ai"
+                ? "PRMS AI"
+                : "YOU";
+
+        message.innerHTML = `
+            <div class="message-label">
+                ${label}
+            </div>
+            <div class="message-bubble">
+                ${text}
+            </div>
+        `;
+
+        messages.appendChild(message);
+
+        messages.scrollTop = messages.scrollHeight;
+
+    }
+
+
+    function addQuestion(text, options) {
+
+        const message = document.createElement("div");
+
+        message.className = "message ai";
+
+        let optionsHTML = "";
+
+        options.forEach(function (option) {
+
+            optionsHTML += `
+                <button
+                    class="option-button"
+                    data-answer="${escapeHTML(option)}"
+                >
+                    ${escapeHTML(option)}
+                </button>
+            `;
+
+        });
+
+
+        message.innerHTML = `
+
+            <div class="message-label">
+                PRMS AI
+            </div>
+
+            <div class="message-bubble">
+
+                ${text}
+
+                <div class="question-options">
+                    ${optionsHTML}
+                </div>
+
+            </div>
+        `;
+
+
+        messages.appendChild(message);
+
+        messages.scrollTop = messages.scrollHeight;
+
+
+        message
+            .querySelectorAll(".option-button")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const answer =
+                            button.getAttribute("data-answer");
+
+                        addMessage(
+                            "user",
+                            escapeHTML(answer)
+                        );
+
+                        continueQuestionnaire(answer);
+
+                    }
+                );
+
+            });
+
+    }
+
+
+    /* =====================================================
+       PROTOTYPE QUESTION FLOW
+       ===================================================== */
+
+    function continueQuestionnaire(answer) {
+
+        questionStep++;
+
+        if (questionStep === 1) {
+
+            setTimeout(function () {
+
+                addMessage(
+                    "ai",
+                    `
+                    Orientation recorded as
+                    <strong>${escapeHTML(answer)}</strong>.
+                    `
+                );
+
+                addQuestion(
+                    "Where is the project located?",
+                    [
+                        "I will type the location below."
+                    ]
+                );
+
+            }, 350);
+
+        }
+
+        else if (questionStep === 2) {
+
+            setTimeout(function () {
+
+                addMessage(
+                    "ai",
+                    `
+                    Location received.
+                    <br><br>
+                    Next, I would normally obtain climate,
+                    solar and environmental context for the project.
+                    `
+                );
+
+                addQuestion(
+                    "What would you like PRMS to analyze first?",
+                    [
+                        "Daylight",
+                        "Thermal comfort",
+                        "Natural ventilation",
+                        "Energy"
+                    ]
+                );
+
+            }, 350);
+
+        }
+
+        else {
+
+            setTimeout(function () {
+
+                addMessage(
+                    "ai",
+                    `
+                    Your response has been added to the project state.
+                    <br><br>
+                    In the connected PRMS AI system,
+                    this information would now be passed to the
+                    analysis engine to determine the next required
+                    question or experiment.
+                    `
+                );
+
+            }, 350);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       TEXT INPUT
+       ===================================================== */
+
+    function sendMessage() {
+
+        const text = chatInput.value.trim();
+
+        if (!text) return;
+
+        addMessage(
+            "user",
+            escapeHTML(text)
+        );
+
+        chatInput.value = "";
+
+        setTimeout(function () {
+
+            if (!currentFile) {
+
+                addMessage(
+                    "ai",
+                    `
+                    Please upload an architectural plan first.
+                    `
+                );
+
+                return;
+
+            }
+
+
+            if (questionStep === 1) {
+
+                questionStep++;
+
+                addMessage(
+                    "ai",
+                    `
+                    Location recorded:
+                    <strong>${escapeHTML(text)}</strong>
+                    <br><br>
+                    In the connected system,
+                    PRMS would now obtain the relevant
+                    climatic and environmental context.
+                    `
+                );
+
+                addQuestion(
+                    "What would you like PRMS to analyze first?",
+                    [
+                        "Daylight",
+                        "Thermal comfort",
+                        "Natural ventilation",
+                        "Energy"
+                    ]
+                );
+
+            }
+
+            else {
+
+                addMessage(
+                    "ai",
+                    `
+                    Response recorded.
+                    <br><br>
+                    The next stage will use this information
+                    to update the project model.
+                    `
+                );
+
+            }
+
+        }, 350);
+
+    }
+
+
+    sendButton.addEventListener(
+        "click",
+        sendMessage
+    );
+
+
+    chatInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       SECURITY
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
