@@ -4060,8 +4060,1187 @@ performance model.
 
 );
 
-</script>
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =====================================================
+       PRMS AI DISCOVERY V0.7.0
+       Controlled Multimodal Discovery
+       Session-based project state
+       ===================================================== */
+
+    const WORKER_URL =
+        "https://prms-ai-discovery.oadrianhg.workers.dev/";
+
+    const SESSION_KEY =
+        "PRMS_AI_DISCOVERY_SESSION";
+
+    /* =====================================================
+       DOM
+       ===================================================== */
+
+    const fileInput =
+        document.getElementById("fileInput");
+
+    const uploadArea =
+        document.getElementById("uploadArea");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const removeFile =
+        document.getElementById("removeFile");
+
+    const projectId =
+        document.getElementById("projectId");
+
+    const messages =
+        document.getElementById("messages");
+
+    const chatInput =
+        document.getElementById("chatInput");
+
+    const sendButton =
+        document.getElementById("sendButton");
+
+    const statusDot =
+        document.getElementById("statusDot");
+
+
+    /* =====================================================
+       STATE
+       ===================================================== */
+
+    let state = {
+        initialized: false,
+
+        project: null,
+
+        document: null,
+
+        history: [],
+
+        currentQuestion: null,
+
+        questionStep: 0
+    };
+
+
+    /* =====================================================
+       PROJECT ID
+       ===================================================== */
+
+    function generateProjectId() {
+
+        const year =
+            new Date().getFullYear();
+
+        const random =
+            Math.floor(
+                1000 +
+                Math.random() * 9000
+            );
+
+        return `PRMS-V-SIM-${year}-${random}`;
+    }
+
+
+    /* =====================================================
+       SESSION STORAGE
+       ===================================================== */
+
+    function saveState() {
+
+        try {
+
+            sessionStorage.setItem(
+                SESSION_KEY,
+                JSON.stringify(state)
+            );
+
+        } catch (error) {
+
+            console.error(
+                "PRMS session save failed:",
+                error
+            );
+
+        }
+    }
+
+
+    function loadState() {
+
+        try {
+
+            const saved =
+                sessionStorage.getItem(
+                    SESSION_KEY
+                );
+
+            if (!saved) {
+
+                return false;
+            }
+
+            const parsed =
+                JSON.parse(saved);
+
+            if (!parsed || !parsed.project) {
+
+                return false;
+            }
+
+            state = parsed;
+
+            return true;
+
+        } catch (error) {
+
+            console.error(
+                "PRMS session load failed:",
+                error
+            );
+
+            return false;
+        }
+    }
+
+
+    /* =====================================================
+       RESTORE INTERFACE
+       ===================================================== */
+
+    function restoreSession() {
+
+        if (!state.project) {
+
+            return;
+        }
+
+        projectId.textContent =
+            state.project.id;
+
+        statusDot.classList.add(
+            "active"
+        );
+
+        if (state.document) {
+
+            fileName.style.display =
+                "block";
+
+            fileName.textContent =
+                state.document.name;
+
+            removeFile.style.display =
+                "inline-block";
+        }
+
+        messages.innerHTML = "";
+
+        state.history.forEach(
+            function (item) {
+
+                if (
+                    item.role === "user"
+                ) {
+
+                    addMessage(
+                        "user",
+                        escapeHTML(
+                            item.content
+                        )
+                    );
+
+                }
+
+                if (
+                    item.role === "assistant"
+                ) {
+
+                    addMessage(
+                        "ai",
+                        formatAIText(
+                            item.content
+                        )
+                    );
+                }
+
+            }
+        );
+
+        if (
+            state.currentQuestion
+        ) {
+
+            addQuestion(
+                state.currentQuestion,
+                []
+            );
+        }
+    }
+
+
+    /* =====================================================
+       FILE UPLOAD
+       ===================================================== */
+
+    uploadArea.addEventListener(
+        "click",
+        function () {
+
+            fileInput.click();
+
+        }
+    );
+
+
+    fileInput.addEventListener(
+        "change",
+        function () {
+
+            if (
+                fileInput.files.length
+            ) {
+
+                initializeProject(
+                    fileInput.files[0]
+                );
+
+            }
+
+        }
+    );
+
+
+    uploadArea.addEventListener(
+        "dragover",
+        function (event) {
+
+            event.preventDefault();
+
+            uploadArea.classList.add(
+                "dragover"
+            );
+
+        }
+    );
+
+
+    uploadArea.addEventListener(
+        "dragleave",
+        function () {
+
+            uploadArea.classList.remove(
+                "dragover"
+            );
+
+        }
+    );
+
+
+    uploadArea.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+            uploadArea.classList.remove(
+                "dragover"
+            );
+
+            const file =
+                event.dataTransfer.files[0];
+
+            if (file) {
+
+                initializeProject(file);
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIALIZE PROJECT
+       ===================================================== */
+
+    async function initializeProject(file) {
+
+        if (!file) {
+
+            return;
+        }
+
+        if (
+            ![
+                "image/jpeg",
+                "image/png",
+                "image/webp",
+                "application/pdf"
+            ].includes(file.type)
+        ) {
+
+            addMessage(
+                "ai",
+                "Unsupported file type."
+            );
+
+            return;
+        }
+
+
+        const id =
+            generateProjectId();
+
+
+        projectId.textContent =
+            id;
+
+
+        fileName.style.display =
+            "block";
+
+        fileName.textContent =
+            file.name;
+
+
+        removeFile.style.display =
+            "inline-block";
+
+
+        statusDot.classList.add(
+            "active"
+        );
+
+
+        /* =================================================
+           READ FILE
+           ================================================= */
+
+        let fileData = null;
+
+        try {
+
+            fileData =
+                await fileToDataURL(file);
+
+        } catch (error) {
+
+            console.error(error);
+
+            addMessage(
+                "ai",
+                "The architectural document could not be read."
+            );
+
+            return;
+        }
+
+
+        /* =================================================
+           INITIAL PROJECT STATE
+           ================================================= */
+
+        state = {
+
+            initialized: true,
+
+            project: {
+
+                id: id,
+
+                type: "Residential",
+
+                location:
+                    "Milenio III, Querétaro, México",
+
+                north:
+                    "top",
+
+                objective:
+                    "Preliminary architectural performance analysis"
+
+            },
+
+            document: {
+
+                name:
+                    file.name,
+
+                type:
+                    file.type,
+
+                data:
+                    fileData
+
+            },
+
+            history: [],
+
+            currentQuestion: null,
+
+            questionStep: 0
+
+        };
+
+
+        saveState();
+
+
+        /* =================================================
+           INITIALIZATION MESSAGE
+           ================================================= */
+
+        addMessage(
+            "ai",
+            `
+            <strong>Project initialized.</strong>
+            <br><br>
+            Project ID:
+            <strong>${escapeHTML(id)}</strong>
+            <br><br>
+            The architectural document has been attached
+            to the research context.
+            `
+        );
+
+
+        state.history.push({
+
+            role:
+                "assistant",
+
+            content:
+                "Project initialized. The architectural document has been attached to the research context."
+
+        });
+
+
+        saveState();
+
+
+        /* =================================================
+           SEND INITIAL PROJECT TO WORKER
+           ================================================= */
+
+        await sendInitializationToWorker();
+
+    }
+
+
+    /* =====================================================
+       SEND INITIALIZATION
+       ===================================================== */
+
+    async function sendInitializationToWorker() {
+
+        setLoading(true);
+
+
+        try {
+
+            const response =
+                await fetch(
+                    WORKER_URL,
+                    {
+                        method:
+                            "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                action:
+                                    "initialize_project",
+
+                                project:
+                                    state.project,
+
+                                document:
+                                    state.document,
+
+                                history:
+                                    state.history
+
+                            })
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Worker returned ${response.status}`
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const aiText =
+                data.response ||
+                data.message ||
+                "PRMS AI initialized the project.";
+
+
+            addMessage(
+                "ai",
+                formatAIText(aiText)
+            );
+
+
+            state.history.push({
+
+                role:
+                    "assistant",
+
+                content:
+                    aiText
+
+            });
+
+
+            state.currentQuestion =
+                aiText;
+
+
+            saveState();
+
+
+        } catch (error) {
+
+            console.error(
+                "PRMS initialization error:",
+                error
+            );
+
+
+            addMessage(
+                "ai",
+                `
+                <strong>Connection error.</strong>
+                <br><br>
+                The project was initialized locally,
+                but the PRMS AI Discovery Worker could
+                not be reached.
+                `
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       REMOVE PROJECT
+       ===================================================== */
+
+    removeFile.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            sessionStorage.removeItem(
+                SESSION_KEY
+            );
+
+
+            state = {
+
+                initialized:
+                    false,
+
+                project:
+                    null,
+
+                document:
+                    null,
+
+                history:
+                    [],
+
+                currentQuestion:
+                    null,
+
+                questionStep:
+                    0
+
+            };
+
+
+            fileInput.value = "";
+
+            fileName.style.display =
+                "none";
+
+            removeFile.style.display =
+                "none";
+
+            projectId.textContent =
+                "New Project";
+
+            statusDot.classList.remove(
+                "active"
+            );
+
+
+            messages.innerHTML = `
+
+                <div class="message ai">
+
+                    <div class="message-label">
+                        PRMS AI
+                    </div>
+
+                    <div class="message-bubble">
+
+                        Upload an architectural plan
+                        to begin.
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    /* =====================================================
+       SEND TEXT MESSAGE
+       ===================================================== */
+
+    async function sendMessage() {
+
+        const text =
+            chatInput.value.trim();
+
+
+        if (!text) {
+
+            return;
+        }
+
+
+        if (
+            !state.initialized
+        ) {
+
+            addMessage(
+                "ai",
+                "Initialize a project by uploading an architectural document first."
+            );
+
+            return;
+        }
+
+
+        addMessage(
+            "user",
+            escapeHTML(text)
+        );
+
+
+        state.history.push({
+
+            role:
+                "user",
+
+            content:
+                text
+
+        });
+
+
+        chatInput.value = "";
+
+
+        saveState();
+
+
+        await sendConversationToWorker(
+            text
+        );
+
+    }
+
+
+    /* =====================================================
+       SEND CONVERSATION
+       ===================================================== */
+
+    async function sendConversationToWorker(
+        message
+    ) {
+
+        setLoading(true);
+
+
+        try {
+
+            const response =
+                await fetch(
+                    WORKER_URL,
+                    {
+                        method:
+                            "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                action:
+                                    "continue",
+
+                                project:
+                                    state.project,
+
+                                document:
+                                    state.document,
+
+                                history:
+                                    state.history,
+
+                                message:
+                                    message
+
+                            })
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Worker returned ${response.status}`
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const aiText =
+                data.response ||
+                data.message ||
+                "PRMS AI received the response.";
+
+
+            addMessage(
+                "ai",
+                formatAIText(aiText)
+            );
+
+
+            state.history.push({
+
+                role:
+                    "assistant",
+
+                content:
+                    aiText
+
+            });
+
+
+            state.currentQuestion =
+                aiText;
+
+
+            state.questionStep++;
+
+
+            saveState();
+
+
+        } catch (error) {
+
+            console.error(
+                "PRMS conversation error:",
+                error
+            );
+
+
+            addMessage(
+                "ai",
+                `
+                <strong>PRMS AI is temporarily unavailable.</strong>
+                <br><br>
+                The project state remains saved in this browser session.
+                `
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MESSAGE RENDERING
+       ===================================================== */
+
+    function addMessage(
+        type,
+        text
+    ) {
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+
+        message.className =
+            `message ${type}`;
+
+
+        const label =
+            type === "ai"
+                ? "PRMS AI"
+                : "YOU";
+
+
+        message.innerHTML = `
+
+            <div class="message-label">
+                ${label}
+            </div>
+
+            <div class="message-bubble">
+                ${text}
+            </div>
+
+        `;
+
+
+        messages.appendChild(
+            message
+        );
+
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    }
+
+
+    /* =====================================================
+       QUESTION OPTIONS
+       ===================================================== */
+
+    function addQuestion(
+        text,
+        options
+    ) {
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+
+        message.className =
+            "message ai";
+
+
+        let optionsHTML =
+            "";
+
+
+        options.forEach(
+            function (option) {
+
+                optionsHTML += `
+
+                    <button
+                        class="option-button"
+                        data-answer="${escapeHTML(option)}"
+                    >
+                        ${escapeHTML(option)}
+                    </button>
+
+                `;
+
+            }
+        );
+
+
+        message.innerHTML = `
+
+            <div class="message-label">
+                PRMS AI
+            </div>
+
+            <div class="message-bubble">
+
+                ${escapeHTML(text)}
+
+                ${
+                    options.length
+                        ? `
+                        <div class="question-options">
+                            ${optionsHTML}
+                        </div>
+                        `
+                        : ""
+                }
+
+            </div>
+
+        `;
+
+
+        messages.appendChild(
+            message
+        );
+
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+
+        message
+            .querySelectorAll(
+                ".option-button"
+            )
+            .forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            const answer =
+                                button.getAttribute(
+                                    "data-answer"
+                                );
+
+
+                            addMessage(
+                                "user",
+                                escapeHTML(
+                                    answer
+                                )
+                            );
+
+
+                            state.history.push({
+
+                                role:
+                                    "user",
+
+                                content:
+                                    answer
+
+                            });
+
+
+                            saveState();
+
+
+                            sendConversationToWorker(
+                                answer
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =====================================================
+       FILE → DATA URL
+       ===================================================== */
+
+    function fileToDataURL(file) {
+
+        return new Promise(
+            function (resolve, reject) {
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function () {
+
+                        resolve(
+                            reader.result
+                        );
+
+                    };
+
+
+                reader.onerror =
+                    function () {
+
+                        reject(
+                            reader.error
+                        );
+
+                    };
+
+
+                reader.readAsDataURL(
+                    file
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       LOADING STATE
+       ===================================================== */
+
+    function setLoading(
+        loading
+    ) {
+
+        sendButton.disabled =
+            loading;
+
+        chatInput.disabled =
+            loading;
+
+
+        if (loading) {
+
+            statusDot.classList.add(
+                "active"
+            );
+
+            sendButton.textContent =
+                "…";
+
+        } else {
+
+            sendButton.textContent =
+                "→";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       FORMAT AI TEXT
+       ===================================================== */
+
+    function formatAIText(
+        text
+    ) {
+
+        return escapeHTML(text)
+            .replace(
+                /\*\*(.*?)\*\*/g,
+                "<strong>$1</strong>"
+            )
+            .replace(
+                /\n/g,
+                "<br>"
+           );
+
+    }
+
+    /* =====================================================
+       SECURITY
+       ===================================================== */
+
+    function escapeHTML(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+    }
+
+    /* =====================================================
+       ENTER TO SEND
+       ===================================================== */
+
+    sendButton.addEventListener(
+        "click",
+        sendMessage
+    );
+
+    chatInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+    );
+
+    /* =====================================================
+       RESTORE EXISTING SESSION
+       ===================================================== */
+
+    if (
+        loadState()
+    ) {
+        restoreSession();
+    }
+});
+
+</script>
 
 <!-- ======================================================
      PRMS NAVIGATION
