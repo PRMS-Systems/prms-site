@@ -23,7 +23,8 @@
     { href: '/renewable-horizons', label: 'Renewable Horizons' },
     { href: '/system-atlas', label: 'System Atlas' },
     { href: '/score', label: 'PRMS Score' },
-
+    // PRMS RESEARCH DIALOGUE
+    { href: '/contributions', label: 'Contributions' },
     // NEW — PRMS AI RESEARCH INFRASTRUCTURE
     { href: '/ai-discovery', label: 'AI Discovery' },
 
