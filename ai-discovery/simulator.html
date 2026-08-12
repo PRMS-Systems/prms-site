@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PRMS Simulator — PRMS Architecture Lab</title>
+
+  <meta
+    name="description"
+    content="PRMS Simulator — Architectural scenario simulation and decision support."
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- FAVICON -->
+  <link rel="icon" href="/favicon.png" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <style>
+
+    /* =========================================================
+       PRMS SIMULATOR
+       ========================================================= */
+
+    .simulator-intro {
+      max-width: 900px;
+      margin-bottom: 3rem;
+    }
+
+    .simulator-intro h1 {
+      margin-bottom: 1rem;
+    }
+
+    .simulator-intro .lead {
+      font-size: 1.25rem;
+      line-height: 1.55;
+      max-width: 70ch;
+      color: var(--gray-700, #555);
+    }
+
+    /* =========================================================
+       SIMULATOR SHELL
+       ========================================================= */
+
+    .simulator-shell {
+      border: 1px solid #d9d9d9;
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.05);
+      margin-bottom: 4rem;
+    }
+
+    .simulator-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: .9rem;
+    }
+
+    .simulator-brand {
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .simulator-status {
+      color: #777;
+    }
+
+    /* =========================================================
+       THREE PANEL AREA
+       ========================================================= */
+
+    .simulator-workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      min-height: 540px;
+    }
+
+    .sim-panel {
+      min-width: 0;
+      border-right: 1px solid #e5e5e5;
+    }
+
+    .sim-panel:last-child {
+      border-right: none;
+    }
+
+    .panel-header {
+      padding: 1.25rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .panel-header h3 {
+      margin: 0 0 .25rem;
+      font-size: 1rem;
+    }
+
+    .panel-header span {
+      font-size: .82rem;
+      color: #777;
+    }
+
+    .panel-body {
+      padding: 1.25rem;
+    }
+
+    /* =========================================================
+       PROJECT INPUT
+       ========================================================= */
+
+    .input-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #777;
+      margin-bottom: .45rem;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: .75rem .8rem;
+      border: 1px solid #d4d4d4;
+      border-radius: 7px;
+      background: #fff;
+      font: inherit;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #111;
+    }
+
+    .input-help {
+      font-size: .78rem;
+      color: #888;
+      margin-top: .35rem;
+    }
+
+    /* =========================================================
+       AI PANEL
+       ========================================================= */
+
+    .ai-message {
+      background: #f2f2f2;
+      border-radius: 10px;
+      padding: 1rem;
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+
+    .ai-message strong {
+      display: block;
+      margin-bottom: .5rem;
+    }
+
+    .ai-question {
+      font-size: .95rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .ai-input {
+      display: flex;
+      gap: .5rem;
+      margin-top: auto;
+    }
+
+    .ai-input input {
+      flex: 1;
+      min-width: 0;
+      padding: .75rem;
+      border: 1px solid #d3d3d3;
+      border-radius: 7px;
+      font: inherit;
+    }
+
+    .ai-input button {
+      width: 44px;
+      border: none;
+      border-radius: 7px;
+      background: #111;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .ai-input button:hover {
+      opacity: .85;
+    }
+
+    .ai-log {
+      margin-top: 1.5rem;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+    }
+
+    .ai-log-item {
+      font-size: .8rem;
+      color: #777;
+      margin-bottom: .6rem;
+    }
+
+    /* =========================================================
+       SCENARIO RESULTS
+       ========================================================= */
+
+    .scenario-table-wrap {
+      overflow-x: auto;
+    }
+
+    .scenario-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+    }
+
+    .scenario-table th,
+    .scenario-table td {
+      padding: .7rem .55rem;
+      border-bottom: 1px solid #e8e8e8;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .scenario-table th:first-child,
+    .scenario-table td:first-child {
+      text-align: left;
+    }
+
+    .scenario-table th {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #777;
+      font-weight: 600;
+    }
+
+    .scenario-table td {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scenario-table .best {
+      font-weight: 700;
+      background: #f3f3f3;
+    }
+
+    .scenario-table .score-row td {
+      font-weight: 700;
+      border-top: 1px solid #111;
+    }
+
+    /* =========================================================
+       SCENARIO CARDS
+       ========================================================= */
+
+    .scenario-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #ddd;
+      border: 1px solid #ddd;
+      margin-top: 2rem;
+    }
+
+    .scenario-card {
+      background: #fff;
+      padding: 1.25rem;
+    }
+
+    .scenario-card h4 {
+      margin: 0 0 .35rem;
+      font-size: 1rem;
+    }
+
+    .scenario-card p {
+      font-size: .82rem;
+      color: #777;
+      line-height: 1.45;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-card ul {
+      margin: 0;
+      padding-left: 1rem;
+      font-size: .8rem;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       RECOMMENDATION
+       ========================================================= */
+
+    .recommendation {
+      margin-top: 2rem;
+      border: 1px solid #111;
+      padding: 1.5rem;
+      background: #fff;
+    }
+
+    .recommendation-label {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #777;
+      margin-bottom: .5rem;
+    }
+
+    .recommendation h3 {
+      margin: 0 0 .75rem;
+      font-size: 1.4rem;
+    }
+
+    .recommendation p {
+      margin: 0;
+      max-width: 70ch;
+      line-height: 1.55;
+    }
+
+    .confidence {
+      margin-top: 1rem;
+      font-size: .82rem;
+      color: #666;
+    }
+
+    /* =========================================================
+       SIMULATION CONTROLS
+       ========================================================= */
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.5rem;
+    }
+
+    .control-button {
+      border: 1px solid #cfcfcf;
+      background: #fff;
+      border-radius: 7px;
+      padding: .75rem 1rem;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .control-button.primary {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .control-button:hover {
+      opacity: .85;
+    }
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 1000px) {
+
+      .simulator-workspace {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .sim-panel:nth-child(2) {
+        border-right: none;
+      }
+
+      .sim-panel:nth-child(3) {
+        grid-column: 1 / -1;
+        border-top: 1px solid #e5e5e5;
+      }
+
+    }
+
+    @media (max-width: 700px) {
+
+      .simulator-workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .sim-panel,
+      .sim-panel:nth-child(2) {
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .sim-panel:nth-child(3) {
+        grid-column: auto;
+        border-top: none;
+      }
+
+      .scenario-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .simulator-topbar {
+        align-items: flex-start;
+        gap: .5rem;
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     NAVIGATION
+     ========================================================= -->
+
+<nav id="main-nav"></nav>
+
+
+<main>
+
+  <!-- =======================================================
+       INTRO
+       ======================================================= -->
+
+  <section>
+
+    <div class="container simulator-intro">
+
+      <p class="section-label">
+        PRMS AI DISCOVERY — EXPERIMENTAL INTERFACE
+      </p>
+
+      <h1>
+        PRMS Simulator
+      </h1>
+
+      <p class="lead">
+        Architectural scenario simulation and decision support.
+      </p>
+
+      <p>
+        Test alternative architectural strategies, compare their
+        predicted performance, and identify the most suitable solution
+        under defined project constraints.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SIMULATOR
+       ======================================================= -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="simulator-shell">
+
+        <!-- TOP BAR -->
+
+        <div class="simulator-topbar">
+
+          <span class="simulator-brand">
+            PRMS SIMULATOR
+          </span>
+
+          <span class="simulator-status">
+            Experimental simulation mode
+          </span>
+
+        </div>
+
+
+        <!-- THREE PANELS -->
+
+        <div class="simulator-workspace">
+
+
+          <!-- =================================================
+               PANEL 01 — PROJECT
+               ================================================= -->
+
+          <div class="sim-panel">
+
+            <div class="panel-header">
+
+              <h3>
+                Project
+              </h3>
+
+              <span>
+                Define the baseline conditions
+              </span>
+
+            </div>
+
+
+            <div class="panel-body">
+
+              <div class="input-group">
+
+                <label>
+                  Project type
+                </label>
+
+                <select id="projectType">
+
+                  <option>
+                    Residential
+                  </option>
+
+                  <option>
+                    Educational
+                  </option>
+
+                  <option>
+                    Commercial
+                  </option>
+
+                  <option>
+                    Mixed-use
+                  </option>
+
+                  <option>
+                    Other
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>
+                  Floor area
+                </label>
+
+                <input
+                  id="area"
+                  type="number"
+                  value="250"
+                  min="20"
+                  step="10"
+                />
+
+                <div class="input-help">
+                  m²
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>
+                  Energy demand
+                </label>
+
+                <input
+                  id="energy"
+                  type="number"
+                  value="100"
+                  min="10"
+                  step="5"
+                />
+
+                <div class="input-help">
+                  Relative baseline = 100
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>
+                  Water demand
+                </label>
+
+                <input
+                  id="water"
+                  type="number"
+                  value="100"
+                  min="10"
+                  step="5"
+                />
+
+                <div class="input-help">
+                  Relative baseline = 100
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>
+                  Initial comfort
+                </label>
+
+                <input
+                  id="comfort"
+                  type="number"
+                  value="72"
+                  min="0"
+                  max="100"
+                  step="1"
+                />
+
+                <div class="input-help">
+                  0–100 performance scale
+                </div>
+
+              </div>
+
+
+              <div class="controls">
+
+                <button
+                  class="control-button primary"
+                  onclick="runSimulation()"
+                >
+                  Run Simulation →
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               PANEL 02 — PRMS AI
+               ================================================= -->
+
+          <div class="sim-panel">
+
+            <div class="panel-header">
+
+              <h3>
+                PRMS AI
+              </h3>
+
+              <span>
+                Scenario reasoning
+              </span>
+
+            </div>
+
+
+            <div class="panel-body">
+
+              <div class="ai-message">
+
+                <strong>
+                  Simulation objective
+                </strong>
+
+                Compare three architectural strategies
+                against the current baseline and identify
+                their predicted performance consequences.
+
+              </div>
+
+
+              <div class="ai-question" id="aiQuestion">
+
+                What would happen if the project envelope,
+                passive strategies and renewable systems
+                were progressively optimized?
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>
+                  Simulation strategy
+                </label>
+
+                <select id="strategy">
+
+                  <option value="balanced">
+                    Balanced performance
+                  </option>
+
+                  <option value="energy">
+                    Energy optimization
+                  </option>
+
+                  <option value="water">
+                    Water optimization
+                  </option>
+
+                  <option value="comfort">
+                    Comfort optimization
+                  </option>
+
+                  <option value="autonomous">
+                    High-performance / autonomy
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="ai-message">
+
+                <strong>
+                  PRMS reasoning
+                </strong>
+
+                The simulator generates three alternative
+                scenarios and estimates their effects across
+                energy, water, comfort, carbon, cost and ROI.
+
+              </div>
+
+
+              <div class="ai-log" id="aiLog">
+
+                <div class="ai-log-item">
+                  System ready.
+                </div>
+
+                <div class="ai-log-item">
+                  Baseline parameters loaded.
+                </div>
+
+                <div class="ai-log-item">
+                  Waiting for simulation.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               PANEL 03 — QUICK RESULTS
+               ================================================= -->
+
+          <div class="sim-panel">
+
+            <div class="panel-header">
+
+              <h3>
+                Scenario Results
+              </h3>
+
+              <span>
+                Comparative performance
+              </span>
+
+            </div>
+
+
+            <div class="panel-body">
+
+              <div class="scenario-table-wrap">
+
+                <table class="scenario-table">
+
+                  <thead>
+
+                    <tr>
+
+                      <th>
+                        Indicator
+                      </th>
+
+                      <th>
+                        Baseline
+                      </th>
+
+                      <th>
+                        Option A
+                      </th>
+
+                      <th>
+                        Option B
+                      </th>
+
+                      <th>
+                        Option C
+                      </th>
+
+                    </tr>
+
+                  </thead>
+
+
+                  <tbody>
+
+                    <tr>
+
+                      <td>
+                        Energy demand
+                      </td>
+
+                      <td id="baselineEnergy">
+                        100
+                      </td>
+
+                      <td id="energyA">
+                        82
+                      </td>
+
+                      <td id="energyB">
+                        71
+                      </td>
+
+                      <td id="energyC" class="best">
+                        64
+                      </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                      <td>
+                        Water demand
+                      </td>
+
+                      <td id="baselineWater">
+                        100
+                      </td>
+
+                      <td id="waterA">
+                        78
+                      </td>
+
+                      <td id="waterB">
+                        62
+                      </td>
+
+                      <td id="waterC" class="best">
+                        55
+                      </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                      <td>
+                        Thermal comfort
+                      </td>
+
+                      <td id="baselineComfort">
+                        72
+                      </td>
+
+                      <td id="comfortA">
+                        79
+                      </td>
+
+                      <td id="comfortB">
+                        86
+                      </td>
+
+                      <td id="comfortC" class="best">
+                        91
+                      </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                      <td>
+                        Carbon
+                      </td>
+
+                      <td>
+                        100
+                      </td>
+
+                      <td>
+                        83
+                      </td>
+
+                      <td>
+                        69
+                      </td>
+
+                      <td class="best">
+                        58
+                      </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                      <td>
+                        Initial cost
+                      </td>
+
+                      <td>
+                        $
+                      </td>
+
+                      <td>
+                        $$
+                      </td>
+
+                      <td>
+                        $$$
+                      </td>
+
+                      <td>
+                        $$$
+                      </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                      <td>
+                        ROI
+                      </td>
+
+                      <td>
+                        —
+                      </td>
+
+                      <td>
+                        8.2 yr
+                      </td>
+
+                      <td class="best">
+                        6.9 yr
+                      </td>
+
+                      <td>
+                        7.4 yr
+                      </td>
+
+                    </tr>
+
+
+                    <tr class="score-row">
+
+                      <td>
+                        PRMS Score
+                      </td>
+
+                      <td id="scoreBaseline">
+                        0.52
+                      </td>
+
+                      <td id="scoreA">
+                        0.67
+                      </td>
+
+                      <td id="scoreB">
+                        0.76
+                      </td>
+
+                      <td id="scoreC" class="best">
+                        0.81
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SCENARIO DESCRIPTIONS
+             ================================================= -->
+
+        <div class="container" style="padding: 2rem 1.25rem 0;">
+
+          <h3>
+            Scenario strategies
+          </h3>
+
+
+          <div class="scenario-cards">
+
+
+            <div class="scenario-card">
+
+              <h4>
+                Option A — Passive Optimization
+              </h4>
+
+              <p>
+                Improve the building envelope and passive
+                environmental strategies with moderate
+                intervention.
+              </p>
+
+              <ul>
+
+                <li>
+                  Improved envelope
+                </li>
+
+                <li>
+                  External shading
+                </li>
+
+                <li>
+                  Reduced cooling demand
+                </li>
+
+                <li>
+                  Moderate initial cost
+                </li>
+
+              </ul>
+
+            </div>
+
+
+            <div class="scenario-card">
+
+              <h4>
+                Option B — Integrated Performance
+              </h4>
+
+              <p>
+                Combine passive strategies, efficient systems
+                and renewable generation.
+              </p>
+
+              <ul>
+
+                <li>
+                  High-performance envelope
+                </li>
+
+                <li>
+                  Efficient HVAC
+                </li>
+
+                <li>
+                  Renewable generation
+                </li>
+
+                <li>
+                  Strong ROI potential
+                </li>
+
+              </ul>
+
+            </div>
+
+
+            <div class="scenario-card">
+
+              <h4>
+                Option C — High Performance
+              </h4>
+
+              <p>
+                Maximize environmental and energetic performance
+                through an integrated metabolic strategy.
+              </p>
+
+              <ul>
+
+                <li>
+                  Advanced envelope
+                </li>
+
+                <li>
+                  Passive + active systems
+                </li>
+
+                <li>
+                  Renewable generation
+                </li>
+
+                <li>
+                  High autonomy potential
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               RECOMMENDATION
+               ================================================= -->
+
+          <div class="recommendation">
+
+            <div class="recommendation-label">
+              PRMS Decision Support
+            </div>
+
+            <h3 id="recommendationTitle">
+              Recommended scenario: Option C
+            </h3>
+
+            <p id="recommendationText">
+
+              Option C produces the highest predicted overall
+              performance, primarily through reduced energy
+              demand, improved thermal comfort and increased
+              renewable contribution.
+
+            </p>
+
+            <div class="confidence">
+
+              Decision confidence:
+              <strong id="confidence">
+                Medium
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="controls">
+
+            <button
+              class="control-button primary"
+              onclick="runSimulation()"
+            >
+              Recalculate Scenarios →
+            </button>
+
+            <button
+              class="control-button"
+              onclick="resetSimulation()"
+            >
+              Reset
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       PRMS LOGIC
+       ======================================================= -->
+
+  <section>
+
+    <div class="container">
+
+      <p class="section-label">
+        DECISION LOGIC
+      </p>
+
+      <h2>
+        From diagnosis to decision
+      </h2>
+
+      <p style="max-width:65ch;">
+        PRMS Simulator is designed to compare alternative
+        architectural strategies rather than produce a single
+        deterministic answer. Each scenario represents a different
+        intervention pathway and its predicted consequences.
+      </p>
+
+      <div class="grid-2" style="margin-top:2rem;">
+
+        <div class="grid-cell">
+
+          <h3>
+            Diagnose
+          </h3>
+
+          <p>
+            Establish the baseline condition and identify the
+            principal sources of uncertainty.
+          </p>
+
+        </div>
+
+
+        <div class="grid-cell">
+
+          <h3>
+            Simulate
+          </h3>
+
+          <p>
+            Test alternative architectural interventions and
+            estimate their performance consequences.
+          </p>
+
+        </div>
+
+
+        <div class="grid-cell">
+
+          <h3>
+            Compare
+          </h3>
+
+          <p>
+            Evaluate multiple scenarios across energy, water,
+            comfort, carbon, economy and overall PRMS performance.
+          </p>
+
+        </div>
+
+
+        <div class="grid-cell">
+
+          <h3>
+            Decide
+          </h3>
+
+          <p>
+            Identify the most appropriate strategy according to
+            project objectives, constraints and evidence.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       FOOTER CTA
+       ======================================================= -->
+
+  <div class="cta-block">
+
+    <div class="container">
+
+      <h2>
+        PRMS Knowledge Core
+      </h2>
+
+      <p>
+        Simulation results can become evidence for the next stage:
+        discovering patterns and generating architectural knowledge.
+      </p>
+
+      <div class="cta-links">
+
+        <a
+          href="/ai-discovery/knowledge.html"
+          class="cta-link"
+        >
+          Explore Knowledge Core →
+        </a>
+
+        <a
+          href="/ai-discovery"
+          class="cta-link"
+        >
+          Back to AI Discovery
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <div class="ecosystem-footer">
+
+    <span class="ecosystem-brand">
+      PEAR-ROI PRMS Architecture Lab ®
+    </span>
+
+    <ul class="ecosystem-links">
+
+      <li>
+        <a
+          href="https://prms.systems"
+          target="_blank"
+        >
+          PRMS Architecture Lab
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://pear-roi.com"
+          target="_blank"
+        >
+          PEAR-ROI Systems
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://pear-roi.com/studio"
+          target="_blank"
+        >
+          PEAR-ROI Studio
+        </a>
+      </li>
+
+    </ul>
+
+    <span class="ecosystem-copy">
+      © 2026 PRMS Architecture Lab · Querétaro, México
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+  /* =========================================================
+     PRMS SIMULATOR — EXPERIMENTAL CALCULATION
+     ========================================================= */
+
+  function runSimulation() {
+
+    const energy =
+      Number(document.getElementById("energy").value) || 100;
+
+    const water =
+      Number(document.getElementById("water").value) || 100;
+
+    const comfort =
+      Number(document.getElementById("comfort").value) || 72;
+
+    const strategy =
+      document.getElementById("strategy").value;
+
+
+    /*
+     * These coefficients are intentionally simple.
+     *
+     * They are NOT the final PRMS mathematical model.
+     * They are placeholders for the experimental interface.
+     *
+     * Later these calculations can be replaced by:
+     *
+     * PRMS Score
+     * weighted indicators
+     * reliability factor
+     * real simulation engines
+     * measured project data
+     */
+
+
+    let aEnergy = energy * 0.82;
+    let bEnergy = energy * 0.71;
+    let cEnergy = energy * 0.64;
+
+    let aWater = water * 0.78;
+    let bWater = water * 0.62;
+    let cWater = water * 0.55;
+
+    let aComfort = comfort + 7;
+    let bComfort = comfort + 14;
+    let cComfort = comfort + 19;
+
+
+    /* Strategy adjustments */
+
+    if (strategy === "energy") {
+
+      aEnergy *= 0.96;
+      bEnergy *= 0.92;
+      cEnergy *= 0.88;
+
+    }
+
+
+    if (strategy === "water") {
+
+      aWater *= 0.94;
+      bWater *= 0.88;
+      cWater *= 0.82;
+
+    }
+
+
+    if (strategy === "comfort") {
+
+      aComfort += 2;
+      bComfort += 4;
+      cComfort += 5;
+
+    }
+
+
+    if (strategy === "autonomous") {
+
+      cEnergy *= 0.90;
+      cWater *= 0.90;
+      cComfort += 3;
+
+    }
+
+
+    /* Prevent comfort from exceeding 100 */
+
+    aComfort = Math.min(aComfort, 100);
+    bComfort = Math.min(bComfort, 100);
+    cComfort = Math.min(cComfort, 100);
+
+
+    /* Simple experimental score */
+
+    const scoreA =
+      calculateScore(
+        aEnergy / energy,
+        aWater / water,
+        aComfort
+      );
+
+    const scoreB =
+      calculateScore(
+        bEnergy / energy,
+        bWater / water,
+        bComfort
+      );
+
+    const scoreC =
+      calculateScore(
+        cEnergy / energy,
+        cWater / water,
+        cComfort
+      );
+
+
+    /* Update table */
+
+    setText("baselineEnergy", round(energy));
+    setText("baselineWater", round(water));
+    setText("baselineComfort", round(comfort));
+
+    setText("energyA", round(aEnergy));
+    setText("energyB", round(bEnergy));
+    setText("energyC", round(cEnergy));
+
+    setText("waterA", round(aWater));
+    setText("waterB", round(bWater));
+    setText("waterC", round(cWater));
+
+    setText("comfortA", round(aComfort));
+    setText("comfortB", round(bComfort));
+    setText("comfortC", round(cComfort));
+
+    setText("scoreA", scoreA.toFixed(2));
+    setText("scoreB", scoreB.toFixed(2));
+    setText("scoreC", scoreC.toFixed(2));
+
+
+    /* Recommendation */
+
+    let recommendation = "Option C";
+    let confidence = "Medium";
+
+    if (
+      scoreA >= scoreB &&
+      scoreA >= scoreC
+    ) {
+
+      recommendation = "Option A";
+
+    }
+    else if (
+      scoreB >= scoreA &&
+      scoreB >= scoreC
+    ) {
+
+      recommendation = "Option B";
+
+    }
+
+
+    const scores = [scoreA, scoreB, scoreC];
+
+    const highest = Math.max(...scores);
+
+    const lowest = Math.min(...scores);
+
+    if ((highest - lowest) > 0.15) {
+
+      confidence = "High";
+
+    }
+
+
+    setText(
+      "recommendationTitle",
+      "Recommended scenario: " + recommendation
+    );
+
+
+    setText(
+      "recommendationText",
+      generateRecommendation(
+        recommendation,
+        strategy
+      )
+    );
+
+
+    setText(
+      "confidence",
+      confidence
+    );
+
+
+    /* Update AI log */
+
+    const log =
+      document.getElementById("aiLog");
+
+    log.innerHTML = "";
+
+    addLog(
+      "Baseline parameters analyzed."
+    );
+
+    addLog(
+      "Three alternative scenarios generated."
+    );
+
+    addLog(
+      "Performance indicators recalculated."
+    );
+
+    addLog(
+      "Scenario comparison completed."
+    );
+
+    addLog(
+      "Recommendation generated: " + recommendation
+    );
+
+
+    /* Update AI question */
+
+    document.getElementById("aiQuestion").textContent =
+      "Simulation completed. The next step is to review the trade-offs between performance, cost, comfort and return on investment.";
+  }
+
+
+  /* =========================================================
+     SCORE
+     ========================================================= */
+
+  function calculateScore(
+    energyRatio,
+    waterRatio,
+    comfort
+  ) {
+
+    const energyPerformance =
+      1 - energyRatio;
+
+    const waterPerformance =
+      1 - waterRatio;
+
+    const comfortPerformance =
+      comfort / 100;
+
+
+    /*
+     * Experimental weighting only.
+     * Final PRMS Score model will replace this.
+     */
+
+    const score =
+      (
+        energyPerformance * 0.35 +
+        waterPerformance * 0.25 +
+        comfortPerformance * 0.40
+      );
+
+
+    return Math.max(
+      0,
+      Math.min(
+        1,
+        score
+      )
+    );
+
+  }
+
+
+  /* =========================================================
+     RECOMMENDATION TEXT
+     ========================================================= */
+
+  function generateRecommendation(
+    scenario,
+    strategy
+  ) {
+
+    if (scenario === "Option A") {
+
+      return "Option A provides a moderate improvement pathway with lower intervention intensity and comparatively lower initial cost. It may be appropriate when implementation constraints are more important than maximum performance.";
+
+    }
+
+
+    if (scenario === "Option B") {
+
+      return "Option B provides a balanced relationship between performance, investment and return. It may represent the most appropriate strategy when overall project efficiency and economic performance must be considered together.";
+
+    }
+
+
+    return "Option C produces the highest predicted overall performance through deeper integration of passive strategies, efficient systems and renewable generation. Its principal trade-off is higher initial intervention and investment.";
+
+  }
+
+
+  /* =========================================================
+     HELPERS
+     ========================================================= */
+
+  function setText(
+    id,
+    value
+  ) {
+
+    document.getElementById(id).textContent =
+      value;
+
+  }
+
+
+  function round(
+    value
+  ) {
+
+    return Math.round(
+      value
+    );
+
+  }
+
+
+  function addLog(
+    message
+  ) {
+
+    const log =
+      document.getElementById("aiLog");
+
+    const item =
+      document.createElement("div");
+
+    item.className =
+      "ai-log-item";
+
+    item.textContent =
+      "• " + message;
+
+    log.appendChild(
+      item
+    );
+
+  }
+
+
+  /* =========================================================
+     RESET
+     ========================================================= */
+
+  function resetSimulation() {
+
+    document.getElementById("area").value = 250;
+
+    document.getElementById("energy").value = 100;
+
+    document.getElementById("water").value = 100;
+
+    document.getElementById("comfort").value = 72;
+
+    document.getElementById("strategy").value =
+      "balanced";
+
+
+    document.getElementById("aiQuestion").textContent =
+      "What would happen if the project envelope, passive strategies and renewable systems were progressively optimized?";
+
+
+    document.getElementById("aiLog").innerHTML = `
+      <div class="ai-log-item">
+        System ready.
+      </div>
+
+      <div class="ai-log-item">
+        Baseline parameters loaded.
+      </div>
+
+      <div class="ai-log-item">
+        Waiting for simulation.
+      </div>
+    `;
+
+
+    setText(
+      "recommendationTitle",
+      "Recommended scenario: Option C"
+    );
+
+
+    setText(
+      "recommendationText",
+      "Option C produces the highest predicted overall performance, primarily through reduced energy demand, improved thermal comfort and increased renewable contribution."
+    );
+
+
+    setText(
+      "confidence",
+      "Medium"
+    );
+
+
+    runSimulation();
+
+  }
+
+
+  /* =========================================================
+     INITIAL SIMULATION
+     ========================================================= */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+      runSimulation();
+
+    }
+  );
+
+</script>
+
+
+<!-- NAVIGATION -->
+<script src="/nav.js"></script>
+
+</body>
+</html>
