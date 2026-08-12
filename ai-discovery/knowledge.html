@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Knowledge Core — PRMS Architecture Lab</title>
+
+<style>
+
+:root{
+    --bg:#f7f7f5;
+    --surface:#ffffff;
+    --soft:#f0f0ee;
+    --line:#dededb;
+    --text:#171717;
+    --muted:#777;
+    --green:#175f43;
+    --green-soft:#e8f0eb;
+    --dark:#111;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing:antialiased;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navbar{
+    height:68px;
+    border-bottom:1px solid var(--line);
+    background:rgba(247,247,245,.96);
+    display:flex;
+    align-items:center;
+    padding:0 58px;
+    gap:38px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.nav-brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    white-space:nowrap;
+    font-family:monospace;
+    font-size:16px;
+    letter-spacing:3px;
+}
+
+.nav-brand img{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:31px;
+    white-space:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.nav-links::-webkit-scrollbar{
+    display:none;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#3f3f3f;
+    font-family:monospace;
+    font-size:13px;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+}
+
+.nav-links a:hover{
+    color:var(--green);
+}
+
+.nav-links a.active{
+    color:var(--green);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    max-width:1180px;
+    margin:0 auto;
+    padding:145px 40px 105px;
+}
+
+.eyebrow{
+    font-family:monospace;
+    font-size:13px;
+    letter-spacing:3px;
+    color:#8a8a87;
+    text-transform:uppercase;
+    margin-bottom:28px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:72px;
+    line-height:.98;
+    letter-spacing:-4px;
+    font-weight:700;
+}
+
+.hero-subtitle{
+    margin-top:30px;
+    font-size:28px;
+    line-height:1.3;
+    color:#4d4d4b;
+    max-width:850px;
+}
+
+.hero-description{
+    margin-top:35px;
+    max-width:850px;
+    font-size:18px;
+    line-height:1.75;
+    color:#5f5f5c;
+}
+
+/* =========================================================
+   KNOWLEDGE FLOW
+========================================================= */
+
+.flow{
+    max-width:1180px;
+    margin:0 auto 120px;
+    padding:0 40px;
+}
+
+.flow-line{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.flow-item{
+    min-height:145px;
+    padding:30px 25px;
+    border-right:1px solid var(--line);
+}
+
+.flow-item:last-child{
+    border-right:none;
+}
+
+.flow-number{
+    font-family:monospace;
+    color:var(--green);
+    font-size:12px;
+    letter-spacing:2px;
+    margin-bottom:25px;
+}
+
+.flow-title{
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.flow-text{
+    color:#777;
+    line-height:1.5;
+    font-size:14px;
+}
+
+/* =========================================================
+   KNOWLEDGE CORE APPLICATION
+========================================================= */
+
+.core{
+    max-width:1320px;
+    margin:0 auto 140px;
+    padding:0 35px;
+}
+
+.core-shell{
+    background:var(--surface);
+    border:1px solid #d8d8d5;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 18px 45px rgba(0,0,0,.045);
+}
+
+.core-topbar{
+    height:66px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+}
+
+.core-title{
+    font-family:monospace;
+    font-size:14px;
+    letter-spacing:2px;
+}
+
+.core-status{
+    font-size:12px;
+    color:#777;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+}
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.filters{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border-bottom:1px solid var(--line);
+}
+
+.filter{
+    padding:20px 22px;
+    border-right:1px solid var(--line);
+}
+
+.filter:last-child{
+    border-right:none;
+}
+
+.filter label{
+    display:block;
+    font-family:monospace;
+    font-size:10px;
+    letter-spacing:1.8px;
+    color:#999;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.filter select{
+    width:100%;
+    border:0;
+    background:transparent;
+    font-size:14px;
+    color:#222;
+    outline:none;
+    cursor:pointer;
+}
+
+/* =========================================================
+   MAIN INTELLIGENCE GRID
+========================================================= */
+
+.intelligence{
+    display:grid;
+    grid-template-columns:1.35fr .8fr;
+    min-height:690px;
+}
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.map-panel{
+    border-right:1px solid var(--line);
+    padding:28px;
+}
+
+.panel-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.panel-heading h2{
+    margin:0;
+    font-size:18px;
+}
+
+.panel-heading span{
+    font-family:monospace;
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:#999;
+}
+
+.map{
+    position:relative;
+    height:555px;
+    border:1px solid var(--line);
+    background:
+        linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);
+    background-size:42px 42px;
+    overflow:hidden;
+}
+
+/* abstract urban geometry */
+
+.road{
+    position:absolute;
+    background:#e5e5e2;
+}
+
+.road.r1{
+    width:100%;
+    height:17px;
+    top:42%;
+    transform:rotate(-9deg);
+}
+
+.road.r2{
+    width:100%;
+    height:12px;
+    top:65%;
+    transform:rotate(14deg);
+}
+
+.road.r3{
+    width:13px;
+    height:100%;
+    left:43%;
+    transform:rotate(9deg);
+}
+
+.road.r4{
+    width:10px;
+    height:100%;
+    left:72%;
+    transform:rotate(-17deg);
+}
+
+/* urban blocks */
+
+.block{
+    position:absolute;
+    background:#e9e9e6;
+    border:1px solid #d7d7d4;
+}
+
+.b1{left:8%;top:12%;width:20%;height:17%;}
+.b2{left:33%;top:8%;width:18%;height:20%;}
+.b3{left:58%;top:13%;width:24%;height:15%;}
+.b4{left:12%;top:51%;width:22%;height:18%;}
+.b5{left:48%;top:48%;width:17%;height:18%;}
+.b6{left:76%;top:53%;width:15%;height:23%;}
+.b7{left:30%;top:75%;width:21%;height:15%;}
+
+/* pattern points */
+
+.pattern{
+    position:absolute;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:var(--green);
+    border:3px solid rgba(255,255,255,.9);
+    box-shadow:0 3px 12px rgba(23,95,67,.3);
+    cursor:pointer;
+    transition:.2s;
+    z-index:5;
+}
+
+.pattern:hover{
+    transform:scale(1.5);
+}
+
+.pattern.active{
+    transform:scale(1.7);
+    background:#111;
+}
+
+.p1{left:18%;top:22%;}
+.p2{left:25%;top:59%;}
+.p3{left:39%;top:18%;}
+.p4{left:53%;top:55%;}
+.p5{left:64%;top:20%;}
+.p6{left:79%;top:66%;}
+.p7{left:43%;top:82%;}
+.p8{left:69%;top:43%;}
+
+/* map legend */
+
+.map-legend{
+    position:absolute;
+    left:20px;
+    bottom:18px;
+    background:rgba(255,255,255,.94);
+    border:1px solid var(--line);
+    padding:13px 15px;
+    font-size:11px;
+    color:#666;
+}
+
+.legend-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:5px 0;
+}
+
+.legend-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+}
+
+/* =========================================================
+   PATTERN PANEL
+========================================================= */
+
+.pattern-panel{
+    padding:28px;
+    overflow:hidden;
+}
+
+.pattern-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.pattern-card{
+    border:1px solid var(--line);
+    padding:18px;
+    cursor:pointer;
+    transition:.2s;
+    background:white;
+}
+
+.pattern-card:hover,
+.pattern-card.selected{
+    border-color:#9eb6a9;
+    background:#fafcfb;
+}
+
+.pattern-card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.pattern-card h3{
+    margin:0;
+    font-size:15px;
+}
+
+.pattern-type{
+    font-family:monospace;
+    color:var(--green);
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.pattern-card p{
+    margin:10px 0 15px;
+    color:#777;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.metrics{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.metric{
+    background:#f5f5f3;
+    padding:9px;
+}
+
+.metric-label{
+    display:block;
+    font-family:monospace;
+    font-size:8px;
+    letter-spacing:1px;
+    color:#999;
+    margin-bottom:4px;
+}
+
+.metric-value{
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* =========================================================
+   PATTERN DETAIL
+========================================================= */
+
+.pattern-detail{
+    margin-top:15px;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+}
+
+.detail-label{
+    font-family:monospace;
+    font-size:10px;
+    color:#999;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.detail-title{
+    font-size:23px;
+    margin:8px 0 10px;
+}
+
+.detail-text{
+    color:#666;
+    line-height:1.6;
+    font-size:13px;
+}
+
+.confidence{
+    margin-top:18px;
+}
+
+.confidence-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:#777;
+    margin-bottom:7px;
+}
+
+.confidence-bar{
+    height:5px;
+    background:#e7e7e4;
+}
+
+.confidence-fill{
+    height:100%;
+    background:var(--green);
+    width:82%;
+}
+
+/* =========================================================
+   EVIDENCE SECTION
+========================================================= */
+
+.evidence{
+    max-width:1320px;
+    margin:0 auto 140px;
+    padding:0 35px;
+}
+
+.section-eyebrow{
+    font-family:monospace;
+    font-size:12px;
+    letter-spacing:3px;
+    color:#999;
+    text-transform:uppercase;
+    margin-bottom:25px;
+}
+
+.evidence h2{
+    font-family:Georgia,serif;
+    font-size:54px;
+    font-weight:400;
+    letter-spacing:-2px;
+    margin:0 0 25px;
+}
+
+.evidence-intro{
+    max-width:800px;
+    color:#666;
+    line-height:1.7;
+    font-size:17px;
+    margin-bottom:55px;
+}
+
+.evidence-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.evidence-card{
+    padding:35px 28px;
+    border-right:1px solid var(--line);
+}
+
+.evidence-card:last-child{
+    border-right:none;
+}
+
+.evidence-number{
+    font-family:monospace;
+    font-size:11px;
+    color:var(--green);
+    letter-spacing:2px;
+}
+
+.evidence-card h3{
+    margin:25px 0 12px;
+    font-size:18px;
+}
+
+.evidence-card p{
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* =========================================================
+   RESEARCH QUESTIONS
+========================================================= */
+
+.questions{
+    background:#eeeeeb;
+    padding:120px 0;
+}
+
+.questions-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 40px;
+}
+
+.questions h2{
+    font-family:Georgia,serif;
+    font-size:55px;
+    font-weight:400;
+    letter-spacing:-2px;
+    margin:0 0 25px;
+}
+
+.questions-intro{
+    color:#666;
+    font-size:17px;
+    line-height:1.7;
+    max-width:760px;
+    margin-bottom:50px;
+}
+
+.question-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:#d8d8d5;
+    border:1px solid #d8d8d5;
+}
+
+.question{
+    background:#f5f5f2;
+    min-height:150px;
+    padding:28px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.question:hover{
+    background:white;
+}
+
+.question-number{
+    font-family:monospace;
+    color:var(--green);
+    font-size:11px;
+}
+
+.question p{
+    font-size:17px;
+    line-height:1.45;
+    margin-top:20px;
+}
+
+/* =========================================================
+   KNOWLEDGE LOOP
+========================================================= */
+
+.loop{
+    max-width:1180px;
+    margin:0 auto;
+    padding:140px 40px;
+}
+
+.loop h2{
+    font-family:Georgia,serif;
+    font-size:55px;
+    font-weight:400;
+    letter-spacing:-2px;
+    margin:0 0 25px;
+}
+
+.loop-text{
+    max-width:800px;
+    color:#666;
+    line-height:1.7;
+    font-size:17px;
+    margin-bottom:55px;
+}
+
+.loop-diagram{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.loop-step{
+    padding:30px 18px;
+    border-right:1px solid var(--line);
+    min-height:135px;
+}
+
+.loop-step:last-child{
+    border-right:none;
+}
+
+.loop-step span{
+    display:block;
+    color:var(--green);
+    font-family:monospace;
+    font-size:10px;
+    letter-spacing:1.5px;
+    margin-bottom:18px;
+}
+
+.loop-step strong{
+    font-size:15px;
+}
+
+/* =========================================================
+   FINAL STATEMENT
+========================================================= */
+
+.final{
+    background:#111;
+    color:white;
+    padding:145px 40px;
+}
+
+.final-inner{
+    max-width:1180px;
+    margin:0 auto;
+}
+
+.final .section-eyebrow{
+    color:#777;
+}
+
+.final h2{
+    font-family:Georgia,serif;
+    font-weight:400;
+    font-size:60px;
+    line-height:1.08;
+    letter-spacing:-2px;
+    max-width:900px;
+    margin:0;
+}
+
+.final p{
+    max-width:780px;
+    margin-top:35px;
+    color:#aaa;
+    font-size:18px;
+    line-height:1.7;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:35px 58px;
+    background:#111;
+    border-top:1px solid #2b2b2b;
+    color:#777;
+    display:flex;
+    justify-content:space-between;
+    font-family:monospace;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .navbar{
+        padding:0 25px;
+    }
+
+    .hero{
+        padding:100px 30px 80px;
+    }
+
+    .hero h1{
+        font-size:58px;
+    }
+
+    .flow-line{
+        grid-template-columns:1fr;
+    }
+
+    .flow-item{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+    }
+
+    .filters{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .filter:nth-child(2n){
+        border-right:none;
+    }
+
+    .intelligence{
+        grid-template-columns:1fr;
+    }
+
+    .map-panel{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+    }
+
+    .evidence-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .evidence-card:nth-child(2){
+        border-right:none;
+    }
+
+    .question-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .loop-diagram{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .loop-step:nth-child(3){
+        border-right:none;
+    }
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        height:60px;
+        padding:0 16px;
+    }
+
+    .nav-brand{
+        font-size:12px;
+    }
+
+    .hero{
+        padding:75px 22px 70px;
+    }
+
+    .hero h1{
+        font-size:46px;
+        letter-spacing:-2.5px;
+    }
+
+    .hero-subtitle{
+        font-size:22px;
+    }
+
+    .hero-description{
+        font-size:16px;
+    }
+
+    .flow{
+        padding:0 20px;
+    }
+
+    .core{
+        padding:0 15px;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .filter{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+    }
+
+    .map{
+        height:420px;
+    }
+
+    .metrics{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .evidence{
+        padding:0 22px;
+    }
+
+    .evidence h2,
+    .questions h2,
+    .loop h2{
+        font-size:42px;
+    }
+
+    .evidence-grid{
+        grid-template-columns:1fr;
+    }
+
+    .evidence-card{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+    }
+
+    .question-grid{
+        grid-template-columns:1fr;
+    }
+
+    .questions-inner{
+        padding:0 22px;
+    }
+
+    .loop{
+        padding:100px 22px;
+    }
+
+    .loop-diagram{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .loop-step:nth-child(2n){
+        border-right:none;
+    }
+
+    .final{
+        padding:100px 22px;
+    }
+
+    .final h2{
+        font-size:44px;
+    }
+
+    footer{
+        padding:25px;
+        flex-direction:column;
+        gap:10px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     NAVIGATION
+======================================================= -->
+
+<nav class="navbar">
+
+    <a href="/" class="nav-brand" style="text-decoration:none;color:inherit;">
+        <img src="/images/prms-logo.png" alt="PRMS">
+        PRMS ARCHITECTURE LAB
+    </a>
+
+    <div class="nav-links">
+
+        <a href="/methodology/">Methodology</a>
+        <a href="/framework/">Framework</a>
+        <a href="/applications/">Applications</a>
+        <a href="/publications/">Publications</a>
+        <a href="/renewable-horizons/">Renewable Horizons</a>
+        <a href="/system-atlas/">System Atlas</a>
+        <a href="/score/">PRMS Score</a>
+        <a href="/contributions/">Contributions</a>
+
+        <a href="/ai-discovery/" class="active">AI Discovery</a>
+
+        <a href="/about/">About</a>
+
+    </div>
+
+</nav>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<section class="hero">
+
+    <div class="eyebrow">
+        PRMS AI DISCOVERY — KNOWLEDGE INFRASTRUCTURE
+    </div>
+
+    <h1>
+        PRMS Knowledge Core
+    </h1>
+
+    <div class="hero-subtitle">
+        Evidence-based discovery of architectural and urban patterns.
+    </div>
+
+    <p class="hero-description">
+        PRMS Knowledge Core is an experimental intelligence system for
+        aggregating architectural, environmental, urban, technological,
+        economic and behavioral evidence to discover patterns in the built
+        environment and transform them into knowledge.
+    </p>
+
+</section>
+
+
+<!-- =======================================================
+     KNOWLEDGE FLOW
+======================================================= -->
+
+<section class="flow">
+
+    <div class="flow-line">
+
+        <div class="flow-item">
+            <div class="flow-number">01</div>
+            <div class="flow-title">Observe</div>
+            <div class="flow-text">
+                Collect evidence from projects, environments and the built fabric.
+            </div>
+        </div>
+
+        <div class="flow-item">
+            <div class="flow-number">02</div>
+            <div class="flow-title">Measure</div>
+            <div class="flow-text">
+                Quantify performance, behavior, conditions and outcomes.
+            </div>
+        </div>
+
+        <div class="flow-item">
+            <div class="flow-number">03</div>
+            <div class="flow-title">Compare</div>
+            <div class="flow-text">
+                Relate projects, locations, technologies and performance.
+            </div>
+        </div>
+
+        <div class="flow-item">
+            <div class="flow-number">04</div>
+            <div class="flow-title">Discover</div>
+            <div class="flow-text">
+                Detect recurring, emerging, declining and regional patterns.
+            </div>
+        </div>
+
+        <div class="flow-item">
+            <div class="flow-number">05</div>
+            <div class="flow-title">Learn</div>
+            <div class="flow-text">
+                Transform evidence and patterns into reusable knowledge.
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     KNOWLEDGE CORE INTERFACE
+======================================================= -->
+
+<section class="core">
+
+<div class="core-shell">
+
+    <div class="core-topbar">
+
+        <div class="core-title">
+            PRMS KNOWLEDGE CORE
+        </div>
+
+        <div class="core-status">
+            <span class="status-dot"></span>
+            Experimental research mode
+        </div>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <div class="filter">
+
+            <label>Country</label>
+
+            <select id="country">
+                <option>Mexico</option>
+                <option>United States</option>
+                <option>Spain</option>
+                <option>Colombia</option>
+            </select>
+
+        </div>
+
+
+        <div class="filter">
+
+            <label>State / Region</label>
+
+            <select id="region">
+                <option>Querétaro</option>
+                <option>Guanajuato</option>
+                <option>Jalisco</option>
+                <option>Mexico City</option>
+            </select>
+
+        </div>
+
+
+        <div class="filter">
+
+            <label>Typology</label>
+
+            <select id="typology">
+                <option>Residential</option>
+                <option>Multifamily</option>
+                <option>Commercial</option>
+                <option>Mixed-use</option>
+            </select>
+
+        </div>
+
+
+        <div class="filter">
+
+            <label>Period</label>
+
+            <select id="period">
+                <option>2022–2026</option>
+                <option>2018–2022</option>
+                <option>2014–2018</option>
+                <option>All available</option>
+            </select>
+
+        </div>
+
+
+        <div class="filter">
+
+            <label>Pattern type</label>
+
+            <select id="patternType">
+
+                <option>All patterns</option>
+                <option>Emerging</option>
+                <option>Growing</option>
+                <option>Stable</option>
+                <option>Declining</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN INTELLIGENCE -->
+
+    <div class="intelligence">
+
+
+        <!-- MAP -->
+
+        <div class="map-panel">
+
+            <div class="panel-heading">
+
+                <h2>Knowledge Map</h2>
+
+                <span>
+                    SPATIAL PATTERN DETECTION
+                </span>
+
+            </div>
+
+
+            <div class="map">
+
+                <div class="road r1"></div>
+                <div class="road r2"></div>
+                <div class="road r3"></div>
+                <div class="road r4"></div>
+
+                <div class="block b1"></div>
+                <div class="block b2"></div>
+                <div class="block b3"></div>
+                <div class="block b4"></div>
+                <div class="block b5"></div>
+                <div class="block b6"></div>
+                <div class="block b7"></div>
+
+
+                <div class="pattern p1" data-pattern="solar"></div>
+                <div class="pattern p2" data-pattern="water"></div>
+                <div class="pattern p3" data-pattern="solar"></div>
+                <div class="pattern p4" data-pattern="comfort"></div>
+                <div class="pattern p5" data-pattern="solar"></div>
+                <div class="pattern p6" data-pattern="water"></div>
+                <div class="pattern p7" data-pattern="mobility"></div>
+                <div class="pattern p8" data-pattern="comfort"></div>
+
+
+                <div class="map-legend">
+
+                    <div class="legend-row">
+                        <span class="legend-dot"></span>
+                        Detected pattern
+                    </div>
+
+                    <div>
+                        1,284 projects · 183 observations
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PATTERNS -->
+
+        <div class="pattern-panel">
+
+            <div class="panel-heading">
+
+                <h2>Detected Patterns</h2>
+
+                <span>27 PATTERNS</span>
+
+            </div>
+
+
+            <div class="pattern-list">
+
+
+                <!-- PATTERN 1 -->
+
+                <div class="pattern-card selected"
+                     data-detail="solar">
+
+                    <div class="pattern-card-top">
+
+                        <h3>
+                            Solar + Storage Adoption
+                        </h3>
+
+                        <div class="pattern-type">
+                            EMERGING
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Increasing adoption of photovoltaic generation
+                        combined with residential energy storage.
+                    </p>
+
+                    <div class="metrics">
+
+                        <div class="metric">
+                            <span class="metric-label">PROJECTS</span>
+                            <span class="metric-value">428</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">GROWTH</span>
+                            <span class="metric-value">+41%</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">CONFIDENCE</span>
+                            <span class="metric-value">0.82</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PATTERN 2 -->
+
+                <div class="pattern-card"
+                     data-detail="water">
+
+                    <div class="pattern-card-top">
+
+                        <h3>
+                            Rainwater Harvesting
+                        </h3>
+
+                        <div class="pattern-type">
+                            GROWING
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Increasing integration of rainwater collection
+                        within residential water strategies.
+                    </p>
+
+                    <div class="metrics">
+
+                        <div class="metric">
+                            <span class="metric-label">PROJECTS</span>
+                            <span class="metric-value">183</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">GROWTH</span>
+                            <span class="metric-value">+31%</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">CONFIDENCE</span>
+                            <span class="metric-value">0.78</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PATTERN 3 -->
+
+                <div class="pattern-card"
+                     data-detail="comfort">
+
+                    <div class="pattern-card-top">
+
+                        <h3>
+                            Passive Thermal Strategies
+                        </h3>
+
+                        <div class="pattern-type">
+                            STABLE
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Recurring use of orientation, shading and
+                        natural ventilation to reduce thermal loads.
+                    </p>
+
+                    <div class="metrics">
+
+                        <div class="metric">
+                            <span class="metric-label">PROJECTS</span>
+                            <span class="metric-value">612</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">TREND</span>
+                            <span class="metric-value">+8%</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">CONFIDENCE</span>
+                            <span class="metric-value">0.86</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DETAIL -->
+
+                <div class="pattern-detail">
+
+                    <div class="detail-label">
+                        Selected pattern
+                    </div>
+
+                    <div class="detail-title"
+                         id="detailTitle">
+                        Solar + Storage Adoption
+                    </div>
+
+                    <div class="detail-text"
+                         id="detailText">
+
+                        External energy generation and storage
+                        appears increasingly associated with residential
+                        projects exposed to high energy demand and
+                        changing electricity economics.
+
+                    </div>
+
+                    <div class="confidence">
+
+                        <div class="confidence-top">
+
+                            <span>
+                                Evidence confidence
+                            </span>
+
+                            <strong id="confidenceValue">
+                                82%
+                            </strong>
+
+                        </div>
+
+                        <div class="confidence-bar">
+                            <div class="confidence-fill"
+                                 id="confidenceFill"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
+     EVIDENCE SOURCES
+======================================================= -->
+
+<section class="evidence">
+
+    <div class="section-eyebrow">
+        EVIDENCE INFRASTRUCTURE
+    </div>
+
+    <h2>
+        Knowledge begins with evidence.
+    </h2>
+
+    <p class="evidence-intro">
+
+        PRMS Knowledge Core progressively combines multiple evidence
+        streams to investigate how the built environment changes,
+        which solutions are being adopted, where they occur and
+        what factors may explain their emergence.
+
+    </p>
+
+
+    <div class="evidence-grid">
+
+
+        <div class="evidence-card">
+
+            <div class="evidence-number">01</div>
+
+            <h3>PRMS Projects</h3>
+
+            <p>
+                Architectural projects, measured performance,
+                simulation results and observed outcomes generated
+                through the PRMS ecosystem.
+            </p>
+
+        </div>
+
+
+        <div class="evidence-card">
+
+            <div class="evidence-number">02</div>
+
+            <h3>Scientific Research</h3>
+
+            <p>
+                Published research, technical literature,
+                performance studies and evidence-based findings.
+            </p>
+
+        </div>
+
+
+        <div class="evidence-card">
+
+            <div class="evidence-number">03</div>
+
+            <h3>Environmental & Urban Data</h3>
+
+            <p>
+                Climate, geography, urban morphology, population,
+                infrastructure and local environmental conditions.
+            </p>
+
+        </div>
+
+
+        <div class="evidence-card">
+
+            <div class="evidence-number">04</div>
+
+            <h3>Market & Behavior</h3>
+
+            <p>
+                Technology availability, prices, incentives,
+                regulations, adoption and observed behavior.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     RESEARCH QUESTIONS
+======================================================= -->
+
+<section class="questions">
+
+<div class="questions-inner">
+
+    <div class="section-eyebrow">
+        RESEARCH EXPLORER
+    </div>
+
+    <h2>
+        Ask the built environment.
+    </h2>
+
+    <p class="questions-intro">
+
+        Knowledge Core is designed around questions rather than
+        predefined answers. The system investigates architectural
+        and urban change by connecting evidence across space,
+        time, technology, economics and performance.
+
+    </p>
+
+
+    <div class="question-grid">
+
+
+        <div class="question">
+            <div class="question-number">01</div>
+            <p>
+                How are homes being built?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">02</div>
+            <p>
+                How are architectural solutions changing?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">03</div>
+            <p>
+                Which technologies are being adopted?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">04</div>
+            <p>
+                Where are these solutions emerging?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">05</div>
+            <p>
+                Under what conditions do they appear?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">06</div>
+            <p>
+                What solutions are being repeated?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">07</div>
+            <p>
+                What appears to work?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">08</div>
+            <p>
+                What appears not to work?
+            </p>
+        </div>
+
+
+        <div class="question">
+            <div class="question-number">09</div>
+            <p>
+                What patterns are emerging?
+            </p>
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
+     KNOWLEDGE LOOP
+======================================================= -->
+
+<section class="loop">
+
+    <div class="section-eyebrow">
+        PRMS KNOWLEDGE LOOP
+    </div>
+
+    <h2>
+        From architecture to knowledge.
+    </h2>
+
+    <p class="loop-text">
+
+        The Knowledge Core connects observation, experimentation,
+        measurement and comparison into a continuous research cycle.
+        Each new project can contribute evidence to the system and
+        each discovered pattern can inform the exploration of the next one.
+
+    </p>
+
+
+    <div class="loop-diagram">
+
+        <div class="loop-step">
+            <span>01</span>
+            <strong>Observe architecture</strong>
+        </div>
+
+        <div class="loop-step">
+            <span>02</span>
+            <strong>Experiment with architecture</strong>
+        </div>
+
+        <div class="loop-step">
+            <span>03</span>
+            <strong>Measure performance</strong>
+        </div>
+
+        <div class="loop-step">
+            <span>04</span>
+            <strong>Compare evidence</strong>
+        </div>
+
+        <div class="loop-step">
+            <span>05</span>
+            <strong>Discover patterns</strong>
+        </div>
+
+        <div class="loop-step">
+            <span>06</span>
+            <strong>Generate knowledge</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL STATEMENT
+======================================================= -->
+
+<section class="final">
+
+<div class="final-inner">
+
+    <div class="section-eyebrow">
+        PRMS AI DISCOVERY
+    </div>
+
+    <h2>
+        Building an evidence-based architectural and urban intelligence.
+    </h2>
+
+    <p>
+
+        PRMS Knowledge Core is designed to progressively discover
+        patterns in the built environment, investigate the factors
+        associated with them, and transform accumulated evidence
+        into knowledge that can inform future architectural decisions.
+
+    </p>
+
+</div>
+
+</section>
+
+
+<footer>
+
+    <div>
+        PRMS ARCHITECTURE LAB
+    </div>
+
+    <div>
+        KNOWLEDGE CORE · EXPERIMENTAL INTERFACE
+    </div>
+
+</footer>
+
+
+<!-- =======================================================
+     INTERACTION
+======================================================= -->
+
+<script>
+
+const cards = document.querySelectorAll(".pattern-card");
+const points = document.querySelectorAll(".pattern");
+
+const detailTitle = document.getElementById("detailTitle");
+const detailText = document.getElementById("detailText");
+const confidenceValue = document.getElementById("confidenceValue");
+const confidenceFill = document.getElementById("confidenceFill");
+
+const data = {
+
+    solar:{
+        title:"Solar + Storage Adoption",
+        text:"External energy generation and storage appears increasingly associated with residential projects exposed to high energy demand and changing electricity economics.",
+        confidence:82
+    },
+
+    water:{
+        title:"Rainwater Harvesting",
+        text:"Rainwater collection appears increasingly associated with residential projects located in regions where water security, rainfall availability and local incentives influence design decisions.",
+        confidence:78
+    },
+
+    comfort:{
+        title:"Passive Thermal Strategies",
+        text:"Orientation, solar control, natural ventilation and envelope strategies continue to appear as recurring responses to thermal performance requirements.",
+        confidence:86
+    },
+
+    mobility:{
+        title:"Distributed Mobility Infrastructure",
+        text:"Emerging residential projects increasingly integrate infrastructure for electric mobility as energy systems, transportation and buildings become more interconnected.",
+        confidence:69
+    }
+
+};
+
+
+function selectPattern(type){
+
+    const selected = data[type];
+
+    if(!selected) return;
+
+    detailTitle.textContent = selected.title;
+    detailText.textContent = selected.text;
+
+    confidenceValue.textContent =
+        selected.confidence + "%";
+
+    confidenceFill.style.width =
+        selected.confidence + "%";
+
+    cards.forEach(card=>{
+        card.classList.remove("selected");
+
+        if(card.dataset.detail === type){
+            card.classList.add("selected");
+        }
+    });
+
+    points.forEach(point=>{
+        point.classList.remove("active");
+
+        if(point.dataset.pattern === type){
+            point.classList.add("active");
+        }
+    });
+
+}
+
+
+cards.forEach(card=>{
+
+    card.addEventListener("click",()=>{
+
+        selectPattern(card.dataset.detail);
+
+    });
+
+});
+
+
+points.forEach(point=>{
+
+    point.addEventListener("click",()=>{
+
+        selectPattern(point.dataset.pattern);
+
+    });
+
+});
+
+
+/* filter feedback */
+
+const filters = document.querySelectorAll(".filter select");
+
+filters.forEach(filter=>{
+
+    filter.addEventListener("change",()=>{
+
+        /*
+        Prototype behavior.
+
+        In the future this event can trigger:
+        - database query
+        - GIS update
+        - pattern recalculation
+        - AI research process
+        */
+
+        document.querySelector(".core-status").innerHTML =
+            '<span class="status-dot"></span> Research query updated';
+
+        setTimeout(()=>{
+
+            document.querySelector(".core-status").innerHTML =
+                '<span class="status-dot"></span> Experimental research mode';
+
+        },1600);
+
+    });
+
+});
+
+
+/* research question interaction */
+
+const questions = document.querySelectorAll(".question");
+
+questions.forEach(question=>{
+
+    question.addEventListener("click",()=>{
+
+        question.style.background = "#ffffff";
+
+        setTimeout(()=>{
+
+            question.style.background = "";
+
+        },800);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
