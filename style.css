@@ -1256,3 +1256,28 @@ footer {
 
     color: #333;
 }
+
+/* =========================================================
+   AI STRATEGY PROPOSALS
+   ========================================================= */
+
+.ai-strategy {
+    margin-top: .35rem;
+    font-size: .74rem;
+    line-height: 1.45;
+    color: #777;
+}
+.ai-strategy::before {
+    content: "PRMS AI · ";
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #999;
+}
+.scenario-card li {
+    margin-bottom: .8rem;
+}
+.scenario-card li strong {
+    font-weight: 600;
+
+}
