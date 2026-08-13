@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>PRMS Knowledge Core — PRMS Architecture Lab</title>
 
@@ -22,13 +22,11 @@
 :root{
     --bg:#f7f7f5;
     --surface:#ffffff;
-    --soft:#f0f0ee;
     --line:#dededb;
     --text:#171717;
     --muted:#777;
     --green:#175f43;
     --green-soft:#e8f0eb;
-    --dark:#111;
     --warning:#8a6a25;
     --warning-soft:#f7f1df;
 }
@@ -45,7 +43,7 @@ body{
     margin:0;
     background:var(--bg);
     color:var(--text);
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     -webkit-font-smoothing:antialiased;
 }
 
@@ -72,9 +70,10 @@ body{
     align-items:center;
     gap:9px;
     white-space:nowrap;
-    font-family:monospace;
-    font-size:16px;
+    font:16px monospace;
     letter-spacing:3px;
+    text-decoration:none;
+    color:inherit;
 }
 
 .nav-brand img{
@@ -85,7 +84,6 @@ body{
 
 .nav-links{
     display:flex;
-    align-items:center;
     gap:31px;
     white-space:nowrap;
     overflow-x:auto;
@@ -97,18 +95,14 @@ body{
 }
 
 .nav-links a{
-    text-decoration:none;
     color:#3f3f3f;
-    font-family:monospace;
-    font-size:13px;
+    text-decoration:none;
+    font:13px monospace;
     letter-spacing:1.6px;
     text-transform:uppercase;
 }
 
-.nav-links a:hover{
-    color:var(--green);
-}
-
+.nav-links a:hover,
 .nav-links a.active{
     color:var(--green);
 }
@@ -120,16 +114,19 @@ body{
 
 .hero{
     max-width:1180px;
-    margin:0 auto;
+    margin:auto;
     padding:145px 40px 105px;
 }
 
-.eyebrow{
-    font-family:monospace;
-    font-size:13px;
+.eyebrow,
+.section-eyebrow{
+    font:12px monospace;
     letter-spacing:3px;
     color:#8a8a87;
     text-transform:uppercase;
+}
+
+.eyebrow{
     margin-bottom:28px;
 }
 
@@ -138,7 +135,6 @@ body{
     font-size:72px;
     line-height:.98;
     letter-spacing:-4px;
-    font-weight:700;
 }
 
 .hero-subtitle{
@@ -159,17 +155,24 @@ body{
 
 
 /* =========================================================
-   KNOWLEDGE CORE
+   CORE
 ========================================================= */
 
-.core{
+.core,
+.questions,
+.evidence{
     max-width:1320px;
-    margin:0 auto 80px;
+    margin-left:auto;
+    margin-right:auto;
     padding:0 35px;
 }
 
+.core{
+    margin-bottom:80px;
+}
+
 .core-shell{
-    background:var(--surface);
+    background:#fff;
     border:1px solid #d8d8d5;
     border-radius:14px;
     overflow:hidden;
@@ -186,8 +189,7 @@ body{
 }
 
 .core-title{
-    font-family:monospace;
-    font-size:14px;
+    font:14px monospace;
     letter-spacing:2px;
 }
 
@@ -223,13 +225,12 @@ body{
 }
 
 .filter:last-child{
-    border-right:none;
+    border-right:0;
 }
 
 .filter label{
     display:block;
-    font-family:monospace;
-    font-size:10px;
+    font:10px monospace;
     letter-spacing:1.8px;
     color:#999;
     text-transform:uppercase;
@@ -241,14 +242,13 @@ body{
     border:0;
     background:transparent;
     font-size:14px;
-    color:#222;
-    outline:none;
+    outline:0;
     cursor:pointer;
 }
 
 
 /* =========================================================
-   MAIN INTELLIGENCE
+   INTELLIGENCE
 ========================================================= */
 
 .intelligence{
@@ -281,8 +281,7 @@ body{
 }
 
 .panel-heading span{
-    font-family:monospace;
-    font-size:10px;
+    font:10px monospace;
     letter-spacing:1.5px;
     color:#999;
 }
@@ -317,28 +316,28 @@ body{
     background:#e5e5e2;
 }
 
-.road.r1{
+.r1{
     width:100%;
     height:17px;
     top:42%;
     transform:rotate(-9deg);
 }
 
-.road.r2{
+.r2{
     width:100%;
     height:12px;
     top:65%;
     transform:rotate(14deg);
 }
 
-.road.r3{
+.r3{
     width:13px;
     height:100%;
     left:43%;
     transform:rotate(9deg);
 }
 
-.road.r4{
+.r4{
     width:10px;
     height:100%;
     left:72%;
@@ -431,6 +430,16 @@ body{
     background:var(--green);
 }
 
+.prototype-tag{
+    display:inline-block;
+    margin-top:8px;
+    padding:4px 7px;
+    background:#f3f3f1;
+    border:1px solid #e3e3df;
+    font:8px monospace;
+    letter-spacing:.8px;
+}
+
 
 /* =========================================================
    PATTERN PANEL
@@ -452,13 +461,17 @@ body{
     padding:18px;
     cursor:pointer;
     transition:.2s;
-    background:white;
+    background:#fff;
 }
 
 .pattern-card:hover,
 .pattern-card.selected{
     border-color:#9eb6a9;
     background:#fafcfb;
+}
+
+.pattern-card.hidden{
+    display:none;
 }
 
 .pattern-card-top{
@@ -473,9 +486,8 @@ body{
 }
 
 .pattern-type{
-    font-family:monospace;
+    font:9px monospace;
     color:var(--green);
-    font-size:9px;
     letter-spacing:1.5px;
 }
 
@@ -499,8 +511,7 @@ body{
 
 .metric-label{
     display:block;
-    font-family:monospace;
-    font-size:8px;
+    font:8px monospace;
     letter-spacing:1px;
     color:#999;
     margin-bottom:4px;
@@ -522,9 +533,9 @@ body{
     padding-top:20px;
 }
 
-.detail-label{
-    font-family:monospace;
-    font-size:10px;
+.detail-label,
+.result-section-label{
+    font:9px monospace;
     color:#999;
     letter-spacing:1.5px;
     text-transform:uppercase;
@@ -553,26 +564,27 @@ body{
     margin-bottom:7px;
 }
 
-.confidence-bar{
+.confidence-bar,
+.result-confidence-bar{
     height:5px;
     background:#e7e7e4;
 }
 
-.confidence-fill{
+.confidence-fill,
+.result-confidence-fill{
     height:100%;
     background:var(--green);
-    width:82%;
+    width:0;
+    transition:width .35s;
 }
 
 
 /* =========================================================
-   RESEARCH EXPLORER
+   QUESTIONS
 ========================================================= */
 
 .questions{
-    max-width:1320px;
-    margin:0 auto 120px;
-    padding:0 35px;
+    margin-bottom:120px;
 }
 
 .questions-shell{
@@ -581,28 +593,29 @@ body{
     padding:75px 55px 55px;
 }
 
-.section-eyebrow{
-    font-family:monospace;
-    font-size:12px;
-    letter-spacing:3px;
-    color:#999;
-    text-transform:uppercase;
-    margin-bottom:25px;
+.questions h2,
+.evidence h2,
+.loop h2{
+    font-family:Georgia,serif;
+    font-weight:400;
+    letter-spacing:-2px;
 }
 
 .questions h2{
-    font-family:Georgia,serif;
     font-size:54px;
-    font-weight:400;
-    letter-spacing:-2px;
     margin:0 0 25px;
 }
 
-.questions-intro{
+.questions-intro,
+.evidence-intro,
+.loop-text{
     color:#666;
     font-size:17px;
     line-height:1.7;
     max-width:800px;
+}
+
+.questions-intro{
     margin-bottom:50px;
 }
 
@@ -619,22 +632,20 @@ body{
     min-height:150px;
     padding:28px;
     cursor:pointer;
-    transition:.2s;
 }
 
 .question:hover{
-    background:white;
+    background:#fff;
 }
 
 .question.active{
-    background:white;
+    background:#fff;
     box-shadow:inset 0 -3px 0 var(--green);
 }
 
 .question-number{
-    font-family:monospace;
+    font:11px monospace;
     color:var(--green);
-    font-size:11px;
 }
 
 .question p{
@@ -645,23 +656,23 @@ body{
 
 
 /* =========================================================
-   RESEARCH FINDING
+   RESEARCH RESULT
 ========================================================= */
 
 .research-result{
     margin-top:1px;
-    background:white;
+    background:#fff;
     border:1px solid var(--line);
     padding:38px;
     display:none;
-    animation:resultAppear .3s ease;
+    animation:appear .3s ease;
 }
 
 .research-result.visible{
     display:block;
 }
 
-@keyframes resultAppear{
+@keyframes appear{
 
     from{
         opacity:0;
@@ -670,7 +681,7 @@ body{
 
     to{
         opacity:1;
-        transform:translateY(0);
+        transform:none;
     }
 
 }
@@ -684,8 +695,7 @@ body{
 }
 
 .result-kicker{
-    font-family:monospace;
-    font-size:10px;
+    font:10px monospace;
     letter-spacing:2px;
     color:#999;
     text-transform:uppercase;
@@ -703,10 +713,20 @@ body{
     background:var(--green-soft);
     color:var(--green);
     padding:8px 12px;
-    font-family:monospace;
-    font-size:9px;
+    font:9px monospace;
     letter-spacing:1.2px;
     white-space:nowrap;
+}
+
+.evidence-status.warning{
+    border-color:#e8dbb5;
+    background:var(--warning-soft);
+    color:var(--warning);
+}
+
+.evidence-status.verified{
+    border-color:#7ca58f;
+    background:#e1eee7;
 }
 
 .result-context{
@@ -723,6 +743,22 @@ body{
     color:#222;
 }
 
+.research-scope{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:10px;
+}
+
+.scope-tag{
+    padding:5px 8px;
+    background:#f3f3f1;
+    border:1px solid #e3e3df;
+    font:9px monospace;
+    letter-spacing:.7px;
+    color:#666;
+}
+
 .result-grid{
     display:grid;
     grid-template-columns:1.15fr .85fr;
@@ -734,11 +770,6 @@ body{
 }
 
 .result-section-label{
-    font-family:monospace;
-    font-size:9px;
-    letter-spacing:2px;
-    color:#999;
-    text-transform:uppercase;
     margin-bottom:9px;
 }
 
@@ -768,8 +799,7 @@ body{
 }
 
 .result-table th{
-    font-family:monospace;
-    font-size:8px;
+    font:8px monospace;
     letter-spacing:1px;
     color:#999;
     text-transform:uppercase;
@@ -785,8 +815,7 @@ body{
     display:inline-block;
     padding:5px 8px;
     background:#f1f1ee;
-    font-family:monospace;
-    font-size:9px;
+    font:9px monospace;
     letter-spacing:1px;
 }
 
@@ -806,14 +835,6 @@ body{
 
 .result-confidence-bar{
     height:6px;
-    background:#e7e7e4;
-}
-
-.result-confidence-fill{
-    height:100%;
-    width:0;
-    background:var(--green);
-    transition:width .35s ease;
 }
 
 .source-list{
@@ -834,23 +855,6 @@ body{
     line-height:1.55;
 }
 
-.research-scope{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-top:10px;
-}
-
-.scope-tag{
-    padding:5px 8px;
-    background:#f3f3f1;
-    border:1px solid #e3e3df;
-    font-family:monospace;
-    font-size:9px;
-    letter-spacing:.7px;
-    color:#666;
-}
-
 .ai-note{
     margin-top:18px;
     padding:13px 15px;
@@ -863,28 +867,19 @@ body{
 
 
 /* =========================================================
-   EVIDENCE INFRASTRUCTURE
+   EVIDENCE
 ========================================================= */
 
 .evidence{
-    max-width:1320px;
-    margin:0 auto 140px;
-    padding:0 35px;
+    margin-bottom:140px;
 }
 
 .evidence h2{
-    font-family:Georgia,serif;
     font-size:54px;
-    font-weight:400;
-    letter-spacing:-2px;
     margin:0 0 25px;
 }
 
 .evidence-intro{
-    max-width:800px;
-    color:#666;
-    line-height:1.7;
-    font-size:17px;
     margin-bottom:55px;
 }
 
@@ -901,12 +896,11 @@ body{
 }
 
 .evidence-card:last-child{
-    border-right:none;
+    border-right:0;
 }
 
 .evidence-number{
-    font-family:monospace;
-    font-size:11px;
+    font:11px monospace;
     color:var(--green);
     letter-spacing:2px;
 }
@@ -929,23 +923,16 @@ body{
 
 .loop{
     max-width:1180px;
-    margin:0 auto;
+    margin:auto;
     padding:20px 40px 140px;
 }
 
 .loop h2{
-    font-family:Georgia,serif;
     font-size:55px;
-    font-weight:400;
-    letter-spacing:-2px;
     margin:0 0 25px;
 }
 
 .loop-text{
-    max-width:800px;
-    color:#666;
-    line-height:1.7;
-    font-size:17px;
     margin-bottom:55px;
 }
 
@@ -963,14 +950,13 @@ body{
 }
 
 .loop-step:last-child{
-    border-right:none;
+    border:0;
 }
 
 .loop-step span{
     display:block;
     color:var(--green);
-    font-family:monospace;
-    font-size:10px;
+    font:10px monospace;
     letter-spacing:1.5px;
     margin-bottom:18px;
 }
@@ -986,13 +972,13 @@ body{
 
 .final{
     background:#111;
-    color:white;
+    color:#fff;
     padding:145px 40px;
 }
 
 .final-inner{
     max-width:1180px;
-    margin:0 auto;
+    margin:auto;
 }
 
 .final .section-eyebrow{
@@ -1000,10 +986,7 @@ body{
 }
 
 .final h2{
-    font-family:Georgia,serif;
-    font-weight:400;
-    font-size:60px;
-    line-height:1.08;
+    font:400 60px/1.08 Georgia,serif;
     letter-spacing:-2px;
     max-width:900px;
     margin:0;
@@ -1029,8 +1012,7 @@ footer{
     color:#777;
     display:flex;
     justify-content:space-between;
-    font-family:monospace;
-    font-size:11px;
+    font:11px monospace;
     letter-spacing:1px;
 }
 
@@ -1058,7 +1040,7 @@ footer{
     }
 
     .filter:nth-child(2n){
-        border-right:none;
+        border-right:0;
     }
 
     .intelligence{
@@ -1066,7 +1048,7 @@ footer{
     }
 
     .map-panel{
-        border-right:none;
+        border-right:0;
         border-bottom:1px solid var(--line);
     }
 
@@ -1075,7 +1057,7 @@ footer{
     }
 
     .evidence-card:nth-child(2){
-        border-right:none;
+        border-right:0;
     }
 
     .question-grid{
@@ -1087,7 +1069,7 @@ footer{
     }
 
     .loop-step:nth-child(3){
-        border-right:none;
+        border-right:0;
     }
 
     .result-grid{
@@ -1125,7 +1107,9 @@ footer{
         font-size:16px;
     }
 
-    .core{
+    .core,
+    .questions,
+    .evidence{
         padding:0 15px;
     }
 
@@ -1134,7 +1118,7 @@ footer{
     }
 
     .filter{
-        border-right:none;
+        border-right:0;
         border-bottom:1px solid var(--line);
     }
 
@@ -1144,10 +1128,6 @@ footer{
 
     .metrics{
         grid-template-columns:1fr 1fr;
-    }
-
-    .questions{
-        padding:0 15px;
     }
 
     .questions-shell{
@@ -1168,20 +1148,12 @@ footer{
         flex-direction:column;
     }
 
-    .result-grid{
-        grid-template-columns:1fr;
-    }
-
-    .evidence{
-        padding:0 22px;
-    }
-
     .evidence-grid{
         grid-template-columns:1fr;
     }
 
     .evidence-card{
-        border-right:none;
+        border-right:0;
         border-bottom:1px solid var(--line);
     }
 
@@ -1194,7 +1166,7 @@ footer{
     }
 
     .loop-step:nth-child(2n){
-        border-right:none;
+        border-right:0;
     }
 
     .final{
@@ -1227,11 +1199,7 @@ footer{
 
 <nav class="navbar">
 
-    <a
-        href="/"
-        class="nav-brand"
-        style="text-decoration:none;color:inherit;"
-    >
+    <a href="/" class="nav-brand">
 
         <img
             src="/images/prms-logo.png"
@@ -1279,7 +1247,7 @@ footer{
     </div>
 
     <h1>
-        PRMS Knowledge Core · v1.0
+        PRMS Knowledge Core · v1.1
     </h1>
 
     <div class="hero-subtitle">
@@ -1308,8 +1276,6 @@ footer{
 <div class="core-shell">
 
 
-    <!-- TOP BAR -->
-
     <div class="core-topbar">
 
         <div class="core-title">
@@ -1330,12 +1296,9 @@ footer{
     </div>
 
 
-    <!-- ===================================================
-         FILTERS
-    =================================================== -->
+    <!-- FILTERS -->
 
     <div class="filters">
-
 
         <div class="filter">
 
@@ -1449,20 +1412,15 @@ footer{
 
         </div>
 
-
     </div>
 
 
-    <!-- ===================================================
-         MAIN INTELLIGENCE
-    =================================================== -->
+    <!-- MAIN INTELLIGENCE -->
 
     <div class="intelligence">
 
 
-        <!-- =================================================
-             MAP
-        ================================================= -->
+        <!-- MAP -->
 
         <div class="map-panel">
 
@@ -1546,11 +1504,12 @@ footer{
 
                     </div>
 
-
                     <div id="mapStats">
+                        1,284 contextual projects · 183 observations
+                    </div>
 
-                        1,284 projects · 183 observations
-
+                    <div class="prototype-tag">
+                        PROTOTYPE DATA · NOT OFFICIAL STATISTICS
                     </div>
 
                 </div>
@@ -1560,9 +1519,7 @@ footer{
         </div>
 
 
-        <!-- =================================================
-             PATTERNS
-        ================================================= -->
+        <!-- PATTERNS -->
 
         <div class="pattern-panel">
 
@@ -1582,11 +1539,10 @@ footer{
             <div class="pattern-list">
 
 
-                <!-- SOLAR -->
-
                 <div
                     class="pattern-card selected"
                     data-detail="solar"
+                    data-type="Emerging"
                 >
 
                     <div class="pattern-card-top">
@@ -1601,7 +1557,7 @@ footer{
 
                     </div>
 
-                    <p id="solarDescription">
+                    <p>
                         Increasing adoption of photovoltaic
                         generation combined with residential
                         energy storage.
@@ -1615,10 +1571,7 @@ footer{
                                 PROJECTS
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="solarProjects"
-                            >
+                            <span class="metric-value">
                                 428
                             </span>
 
@@ -1630,10 +1583,7 @@ footer{
                                 GROWTH
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="solarGrowth"
-                            >
+                            <span class="metric-value">
                                 +41%
                             </span>
 
@@ -1645,10 +1595,7 @@ footer{
                                 CONFIDENCE
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="solarConfidence"
-                            >
+                            <span class="metric-value">
                                 0.82
                             </span>
 
@@ -1659,11 +1606,10 @@ footer{
                 </div>
 
 
-                <!-- WATER -->
-
                 <div
                     class="pattern-card"
                     data-detail="water"
+                    data-type="Growing"
                 >
 
                     <div class="pattern-card-top">
@@ -1678,7 +1624,7 @@ footer{
 
                     </div>
 
-                    <p id="waterDescription">
+                    <p>
                         Increasing integration of rainwater
                         collection within residential water
                         strategies.
@@ -1692,10 +1638,7 @@ footer{
                                 PROJECTS
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="waterProjects"
-                            >
+                            <span class="metric-value">
                                 183
                             </span>
 
@@ -1707,10 +1650,7 @@ footer{
                                 GROWTH
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="waterGrowth"
-                            >
+                            <span class="metric-value">
                                 +31%
                             </span>
 
@@ -1722,10 +1662,7 @@ footer{
                                 CONFIDENCE
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="waterConfidence"
-                            >
+                            <span class="metric-value">
                                 0.78
                             </span>
 
@@ -1736,11 +1673,10 @@ footer{
                 </div>
 
 
-                <!-- COMFORT -->
-
                 <div
                     class="pattern-card"
                     data-detail="comfort"
+                    data-type="Stable"
                 >
 
                     <div class="pattern-card-top">
@@ -1755,7 +1691,7 @@ footer{
 
                     </div>
 
-                    <p id="comfortDescription">
+                    <p>
                         Recurring use of orientation, shading
                         and natural ventilation to reduce
                         thermal loads.
@@ -1769,10 +1705,7 @@ footer{
                                 PROJECTS
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="comfortProjects"
-                            >
+                            <span class="metric-value">
                                 612
                             </span>
 
@@ -1784,10 +1717,7 @@ footer{
                                 TREND
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="comfortGrowth"
-                            >
+                            <span class="metric-value">
                                 +8%
                             </span>
 
@@ -1799,11 +1729,75 @@ footer{
                                 CONFIDENCE
                             </span>
 
-                            <span
-                                class="metric-value"
-                                id="comfortConfidence"
-                            >
+                            <span class="metric-value">
                                 0.86
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="pattern-card"
+                    data-detail="mobility"
+                    data-type="Emerging"
+                >
+
+                    <div class="pattern-card-top">
+
+                        <h3>
+                            Distributed Mobility Infrastructure
+                        </h3>
+
+                        <div class="pattern-type">
+                            EMERGING
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Building systems increasingly interact
+                        with electric mobility and distributed
+                        energy infrastructure.
+                    </p>
+
+                    <div class="metrics">
+
+                        <div class="metric">
+
+                            <span class="metric-label">
+                                PROJECTS
+                            </span>
+
+                            <span class="metric-value">
+                                96
+                            </span>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <span class="metric-label">
+                                GROWTH
+                            </span>
+
+                            <span class="metric-value">
+                                +26%
+                            </span>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <span class="metric-label">
+                                CONFIDENCE
+                            </span>
+
+                            <span class="metric-value">
+                                0.69
                             </span>
 
                         </div>
@@ -1824,20 +1818,12 @@ footer{
                     <div
                         class="detail-title"
                         id="detailTitle"
-                    >
-                        Solar + Storage Adoption
-                    </div>
+                    ></div>
 
                     <div
                         class="detail-text"
                         id="detailText"
-                    >
-                        External energy generation and storage
-                        appears increasingly associated with
-                        residential projects exposed to high
-                        energy demand and changing electricity
-                        economics.
-                    </div>
+                    ></div>
 
                     <div class="confidence">
 
@@ -1847,9 +1833,7 @@ footer{
                                 Evidence confidence
                             </span>
 
-                            <strong id="confidenceValue">
-                                82%
-                            </strong>
+                            <strong id="confidenceValue"></strong>
 
                         </div>
 
@@ -1865,7 +1849,6 @@ footer{
                     </div>
 
                 </div>
-
 
             </div>
 
@@ -1898,15 +1881,13 @@ footer{
 
         Select a research question to investigate patterns,
         trends and relationships within the selected evidence
-        universe. The research engine uses the selected
-        country, region, typology and period to contextualize
-        the finding.
+        universe. The research engine uses the selected country,
+        region, typology and period to contextualize the finding.
 
     </p>
 
 
     <div class="question-grid">
-
 
         <div
             class="question"
@@ -1919,6 +1900,7 @@ footer{
             <p>
                 How are homes being built?
             </p>
+
         </div>
 
 
@@ -1933,6 +1915,7 @@ footer{
             <p>
                 How are architectural solutions changing?
             </p>
+
         </div>
 
 
@@ -1947,6 +1930,7 @@ footer{
             <p>
                 Which technologies are being adopted?
             </p>
+
         </div>
 
 
@@ -1961,6 +1945,7 @@ footer{
             <p>
                 Where are these solutions emerging?
             </p>
+
         </div>
 
 
@@ -1975,6 +1960,7 @@ footer{
             <p>
                 Under what conditions do they appear?
             </p>
+
         </div>
 
 
@@ -1989,6 +1975,7 @@ footer{
             <p>
                 What solutions are being repeated?
             </p>
+
         </div>
 
 
@@ -2003,6 +1990,7 @@ footer{
             <p>
                 What appears to work?
             </p>
+
         </div>
 
 
@@ -2017,6 +2005,7 @@ footer{
             <p>
                 What appears not to work?
             </p>
+
         </div>
 
 
@@ -2031,15 +2020,13 @@ footer{
             <p>
                 What patterns are emerging?
             </p>
-        </div>
 
+        </div>
 
     </div>
 
 
-    <!-- ===================================================
-         RESEARCH FINDING
-    =================================================== -->
+    <!-- RESEARCH RESULT -->
 
     <div
         class="research-result"
@@ -2057,9 +2044,7 @@ footer{
                 <h3
                     class="result-title"
                     id="resultTitle"
-                >
-                    Select a question
-                </h3>
+                ></h3>
 
             </div>
 
@@ -2076,16 +2061,11 @@ footer{
         <div
             class="result-context"
             id="resultContext"
-        >
-            Select a research question to generate
-            an analytical result.
-        </div>
+        ></div>
 
 
         <div class="result-grid">
 
-
-            <!-- LEFT -->
 
             <div>
 
@@ -2095,13 +2075,9 @@ footer{
                         Pattern observed
                     </div>
 
-                    <h4 id="resultPattern">
-                        —
-                    </h4>
+                    <h4 id="resultPattern"></h4>
 
-                    <p id="resultPatternText">
-                        —
-                    </p>
+                    <p id="resultPatternText"></p>
 
                 </div>
 
@@ -2117,9 +2093,7 @@ footer{
                         <span
                             class="result-trend"
                             id="resultTrend"
-                        >
-                            —
-                        </span>
+                        ></span>
 
                     </p>
 
@@ -2132,9 +2106,7 @@ footer{
                         Interpretation
                     </div>
 
-                    <p id="resultInterpretation">
-                        —
-                    </p>
+                    <p id="resultInterpretation"></p>
 
                 </div>
 
@@ -2145,16 +2117,12 @@ footer{
                         Possible drivers
                     </div>
 
-                    <p id="resultDrivers">
-                        —
-                    </p>
+                    <p id="resultDrivers"></p>
 
                 </div>
 
             </div>
 
-
-            <!-- RIGHT -->
 
             <div>
 
@@ -2182,14 +2150,7 @@ footer{
 
                         </thead>
 
-                        <tbody id="resultTable">
-
-                            <tr>
-                                <td>—</td>
-                                <td>—</td>
-                            </tr>
-
-                        </tbody>
+                        <tbody id="resultTable"></tbody>
 
                     </table>
 
@@ -2205,11 +2166,7 @@ footer{
                     <ul
                         class="source-list"
                         id="sourceList"
-                    >
-                        <li>
-                            Contextual PRMS prototype
-                        </li>
-                    </ul>
+                    ></ul>
 
                 </div>
 
@@ -2222,9 +2179,7 @@ footer{
                             Evidence confidence
                         </span>
 
-                        <strong id="resultConfidence">
-                            0%
-                        </strong>
+                        <strong id="resultConfidence"></strong>
 
                     </div>
 
@@ -2247,25 +2202,13 @@ footer{
         <div
             class="ai-note"
             id="aiNote"
-        >
-            The current interface uses a contextual PRMS
-            research engine. It does not claim to retrieve
-            live institutional statistics. A future AI/API
-            connection can replace the local analytical layer
-            with verified external evidence retrieval.
-        </div>
+        ></div>
 
 
         <div
             class="result-disclaimer"
             id="resultDisclaimer"
-        >
-            Prototype analytical result. Values and interpretations
-            shown here are contextual research hypotheses and should
-            not be attributed to INEGI, Census Bureau, Eurostat,
-            DANE or another external institution unless the
-            corresponding verified dataset is explicitly connected.
-        </div>
+        ></div>
 
     </div>
 
@@ -2299,7 +2242,6 @@ footer{
 
 
     <div class="evidence-grid">
-
 
         <div class="evidence-card">
 
@@ -2345,7 +2287,7 @@ footer{
             </div>
 
             <h3>
-                Environmental & Urban Data
+                Environmental &amp; Urban Data
             </h3>
 
             <p>
@@ -2363,7 +2305,7 @@ footer{
             </div>
 
             <h3>
-                Market & Behavior
+                Market &amp; Behavior
             </h3>
 
             <p>
@@ -2372,7 +2314,6 @@ footer{
             </p>
 
         </div>
-
 
     </div>
 
@@ -2406,61 +2347,30 @@ footer{
 
     <div class="loop-diagram">
 
-
         <div class="loop-step">
-
             <span>01</span>
-
-            <strong>
-                Observe
-            </strong>
-
+            <strong>Observe</strong>
         </div>
 
-
         <div class="loop-step">
-
             <span>02</span>
-
-            <strong>
-                Measure
-            </strong>
-
+            <strong>Measure</strong>
         </div>
 
-
         <div class="loop-step">
-
             <span>03</span>
-
-            <strong>
-                Compare
-            </strong>
-
+            <strong>Compare</strong>
         </div>
 
-
         <div class="loop-step">
-
             <span>04</span>
-
-            <strong>
-                Discover
-            </strong>
-
+            <strong>Discover</strong>
         </div>
-
 
         <div class="loop-step">
-
             <span>05</span>
-
-            <strong>
-                Learn
-            </strong>
-
+            <strong>Learn</strong>
         </div>
-
 
     </div>
 
@@ -2520,32 +2430,13 @@ footer{
 
 /* =========================================================
    PRMS AI ENDPOINT
-=========================================================
-
-   LEAVE EMPTY FOR THE LOCAL CONTEXTUAL ENGINE.
-
-   Later, if you create a backend AI endpoint, for example:
-
-   const PRMS_AI_ENDPOINT = "/api/knowledge-query";
-
-   the frontend can send:
-
-   country
-   region
-   typology
-   period
-   patternType
-   question
-
-   to that service.
-
 ========================================================= */
 
 const PRMS_AI_ENDPOINT = "";
 
 
 /* =========================================================
-   COUNTRY → REGION DATABASE
+   GEOGRAPHIC DATA
 ========================================================= */
 
 const geographicData = {
@@ -2700,214 +2591,448 @@ const geographicData = {
 
 
 /* =========================================================
-   REGIONAL ARCHITECTURAL PROFILES
-=========================================================
-
-   This is the local prototype knowledge layer.
-
-   It deliberately does NOT claim to be official statistics.
-
+   COUNTRY PROFILES
 ========================================================= */
 
-const regionalProfiles = {
+const baseProfiles = {
 
-    "Mexico|Querétaro":{
-        construction:"Concrete and masonry remain the principal conventional reference, with reinforced-concrete structural systems and masonry enclosure commonly associated with residential development.",
-        passive:"Solar control, orientation, shading and ventilation become relevant responses to the semi-arid climate.",
-        climate:"Semi-arid conditions with strong solar exposure and significant seasonal temperature variation.",
-        water:"Water security and efficient water use are important design variables.",
-        energy:"Cooling demand and solar generation are relevant performance variables.",
-        technology:"Photovoltaics, efficient HVAC, water recovery and monitoring systems are relevant emerging strategies.",
-        drivers:"Climate, water security, energy costs, construction practices, technology availability and project economics."
+    "Mexico":{
+        construction:
+            "Concrete, reinforced concrete and masonry are established conventional references across much of the residential construction context, with significant regional variation.",
+
+        passive:
+            "Orientation, solar control, shading and ventilation vary according to climate region.",
+
+        climate:
+            "Strong regional climatic diversity creates different architectural responses.",
+
+        water:
+            "Water security and efficient water use are important variables in many regions.",
+
+        energy:
+            "Cooling, appliance demand and electricity economics vary significantly by region.",
+
+        technology:
+            "Photovoltaics, efficient HVAC, water systems and monitoring are relevant technology categories.",
+
+        drivers:
+            "Climate, water security, energy costs, regulation, construction practices and economics."
     },
 
-    "Mexico|Ciudad de México":{
-        construction:"Reinforced concrete and masonry form an important conventional residential construction reference.",
-        passive:"Solar control, ventilation, thermal envelope strategies and urban heat considerations are relevant.",
-        climate:"High-altitude temperate conditions combined with strong solar exposure and dense urban conditions.",
-        water:"Water management, rainwater capture and demand reduction are relevant urban performance concerns.",
-        energy:"Building envelope, heating/cooling demand and distributed generation can influence performance.",
-        technology:"Rainwater harvesting, photovoltaic generation, monitoring and efficient building systems are relevant strategies.",
-        drivers:"Urban density, water infrastructure, climate, regulation, resource costs and building economics."
+
+    "United States":{
+        construction:
+            "Residential construction varies considerably by region, but wood-frame systems are a major reference across many housing markets, alongside masonry and concrete systems.",
+
+        passive:
+            "Envelope performance, solar control, insulation, shading and ventilation vary strongly by climate zone.",
+
+        climate:
+            "Large geographic and climatic diversity means construction patterns cannot be generalized nationally without regional qualification.",
+
+        water:
+            "Water stress, rainfall and infrastructure conditions vary substantially by region.",
+
+        energy:
+            "Cooling, heating, electrification and electricity economics are important performance drivers.",
+
+        technology:
+            "PV, batteries, heat pumps, EV charging, efficient HVAC and smart controls are major technology categories.",
+
+        drivers:
+            "Climate, building codes, energy economics, water conditions, electrification and housing-market conditions."
     },
 
-    "Mexico|Nuevo León":{
-        construction:"Concrete and masonry remain an important conventional reference, with residential systems adapted to strong thermal loads.",
-        passive:"Solar control, shading, insulation and efficient cooling are important strategies.",
-        climate:"Hot conditions and strong summer cooling requirements increase the relevance of thermal performance.",
-        water:"Water availability and demand management are important regional considerations.",
-        energy:"Cooling loads create a significant energy-performance driver.",
-        technology:"Efficient HVAC, photovoltaics, smart controls and water-efficiency systems are relevant.",
-        drivers:"Heat, cooling demand, water security, energy costs, technology availability and economics."
+
+    "Spain":{
+        construction:
+            "Masonry, reinforced concrete and composite envelope systems are important conventional residential references.",
+
+        passive:
+            "Solar control, insulation, thermal mass, orientation and natural ventilation are important strategies.",
+
+        climate:
+            "Mediterranean, continental, Atlantic and mountainous conditions create substantial regional differences.",
+
+        water:
+            "Water efficiency is increasingly relevant under seasonal and regional resource constraints.",
+
+        energy:
+            "Heating and cooling performance are important building-energy variables.",
+
+        technology:
+            "PV, heat pumps, efficient envelopes, monitoring and building controls are relevant.",
+
+        drivers:
+            "Climate, energy prices, regulation, renovation, technology availability and building economics."
     },
 
-    "Mexico|Yucatán":{
-        construction:"Masonry and reinforced-concrete construction remain important conventional references.",
-        passive:"Cross ventilation, solar shading and thermal mass are particularly relevant architectural strategies.",
-        climate:"Hot tropical conditions create strong cooling and ventilation requirements.",
-        water:"Rainfall patterns and water-resource management influence building strategies.",
-        energy:"Cooling demand creates an important performance variable.",
-        technology:"Efficient cooling, photovoltaics, rainwater systems and monitoring can become relevant.",
-        drivers:"Climate, cooling demand, water conditions, construction practice and technology economics."
-    },
 
-    "United States|California":{
-        construction:"Wood-frame residential construction is a major reference in many California housing contexts, combined with regionally specific structural and code requirements.",
-        passive:"Solar control, envelope performance, natural ventilation and climate-responsive design vary substantially by subregion.",
-        climate:"California contains multiple climate zones, so construction and performance strategies vary significantly across the state.",
-        water:"Water efficiency and drought resilience are important drivers in many parts of the state.",
-        energy:"Energy efficiency, electrification and distributed solar generation are significant performance themes.",
-        technology:"Photovoltaics, battery storage, heat pumps, EV charging and building controls are important technology categories.",
-        drivers:"Climate, energy regulation, electrification, water stress, technology adoption and housing economics."
-    },
+    "Colombia":{
+        construction:
+            "Masonry and reinforced-concrete systems are important conventional residential references, with substantial regional climatic variation.",
 
-    "United States|Florida":{
-        construction:"Masonry and concrete systems are important residential references in many Florida markets, alongside wood-frame construction.",
-        passive:"Solar control, shading, ventilation and moisture management are important design variables.",
-        climate:"Hot-humid conditions and hurricane exposure strongly influence building performance and construction requirements.",
-        water:"Stormwater, rainfall and water management are important contextual variables.",
-        energy:"Air-conditioning demand is a major energy-performance driver.",
-        technology:"Efficient HVAC, heat pumps, photovoltaics, battery systems and resilient building systems are relevant.",
-        drivers:"Heat, humidity, hurricanes, cooling demand, insurance conditions and resilience requirements."
-    },
+        passive:
+            "Ventilation, shading, daylight and orientation are strongly context dependent.",
 
-    "United States|Texas":{
-        construction:"Wood-frame and masonry systems are both important residential construction references, varying by region and housing market.",
-        passive:"Shading, insulation, orientation and efficient cooling are important responses to thermal loads.",
-        climate:"Large climatic variation exists across the state, with substantial cooling demand in many population centers.",
-        water:"Water availability and drought conditions vary considerably by region.",
-        energy:"Cooling loads and electricity demand are important performance drivers.",
-        technology:"Photovoltaics, efficient HVAC, batteries and smart controls are relevant technology categories.",
-        drivers:"Heat, electricity demand, water conditions, market economics and technology costs."
-    },
+        climate:
+            "Altitude and geographic diversity create major differences between regions.",
 
-    "United States|Arizona":{
-        construction:"Wood-frame and masonry systems coexist, with strong adaptation to hot-arid environmental conditions.",
-        passive:"Shading, thermal mass, insulation and solar control are particularly relevant.",
-        climate:"Hot-arid conditions create strong cooling and solar-exposure pressures.",
-        water:"Water scarcity is a major contextual variable.",
-        energy:"Cooling demand and solar potential create strong energy-performance interactions.",
-        technology:"Photovoltaics, storage, efficient cooling and water-efficiency systems are relevant.",
-        drivers:"Heat, solar exposure, water scarcity, electricity demand and technology economics."
-    },
+        water:
+            "Rainfall and water-resource conditions vary considerably by region.",
 
-    "United States|Colorado":{
-        construction:"Wood-frame construction is a major residential reference, with strong emphasis on envelope performance in colder conditions.",
-        passive:"Solar orientation, insulation, glazing and thermal envelope strategies are relevant.",
-        climate:"Cold winters, solar exposure and seasonal variation influence building design.",
-        water:"Water availability and efficiency remain important regional considerations.",
-        energy:"Heating demand and building-envelope performance are important drivers.",
-        technology:"Heat pumps, photovoltaics, storage and high-performance envelopes are relevant.",
-        drivers:"Cold climate, energy demand, building codes, technology costs and resilience."
-    },
+        energy:
+            "Cooling and ventilation requirements depend strongly on altitude and climate.",
 
-    "Spain|Comunidad de Madrid":{
-        construction:"Reinforced concrete, masonry and composite enclosure systems are important conventional references in residential construction.",
-        passive:"Solar control, thermal mass, insulation and natural ventilation are relevant strategies.",
-        climate:"Mediterranean-continental conditions create significant seasonal thermal variation.",
-        water:"Water efficiency is relevant within a generally resource-conscious building context.",
-        energy:"Heating and cooling performance are important variables.",
-        technology:"Solar PV, heat pumps, efficient envelopes and smart building systems are relevant.",
-        drivers:"Climate, energy costs, regulation, building renovation and technology availability."
-    },
+        technology:
+            "Efficient equipment, photovoltaics, monitoring and water systems are relevant.",
 
-    "Spain|Cataluña":{
-        construction:"Masonry, reinforced concrete and composite envelope systems form important conventional residential references.",
-        passive:"Solar control, ventilation, thermal insulation and orientation are relevant.",
-        climate:"Mediterranean and mountainous climate variation creates different building responses.",
-        water:"Water efficiency becomes relevant under seasonal resource constraints.",
-        energy:"Cooling, heating and envelope performance influence building energy demand.",
-        technology:"PV, heat pumps, efficient envelopes and building monitoring are relevant.",
-        drivers:"Climate, energy costs, regulation, renovation and technology adoption."
-    },
-
-    "Spain|Andalucía":{
-        construction:"Masonry and reinforced concrete are important conventional residential references.",
-        passive:"Shading, thermal mass, orientation and natural ventilation are particularly relevant.",
-        climate:"Hot Mediterranean conditions create strong cooling and solar-control requirements.",
-        water:"Water efficiency is a relevant regional design concern.",
-        energy:"Cooling demand and solar exposure create strong performance opportunities.",
-        technology:"PV, heat pumps, efficient cooling and water-efficiency systems are relevant.",
-        drivers:"Solar exposure, heat, water conditions, energy costs and building economics."
-    },
-
-    "Colombia|Bogotá D.C.":{
-        construction:"Masonry and reinforced-concrete systems are important conventional residential construction references.",
-        passive:"Orientation, daylight, ventilation and envelope strategies are relevant to the cool high-altitude climate.",
-        climate:"High-altitude conditions create relatively moderate temperatures with important solar and ventilation considerations.",
-        water:"Water efficiency and urban infrastructure remain relevant.",
-        energy:"Heating demand is generally different from hot-climate contexts, making envelope and equipment selection important.",
-        technology:"Efficient equipment, monitoring, solar generation and water-efficiency systems are relevant.",
-        drivers:"Climate, urban density, regulation, infrastructure and project economics."
-    },
-
-    "Colombia|Antioquia":{
-        construction:"Masonry and reinforced concrete are important conventional residential construction references.",
-        passive:"Natural ventilation, shading and daylight strategies are relevant.",
-        climate:"Warm and humid conditions in major population centers increase the relevance of ventilation and solar control.",
-        water:"Rainfall and water management are important environmental variables.",
-        energy:"Cooling and ventilation requirements vary by elevation and locality.",
-        technology:"Efficient equipment, solar generation, monitoring and water systems are relevant.",
-        drivers:"Climate, rainfall, urban conditions, energy costs and construction practice."
-    },
-
-    "Colombia|Valle del Cauca":{
-        construction:"Masonry and reinforced-concrete systems are important conventional residential references.",
-        passive:"Cross ventilation, shading and solar control are important strategies.",
-        climate:"Warm conditions increase the relevance of thermal comfort and ventilation.",
-        water:"Rainfall and water-resource conditions influence design decisions.",
-        energy:"Cooling and ventilation loads can be important performance variables.",
-        technology:"Efficient cooling, photovoltaics, monitoring and water-efficiency systems are relevant.",
-        drivers:"Climate, energy demand, rainfall, technology costs and economics."
+        drivers:
+            "Climate, altitude, rainfall, infrastructure, regulation, energy costs and economics."
     }
 
 };
 
 
 /* =========================================================
-   COUNTRY DEFAULT PROFILES
+   REGIONAL PROFILES
 ========================================================= */
 
-const countryProfiles = {
+const regionalProfiles = {
 
-    "Mexico":{
-        construction:"Concrete, reinforced concrete and masonry are established conventional references across much of the residential construction context, with significant regional variation.",
-        passive:"Orientation, solar control, shading and ventilation vary according to climate region.",
-        climate:"Strong regional climatic diversity creates different architectural responses.",
-        water:"Water security and efficient water use are important variables in many regions.",
-        energy:"Cooling, appliance demand and electricity economics vary significantly by region.",
-        technology:"Photovoltaics, efficient HVAC, water systems and monitoring are relevant technology categories.",
-        drivers:"Climate, water security, energy costs, regulation, construction practices and economics."
+    "Mexico|Querétaro":{
+        construction:
+            "Concrete and masonry remain the principal conventional reference, with reinforced-concrete structural systems and masonry enclosure commonly associated with residential development.",
+
+        passive:
+            "Solar control, orientation, shading and ventilation become relevant responses to the semi-arid climate.",
+
+        climate:
+            "Semi-arid conditions with strong solar exposure and significant seasonal temperature variation.",
+
+        water:
+            "Water security and efficient water use are important design variables.",
+
+        energy:
+            "Cooling demand and solar generation are relevant performance variables.",
+
+        technology:
+            "Photovoltaics, efficient HVAC, water recovery and monitoring systems are relevant emerging strategies.",
+
+        drivers:
+            "Climate, water security, energy costs, construction practices, technology availability and project economics."
     },
 
-    "United States":{
-        construction:"Residential construction varies considerably by region, but wood-frame systems are a major reference across many housing markets, alongside masonry and concrete systems.",
-        passive:"Envelope performance, solar control, insulation, shading and ventilation vary strongly by climate zone.",
-        climate:"Large geographic and climatic diversity means construction patterns cannot be generalized nationally without regional qualification.",
-        water:"Water stress, rainfall and infrastructure conditions vary substantially by region.",
-        energy:"Cooling, heating, electrification and electricity economics are important performance drivers.",
-        technology:"PV, batteries, heat pumps, EV charging, efficient HVAC and smart controls are major technology categories.",
-        drivers:"Climate, building codes, energy economics, water conditions, electrification and housing-market conditions."
+
+    "Mexico|Ciudad de México":{
+        construction:
+            "Reinforced concrete and masonry form an important conventional residential construction reference.",
+
+        passive:
+            "Solar control, ventilation, thermal envelope strategies and urban heat considerations are relevant.",
+
+        climate:
+            "High-altitude temperate conditions combined with strong solar exposure and dense urban conditions.",
+
+        water:
+            "Water management, rainwater capture and demand reduction are relevant urban performance concerns.",
+
+        energy:
+            "Building envelope, heating/cooling demand and distributed generation can influence performance.",
+
+        technology:
+            "Rainwater harvesting, photovoltaic generation, monitoring and efficient building systems are relevant strategies.",
+
+        drivers:
+            "Urban density, water infrastructure, climate, regulation, resource costs and building economics."
     },
 
-    "Spain":{
-        construction:"Masonry, reinforced concrete and composite envelope systems are important conventional residential references.",
-        passive:"Solar control, insulation, thermal mass, orientation and natural ventilation are important strategies.",
-        climate:"Mediterranean, continental, Atlantic and mountainous conditions create substantial regional differences.",
-        water:"Water efficiency is increasingly relevant under seasonal and regional resource constraints.",
-        energy:"Heating and cooling performance are important building-energy variables.",
-        technology:"PV, heat pumps, efficient envelopes, monitoring and building controls are relevant.",
-        drivers:"Climate, energy prices, regulation, renovation, technology availability and building economics."
+
+    "Mexico|Nuevo León":{
+        construction:
+            "Concrete and masonry remain an important conventional reference, with residential systems adapted to strong thermal loads.",
+
+        passive:
+            "Solar control, shading, insulation and efficient cooling are important strategies.",
+
+        climate:
+            "Hot conditions and strong summer cooling requirements increase the relevance of thermal performance.",
+
+        water:
+            "Water availability and demand management are important regional considerations.",
+
+        energy:
+            "Cooling loads create a significant energy-performance driver.",
+
+        technology:
+            "Efficient HVAC, photovoltaics, smart controls and water-efficiency systems are relevant.",
+
+        drivers:
+            "Heat, cooling demand, water security, energy costs, technology availability and economics."
     },
 
-    "Colombia":{
-        construction:"Masonry and reinforced-concrete systems are important conventional residential references, with substantial regional climatic variation.",
-        passive:"Ventilation, shading, daylight and orientation are strongly context dependent.",
-        climate:"Altitude and geographic diversity create major differences between regions.",
-        water:"Rainfall and water-resource conditions vary considerably by region.",
-        energy:"Cooling and ventilation requirements depend strongly on altitude and climate.",
-        technology:"Efficient equipment, photovoltaics, monitoring and water systems are relevant.",
-        drivers:"Climate, altitude, rainfall, infrastructure, regulation, energy costs and economics."
+
+    "Mexico|Yucatán":{
+        construction:
+            "Masonry and reinforced-concrete construction remain important conventional references.",
+
+        passive:
+            "Cross ventilation, solar shading and thermal mass are particularly relevant architectural strategies.",
+
+        climate:
+            "Hot tropical conditions create strong cooling and ventilation requirements.",
+
+        water:
+            "Rainfall patterns and water-resource management influence building strategies.",
+
+        energy:
+            "Cooling demand creates an important performance variable.",
+
+        technology:
+            "Efficient cooling, photovoltaics, rainwater systems and monitoring can become relevant.",
+
+        drivers:
+            "Climate, cooling demand, water conditions, construction practice and technology economics."
+    },
+
+
+    "United States|California":{
+        construction:
+            "Wood-frame residential construction is a major reference in many California housing contexts, combined with regionally specific structural and code requirements.",
+
+        passive:
+            "Solar control, envelope performance, natural ventilation and climate-responsive design vary substantially by subregion.",
+
+        climate:
+            "California contains multiple climate zones, so construction and performance strategies vary significantly across the state.",
+
+        water:
+            "Water efficiency and drought resilience are important drivers in many parts of the state.",
+
+        energy:
+            "Energy efficiency, electrification and distributed solar generation are significant performance themes.",
+
+        technology:
+            "Photovoltaics, battery storage, heat pumps, EV charging and building controls are important technology categories.",
+
+        drivers:
+            "Climate, energy regulation, electrification, water stress, technology adoption and housing economics."
+    },
+
+
+    "United States|Florida":{
+        construction:
+            "Masonry and concrete systems are important residential references in many Florida markets, alongside wood-frame construction.",
+
+        passive:
+            "Solar control, shading, ventilation and moisture management are important design variables.",
+
+        climate:
+            "Hot-humid conditions and hurricane exposure strongly influence building performance and construction requirements.",
+
+        water:
+            "Stormwater, rainfall and water management are important contextual variables.",
+
+        energy:
+            "Air-conditioning demand is a major energy-performance driver.",
+
+        technology:
+            "Efficient HVAC, heat pumps, photovoltaics, battery systems and resilient building systems are relevant.",
+
+        drivers:
+            "Heat, humidity, hurricanes, cooling demand, insurance conditions and resilience requirements."
+    },
+
+
+    "United States|Texas":{
+        construction:
+            "Wood-frame and masonry systems are both important residential construction references, varying by region and housing market.",
+
+        passive:
+            "Shading, insulation, orientation and efficient cooling are important responses to thermal loads.",
+
+        climate:
+            "Large climatic variation exists across the state, with substantial cooling demand in many population centers.",
+
+        water:
+            "Water availability and drought conditions vary considerably by region.",
+
+        energy:
+            "Cooling loads and electricity demand are important performance drivers.",
+
+        technology:
+            "Photovoltaics, efficient HVAC, batteries and smart controls are relevant technology categories.",
+
+        drivers:
+            "Heat, electricity demand, water conditions, market economics and technology costs."
+    },
+
+
+    "United States|Arizona":{
+        construction:
+            "Wood-frame and masonry systems coexist, with strong adaptation to hot-arid environmental conditions.",
+
+        passive:
+            "Shading, thermal mass, insulation and solar control are particularly relevant.",
+
+        climate:
+            "Hot-arid conditions create strong cooling and solar-exposure pressures.",
+
+        water:
+            "Water scarcity is a major contextual variable.",
+
+        energy:
+            "Cooling demand and solar potential create strong energy-performance interactions.",
+
+        technology:
+            "Photovoltaics, storage, efficient cooling and water-efficiency systems are relevant.",
+
+        drivers:
+            "Heat, solar exposure, water scarcity, electricity demand and technology economics."
+    },
+
+
+    "Spain|Comunidad de Madrid":{
+        construction:
+            "Reinforced concrete, masonry and composite enclosure systems are important conventional references in residential construction.",
+
+        passive:
+            "Solar control, thermal mass, insulation and natural ventilation are relevant strategies.",
+
+        climate:
+            "Mediterranean-continental conditions create significant seasonal thermal variation.",
+
+        water:
+            "Water efficiency is relevant within a generally resource-conscious building context.",
+
+        energy:
+            "Heating and cooling performance are important variables.",
+
+        technology:
+            "Solar PV, heat pumps, efficient envelopes and smart building systems are relevant.",
+
+        drivers:
+            "Climate, energy costs, regulation, building renovation and technology availability."
+    },
+
+
+    "Spain|Cataluña":{
+        construction:
+            "Masonry, reinforced concrete and composite envelope systems form important conventional residential references.",
+
+        passive:
+            "Solar control, ventilation, thermal insulation and orientation are relevant.",
+
+        climate:
+            "Mediterranean and mountainous climate variation creates different building responses.",
+
+        water:
+            "Water efficiency becomes relevant under seasonal resource constraints.",
+
+        energy:
+            "Cooling, heating and envelope performance influence building energy demand.",
+
+        technology:
+            "PV, heat pumps, efficient envelopes and building monitoring are relevant.",
+
+        drivers:
+            "Climate, energy costs, regulation, renovation and technology adoption."
+    },
+
+
+    "Spain|Andalucía":{
+        construction:
+            "Masonry and reinforced concrete are important conventional residential references.",
+
+        passive:
+            "Shading, thermal mass, orientation and natural ventilation are particularly relevant.",
+
+        climate:
+            "Hot Mediterranean conditions create strong cooling and solar-control requirements.",
+
+        water:
+            "Water efficiency is a relevant regional design concern.",
+
+        energy:
+            "Cooling demand and solar exposure create strong performance opportunities.",
+
+        technology:
+            "PV, heat pumps, efficient cooling and water-efficiency systems are relevant.",
+
+        drivers:
+            "Solar exposure, heat, water conditions, energy costs and building economics."
+    },
+
+
+    "Colombia|Bogotá D.C.":{
+        construction:
+            "Masonry and reinforced-concrete systems are important conventional residential construction references.",
+
+        passive:
+            "Orientation, daylight, ventilation and envelope strategies are relevant to the cool high-altitude climate.",
+
+        climate:
+            "High-altitude conditions create relatively moderate temperatures with important solar and ventilation considerations.",
+
+        water:
+            "Water efficiency and urban infrastructure remain relevant.",
+
+        energy:
+            "Heating demand is generally different from hot-climate contexts, making envelope and equipment selection important.",
+
+        technology:
+            "Efficient equipment, monitoring, solar generation and water-efficiency systems are relevant.",
+
+        drivers:
+            "Climate, urban density, regulation, infrastructure and project economics."
+    },
+
+
+    "Colombia|Antioquia":{
+        construction:
+            "Masonry and reinforced concrete are important conventional residential construction references.",
+
+        passive:
+            "Natural ventilation, shading and daylight strategies are relevant.",
+
+        climate:
+            "Warm and humid conditions in major population centers increase the relevance of ventilation and solar control.",
+
+        water:
+            "Rainfall and water management are important environmental variables.",
+
+        energy:
+            "Cooling and ventilation requirements vary by elevation and locality.",
+
+        technology:
+            "Efficient equipment, solar generation, monitoring and water systems are relevant.",
+
+        drivers:
+            "Climate, rainfall, urban conditions, energy costs and construction practice."
+    },
+
+
+    "Colombia|Valle del Cauca":{
+        construction:
+            "Masonry and reinforced-concrete systems are important conventional residential references.",
+
+        passive:
+            "Cross ventilation, shading and solar control are important strategies.",
+
+        climate:
+            "Warm conditions increase the relevance of thermal comfort and ventilation.",
+
+        water:
+            "Rainfall and water-resource conditions influence design decisions.",
+
+        energy:
+            "Cooling and ventilation loads can be important performance variables.",
+
+        technology:
+            "Efficient cooling, photovoltaics, monitoring and water-efficiency systems are relevant.",
+
+        drivers:
+            "Climate, energy demand, rainfall, technology costs and economics."
     }
 
 };
@@ -2921,25 +3046,33 @@ const patternData = {
 
     solar:{
         title:"Solar + Storage Adoption",
-        text:"Distributed energy generation and storage can become increasingly relevant where solar resource, electricity economics, resilience or energy-autonomy objectives create a measurable design incentive.",
+        type:"Emerging",
+        text:
+            "Distributed energy generation and storage can become increasingly relevant where solar resource, electricity economics, resilience or energy-autonomy objectives create a measurable design incentive.",
         confidence:82
     },
 
     water:{
         title:"Rainwater Harvesting",
-        text:"Rainwater collection becomes more relevant where rainfall, water-security conditions, infrastructure constraints or resource costs create a stronger incentive for decentralized water strategies.",
+        type:"Growing",
+        text:
+            "Rainwater collection becomes more relevant where rainfall, water-security conditions, infrastructure constraints or resource costs create a stronger incentive for decentralized water strategies.",
         confidence:78
     },
 
     comfort:{
         title:"Passive Thermal Strategies",
-        text:"Orientation, solar control, natural ventilation, thermal mass and envelope strategies recur as climate-responsive architectural mechanisms, but their relevance depends strongly on local climate.",
+        type:"Stable",
+        text:
+            "Orientation, solar control, natural ventilation, thermal mass and envelope strategies recur as climate-responsive architectural mechanisms, but their relevance depends strongly on local climate.",
         confidence:86
     },
 
     mobility:{
         title:"Distributed Mobility Infrastructure",
-        text:"Electric mobility infrastructure becomes increasingly connected to building energy systems as transportation, electricity and residential architecture converge.",
+        type:"Emerging",
+        text:
+            "Electric mobility infrastructure becomes increasingly connected to building energy systems as transportation, electricity and residential architecture converge.",
         confidence:69
     }
 
@@ -2947,7 +3080,7 @@ const patternData = {
 
 
 /* =========================================================
-   QUESTION TITLES
+   QUESTIONS
 ========================================================= */
 
 const questionTitles = {
@@ -2969,20 +3102,23 @@ const questionTitles = {
    DOM REFERENCES
 ========================================================= */
 
-const countrySelect =
-    document.getElementById("country");
+const $ =
+    id => document.getElementById(id);
 
-const regionSelect =
-    document.getElementById("region");
+const country =
+    $("country");
 
-const typologySelect =
-    document.getElementById("typology");
+const region =
+    $("region");
 
-const periodSelect =
-    document.getElementById("period");
+const typology =
+    $("typology");
 
-const patternTypeSelect =
-    document.getElementById("patternType");
+const period =
+    $("period");
+
+const patternType =
+    $("patternType");
 
 const cards =
     document.querySelectorAll(".pattern-card");
@@ -2990,1005 +3126,12 @@ const cards =
 const points =
     document.querySelectorAll(".pattern");
 
-const detailTitle =
-    document.getElementById("detailTitle");
-
-const detailText =
-    document.getElementById("detailText");
-
-const confidenceValue =
-    document.getElementById("confidenceValue");
-
-const confidenceFill =
-    document.getElementById("confidenceFill");
-
 
 /* =========================================================
-   GEOGRAPHY
+   UTILITIES
 ========================================================= */
 
-function populateCountries(){
-
-    countrySelect.innerHTML = "";
-
-    Object.keys(geographicData).forEach(country=>{
-
-        const option =
-            document.createElement("option");
-
-        option.value = country;
-        option.textContent = country;
-
-        countrySelect.appendChild(option);
-
-    });
-
-}
-
-
-function populateRegions(country, preferredRegion = null){
-
-    const regions =
-        geographicData[country] || [];
-
-    regionSelect.innerHTML = "";
-
-    regions.forEach(region=>{
-
-        const option =
-            document.createElement("option");
-
-        option.value = region;
-        option.textContent = region;
-
-        regionSelect.appendChild(option);
-
-    });
-
-    if(
-        preferredRegion &&
-        regions.includes(preferredRegion)
-    ){
-
-        regionSelect.value =
-            preferredRegion;
-
-    }else{
-
-        regionSelect.value =
-            regions[0] || "";
-
-    }
-
-}
-
-
-/* =========================================================
-   COUNTRY CHANGE
-========================================================= */
-
-countrySelect.addEventListener(
-    "change",
-    ()=>{
-
-        populateRegions(
-            countrySelect.value
-        );
-
-        updateKnowledgeContext();
-
-    }
-);
-
-
-/* =========================================================
-   REGION CHANGE
-========================================================= */
-
-regionSelect.addEventListener(
-    "change",
-    ()=>{
-
-        updateKnowledgeContext();
-
-    }
-);
-
-
-/* =========================================================
-   PATTERN SELECTION
-========================================================= */
-
-function selectPattern(type){
-
-    const selected =
-        patternData[type];
-
-    if(!selected){
-        return;
-    }
-
-    detailTitle.textContent =
-        selected.title;
-
-    detailText.textContent =
-        selected.text;
-
-    confidenceValue.textContent =
-        selected.confidence + "%";
-
-    confidenceFill.style.width =
-        selected.confidence + "%";
-
-
-    cards.forEach(card=>{
-
-        card.classList.remove(
-            "selected"
-        );
-
-        if(
-            card.dataset.detail === type
-        ){
-
-            card.classList.add(
-                "selected"
-            );
-
-        }
-
-    });
-
-
-    points.forEach(point=>{
-
-        point.classList.remove(
-            "active"
-        );
-
-        if(
-            point.dataset.pattern === type
-        ){
-
-            point.classList.add(
-                "active"
-            );
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   PATTERN EVENTS
-========================================================= */
-
-cards.forEach(card=>{
-
-    card.addEventListener(
-        "click",
-        ()=>{
-
-            selectPattern(
-                card.dataset.detail
-            );
-
-        }
-    );
-
-});
-
-
-points.forEach(point=>{
-
-    point.addEventListener(
-        "click",
-        ()=>{
-
-            selectPattern(
-                point.dataset.pattern
-            );
-
-        }
-    );
-
-});
-
-
-/* =========================================================
-   CONTEXT
-========================================================= */
-
-function getResearchContext(){
-
-    return {
-
-        country:countrySelect.value,
-
-        region:regionSelect.value,
-
-        typology:typologySelect.value,
-
-        period:periodSelect.value,
-
-        patternType:patternTypeSelect.value
-
-    };
-
-}
-
-
-function getProfile(context){
-
-    const regionalKey =
-        context.country +
-        "|" +
-        context.region;
-
-    return (
-        regionalProfiles[regionalKey] ||
-        countryProfiles[context.country]
-    );
-
-}
-
-
-/* =========================================================
-   CONTEXTUAL CONSTRUCTION
-========================================================= */
-
-function buildConstructionResult(
-    context,
-    profile
-){
-
-    let construction =
-        profile.construction;
-
-    let scale =
-        "Typical residential scale should be verified against the selected evidence source.";
-
-    if(
-        context.typology === "Multifamily"
-    ){
-
-        construction +=
-            " For multifamily projects, construction systems should be evaluated together with repetition, structural span, circulation and service-core requirements.";
-
-        scale =
-            "Multifamily scale and density require project-level evidence.";
-
-    }
-
-    if(
-        context.typology === "Commercial"
-    ){
-
-        construction +=
-            " Commercial construction requires additional consideration of larger spans, service systems, occupancy loads and operational requirements.";
-
-        scale =
-            "Commercial building scale varies strongly by program.";
-
-    }
-
-    if(
-        context.typology === "Mixed-use"
-    ){
-
-        construction +=
-            " Mixed-use projects introduce additional structural, circulation and service-system interactions between uses.";
-
-        scale =
-            "Mixed-use scale depends strongly on urban context and program.";
-
-    }
-
-    return {
-
-        pattern:
-            construction,
-
-        patternText:
-            "The result is contextualized to " +
-            context.region +
-            ", " +
-            context.country +
-            ", rather than using a single global residential construction assumption.",
-
-        trend:
-            "REGIONAL CONSTRUCTION PROFILE",
-
-        interpretation:
-            "Construction should be understood as a regional pattern. Climate, codes, materials, labor practices, housing-market conditions and building typology can change the dominant solution. The Knowledge Core therefore qualifies the result geographically instead of presenting one universal construction model.",
-
-        drivers:
-            profile.drivers,
-
-        indicators:[
-
-            [
-                "Construction reference",
-                shorten(profile.construction,130)
-            ],
-
-            [
-                "Climate response",
-                shorten(profile.passive,120)
-            ],
-
-            [
-                "Resource condition",
-                shorten(profile.water,120)
-            ],
-
-            [
-                "Energy condition",
-                shorten(profile.energy,120)
-            ],
-
-            [
-                "Scale / typology",
-                scale
-            ]
-
-        ]
-
-    };
-
-}
-
-
-/* =========================================================
-   CONTEXTUAL QUESTION ENGINE
-========================================================= */
-
-function generateContextualFinding(
-    questionKey,
-    context
-){
-
-    const profile =
-        getProfile(context);
-
-    if(!profile){
-        return null;
-    }
-
-
-    let result = {
-
-        title:
-            questionTitles[questionKey],
-
-        pattern:"",
-        patternText:"",
-        trend:"",
-        interpretation:"",
-        drivers:"",
-        indicators:[],
-        sources:[
-            "PRMS contextual research engine",
-            "Regional architectural profile",
-            "Scientific and technical evidence stream — intended integration",
-            "Environmental and urban data — intended integration"
-        ],
-        confidence:70
-
-    };
-
-
-    /* =====================================================
-       01 CONSTRUCTION
-    ===================================================== */
-
-    if(
-        questionKey === "construction"
-    ){
-
-        const r =
-            buildConstructionResult(
-                context,
-                profile
-            );
-
-        Object.assign(
-            result,
-            r
-        );
-
-        result.confidence = 73;
-
-    }
-
-
-    /* =====================================================
-       02 CHANGE
-    ===================================================== */
-
-    if(
-        questionKey === "change"
-    ){
-
-        result.pattern =
-            "Architectural change is being expressed through the interaction between conventional construction and increasingly integrated environmental and resource-performance strategies.";
-
-        result.patternText =
-            "In " +
-            context.region +
-            ", the relevant transformation should be evaluated against local climate, construction practice and resource conditions rather than assuming that the same architectural transition occurs everywhere.";
-
-        result.trend =
-            "INTEGRATION INCREASING";
-
-        result.interpretation =
-            "The Knowledge Core treats architectural change as a combination of construction practice, passive design, technical systems and resource strategies. The regional profile indicates that " +
-            profile.passive.toLowerCase() +
-            " These variables can alter which solutions become viable.";
-
-        result.drivers =
-            profile.drivers;
-
-        result.indicators = [
-
-            [
-                "Construction",
-                shorten(
-                    profile.construction,
-                    115
-                )
-            ],
-
-            [
-                "Passive response",
-                shorten(
-                    profile.passive,
-                    115
-                )
-            ],
-
-            [
-                "Energy response",
-                shorten(
-                    profile.energy,
-                    115
-                )
-            ],
-
-            [
-                "Technology direction",
-                shorten(
-                    profile.technology,
-                    115
-                )
-            ]
-
-        ];
-
-        result.confidence = 78;
-
-    }
-
-
-    /* =====================================================
-       03 TECHNOLOGY
-    ===================================================== */
-
-    if(
-        questionKey === "technology"
-    ){
-
-        result.pattern =
-            profile.technology;
-
-        result.patternText =
-            "Technology adoption is contextual. The Knowledge Core does not assume that a technology prominent in one country or region has the same adoption profile elsewhere.";
-
-        result.trend =
-            "CONTEXT-DEPENDENT ADOPTION";
-
-        result.interpretation =
-            "The selected geography suggests a technology landscape influenced by climate, resource pressure, infrastructure and economics. The strongest candidates for further evidence retrieval are the technologies that directly address the dominant local performance constraints.";
-
-        result.drivers =
-            profile.drivers;
-
-        result.indicators = [
-
-            [
-                "Energy technology",
-                "PV / storage / efficient systems — investigate"
-            ],
-
-            [
-                "Water technology",
-                "Recovery / efficiency — investigate"
-            ],
-
-            [
-                "Passive architecture",
-                shorten(
-                    profile.passive,
-                    120
-                )
-            ],
-
-            [
-                "Local technology context",
-                shorten(
-                    profile.technology,
-                    120
-                )
-            ]
-
-        ];
-
-        result.confidence = 76;
-
-    }
-
-
-    /* =====================================================
-       04 WHERE
-    ===================================================== */
-
-    if(
-        questionKey === "where"
-    ){
-
-        result.pattern =
-            "Solutions should be mapped spatially against climate, resource pressure, urban conditions and technology availability.";
-
-        result.patternText =
-            "The selected location is now the active geographic unit of the research query: " +
-            context.region +
-            ", " +
-            context.country +
-            ".";
-
-        result.trend =
-            "SPATIAL DIFFERENTIATION";
-
-        result.interpretation =
-            "A geographic pattern becomes meaningful only when the spatial distribution of a solution is compared with environmental and socioeconomic variables. The Knowledge Core therefore treats location as an explanatory variable, not simply as a map label.";
-
-        result.drivers =
-            profile.drivers;
-
-        result.indicators = [
-
-            [
-                "Country",
-                context.country
-            ],
-
-            [
-                "Region",
-                context.region
-            ],
-
-            [
-                "Climate context",
-                shorten(
-                    profile.climate,
-                    125
-                )
-            ],
-
-            [
-                "Water context",
-                shorten(
-                    profile.water,
-                    125
-                )
-            ]
-
-        ];
-
-        result.confidence = 71;
-
-    }
-
-
-    /* =====================================================
-       05 CONDITIONS
-    ===================================================== */
-
-    if(
-        questionKey === "conditions"
-    ){
-
-        result.pattern =
-            "Architectural solutions appear more likely where environmental pressure, economic feasibility and technology availability converge.";
-
-        result.patternText =
-            profile.climate +
-            " " +
-            profile.water;
-
-        result.trend =
-            "CONTEXT-DEPENDENT";
-
-        result.interpretation =
-            "The same technology or architectural strategy should not be assumed to produce the same value in every region. PRMS treats climate, resources, energy, economics and technology availability as interacting variables.";
-
-        result.drivers =
-            profile.drivers;
-
-        result.indicators = [
-
-            [
-                "Climate",
-                shorten(
-                    profile.climate,
-                    125
-                )
-            ],
-
-            [
-                "Water",
-                shorten(
-                    profile.water,
-                    125
-                )
-            ],
-
-            [
-                "Energy",
-                shorten(
-                    profile.energy,
-                    125
-                )
-            ],
-
-            [
-                "Technology",
-                shorten(
-                    profile.technology,
-                    125
-                )
-            ]
-
-        ];
-
-        result.confidence = 79;
-
-    }
-
-
-    /* =====================================================
-       06 REPETITION
-    ===================================================== */
-
-    if(
-        questionKey === "repetition"
-    ){
-
-        result.pattern =
-            "Recurring strategies are likely to be those that can be integrated into local construction practice while responding directly to climate or resource conditions.";
-
-        result.patternText =
-            "For " +
-            context.region +
-            ", the recurring strategy family should be tested against the local environmental profile rather than assumed from a global sample.";
-
-        result.trend =
-            "RECURRING + CONTEXTUAL";
-
-        result.interpretation =
-            "Repetition is not equivalent to effectiveness. A solution may repeat because it is inexpensive, familiar, regulated or easily available. PRMS therefore separates frequency from measured performance.";
-
-        result.drivers =
-            "Constructability, familiarity, cost, climate response, regulatory requirements, technology availability and user behavior.";
-
-        result.indicators = [
-
-            [
-                "Passive strategies",
-                shorten(
-                    profile.passive,
-                    120
-                )
-            ],
-
-            [
-                "Resource strategy",
-                shorten(
-                    profile.water,
-                    120
-                )
-            ],
-
-            [
-                "Energy strategy",
-                shorten(
-                    profile.energy,
-                    120
-                )
-            ],
-
-            [
-                "Technology availability",
-                shorten(
-                    profile.technology,
-                    120
-                )
-            ]
-
-        ];
-
-        result.confidence = 75;
-
-    }
-
-
-    /* =====================================================
-       07 WORKS
-    ===================================================== */
-
-    if(
-        questionKey === "works"
-    ){
-
-        result.pattern =
-            "Integrated strategies have greater analytical potential than isolated interventions, but effectiveness must be demonstrated through measured performance.";
-
-        result.patternText =
-            "The selected regional context indicates which performance mechanisms should be tested first: " +
-            profile.passive;
-
-        result.trend =
-            "INTEGRATED PERFORMANCE HYPOTHESIS";
-
-        result.interpretation =
-            "PRMS does not classify a strategy as successful merely because it is adopted. A stronger conclusion requires measured outcomes, comparison against a baseline and sufficient evidence quality.";
-
-        result.drivers =
-            "System integration, climate response, operational behavior, energy demand, water demand, carbon and investment level.";
-
-        result.indicators = [
-
-            [
-                "Energy",
-                "Requires measured baseline comparison"
-            ],
-
-            [
-                "Comfort",
-                "Requires measured or simulated evidence"
-            ],
-
-            [
-                "Water",
-                "Requires demand and recovery measurements"
-            ],
-
-            [
-                "Economics",
-                "Requires cost and return analysis"
-            ]
-
-        ];
-
-        result.confidence = 68;
-
-    }
-
-
-    /* =====================================================
-       08 FAILS
-    ===================================================== */
-
-    if(
-        questionKey === "fails"
-    ){
-
-        result.pattern =
-            "Single-metric optimization can produce limited system-wide improvement when the solution is poorly matched to local context.";
-
-        result.patternText =
-            "A strategy that performs well in another climate or market should not automatically be treated as appropriate for " +
-            context.region +
-            ".";
-
-        result.trend =
-            "CONTEXT MISMATCH RISK";
-
-        result.interpretation =
-            "Failure analysis is particularly important to PRMS because a building can improve one metric while degrading another. The system should therefore examine interactions among energy, water, comfort, carbon, resilience and economics.";
-
-        result.drivers =
-            "Poor integration, inappropriate climate response, user behavior, capital cost, maintenance requirements and mismatch between technology and demand.";
-
-        result.indicators = [
-
-            [
-                "Context fit",
-                "Critical"
-            ],
-
-            [
-                "System integration",
-                "Critical"
-            ],
-
-            [
-                "Economic feasibility",
-                "Decision constraint"
-            ],
-
-            [
-                "Measured outcome",
-                "Required for verification"
-            ]
-
-        ];
-
-        result.confidence = 70;
-
-    }
-
-
-    /* =====================================================
-       09 EMERGING
-    ===================================================== */
-
-    if(
-        questionKey === "emerging"
-    ){
-
-        result.pattern =
-            "An emerging pattern is the convergence of architecture, environmental response, distributed resource systems and measurable operational performance.";
-
-        result.patternText =
-            "Within the selected context, the strongest research direction is to investigate how " +
-            profile.technology.toLowerCase() +
-            " interact with " +
-            profile.passive.toLowerCase();
-
-        result.trend =
-            "METABOLIC INTEGRATION";
-
-        result.interpretation =
-            "The emerging pattern is not a single product. It is an architectural model in which the building increasingly operates as a measurable environmental and resource system. Regional conditions determine which metabolic strategies become most relevant.";
-
-        result.drivers =
-            profile.drivers;
-
-        result.indicators = [
-
-            [
-                "Passive response",
-                shorten(
-                    profile.passive,
-                    120
-                )
-            ],
-
-            [
-                "Energy systems",
-                shorten(
-                    profile.energy,
-                    120
-                )
-            ],
-
-            [
-                "Water systems",
-                shorten(
-                    profile.water,
-                    120
-                )
-            ],
-
-            [
-                "Technology",
-                shorten(
-                    profile.technology,
-                    120
-                )
-            ]
-
-        ];
-
-        result.confidence = 77;
-
-    }
-
-
-    return result;
-
-}
-
-
-/* =========================================================
-   TEXT SHORTENER
-========================================================= */
-
-function shorten(
-    text,
-    maxLength
-){
-
-    if(!text){
-        return "Contextual evidence required";
-    }
-
-    if(
-        text.length <= maxLength
-    ){
-        return text;
-    }
-
-    return (
-        text.substring(
-            0,
-            maxLength
-        ).trim() +
-        "…"
-    );
-
-}
-
-
-/* =========================================================
-   CONTEXT DISPLAY
-========================================================= */
-
-function buildContext(
-    context
-){
-
-    return `
-
-        <strong>Research universe:</strong>
-
-        ${escapeHTML(context.country)}
-        ·
-        ${escapeHTML(context.region)}
-        ·
-        ${escapeHTML(context.typology)}
-        ·
-        ${escapeHTML(context.period)}
-
-        <div class="research-scope">
-
-            <span class="scope-tag">
-                COUNTRY: ${escapeHTML(context.country)}
-            </span>
-
-            <span class="scope-tag">
-                REGION: ${escapeHTML(context.region)}
-            </span>
-
-            <span class="scope-tag">
-                TYPOLOGY: ${escapeHTML(context.typology)}
-            </span>
-
-            <span class="scope-tag">
-                PERIOD: ${escapeHTML(context.period)}
-            </span>
-
-            <span class="scope-tag">
-                PATTERN: ${escapeHTML(context.patternType)}
-            </span>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(
-    value
-){
+function escapeHTML(value){
 
     return String(value)
         .replace(/&/g,"&amp;")
@@ -4000,558 +3143,356 @@ function escapeHTML(
 }
 
 
+function shorten(text,maxLength){
+
+    if(!text){
+        return "Contextual evidence required";
+    }
+
+    if(text.length <= maxLength){
+        return text;
+    }
+
+    return text
+        .substring(0,maxLength)
+        .trim() + "…";
+
+}
+
+
+function hashString(value){
+
+    let hash = 0;
+
+    for(
+        let i=0;
+        i<value.length;
+        i++
+    ){
+
+        hash =
+            ((hash << 5) - hash) +
+            value.charCodeAt(i);
+
+        hash |= 0;
+
+    }
+
+    return Math.abs(hash);
+
+}
+
+
+function setStatus(text){
+
+    $("coreStatus").innerHTML =
+        '<span class="status-dot"></span>' +
+        escapeHTML(text);
+
+}
+
+
 /* =========================================================
-   RENDER RESEARCH RESULT
+   GEOGRAPHY
 ========================================================= */
 
-function renderResearchResult(
-    result,
-    context,
-    sourceMode = "local"
+function populateCountries(){
+
+    country.innerHTML = "";
+
+    Object.keys(
+        geographicData
+    ).forEach(
+        c=>{
+
+            const option =
+                new Option(c,c);
+
+            country.add(option);
+
+        }
+    );
+
+}
+
+
+function populateRegions(
+    selectedCountry,
+    preferredRegion
 ){
 
-    document.getElementById(
-        "resultTitle"
-    ).textContent =
-        result.title;
+    region.innerHTML = "";
+
+    const regions =
+        geographicData[
+            selectedCountry
+        ] || [];
 
 
-    document.getElementById(
-        "resultContext"
-    ).innerHTML =
-        buildContext(
-            context
-        );
+    regions.forEach(
+        r=>{
 
-
-    document.getElementById(
-        "resultPattern"
-    ).textContent =
-        result.pattern;
-
-
-    document.getElementById(
-        "resultPatternText"
-    ).textContent =
-        result.patternText;
-
-
-    document.getElementById(
-        "resultTrend"
-    ).textContent =
-        result.trend;
-
-
-    document.getElementById(
-        "resultInterpretation"
-    ).textContent =
-        result.interpretation;
-
-
-    document.getElementById(
-        "resultDrivers"
-    ).textContent =
-        result.drivers;
-
-
-    const table =
-        document.getElementById(
-            "resultTable"
-        );
-
-    table.innerHTML = "";
-
-
-    result.indicators.forEach(
-        item=>{
-
-            const row =
-                document.createElement("tr");
-
-            const cellA =
-                document.createElement("td");
-
-            const cellB =
-                document.createElement("td");
-
-            cellA.textContent =
-                item[0];
-
-            cellB.textContent =
-                item[1];
-
-            row.appendChild(cellA);
-            row.appendChild(cellB);
-
-            table.appendChild(row);
+            region.add(
+                new Option(r,r)
+            );
 
         }
     );
-
-
-    const sourceList =
-        document.getElementById(
-            "sourceList"
-        );
-
-    sourceList.innerHTML = "";
-
-
-    result.sources.forEach(
-        source=>{
-
-            const li =
-                document.createElement("li");
-
-            li.textContent =
-                source;
-
-            sourceList.appendChild(li);
-
-        }
-    );
-
-
-    document.getElementById(
-        "resultConfidence"
-    ).textContent =
-        result.confidence + "%";
-
-
-    document.getElementById(
-        "resultConfidenceFill"
-    ).style.width =
-        result.confidence + "%";
-
-
-    const status =
-        document.getElementById(
-            "evidenceStatus"
-        );
 
 
     if(
-        sourceMode === "ai"
+        preferredRegion &&
+        regions.includes(
+            preferredRegion
+        )
     ){
 
-        status.textContent =
-            "AI RESEARCH RESULT";
+        region.value =
+            preferredRegion;
 
     }else{
 
-        status.textContent =
-            "CONTEXTUAL PROTOTYPE";
+        region.value =
+            regions[0] || "";
 
     }
 
-
-    document.getElementById(
-        "resultDisclaimer"
-    ).textContent =
-
-        sourceMode === "ai"
-
-        ?
-
-        "AI-generated research synthesis. Individual claims should be traced to the returned evidence sources before being treated as verified statistical findings."
-
-        :
-
-        "Prototype analytical result. This local research engine contextualizes the selected geography, typology and period but does not retrieve live institutional statistics. External data must be connected and verified before the result is presented as official evidence.";
+}
 
 
-    document.getElementById(
-        "aiNote"
-    ).textContent =
+/* =========================================================
+   CONTEXT
+========================================================= */
 
-        sourceMode === "ai"
+function getContext(){
 
-        ?
+    return {
 
-        "The result was generated through the configured PRMS AI research endpoint. The endpoint should return structured evidence, sources and confidence values."
+        country:
+            country.value,
 
-        :
+        region:
+            region.value,
 
-        "The current interface uses the PRMS contextual research engine. It is already responsive to country, region, typology and period. A future AI/API connection can replace this layer with live evidence retrieval and source verification.";
+        typology:
+            typology.value,
+
+        period:
+            period.value,
+
+        patternType:
+            patternType.value
+
+    };
+
+}
 
 
-    document.getElementById(
-        "researchResult"
-    ).classList.add(
-        "visible"
+function getProfile(context){
+
+    const key =
+        context.country +
+        "|" +
+        context.region;
+
+    return (
+        regionalProfiles[key] ||
+        baseProfiles[
+            context.country
+        ]
     );
 
 }
 
 
 /* =========================================================
-   OPTIONAL REAL AI ENDPOINT
+   PATTERN SELECTION
 ========================================================= */
 
-async function queryPRMSAI(
-    questionKey,
-    context
-){
+function selectPattern(type){
+
+    const pattern =
+        patternData[type];
+
+    if(!pattern){
+        return;
+    }
+
+
+    $("detailTitle").textContent =
+        pattern.title;
+
+    $("detailText").textContent =
+        pattern.text;
+
+    $("confidenceValue").textContent =
+        pattern.confidence + "%";
+
+    $("confidenceFill").style.width =
+        pattern.confidence + "%";
+
+
+    cards.forEach(
+        card=>{
+
+            card.classList.toggle(
+                "selected",
+                card.dataset.detail === type &&
+                !card.classList.contains(
+                    "hidden"
+                )
+            );
+
+        }
+    );
+
+
+    points.forEach(
+        point=>{
+
+            point.classList.toggle(
+                "active",
+                point.dataset.pattern === type &&
+                point.style.display !== "none"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PATTERN TYPE FILTER
+========================================================= */
+
+function applyPatternFilter(){
+
+    const selectedType =
+        patternType.value;
+
+
+    cards.forEach(
+        card=>{
+
+            const cardType =
+                card.dataset.type;
+
+            const visible =
+                selectedType ===
+                "All patterns" ||
+                cardType === selectedType;
+
+            card.classList.toggle(
+                "hidden",
+                !visible
+            );
+
+        }
+    );
+
+
+    points.forEach(
+        point=>{
+
+            const type =
+                patternData[
+                    point.dataset.pattern
+                ]?.type;
+
+
+            const visible =
+                selectedType ===
+                "All patterns" ||
+                type === selectedType;
+
+
+            point.style.display =
+                visible
+                    ? "block"
+                    : "none";
+
+        }
+    );
+
+
+    const visibleCards =
+        [...cards].filter(
+            card =>
+                !card.classList.contains(
+                    "hidden"
+                )
+        );
+
+
+    const currentSelected =
+        document.querySelector(
+            ".pattern-card.selected:not(.hidden)"
+        );
+
 
     if(
-        !PRMS_AI_ENDPOINT
+        visibleCards.length &&
+        !currentSelected
     ){
 
-        return null;
-
-    }
-
-
-    const response =
-        await fetch(
-            PRMS_AI_ENDPOINT,
-            {
-
-                method:"POST",
-
-                headers:{
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:JSON.stringify({
-
-                    system:
-                        "PRMS Knowledge Core research query.",
-
-                    question:
-                        questionTitles[
-                            questionKey
-                        ],
-
-                    questionKey:
-                        questionKey,
-
-                    context:context
-
-                })
-
-            }
-        );
-
-
-    if(!response.ok){
-
-        throw new Error(
-            "PRMS AI endpoint returned an error."
+        selectPattern(
+            visibleCards[0].dataset.detail
         );
 
     }
-
-
-    return await response.json();
 
 }
 
 
 /* =========================================================
-   RESEARCH QUESTION
+   CONTEXTUAL COUNTS
 ========================================================= */
 
-async function answerResearchQuestion(
-    questionKey
-){
-
-    const context =
-        getResearchContext();
-
-
-    const status =
-        document.getElementById(
-            "coreStatus"
-        );
-
-
-    status.innerHTML = `
-
-        <span class="status-dot"></span>
-
-        Researching selected context…
-
-    `;
-
-
-    /* -----------------------------------------
-       ACTIVE QUESTION
-    ----------------------------------------- */
-
-    document.querySelectorAll(
-        ".question"
-    ).forEach(
-        question=>{
-
-            question.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-    const activeQuestion =
-        document.querySelector(
-            `.question[data-question="${questionKey}"]`
-        );
-
-
-    if(activeQuestion){
-
-        activeQuestion.classList.add(
-            "active"
-        );
-
-    }
-
-
-    /* -----------------------------------------
-       REAL AI IF CONFIGURED
-    ----------------------------------------- */
-
-    try{
-
-        const aiResult =
-            await queryPRMSAI(
-                questionKey,
-                context
-            );
-
-
-        if(aiResult){
-
-            renderResearchResult(
-                aiResult,
-                context,
-                "ai"
-            );
-
-            status.innerHTML = `
-
-                <span class="status-dot"></span>
-
-                AI research completed
-
-            `;
-
-            scrollToResearchResult();
-
-            return;
-
-        }
-
-    }catch(error){
-
-        console.warn(
-            "PRMS AI endpoint unavailable. Using contextual engine.",
-            error
-        );
-
-    }
-
-
-    /* -----------------------------------------
-       LOCAL CONTEXTUAL ENGINE
-    ----------------------------------------- */
-
-    const result =
-        generateContextualFinding(
-            questionKey,
-            context
-        );
-
-
-    if(!result){
-
-        status.innerHTML = `
-
-            <span class="status-dot"></span>
-
-            Research context unavailable
-
-        `;
-
-        return;
-
-    }
-
-
-    result.title =
-        questionTitles[
-            questionKey
-        ];
-
-
-    renderResearchResult(
-        result,
-        context,
-        "local"
-    );
-
-
-    status.innerHTML = `
-
-        <span class="status-dot"></span>
-
-        Contextual research completed
-
-    `;
-
-
-    scrollToResearchResult();
-
-}
-
-
-/* =========================================================
-   SCROLL RESULT
-========================================================= */
-
-function scrollToResearchResult(){
-
-    setTimeout(
-        ()=>{
-
-            document.getElementById(
-                "researchResult"
-            ).scrollIntoView({
-
-                behavior:"smooth",
-
-                block:"start"
-
-            });
-
-        },
-        100
-    );
-
-}
-
-
-/* =========================================================
-   QUESTION EVENTS
-========================================================= */
-
-document.querySelectorAll(
-    ".question"
-).forEach(
-    question=>{
-
-        question.addEventListener(
-            "click",
-            ()=>{
-
-                answerResearchQuestion(
-                    question.dataset.question
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   FILTER CHANGE
-========================================================= */
-
-[
-    typologySelect,
-    periodSelect,
-    patternTypeSelect
-].forEach(
-    select=>{
-
-        select.addEventListener(
-            "change",
-            ()=>{
-
-                updateKnowledgeContext();
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   KNOWLEDGE CONTEXT UPDATE
-========================================================= */
-
-function updateKnowledgeContext(){
-
-    const context =
-        getResearchContext();
-
-
-    const status =
-        document.getElementById(
-            "coreStatus"
-        );
-
-
-    status.innerHTML = `
-
-        <span class="status-dot"></span>
-
-        Research query updated
-
-    `;
-
-
-    /* -----------------------------------------
-       CONTEXTUAL PROJECT COUNTS
-    -----------------------------------------
-
-       These are interface-level prototype
-       quantities, NOT official statistics.
-    ----------------------------------------- */
+function getCounts(context){
 
     let projects = 1284;
     let observations = 183;
     let patterns = 27;
 
 
-    if(
-        context.typology ===
-        "Multifamily"
-    ){
+    const factors = {
 
-        projects = 428;
-        observations = 96;
-        patterns = 18;
+        Residential:
+            [1,1,1],
 
-    }
+        Multifamily:
+            [.333,.525,.667],
 
+        Commercial:
+            [.247,.404,.556],
 
-    if(
-        context.typology ===
-        "Commercial"
-    ){
+        "Mixed-use":
+            [.176,.333,.444]
 
-        projects = 317;
-        observations = 74;
-        patterns = 15;
-
-    }
+    };
 
 
-    if(
-        context.typology ===
-        "Mixed-use"
-    ){
+    const factor =
+        factors[
+            context.typology
+        ] || [1,1,1];
 
-        projects = 226;
-        observations = 61;
-        patterns = 12;
 
-    }
+    projects =
+        Math.round(
+            projects * factor[0]
+        );
+
+    observations =
+        Math.round(
+            observations * factor[1]
+        );
+
+    patterns =
+        Math.round(
+            patterns * factor[2]
+        );
 
 
     if(
@@ -4590,93 +3531,108 @@ function updateKnowledgeContext(){
     }
 
 
-    /* -----------------------------------------
-       REGION CONTEXT ADJUSTMENT
-    ----------------------------------------- */
-
-    const regionHash =
+    const hash =
         hashString(
             context.region
         );
 
+
     const regionalFactor =
         .82 +
         (
-            regionHash % 18
+            hash % 18
         ) / 100;
 
 
-    projects =
-        Math.max(
-            25,
-            Math.round(
-                projects *
-                regionalFactor
-            )
-        );
+    return {
 
+        projects:
+            Math.max(
+                25,
+                Math.round(
+                    projects *
+                    regionalFactor
+                )
+            ),
 
-    observations =
-        Math.max(
-            8,
-            Math.round(
-                observations *
-                regionalFactor
-            )
-        );
+        observations:
+            Math.max(
+                8,
+                Math.round(
+                    observations *
+                    regionalFactor
+                )
+            ),
 
-
-    patterns =
-        Math.max(
-            6,
-            Math.round(
-                patterns *
-                (
-                    .9 +
+        patterns:
+            Math.max(
+                6,
+                Math.round(
+                    patterns *
                     (
-                        regionHash % 12
-                    ) / 100
+                        .9 +
+                        (
+                            hash % 12
+                        ) / 100
+                    )
                 )
             )
+
+    };
+
+}
+
+
+/* =========================================================
+   UPDATE KNOWLEDGE CONTEXT
+========================================================= */
+
+function updateKnowledgeContext(){
+
+    const context =
+        getContext();
+
+
+    const counts =
+        getCounts(
+            context
         );
 
 
-    document.getElementById(
-        "mapStats"
-    ).textContent =
-
-        formatNumber(
-            projects
+    $("mapStats").textContent =
+        counts.projects.toLocaleString(
+            "en-US"
         ) +
-
-        " projects · " +
-
-        formatNumber(
-            observations
+        " contextual projects · " +
+        counts.observations.toLocaleString(
+            "en-US"
         ) +
-
         " observations";
 
 
-    document.getElementById(
-        "patternCount"
-    ).textContent =
-
-        patterns +
+    $("patternCount").textContent =
+        counts.patterns +
         " PATTERNS";
 
 
-    document.getElementById(
-        "mapHeading"
-    ).textContent =
-
+    $("mapHeading").textContent =
         "PATTERN DETECTION · " +
         context.region.toUpperCase();
 
 
-    /* -----------------------------------------
-       REGENERATE OPEN QUESTION
-    ----------------------------------------- */
+    applyPatternFilter();
+
+
+    setStatus(
+        "Research query updated"
+    );
+
+
+    /*
+       If a research question is currently open,
+       regenerate it automatically with the new
+       geographic / typological context.
+    */
 
     const activeQuestion =
         document.querySelector(
@@ -4687,24 +3643,19 @@ function updateKnowledgeContext(){
     if(activeQuestion){
 
         answerResearchQuestion(
-            activeQuestion.dataset.question
+            activeQuestion.dataset.question,
+            false
         );
 
     }else{
 
         setTimeout(
             ()=>{
-
-                status.innerHTML = `
-
-                    <span class="status-dot"></span>
-
-                    Experimental research mode
-
-                `;
-
+                setStatus(
+                    "Experimental research mode"
+                );
             },
-            1000
+            800
         );
 
     }
@@ -4713,54 +3664,1294 @@ function updateKnowledgeContext(){
 
 
 /* =========================================================
-   SIMPLE DETERMINISTIC HASH
+   RESEARCH CONTEXT DISPLAY
 ========================================================= */
 
-function hashString(
-    value
+function buildResearchContext(
+    context
 ){
 
-    let hash = 0;
+    return `
 
-    for(
-        let i=0;
-        i<value.length;
-        i++
-    ){
+        <strong>Research universe:</strong>
 
-        hash =
-            (
-                (
-                    hash << 5
-                ) -
-                hash
-            ) +
-            value.charCodeAt(i);
+        ${escapeHTML(context.country)}
+        ·
+        ${escapeHTML(context.region)}
+        ·
+        ${escapeHTML(context.typology)}
+        ·
+        ${escapeHTML(context.period)}
 
-        hash |= 0;
+        <div class="research-scope">
 
-    }
+            <span class="scope-tag">
+                COUNTRY:
+                ${escapeHTML(context.country)}
+            </span>
 
-    return Math.abs(hash);
+            <span class="scope-tag">
+                REGION:
+                ${escapeHTML(context.region)}
+            </span>
+
+            <span class="scope-tag">
+                TYPOLOGY:
+                ${escapeHTML(context.typology)}
+            </span>
+
+            <span class="scope-tag">
+                PERIOD:
+                ${escapeHTML(context.period)}
+            </span>
+
+            <span class="scope-tag">
+                PATTERN:
+                ${escapeHTML(context.patternType)}
+            </span>
+
+        </div>
+
+    `;
 
 }
 
 
 /* =========================================================
-   NUMBER FORMAT
+   LOCAL RESEARCH ENGINE
 ========================================================= */
 
-function formatNumber(
-    value
+function generateContextualFinding(
+    questionKey,
+    context
 ){
 
-    return Number(
-        value
-    ).toLocaleString(
-        "en-US"
-    );
+    const profile =
+        getProfile(
+            context
+        );
+
+
+    if(!profile){
+        return null;
+    }
+
+
+    const result = {
+
+        title:
+            questionTitles[
+                questionKey
+            ],
+
+        pattern:"",
+        patternText:"",
+        trend:"",
+        interpretation:"",
+        drivers:
+            profile.drivers,
+
+        indicators:[],
+
+        confidence:70,
+
+        sources:[
+            "PRMS contextual research engine",
+            "Regional architectural profile",
+            "Scientific and technical evidence stream — intended integration",
+            "Environmental and urban data — intended integration"
+        ]
+
+    };
+
+
+    /* =====================================================
+       CONSTRUCTION
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "construction"
+    ){
+
+        let construction =
+            profile.construction;
+
+
+        if(
+            context.typology ===
+            "Multifamily"
+        ){
+
+            construction +=
+                " Multifamily projects require evaluation of repetition, structural span, circulation and service-core requirements.";
+
+        }
+
+
+        if(
+            context.typology ===
+            "Commercial"
+        ){
+
+            construction +=
+                " Commercial projects require additional consideration of larger spans, service systems and occupancy loads.";
+
+        }
+
+
+        if(
+            context.typology ===
+            "Mixed-use"
+        ){
+
+            construction +=
+                " Mixed-use projects introduce structural, circulation and service-system interactions.";
+
+        }
+
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    construction,
+
+                patternText:
+                    "The result is contextualized to " +
+                    context.region +
+                    ", " +
+                    context.country +
+                    ", rather than using a single global construction assumption.",
+
+                trend:
+                    "REGIONAL CONSTRUCTION PROFILE",
+
+                interpretation:
+                    "Construction should be understood as a regional pattern. Climate, codes, materials, labor practices, housing-market conditions and typology can change the dominant solution.",
+
+                indicators:[
+
+                    [
+                        "Construction reference",
+                        shorten(
+                            profile.construction,
+                            130
+                        )
+                    ],
+
+                    [
+                        "Climate response",
+                        shorten(
+                            profile.passive,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Resource condition",
+                        shorten(
+                            profile.water,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Energy condition",
+                        shorten(
+                            profile.energy,
+                            120
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            73;
+
+    }
+
+
+    /* =====================================================
+       CHANGE
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "change"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "Architectural change is expressed through the interaction between conventional construction and increasingly integrated environmental and resource-performance strategies.",
+
+                patternText:
+                    "In " +
+                    context.region +
+                    ", transformation should be evaluated against local climate, construction practice and resource conditions.",
+
+                trend:
+                    "INTEGRATION INCREASING",
+
+                interpretation:
+                    "PRMS treats architectural change as a combination of construction practice, passive design, technical systems and resource strategies.",
+
+                indicators:[
+
+                    [
+                        "Construction",
+                        shorten(
+                            profile.construction,
+                            115
+                        )
+                    ],
+
+                    [
+                        "Passive response",
+                        shorten(
+                            profile.passive,
+                            115
+                        )
+                    ],
+
+                    [
+                        "Energy response",
+                        shorten(
+                            profile.energy,
+                            115
+                        )
+                    ],
+
+                    [
+                        "Technology direction",
+                        shorten(
+                            profile.technology,
+                            115
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            78;
+
+    }
+
+
+    /* =====================================================
+       TECHNOLOGY
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "technology"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    profile.technology,
+
+                patternText:
+                    "Technology adoption is contextual and should not be generalized from one region to another.",
+
+                trend:
+                    "CONTEXT-DEPENDENT ADOPTION",
+
+                interpretation:
+                    "The selected geography suggests a technology landscape influenced by climate, resource pressure, infrastructure and economics.",
+
+                indicators:[
+
+                    [
+                        "Energy technology",
+                        "PV / storage / efficient systems — investigate"
+                    ],
+
+                    [
+                        "Water technology",
+                        "Recovery / efficiency — investigate"
+                    ],
+
+                    [
+                        "Passive architecture",
+                        shorten(
+                            profile.passive,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Local technology context",
+                        shorten(
+                            profile.technology,
+                            120
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            76;
+
+    }
+
+
+    /* =====================================================
+       WHERE
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "where"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "Solutions should be mapped spatially against climate, resource pressure, urban conditions and technology availability.",
+
+                patternText:
+                    "Active geographic unit: " +
+                    context.region +
+                    ", " +
+                    context.country +
+                    ".",
+
+                trend:
+                    "SPATIAL DIFFERENTIATION",
+
+                interpretation:
+                    "A geographic pattern becomes meaningful when spatial distribution is compared with environmental and socioeconomic variables.",
+
+                indicators:[
+
+                    [
+                        "Country",
+                        context.country
+                    ],
+
+                    [
+                        "Region",
+                        context.region
+                    ],
+
+                    [
+                        "Climate context",
+                        shorten(
+                            profile.climate,
+                            125
+                        )
+                    ],
+
+                    [
+                        "Water context",
+                        shorten(
+                            profile.water,
+                            125
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            71;
+
+    }
+
+
+    /* =====================================================
+       CONDITIONS
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "conditions"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "Architectural solutions appear more likely where environmental pressure, economic feasibility and technology availability converge.",
+
+                patternText:
+                    profile.climate +
+                    " " +
+                    profile.water,
+
+                trend:
+                    "CONTEXT-DEPENDENT",
+
+                interpretation:
+                    "The same technology or architectural strategy should not be assumed to produce the same value in every region. PRMS treats climate, resources, energy, economics and technology availability as interacting variables.",
+
+                indicators:[
+
+                    [
+                        "Climate",
+                        shorten(
+                            profile.climate,
+                            125
+                        )
+                    ],
+
+                    [
+                        "Water",
+                        shorten(
+                            profile.water,
+                            125
+                        )
+                    ],
+
+                    [
+                        "Energy",
+                        shorten(
+                            profile.energy,
+                            125
+                        )
+                    ],
+
+                    [
+                        "Technology",
+                        shorten(
+                            profile.technology,
+                            125
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            79;
+
+    }
+
+
+    /* =====================================================
+       REPETITION
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "repetition"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "Recurring strategies are likely to be those that can be integrated into local construction practice while responding directly to climate or resource conditions.",
+
+                patternText:
+                    "For " +
+                    context.region +
+                    ", recurring strategy families should be tested against the local environmental profile.",
+
+                trend:
+                    "RECURRING + CONTEXTUAL",
+
+                interpretation:
+                    "Repetition is not equivalent to effectiveness. A solution may repeat because it is inexpensive, familiar, regulated or easily available. PRMS therefore separates frequency from measured performance.",
+
+                drivers:
+                    "Constructability, familiarity, cost, climate response, regulatory requirements, technology availability and user behavior.",
+
+                indicators:[
+
+                    [
+                        "Passive strategies",
+                        shorten(
+                            profile.passive,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Resource strategy",
+                        shorten(
+                            profile.water,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Energy strategy",
+                        shorten(
+                            profile.energy,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Technology availability",
+                        shorten(
+                            profile.technology,
+                            120
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            75;
+
+    }
+
+
+    /* =====================================================
+       WORKS
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "works"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "Integrated strategies have greater analytical potential than isolated interventions, but effectiveness must be demonstrated through measured performance.",
+
+                patternText:
+                    "The selected regional context indicates which performance mechanisms should be tested first: " +
+                    profile.passive,
+
+                trend:
+                    "INTEGRATED PERFORMANCE HYPOTHESIS",
+
+                interpretation:
+                    "PRMS does not classify a strategy as successful merely because it is adopted. A stronger conclusion requires measured outcomes, comparison against a baseline and sufficient evidence quality.",
+
+                drivers:
+                    "System integration, climate response, operational behavior, energy demand, water demand, carbon and investment level.",
+
+                indicators:[
+
+                    [
+                        "Energy",
+                        "Requires measured baseline comparison"
+                    ],
+
+                    [
+                        "Comfort",
+                        "Requires measured or simulated evidence"
+                    ],
+
+                    [
+                        "Water",
+                        "Requires demand and recovery measurements"
+                    ],
+
+                    [
+                        "Economics",
+                        "Requires cost and return analysis"
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            68;
+
+    }
+
+
+    /* =====================================================
+       FAILS
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "fails"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "Single-metric optimization can produce limited system-wide improvement when the solution is poorly matched to local context.",
+
+                patternText:
+                    "A strategy that performs well in another climate or market should not automatically be treated as appropriate for " +
+                    context.region +
+                    ".",
+
+                trend:
+                    "CONTEXT MISMATCH RISK",
+
+                interpretation:
+                    "Failure analysis is important because a building can improve one metric while degrading another. PRMS therefore examines interactions among energy, water, comfort, carbon, resilience and economics.",
+
+                drivers:
+                    "Poor integration, inappropriate climate response, user behavior, capital cost, maintenance requirements and mismatch between technology and demand.",
+
+                indicators:[
+
+                    [
+                        "Context fit",
+                        "Critical"
+                    ],
+
+                    [
+                        "System integration",
+                        "Critical"
+                    ],
+
+                    [
+                        "Economic feasibility",
+                        "Decision constraint"
+                    ],
+
+                    [
+                        "Measured outcome",
+                        "Required for verification"
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            70;
+
+    }
+
+
+    /* =====================================================
+       EMERGING
+    ===================================================== */
+
+    if(
+        questionKey ===
+        "emerging"
+    ){
+
+        Object.assign(
+            result,
+            {
+
+                pattern:
+                    "An emerging pattern is the convergence of architecture, environmental response, distributed resource systems and measurable operational performance.",
+
+                patternText:
+                    "The strongest research direction is to investigate how " +
+                    profile.technology.toLowerCase() +
+                    " interact with " +
+                    profile.passive.toLowerCase(),
+
+                trend:
+                    "METABOLIC INTEGRATION",
+
+                interpretation:
+                    "The emerging pattern is not a single product. It is an architectural model in which the building increasingly operates as a measurable environmental and resource system.",
+
+                indicators:[
+
+                    [
+                        "Passive response",
+                        shorten(
+                            profile.passive,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Energy systems",
+                        shorten(
+                            profile.energy,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Water systems",
+                        shorten(
+                            profile.water,
+                            120
+                        )
+                    ],
+
+                    [
+                        "Technology",
+                        shorten(
+                            profile.technology,
+                            120
+                        )
+                    ]
+
+                ]
+
+            }
+        );
+
+
+        result.confidence =
+            77;
+
+    }
+
+
+    return result;
 
 }
+
+
+/* =========================================================
+   RENDER RESULT
+========================================================= */
+
+function renderResearchResult(
+    result,
+    context,
+    sourceMode="local"
+){
+
+    $("resultTitle").textContent =
+        result.title;
+
+
+    $("resultContext").innerHTML =
+        buildResearchContext(
+            context
+        );
+
+
+    $("resultPattern").textContent =
+        result.pattern;
+
+
+    $("resultPatternText").textContent =
+        result.patternText;
+
+
+    $("resultTrend").textContent =
+        result.trend;
+
+
+    $("resultInterpretation").textContent =
+        result.interpretation;
+
+
+    $("resultDrivers").textContent =
+        result.drivers;
+
+
+    $("resultTable").innerHTML =
+        (result.indicators || [])
+        .map(
+            item =>
+                "<tr>" +
+                "<td>" +
+                escapeHTML(item[0]) +
+                "</td>" +
+                "<td>" +
+                escapeHTML(item[1]) +
+                "</td>" +
+                "</tr>"
+        )
+        .join("");
+
+
+    $("sourceList").innerHTML =
+        (result.sources || [])
+        .map(
+            source =>
+                "<li>" +
+                escapeHTML(source) +
+                "</li>"
+        )
+        .join("");
+
+
+    $("resultConfidence").textContent =
+        result.confidence + "%";
+
+
+    $("resultConfidenceFill").style.width =
+        result.confidence + "%";
+
+
+    const status =
+        $("evidenceStatus");
+
+
+    status.classList.remove(
+        "warning",
+        "verified"
+    );
+
+
+    if(
+        sourceMode === "ai"
+    ){
+
+        status.textContent =
+            "AI RESEARCH RESULT";
+
+        status.classList.add(
+            "warning"
+        );
+
+    }else if(
+        sourceMode === "verified"
+    ){
+
+        status.textContent =
+            "VERIFIED EVIDENCE";
+
+        status.classList.add(
+            "verified"
+        );
+
+    }else{
+
+        status.textContent =
+            "CONTEXTUAL PROTOTYPE";
+
+    }
+
+
+    $("aiNote").textContent =
+
+        sourceMode === "ai"
+
+        ?
+
+        "The result was generated through the configured PRMS AI research endpoint. Returned claims should remain traceable to their evidence sources."
+
+        :
+
+        "The current interface uses the PRMS contextual research engine. It is not a live institutional statistics database. A future AI/API connection can replace this layer with verified evidence retrieval.";
+
+
+    $("resultDisclaimer").textContent =
+
+        sourceMode === "ai"
+
+        ?
+
+        "AI-generated research synthesis. Individual claims should be traced to returned evidence sources before being treated as verified statistical findings."
+
+        :
+
+        "Prototype analytical result. This local engine does not retrieve live institutional statistics. External data must be connected and verified before the result is presented as official evidence.";
+
+
+    $("researchResult")
+        .classList
+        .add("visible");
+
+}
+
+
+/* =========================================================
+   AI ENDPOINT
+========================================================= */
+
+async function queryPRMSAI(
+    questionKey,
+    context
+){
+
+    if(
+        !PRMS_AI_ENDPOINT
+    ){
+
+        return null;
+
+    }
+
+
+    const response =
+        await fetch(
+            PRMS_AI_ENDPOINT,
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+
+                        system:
+                            "PRMS Knowledge Core research query.",
+
+                        question:
+                            questionTitles[
+                                questionKey
+                            ],
+
+                        questionKey:
+                            questionKey,
+
+                        context:
+                            context
+
+                    })
+
+            }
+        );
+
+
+    if(
+        !response.ok
+    ){
+
+        throw new Error(
+            "PRMS AI endpoint returned an error."
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if(
+        !data ||
+        typeof data !== "object"
+    ){
+
+        throw new Error(
+            "Invalid AI response."
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   RESEARCH QUESTION
+========================================================= */
+
+let requestId = 0;
+
+
+async function answerResearchQuestion(
+    questionKey,
+    shouldScroll=true
+){
+
+    const currentRequest =
+        ++requestId;
+
+
+    const context =
+        getContext();
+
+
+    setStatus(
+        "Researching selected context…"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".question"
+        )
+        .forEach(
+            question=>{
+
+                question.classList.toggle(
+                    "active",
+                    question.dataset.question ===
+                    questionKey
+                );
+
+            }
+        );
+
+
+    /*
+       Attempt external AI endpoint.
+    */
+
+    try{
+
+        const aiResult =
+            await queryPRMSAI(
+                questionKey,
+                context
+            );
+
+
+        if(
+            currentRequest !==
+            requestId
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            aiResult
+        ){
+
+            renderResearchResult(
+                aiResult,
+                context,
+                "ai"
+            );
+
+
+            setStatus(
+                "AI research completed"
+            );
+
+
+            if(
+                shouldScroll
+            ){
+
+                $("researchResult")
+                    .scrollIntoView({
+                        behavior:"smooth",
+                        block:"start"
+                    });
+
+            }
+
+
+            return;
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "PRMS AI unavailable; using contextual engine.",
+            error
+        );
+
+    }
+
+
+    if(
+        currentRequest !==
+        requestId
+    ){
+
+        return;
+
+    }
+
+
+    /*
+       Local contextual engine.
+    */
+
+    const result =
+        generateContextualFinding(
+            questionKey,
+            context
+        );
+
+
+    if(!result){
+
+        setStatus(
+            "Research context unavailable"
+        );
+
+        return;
+
+    }
+
+
+    renderResearchResult(
+        result,
+        context,
+        "local"
+    );
+
+
+    setStatus(
+        "Contextual research completed"
+    );
+
+
+    if(
+        shouldScroll
+    ){
+
+        $("researchResult")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+    }
+
+}
+
+
+/* =========================================================
+   EVENT LISTENERS
+========================================================= */
+
+country.addEventListener(
+    "change",
+    ()=>{
+
+        populateRegions(
+            country.value
+        );
+
+        updateKnowledgeContext();
+
+    }
+);
+
+
+region.addEventListener(
+    "change",
+    updateKnowledgeContext
+);
+
+
+typology.addEventListener(
+    "change",
+    updateKnowledgeContext
+);
+
+
+period.addEventListener(
+    "change",
+    updateKnowledgeContext
+);
+
+
+patternType.addEventListener(
+    "change",
+    updateKnowledgeContext
+);
+
+
+document
+    .querySelectorAll(
+        ".question"
+    )
+    .forEach(
+        question=>{
+
+            question.addEventListener(
+                "click",
+                ()=>{
+
+                    answerResearchQuestion(
+                        question.dataset.question
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+cards.forEach(
+    card=>{
+
+        card.addEventListener(
+            "click",
+            ()=>{
+
+                if(
+                    !card.classList.contains(
+                        "hidden"
+                    )
+                ){
+
+                    selectPattern(
+                        card.dataset.detail
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+points.forEach(
+    point=>{
+
+        point.addEventListener(
+            "click",
+            ()=>{
+
+                if(
+                    point.style.display !==
+                    "none"
+                ){
+
+                    selectPattern(
+                        point.dataset.pattern
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
 
 
 /* =========================================================
@@ -4772,11 +4963,7 @@ function initializePRMS(){
     populateCountries();
 
 
-    /* -----------------------------------------
-       Initial country
-    ----------------------------------------- */
-
-    countrySelect.value =
+    country.value =
         "Mexico";
 
 
@@ -4786,27 +4973,20 @@ function initializePRMS(){
     );
 
 
-    /* -----------------------------------------
-       Initial pattern
-    ----------------------------------------- */
-
     selectPattern(
         "solar"
     );
 
 
-    /* -----------------------------------------
-       Initial context
-    ----------------------------------------- */
-
     updateKnowledgeContext();
+
+
+    setStatus(
+        "Experimental research mode"
+    );
 
 }
 
-
-/* =========================================================
-   START
-========================================================= */
 
 if(
     document.readyState ===
@@ -4825,7 +5005,6 @@ if(
 }
 
 </script>
-
 
 </body>
 
