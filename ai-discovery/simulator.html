@@ -3784,14 +3784,85 @@ if (connectAI) {
 
     );
 
-    const aiResult =
+  const aiResult =
 
-        await callPRMSAI(
+    await callPRMSAI(
 
-            "Analyze the current simulation and identify the most significant architectural finding, performance trade-off, and next research question."
+`
+Analyze the current PRMS simulation.
 
-        );
+First, generate a project-specific implementation proposal
+for the five predefined strategies in each PRMS pathway.
 
+The pathway structure MUST remain unchanged:
+
+OPTION A — PASSIVE
+1. Improved envelope
+2. Solar protection
+3. Orientation response
+4. Natural ventilation
+5. Reduced cooling demand
+
+OPTION B — INTEGRATED
+1. High-performance envelope
+2. Efficient HVAC
+3. Photovoltaic generation
+4. Solar thermal
+5. Water efficiency
+
+OPTION C — METABOLIC
+1. Advanced envelope
+2. Passive + active systems
+3. Renewable generation
+4. Water recovery and reuse
+5. Storage and adaptive operation
+
+For each item explain HOW it could be implemented
+specifically for this project.
+
+Use the available project data, orientation,
+climate information, existing systems and simulation
+results.
+
+Do not replace the predefined strategies.
+Do not invent project measurements.
+Clearly distinguish evidence from inference.
+
+Return ONLY valid JSON using exactly this structure:
+
+{
+  "strategies": {
+    "passive": {
+      "envelope": "",
+      "solar": "",
+      "orientation": "",
+      "ventilation": "",
+      "cooling": ""
+    },
+    "integrated": {
+      "envelope": "",
+      "hvac": "",
+      "pv": "",
+      "solar": "",
+      "water": ""
+    },
+    "metabolic": {
+      "envelope": "",
+      "systems": "",
+      "renewable": "",
+      "water": "",
+      "storage": ""
+    }
+  },
+  "analysis": ""
+}
+
+The analysis should contain the most significant
+architectural finding, the main performance trade-off,
+and the next research question.
+`
+
+    );
     if (
 
         aiResult &&
