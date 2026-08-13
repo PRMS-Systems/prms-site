@@ -3638,6 +3638,80 @@ async function runSimulation(
 
         "Simulation completed. Compare the three intervention pathways and examine the trade-off between performance, resource autonomy, intervention intensity and economic return.";
 
+/* =====================================================
+   PRMS AI — CONNECT AFTER LOCAL SIMULATION
+   ===================================================== */
+
+if (connectAI) {
+
+    setText(
+
+        "aiQuestion",
+
+        "PRMS AI is analyzing the simulation..."
+
+    );
+
+    const aiResult =
+
+        await callPRMSAI(
+
+            "Analyze the current simulation and identify the most significant architectural finding, performance trade-off, and next research question."
+
+        );
+
+    if (
+
+        aiResult &&
+
+        aiResult.response
+
+    ) {
+
+        setText(
+
+            "aiQuestion",
+
+            aiResult.response
+
+        );
+
+        addLog(
+
+            "PRMS AI returned a research analysis."
+
+        );
+
+    }
+
+    else if (
+
+        aiResult &&
+
+        aiResult.error
+
+    ) {
+
+        setText(
+
+            "aiQuestion",
+
+            "PRMS AI connection error: " +
+
+            aiResult.error
+
+        );
+
+        addLog(
+
+            "PRMS AI connection failed."
+
+        );
+
+    }
+
+}
+
 }
 
 
