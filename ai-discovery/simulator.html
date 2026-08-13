@@ -2590,6 +2590,7 @@ function getSimulatorProject() {
 
 async function callPRMSAI(
     message = ""
+    simulationResults = null
 ) {
 
     const project =
@@ -2598,25 +2599,28 @@ async function callPRMSAI(
 
     const payload = {
 
-        request_type:
-            "simulation",
+    request_type:
+        "simulation",
 
-        action:
-            "simulation",
+    action:
+        "simulation",
 
-        project:
-            project,
+    project:
+        project,
 
-        history:
-            simulatorHistory,
+    simulation_results:
+        simulationResults,
 
-        message:
-            message,
+    history:
+        simulatorHistory,
 
-        previous_response_id:
-            simulatorResponseId
+    message:
+        message,
 
-    };
+    previous_response_id:
+        simulatorResponseId
+
+};
 
 
     try {
