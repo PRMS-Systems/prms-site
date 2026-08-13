@@ -2442,7 +2442,226 @@ const ENERGY_REFERENCE = 200;
 
 const WATER_REFERENCE = 250;
 
+/* =========================================================
+   PRMS AI CONNECTION
+   ========================================================= */
 
+const PRMS_AI_WORKER =
+    "https://prms-ai-discovery.oadrianhg.workers.dev/";
+
+let simulatorResponseId = null;
+let simulatorHistory = [];
+
+
+/* =========================================================
+   BUILD PROJECT STATE
+   ========================================================= */
+
+function getSimulatorProject() {
+
+    return {
+
+        id:
+            "PRMS-SIM-001",
+
+        type:
+            document.getElementById("projectType").value,
+
+        location:
+            document.getElementById("location").value,
+
+        area:
+            Number(
+                document.getElementById("area").value
+            ) || 0,
+
+        occupants:
+            Number(
+                document.getElementById("occupants").value
+            ) || 1,
+
+        reference_year:
+            Number(
+                document.getElementById("referenceYear").value
+            ) || 2026,
+
+        main_access:
+            document.getElementById("mainAccess").value,
+
+        building_orientation:
+            document.getElementById("buildingOrientation").value,
+
+        energy:
+            Number(
+                document.getElementById("energy").value
+            ) || 0,
+
+        water:
+            Number(
+                document.getElementById("water").value
+            ) || 0,
+
+        comfort:
+            Number(
+                document.getElementById("comfort").value
+            ) || 0,
+
+        strategy:
+            document.getElementById("strategy").value,
+
+        systems: {
+
+            pv:
+                document.getElementById("pv").checked,
+
+            solarWater:
+                document.getElementById("solarWater").checked,
+
+            rainwater:
+                document.getElementById("rainwater").checked,
+
+            greywater:
+                document.getElementById("greywater").checked,
+
+            blackwater:
+                document.getElementById("blackwater").checked,
+
+            battery:
+                document.getElementById("battery").checked,
+
+            evCharging:
+                document.getElementById("evCharging").checked,
+
+            other:
+                document.getElementById("otherSystem").checked
+
+        }
+
+    };
+
+}
+
+
+/* =========================================================
+   CALL PRMS AI
+   ========================================================= */
+
+async function callPRMSAI(
+    message = ""
+) {
+
+    const project =
+        getSimulatorProject();
+
+
+    const payload = {
+
+        request_type:
+            "simulation",
+
+        action:
+            "simulation",
+
+        project:
+            project,
+
+        history:
+            simulatorHistory,
+
+        message:
+            message,
+
+        previous_response_id:
+            simulatorResponseId
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                PRMS_AI_WORKER,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok)
+            throw new Error(
+                data.details ||
+                data.error ||
+                "PRMS AI request failed."
+            );
+
+        }
+
+        /* ---------------------------------------------
+           PERSIST RESPONSE ID
+           --------------------------------------------- */
+
+        if (
+            data.response_id
+        ) {
+
+            simulatorResponseId =
+                data.response_id;
+        }
+
+        /* ---------------------------------------------
+           SAVE HISTORY
+           --------------------------------------------- */
+
+        if (
+            data.response
+        ) {
+
+            simulatorHistory.push({
+
+                role:
+                    "assistant",
+
+                content:
+                    data.response
+            });
+        }
+
+        return data;
+
+    }
+    catch (error) {
+
+        console.error(
+            "PRMS AI ERROR:",
+            error
+        );
+        return {
+            error:
+                error.message
+        };
+    }
+
+}
 /* =========================================================
    MAIN SIMULATION
    ========================================================= */
