@@ -2693,19 +2693,107 @@ if (!response.ok)
         return data;
 
     }
-    catch (error) {
+      catch (error) {
 
         console.error(
             "PRMS AI ERROR:",
             error
         );
+
         return {
             error:
                 error.message
         };
+
     }
 
 }
+
+
+/* =========================================================
+   UPDATE AI STRATEGY PROPOSALS
+   ========================================================= */
+
+function updateAIStrategyCards(
+    strategies
+) {
+
+    if (!strategies) {
+        return;
+    }
+
+    const mapping = {
+
+        passiveEnvelope:
+            strategies.passive?.envelope,
+
+        passiveSolar:
+            strategies.passive?.solar,
+
+        passiveOrientation:
+            strategies.passive?.orientation,
+
+        passiveVentilation:
+            strategies.passive?.ventilation,
+
+        passiveCooling:
+            strategies.passive?.cooling,
+
+
+        integratedEnvelope:
+            strategies.integrated?.envelope,
+
+        integratedHVAC:
+            strategies.integrated?.hvac,
+
+        integratedPV:
+            strategies.integrated?.pv,
+
+        integratedSolar:
+            strategies.integrated?.solar,
+
+        integratedWater:
+            strategies.integrated?.water,
+
+
+        metabolicEnvelope:
+            strategies.metabolic?.envelope,
+
+        metabolicSystems:
+            strategies.metabolic?.systems,
+
+        metabolicRenewable:
+            strategies.metabolic?.renewable,
+
+        metabolicWater:
+            strategies.metabolic?.water,
+
+        metabolicStorage:
+            strategies.metabolic?.storage
+
+    };
+
+    Object.keys(mapping).forEach(
+        function(id) {
+
+            const element =
+                document.getElementById(id);
+
+            if (
+                element &&
+                mapping[id]
+            ) {
+
+               element.textContent =
+                    mapping[id];
+
+            }
+        }
+    );
+
+}
+
+
 /* =========================================================
    MAIN SIMULATION
    ========================================================= */
