@@ -2579,42 +2579,40 @@ async function callPRMSAI(
 
     try {
 
-        const response =
-            await fetch(
-                PRMS_AI_WORKER,
-                {
+const response =
+    await fetch(
+        PRMS_AI_WORKER,
+        {
 
-                    method:
-                        "POST",
+            method:
+                "POST",
 
-                    headers: {
+            headers: {
 
-                        "Content-Type":
-                            "application/json"
+                "Content-Type":
+                    "application/json"
 
-                    },
+            },
 
-                    body:
-                        JSON.stringify(
-                            payload
-                        )
-
-                
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!response.ok)
-            throw new Error(
-                data.details ||
-                data.error ||
-                "PRMS AI request failed."
-            );
+            body:
+                JSON.stringify(
+                    payload
+                )
 
         }
+    );
+
+
+const data =
+    await response.json();
+
+
+if (!response.ok)
+    throw new Error(
+        data.details ||
+        data.error ||
+        "PRMS AI request failed."
+    );
 
         /* ---------------------------------------------
            PERSIST RESPONSE ID
