@@ -3759,7 +3759,111 @@ async function runSimulation(
         recommendation
     );
 
+/* -----------------------------------------------------
+   PRMS AI — SIMULATION RESULTS
+   ----------------------------------------------------- */
 
+const simulationResults = {
+
+    baseline: {
+
+        energy:
+            energy,
+
+        water:
+            water,
+
+        comfort:
+            comfort,
+
+        carbon:
+            baselineCarbon,
+
+        autonomy:
+            baselineAutonomy,
+
+        score:
+            baselineScore
+
+    },
+
+    optionA: {
+
+        energy:
+            aEnergy,
+
+        water:
+            aWater,
+
+        comfort:
+            aComfort,
+
+        carbon:
+            carbonA,
+
+        autonomy:
+            autonomyA,
+
+        roi:
+            roiA,
+
+        score:
+            scoreA
+
+    },
+
+    optionB: {
+
+        energy:
+            bEnergy,
+
+        water:
+            bWater,
+
+        comfort:
+            bComfort,
+
+        carbon:
+            carbonB,
+
+        autonomy:
+            autonomyB,
+
+        roi:
+            roiB,
+
+        score:
+            scoreB
+
+    },
+
+    optionC: {
+
+        energy:
+            cEnergy,
+
+        water:
+            cWater,
+
+        comfort:
+            cComfort,
+
+        carbon:
+            carbonC,
+
+        autonomy:
+            autonomyC,
+
+        roi:
+            roiC,
+
+        score:
+            scoreC
+
+    }
+
+};
+    
     /* -----------------------------------------------------
        AI QUESTION
        ----------------------------------------------------- */
