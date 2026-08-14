@@ -4572,30 +4572,38 @@ Return ONLY valid JSON.
    UPDATE AI ANALYSIS
    ========================================================= */
 
+
 if (
     aiData &&
     aiData.analysis
 ) {
 
+    const analysis =
+        aiData.analysis;
+
     const finding =
-        aiData.analysis.finding || "";
+        analysis.finding ||
+        "No architectural finding generated.";
 
     const tradeoff =
-        aiData.analysis.tradeoff || "";
+        analysis.tradeoff ||
+        "No principal performance trade-off identified.";
 
     const nextInput =
-        aiData.analysis.next_input || "";
+        analysis.next_input ||
+        "No additional input identified.";
 
 
     setText(
         "aiQuestion",
         `
+
         <div class="prms-analysis">
 
             <div class="prms-analysis-item">
 
                 <div class="prms-analysis-label">
-                    Key finding
+                    KEY FINDING
                 </div>
 
                 <div class="prms-analysis-text">
@@ -4608,7 +4616,7 @@ if (
             <div class="prms-analysis-item">
 
                 <div class="prms-analysis-label">
-                    Trade-off
+                    PERFORMANCE TRADE-OFF
                 </div>
 
                 <div class="prms-analysis-text">
@@ -4621,7 +4629,7 @@ if (
             <div class="prms-analysis-item">
 
                 <div class="prms-analysis-label">
-                    Next input
+                    NEXT INPUT
                 </div>
 
                 <div class="prms-analysis-text">
@@ -4631,6 +4639,7 @@ if (
             </div>
 
         </div>
+
         `
     );
 
@@ -4641,14 +4650,14 @@ else {
         "aiQuestion",
         "PRMS AI completed the simulation analysis."
     );
+}
 
-}a
+addLog(
 
+    "PRMS AI analysis completed."
 
-        addLog(
-            "PRMS AI analysis completed."
-        );
-
+);
+        
 
         console.log(
             "PRMS SIMULATOR: complete",
