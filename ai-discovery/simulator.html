@@ -4362,14 +4362,50 @@ Return ONLY valid JSON using exactly this structure:
       "storage": ""
     }
   },
-  "analysis": ""
+  "analysis": {
+  "finding": "",
+  "tradeoff": "",
+  "next_input": ""
+  }
 }
 
-The analysis should contain:
+ANALYSIS RULES
 
-1. The most significant architectural finding.
-2. The principal performance trade-off.
-3. The next research question.
+Return a very concise project-specific analysis.
+
+The analysis MUST contain exactly three fields:
+
+1. finding
+2. tradeoff
+3. next_input
+
+FINDING:
+Identify the single most significant architectural
+or environmental finding derived from the supplied
+project data and simulation results.
+
+TRADEOFF:
+Identify the single most important trade-off between
+performance, intervention intensity, resource autonomy
+and/or economic return.
+
+NEXT_INPUT:
+Identify the single most important missing or uncertain
+input that should be verified before making a stronger
+architectural decision.
+
+Rules:
+- Maximum 20 words per field.
+- Use only information supported by the project data.
+- Do not repeat the strategy proposals.
+- Do not explain implementation here.
+- Do not introduce new measurements.
+- If a required datum is unknown, explicitly say "Unknown"
+  or "Needs verification".
+- Prefer concrete architectural language.
+- Do not write an introduction or conclusion.
+
+Return ONLY valid JSON.
 
 `;
 
