@@ -4568,32 +4568,81 @@ Return ONLY valid JSON.
         }
 
 
-        /* =================================================
-           UPDATE AI ANALYSIS
-           ================================================= */
+/* =========================================================
+   UPDATE AI ANALYSIS
+   ========================================================= */
 
-        if (
-            aiData &&
-            aiData.analysis
-        ) {
+if (
+    aiData &&
+    aiData.analysis
+) {
 
-            setText(
-                "aiQuestion",
-                aiData.analysis
-            );
+    const finding =
+        aiData.analysis.finding || "";
 
-        }
-        else {
+    const tradeoff =
+        aiData.analysis.tradeoff || "";
 
-            setText(
+    const nextInput =
+        aiData.analysis.next_input || "";
 
-                "aiQuestion",
 
-                "PRMS AI completed the simulation analysis."
+    setText(
+        "aiQuestion",
+        `
+        <div class="prms-analysis">
 
-            );
+            <div class="prms-analysis-item">
 
-        }
+                <div class="prms-analysis-label">
+                    Key finding
+                </div>
+
+                <div class="prms-analysis-text">
+                    ${finding}
+                </div>
+
+            </div>
+
+
+            <div class="prms-analysis-item">
+
+                <div class="prms-analysis-label">
+                    Trade-off
+                </div>
+
+                <div class="prms-analysis-text">
+                    ${tradeoff}
+                </div>
+
+            </div>
+
+
+            <div class="prms-analysis-item">
+
+                <div class="prms-analysis-label">
+                    Next input
+                </div>
+
+                <div class="prms-analysis-text">
+                    ${nextInput}
+                </div>
+
+            </div>
+
+        </div>
+        `
+    );
+
+}
+else {
+
+    setText(
+        "aiQuestion",
+        "PRMS AI completed the simulation analysis."
+    );
+
+}a
 
 
         addLog(
