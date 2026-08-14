@@ -1281,3 +1281,61 @@ footer {
     font-weight: 600;
 
 }
+
+/* =========================================================
+   PRMS AI DISCOVERY — INPUT GUIDANCE
+   ========================================================= */
+
+.input-guidance {
+
+  margin-top: 12px;
+
+  padding: 12px 14px;
+
+  border: 1px solid var(--gray-100);
+
+  border-radius: 7px;
+
+  background: #fafafa;
+
+  color: var(--gray-500);
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+}
+
+.input-guidance strong {
+
+  color: var(--gray-700);
+
+  font-weight: 500;
+
+}
+
+.input-guidance ul {
+
+  margin: 6px 0 6px 18px;
+
+  padding: 0;
+
+}
+
+.input-guidance li {
+
+  margin-bottom: 3px;
+
+  color: var(--gray-500);
+
+}
+
+.input-guidance p {
+
+  margin: 7px 0 0;
+
+  color: var(--gray-500);
+
+  font-size: 10.5px;
+
+}
