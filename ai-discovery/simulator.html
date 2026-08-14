@@ -3966,29 +3966,79 @@ and the next research question.
 `
 
     );
+
     if (
 
-        aiResult &&
+    aiResult &&
 
-        aiResult.response
+    aiResult.response
 
-    ) {
+) {
 
-        setText(
+    try {
 
-            "aiQuestion",
+        const aiData =
 
-            aiResult.response
+            typeof aiResult.response === "string"
 
+                ? JSON.parse(
+                    aiResult.response
+                )
+
+                : aiResult.response;
+
+
+        /* -----------------------------------------
+           UPDATE STRATEGY CARDS
+           ----------------------------------------- */
+
+        if (
+
+            aiData.strategies
+
+        ) {
+
+            updateAIStrategyCards(
+
+                aiData.strategies
+            );
+
+            addLog(
+
+                "PRMS AI generated project-specific strategies."
+            );
+        }
+
+        /* -----------------------------------------
+           UPDATE AI ANALYSIS
+           ----------------------------------------- */
+
+        if (
+            aiData.analysis
+
+        ) {
+            setText(
+
+                "aiQuestion",
+                aiData.analysis
+            );
+        }
+    }
+    catch (error) {
+        console.error(
+            "PRMS AI JSON parsing error:",
+            error
         );
-
         addLog(
 
-            "PRMS AI returned a research analysis."
-
+            "PRMS AI returned a response that could not be parsed as JSON."
         );
-
+        setText(
+        "aiQuestion",
+            aiResult.response
+        );
     }
+}
 
     else if (
 
