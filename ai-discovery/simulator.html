@@ -752,25 +752,139 @@ body > main > section:first-child .simulator-intro > p:last-child{
 }
 
 </style>
+
+<style>
+/* =========================================================
+   PRMS AI PLATFORM HEADER — MATCH INDEX EXACTLY
+   Simulator uses the same header identity and geometry as /ai-discovery/
+   ========================================================= */
+.prms-ai-header{
+    position:sticky !important;top:0 !important;z-index:10000 !important;
+    background:rgba(255,255,255,.94) !important;
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid #dedede !important;
+    width:100% !important;
+    min-height:88px !important;
+    height:auto !important;
+    padding:0 !important;
+    display:block !important;
+    margin:0 !important;
+}
+.prms-ai-header > .container.prms-ai-nav{
+    width:min(calc(100% - 48px),1380px) !important;
+    max-width:1380px !important;
+    margin:0 auto !important;
+    min-height:88px !important;
+    height:88px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:30px !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+}
+.prms-ai-brand{
+    display:flex !important;align-items:center !important;gap:12px !important;
+    flex:0 0 auto !important;width:auto !important;height:auto !important;
+    margin:0 !important;padding:0 !important;text-decoration:none !important;
+}
+.prms-ai-brand-mark{
+    width:38px !important;height:38px !important;min-width:38px !important;
+    border:1.5px solid #111 !important;
+    display:grid !important;place-items:center !important;
+    font-size:12px !important;font-weight:700 !important;
+    letter-spacing:-.08em !important;line-height:1 !important;
+    color:#161616 !important;background:#fff !important;
+    box-sizing:border-box !important;
+}
+.prms-ai-brand-text{
+    display:block !important;line-height:1 !important;width:auto !important;
+    margin:0 !important;padding:0 !important;
+}
+.prms-ai-brand-name{
+    display:block !important;font-size:25px !important;font-weight:700 !important;
+    letter-spacing:-.045em !important;line-height:1 !important;color:#161616 !important;
+    margin:0 !important;padding:0 !important;
+}
+.prms-ai-brand-sub{
+    display:block !important;margin-top:5px !important;padding:0 !important;
+    font-size:9px !important;letter-spacing:.17em !important;
+    line-height:1 !important;color:#555 !important;white-space:nowrap !important;
+}
+.prms-ai-links{
+    display:flex !important;align-items:center !important;gap:0 !important;
+    width:auto !important;height:88px !important;margin:0 !important;padding:0 !important;
+    justify-content:flex-end !important;background:transparent !important;
+}
+.prms-ai-links a{
+    position:relative !important;display:flex !important;align-items:center !important;
+    height:88px !important;min-height:88px !important;
+    padding:0 26px !important;margin:0 !important;
+    font-size:14px !important;font-weight:500 !important;line-height:1 !important;
+    color:#161616 !important;text-decoration:none !important;
+    border-right:1px solid #cfcfcf !important;border-left:0 !important;
+    background:transparent !important;white-space:nowrap !important;
+    box-sizing:border-box !important;
+}
+.prms-ai-links a:last-child{
+    border-right:0 !important;padding-right:0 !important;
+}
+.prms-ai-links a:hover{color:#555 !important;background:transparent !important}
+.prms-ai-links .lab-link{font-weight:600 !important}
+.prms-ai-links a.active{font-weight:700 !important}
+.prms-ai-links a.active::after{
+    content:"" !important;position:absolute !important;
+    left:26px !important;right:26px !important;bottom:0 !important;
+    height:2px !important;background:#3f8b63 !important;display:block !important;
+}
+@media(max-width:1050px){
+    .prms-ai-header > .container.prms-ai-nav{width:min(calc(100% - 30px),1380px) !important}
+    .prms-ai-links a{padding:0 13px !important}
+    .prms-ai-links a.active::after{left:13px !important;right:13px !important}
+}
+@media(max-width:900px){
+    .prms-ai-header{position:sticky !important}
+    .prms-ai-header > .container.prms-ai-nav{min-height:72px !important;height:72px !important}
+    .prms-ai-links{height:72px !important}
+    .prms-ai-links a{height:72px !important;min-height:72px !important;padding:0 10px !important;font-size:13px !important}
+    .prms-ai-links a.active::after{left:10px !important;right:10px !important}
+}
+@media(max-width:650px){
+    .prms-ai-header > .container.prms-ai-nav{
+        width:min(calc(100% - 30px),1380px) !important;
+        height:auto !important;min-height:72px !important;
+        flex-direction:column !important;align-items:flex-start !important;
+        gap:8px !important;padding:10px 0 !important;
+    }
+    .prms-ai-links{width:100% !important;height:42px !important;
+        justify-content:flex-start !important;overflow-x:auto !important}
+    .prms-ai-links a{height:42px !important;min-height:42px !important;padding:0 12px !important;font-size:12px !important}
+    .prms-ai-links a:first-child{padding-left:0 !important}
+    .prms-ai-links a.active::after{left:12px !important;right:12px !important}
+    .prms-ai-links a:first-child::after{left:0 !important}
+}
+</style>
 </head>
 
 <body>
 
 <header class="prms-ai-header">
-  <div class="prms-ai-brand">
-    <div class="prms-ai-mark">PRMS</div>
-    <div class="prms-ai-brand-text">
-      <strong>PRMS AI</strong>
-      <span>ARCHITECTURAL INTELLIGENCE</span>
-    </div>
-  </div>
+    <div class="container prms-ai-nav">
+        <a class="prms-ai-brand" href="/ai-discovery/">
+            <div class="prms-ai-brand-mark">PRMS</div>
+            <div class="prms-ai-brand-text">
+                <div class="prms-ai-brand-name">PRMS AI</div>
+                <div class="prms-ai-brand-sub">ARCHITECTURAL INTELLIGENCE</div>
+            </div>
+        </a>
 
-  <nav class="prms-ai-nav" aria-label="PRMS AI navigation">
-    <a href="/ai-discovery/diagnostic.html">Diagnostic</a>
-    <a href="/ai-discovery/simulator.html" class="active" aria-current="page">Simulator</a>
-    <a href="/ai-discovery/knowledge.html">Knowledge</a>
-    <a href="/ai-discovery">PRMS Architecture Lab</a>
-  </nav>
+        <nav class="prms-ai-links" aria-label="PRMS AI">
+            <a href="/ai-discovery/diagnostic.html">Diagnostic</a>
+            <a href="/ai-discovery/simulator.html" class="active" aria-current="page">Simulator</a>
+            <a href="/ai-discovery/knowledge.html">Knowledge</a>
+            <a class="lab-link" href="/lab/">PRMS Architecture Lab</a>
+        </nav>
+    </div>
 </header>
 
 
