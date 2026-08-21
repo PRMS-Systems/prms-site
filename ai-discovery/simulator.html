@@ -473,25 +473,27 @@ footer{
 }
 
 @media(max-width:900px){
+
   .prms-ai-header{
     min-height:auto;
-    padding:1rem 5vw;
-    align-items:flex-start;
   }
 
   .prms-ai-nav{
+    min-height:72px;
     flex-wrap:wrap;
-    justify-content:flex-end;
+    gap:15px;
   }
 
-  .prms-ai-nav a{
-    min-height:42px;
-    padding:.2rem .7rem;
+  .prms-ai-links{
+    flex-wrap:wrap;
   }
 
-  .prms-ai-nav a.active::after{
-    left:.7rem;
-    right:.7rem;
+  .prms-ai-links a{
+    padding:0 13px;
+  }
+
+  .prms-ai-links a:last-child{
+    padding-right:0;
   }
 }
 
