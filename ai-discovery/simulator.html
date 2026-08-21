@@ -283,44 +283,80 @@ body{
 }
 
 .prms-ai-nav{
+  min-height:88px;
   display:flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:space-between;
+  gap:30px;
+  min-width:0;
+}
+
+.prms-ai-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-shrink:0;
+  color:inherit;
+  text-decoration:none;
+}
+
+.prms-ai-brand-mark{
+  width:38px;
+  height:38px;
+  border:1.5px solid #111;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:-.08em;
+}
+
+.prms-ai-brand-text{
+  line-height:1;
+}
+
+.prms-ai-brand-name{
+  font-size:25px;
+  font-weight:700;
+  letter-spacing:-.045em;
+}
+
+.prms-ai-brand-sub{
+  margin-top:5px;
+  font-size:9px;
+  letter-spacing:.17em;
+  color:#555;
+}
+
+.prms-ai-links{
+  display:flex;
+  align-items:center;
   gap:0;
   min-width:0;
 }
 
-.prms-ai-nav a{
-  position:relative;
-  display:flex;
-  align-items:center;
-  min-height:82px;
-  padding:0 1.15rem;
-  border-left:1px solid transparent;
+.prms-ai-links a{
+  padding:0 26px;
+  font-size:14px;
+  font-weight:500;
+  line-height:1;
   color:#171717;
   text-decoration:none;
-  font:500 .78rem/1 Arial,sans-serif;
+  border-right:1px solid #cfcfcf;
   white-space:nowrap;
-  transition:color .18s ease,background .18s ease;
 }
 
-.prms-ai-nav a:hover{
-  color:#000;
-  background:#fafafa;
+.prms-ai-links a:last-child{
+  border-right:0;
+  padding-right:0;
 }
 
-.prms-ai-nav a.active{
-  font-weight:700;
+.prms-ai-links a:hover{
+  color:#555;
 }
 
-.prms-ai-nav a.active::after{
-  content:"";
-  position:absolute;
-  left:1.15rem;
-  right:1.15rem;
-  bottom:0;
-  height:2px;
-  background:var(--prms-ai-green);
+.prms-ai-links a.active{
+  font-weight:600;
 }
 
 main{
