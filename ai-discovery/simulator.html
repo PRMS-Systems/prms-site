@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRMS Simulator v2.1 — PRMS Architecture Lab</title>
-<meta name="description" content="PRMS Simulator v2.1 — architectural simulation, knowledge graph, pattern discovery, report generation and deep interaction.">
+<title>PRMS Simulator v2.1 — PRMS AI</title>
+<meta name="description" content="PRMS AI Simulator v2.1 — architectural simulation, knowledge graph reasoning, pattern discovery, report generation and deep interaction.">
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" href="/favicon.png" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -207,11 +207,318 @@
   .deep-input-row{grid-template-columns:1fr}
   .deep-message{max-width:92%}
 }
+
+/* =========================================================
+   PRMS AI PLATFORM VISUAL SYSTEM
+   White editorial interface aligned with PRMS AI home
+   ========================================================= */
+
+:root{
+  --prms-ai-green:#4d9b73;
+  --prms-ai-blue:#5b8fca;
+  --prms-ai-orange:#dc7a35;
+  --prms-ai-ink:#111317;
+  --prms-ai-muted:#666b70;
+  --prms-ai-line:#e6e7e8;
+  --prms-ai-soft:#f7f7f6;
+}
+
+html{
+  background:#fff;
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:#fff !important;
+  color:var(--prms-ai-ink);
+}
+
+.prms-ai-header{
+  position:relative;
+  z-index:100;
+  min-height:82px;
+  width:100%;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:2rem;
+  padding:0 4.5vw;
+  background:rgba(255,255,255,.98);
+  border-bottom:1px solid var(--prms-ai-line);
+}
+
+.prms-ai-brand{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  flex:0 0 auto;
+}
+
+.prms-ai-mark{
+  width:39px;
+  height:39px;
+  box-sizing:border-box;
+  display:grid;
+  place-items:center;
+  border:1.5px solid #222;
+  font:700 .55rem/1 Arial,sans-serif;
+  letter-spacing:-.03em;
+  color:#222;
+}
+
+.prms-ai-brand-text{
+  display:flex;
+  flex-direction:column;
+  gap:.18rem;
+  line-height:1;
+}
+
+.prms-ai-brand-text strong{
+  font:700 1.05rem/1 Arial,sans-serif;
+  letter-spacing:-.035em;
+  color:#111;
+}
+
+.prms-ai-brand-text span{
+  font:500 .47rem/1 Arial,sans-serif;
+  letter-spacing:.18em;
+  color:#777;
+  white-space:nowrap;
+}
+
+.prms-ai-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:0;
+  min-width:0;
+}
+
+.prms-ai-nav a{
+  position:relative;
+  display:flex;
+  align-items:center;
+  min-height:82px;
+  padding:0 1.15rem;
+  border-left:1px solid transparent;
+  color:#171717;
+  text-decoration:none;
+  font:500 .78rem/1 Arial,sans-serif;
+  white-space:nowrap;
+  transition:color .18s ease,background .18s ease;
+}
+
+.prms-ai-nav a:hover{
+  color:#000;
+  background:#fafafa;
+}
+
+.prms-ai-nav a.active{
+  font-weight:700;
+}
+
+.prms-ai-nav a.active::after{
+  content:"";
+  position:absolute;
+  left:1.15rem;
+  right:1.15rem;
+  bottom:0;
+  height:2px;
+  background:var(--prms-ai-green);
+}
+
+main{
+  background:#fff !important;
+}
+
+main > section:first-child{
+  background:#fff;
+}
+
+.simulator-intro{
+  max-width:980px;
+  margin-bottom:3.75rem;
+  padding-top:1rem;
+}
+
+.simulator-intro .section-label{
+  letter-spacing:.22em;
+  color:#8b8f92;
+  font-size:.63rem;
+}
+
+.simulator-intro h1{
+  font-size:clamp(2.7rem,5vw,4.6rem);
+  letter-spacing:-.055em;
+  line-height:.98;
+  margin-top:.8rem;
+  margin-bottom:1.1rem;
+  color:#111;
+}
+
+.simulator-intro .lead{
+  font-size:clamp(1.15rem,1.8vw,1.4rem);
+  line-height:1.5;
+  max-width:70ch;
+  color:#4f5357;
+}
+
+.simulator-intro > p:last-child{
+  max-width:76ch;
+  color:#666;
+  line-height:1.7;
+}
+
+.simulator-shell{
+  border:1px solid #dedfe0;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 18px 55px rgba(0,0,0,.055);
+}
+
+.simulator-topbar{
+  background:#fff;
+}
+
+.pipeline{
+  background:#fbfbfa;
+}
+
+.graph-panel,
+.graph-svg,
+.node-panel,
+.sim-panel,
+.panel-header,
+.panel-body,
+.pattern-section,
+.report-section,
+.deep-section{
+  background:#fff;
+}
+
+.graph-legend{
+  background:rgba(255,255,255,.94);
+}
+
+.ai-message{
+  background:#f5f6f5;
+}
+
+.derived-card{
+  background:#fafafa;
+}
+
+.scenario-card{
+  background:#fff;
+}
+
+.report-box{
+  background:#fafafa;
+}
+
+.report-output{
+  background:#fafafa;
+}
+
+.deep-message.system{
+  background:#f3f4f3;
+}
+
+.deep-message.user{
+  background:#111317;
+}
+
+.recommendation{
+  background:#fff;
+}
+
+.cta-block{
+  background:#f7f7f6;
+}
+
+footer{
+  background:#fff;
+}
+
+@media(max-width:900px){
+  .prms-ai-header{
+    min-height:auto;
+    padding:1rem 5vw;
+    align-items:flex-start;
+  }
+
+  .prms-ai-nav{
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .prms-ai-nav a{
+    min-height:42px;
+    padding:.2rem .7rem;
+  }
+
+  .prms-ai-nav a.active::after{
+    left:.7rem;
+    right:.7rem;
+  }
+}
+
+@media(max-width:650px){
+  .prms-ai-header{
+    flex-direction:column;
+    gap:.8rem;
+  }
+
+  .prms-ai-brand{
+    align-self:flex-start;
+  }
+
+  .prms-ai-nav{
+    width:100%;
+    justify-content:flex-start;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+  }
+
+  .prms-ai-nav a{
+    font-size:.72rem;
+    padding:.2rem .8rem;
+  }
+
+  .prms-ai-nav a.active::after{
+    left:.8rem;
+    right:.8rem;
+  }
+
+  .simulator-intro{
+    padding-top:0;
+  }
+}
+
 </style>
 </head>
 
 <body>
-<nav id="main-nav"></nav>
+
+<header class="prms-ai-header">
+  <div class="prms-ai-brand">
+    <div class="prms-ai-mark">PRMS</div>
+    <div class="prms-ai-brand-text">
+      <strong>PRMS AI</strong>
+      <span>ARCHITECTURAL INTELLIGENCE</span>
+    </div>
+  </div>
+
+  <nav class="prms-ai-nav" aria-label="PRMS AI navigation">
+    <a href="/ai-discovery/diagnostic.html">Diagnostic</a>
+    <a href="/ai-discovery/simulator.html" class="active" aria-current="page">Simulator</a>
+    <a href="/ai-discovery/knowledge.html">Knowledge</a>
+    <a href="/ai-discovery">PRMS Architecture Lab</a>
+  </nav>
+</header>
+
 
 <main>
 <section>
@@ -1461,6 +1768,5 @@ window.addEventListener("error",e=>{console.error("PRMS GLOBAL ERROR",e.error||e
 window.addEventListener("unhandledrejection",e=>{console.error("PRMS UNHANDLED PROMISE",e.reason);addLog("Unhandled simulation error detected.")});
 </script>
 
-<script src="/nav.js"></script>
 </body>
 </html>
