@@ -1,6492 +1,1466 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>
-    PRMS Simulator v1.0 — PRMS Architecture Lab
-</title>
-
-<meta
-    name="description"
-    content="PRMS Simulator v1.0 — Architectural scenario simulation and decision support."
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRMS Simulator v2.1 — PRMS Architecture Lab</title>
+<meta name="description" content="PRMS Simulator v2.1 — architectural simulation, knowledge graph, pattern discovery, report generation and deep interaction.">
 <link rel="stylesheet" href="/style.css">
-
 <link rel="icon" href="/favicon.png" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="shortcut icon" href="/favicon.png">
 
-
 <style>
-
 /* =========================================================
-   PRMS SIMULATOR v1.0
+   PRMS SIMULATOR v2.1
+   Graph → Model → Scenario → Simulation → Pattern →
+   Conclusion → Report → Deep Interaction
    ========================================================= */
 
-.simulator-intro {
-
-    max-width: 900px;
-    margin-bottom: 3rem;
-
-}
-
-.simulator-intro h1 {
-
-    margin-bottom: 1rem;
-
-}
-
-.simulator-intro .lead {
-
-    font-size: 1.25rem;
-    line-height: 1.55;
-    max-width: 70ch;
-    color: var(--gray-700, #555);
-
-}
-
-
-/* =========================================================
-   SIMULATOR SHELL
-   ========================================================= */
-
-.simulator-shell {
-
-    border: 1px solid #d9d9d9;
-    border-radius: 14px;
-    background: #fff;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0,0,0,.05);
-    margin-bottom: 4rem;
-
-}
-
-.simulator-topbar {
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid #e5e5e5;
-    font-size: .9rem;
-
-}
-
-.simulator-brand {
-
-    font-weight: 700;
-    letter-spacing: .02em;
-
-}
-
-.simulator-status {
-
-    color: #777;
-
-}
-
-
-/* =========================================================
-   THREE PANELS
-   ========================================================= */
-
-.simulator-workspace {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.25fr;
-    min-height: 620px;
-
-}
-
-.sim-panel {
-
-    min-width: 0;
-    border-right: 1px solid #e5e5e5;
-
-}
-
-.sim-panel:last-child {
-
-    border-right: none;
-
-}
-
-.panel-header {
-
-    padding: 1.25rem;
-    border-bottom: 1px solid #e5e5e5;
-
-}
-
-.panel-header h3 {
-
-    margin: 0 0 .25rem;
-    font-size: 1rem;
-
-}
-
-.panel-header span {
-
-    font-size: .82rem;
-    color: #777;
-
-}
-
-.panel-body {
-
-    padding: 1.25rem;
-
-}
-
-
-/* =========================================================
-   INPUTS
-   ========================================================= */
-
-.input-group {
-
-    margin-bottom: 1.15rem;
-
-}
-
-.input-group > label:first-child {
-
-    display: block;
-    font-size: .78rem;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: #777;
-    margin-bottom: .45rem;
-
-}
-
-.input-group input,
-.input-group select {
-
-    width: 100%;
-    box-sizing: border-box;
-    padding: .75rem .8rem;
-    border: 1px solid #d4d4d4;
-    border-radius: 7px;
-    background: #fff;
-    font: inherit;
-
-}
-
-.input-group input:focus,
-.input-group select:focus {
-
-    outline: none;
-    border-color: #111;
-
-}
-
-.input-help {
-
-    font-size: .78rem;
-    color: #888;
-    margin-top: .35rem;
-    line-height: 1.4;
-
-}
-
-.data-type {
-
-    display: inline-block;
-    margin-top: .3rem;
-    padding: .15rem .45rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: .65rem;
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    color: #777;
-
-}
-
-
-/* =========================================================
-   SECTION DIVIDER
-   ========================================================= */
-
-.input-section-divider {
-
-    border-top: 1px solid #e5e5e5;
-    margin: 1.5rem 0 1.25rem;
-    padding-top: 1.25rem;
-
-}
-
-.input-section-title {
-
-    display: block;
-    font-size: .82rem;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-
-}
-
-.input-section-description {
-
-    display: block;
-    font-size: .78rem;
-    color: #777;
-    margin-top: .25rem;
-
-}
-
-
-/* =========================================================
-   RESOURCE SYSTEMS
-   ========================================================= */
-
-.system-options {
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: .5rem;
-    margin-top: .5rem;
-
-}
-
-.system-option {
-
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-    padding: .45rem .55rem;
-    border: 1px solid #ededed;
-    border-radius: 6px;
-    background: #fafafa;
-    cursor: pointer;
-
-}
-
-.system-option:hover {
-
-    background: #f4f4f4;
-
-}
-
-.system-option input {
-
-    width: auto;
-    margin: 0;
-
-}
-
-.system-option span {
-
-    font-size: .78rem;
-    color: #444;
-
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-.controls {
-
-    display: flex;
-    flex-wrap: wrap;
-    gap: .75rem;
-    margin-top: 1.5rem;
-
-}
-
-.control-button {
-
-    border: 1px solid #cfcfcf;
-    background: #fff;
-    border-radius: 7px;
-    padding: .75rem 1rem;
-    font: inherit;
-    cursor: pointer;
-    transition:
-        opacity .2s ease,
-        transform .2s ease,
-        background .2s ease;
-
-}
-
-.control-button.primary {
-
-    background: #111;
-    color: #fff;
-    border-color: #111;
-
-}
-
-.control-button:hover {
-
-    opacity: .85;
-
-}
-
-.control-button:disabled {
-
-    opacity: .45;
-    cursor: wait;
-
-}
-
-
-/* =========================================================
-   AI PANEL
-   ========================================================= */
-
-.ai-message {
-
-    background: #f2f2f2;
-    border-radius: 10px;
-    padding: 1rem;
-    line-height: 1.55;
-    margin-bottom: 1rem;
-
-}
-
-.ai-message strong {
-
-    display: block;
-    margin-bottom: .5rem;
-
-}
-
-.ai-question {
-
-    font-size: .95rem;
-    line-height: 1.5;
-    margin-bottom: 1.25rem;
-
-}
-
-.ai-log {
-
-    margin-top: 1.5rem;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-
-}
-
-.ai-log-item {
-
-    font-size: .8rem;
-    color: #777;
-    margin-bottom: .6rem;
-
-}
-
-
-/* =========================================================
-   PRMS AI STRUCTURED ANALYSIS
-   ========================================================= */
-
-.prms-analysis {
-
-    margin-top: .25rem;
-
-}
-
-.prms-analysis-item {
-
-    padding: .85rem 0;
-    border-bottom: 1px solid #e5e5e5;
-
-}
-
-.prms-analysis-item:first-child {
-
-    padding-top: 0;
-
-}
-
-.prms-analysis-item:last-child {
-
-    border-bottom: none;
-
-}
-
-.prms-analysis-label {
-
-    font-size: .68rem;
-    text-transform: uppercase;
-    letter-spacing: .09em;
-    color: #777;
-    margin-bottom: .35rem;
-
-}
-
-.prms-analysis-text {
-
-    font-size: .94rem;
-    line-height: 1.55;
-    color: #222;
-
+.simulator-intro{max-width:950px;margin-bottom:3rem}
+.simulator-intro h1{margin-bottom:1rem}
+.simulator-intro .lead{font-size:1.25rem;line-height:1.55;max-width:75ch;color:var(--gray-700,#555)}
+
+.simulator-shell{border:1px solid #d9d9d9;border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.05);margin-bottom:4rem}
+.simulator-topbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid #e5e5e5;font-size:.9rem}
+.simulator-meta{display:flex;gap:2rem;flex-wrap:wrap}
+.meta-item{display:flex;gap:.45rem;align-items:center}
+.meta-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#777}
+.meta-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700}
+.simulator-status{color:#777}
+.simulator-status strong{color:#276b4b}
+
+.pipeline{display:flex;align-items:center;gap:.25rem;padding:.85rem 1.25rem;border-bottom:1px solid #e5e5e5;overflow-x:auto;background:#fafafa}
+.pipeline-step{font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;color:#777;white-space:nowrap}
+.pipeline-step.active{color:#111;font-weight:700}
+.pipeline-arrow{color:#aaa;font-size:.75rem}
+
+.graph-workspace{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(300px,.8fr);min-height:680px;border-bottom:1px solid #e5e5e5}
+.graph-panel{position:relative;min-width:0;border-right:1px solid #e5e5e5;background:#fff}
+.graph-toolbar{position:absolute;z-index:3;top:1rem;left:1rem;right:1rem;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.graph-toolbar>*{pointer-events:auto}
+.graph-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:#777}
+.graph-controls{display:flex;gap:.45rem}
+.graph-button{border:1px solid #d4d4d4;background:#fff;border-radius:6px;padding:.45rem .65rem;font:inherit;font-size:.72rem;cursor:pointer}
+.graph-button:hover{background:#f5f5f5}
+.graph-svg{width:100%;height:680px;display:block}
+.graph-edge{stroke:#d5d5d5;stroke-width:1.2}
+.graph-edge.active{stroke:#222;stroke-width:1.8}
+.graph-node{cursor:pointer}
+.graph-node circle{fill:#fff;stroke-width:2}
+.graph-node text{font-family:Georgia,serif;font-size:12px;fill:#333;pointer-events:none}
+.graph-node .node-label{font-size:11px}
+.graph-node.root circle{fill:#111;stroke:#111}
+.graph-node.domain circle{stroke-width:2.2}
+.graph-node.selected circle{stroke:#111;stroke-width:3.5}
+.graph-node.dimmed{opacity:.16}
+.graph-node.active text{font-weight:700}
+.graph-legend{position:absolute;left:1rem;bottom:1rem;display:flex;gap:1rem;flex-wrap:wrap;font-size:.7rem;color:#666;background:rgba(255,255,255,.92);padding:.55rem .7rem;border:1px solid #eee;border-radius:6px}
+.legend-item{display:flex;align-items:center;gap:.35rem}
+.legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.legend-architecture{background:#222}.legend-performance{background:#27754f}.legend-human{background:#ad642e}.legend-context{background:#346694}
+
+.node-panel{min-width:0}
+.node-panel-header{padding:1.5rem 1.4rem;border-bottom:1px solid #e5e5e5}
+.eyebrow{font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#777;margin-bottom:.45rem}
+.node-panel h2{margin:0 0 .45rem;font-family:Georgia,serif;font-size:1.35rem}
+.node-badge{display:inline-block;border:1px solid #ddd;border-radius:4px;padding:.18rem .45rem;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#777}
+.node-panel-body{padding:1.4rem}
+.node-description{font-family:Georgia,serif;line-height:1.6;color:#333}
+.node-section{border-top:1px solid #eee;margin-top:1.2rem;padding-top:1.1rem}
+.node-section-title{font-size:.67rem;text-transform:uppercase;letter-spacing:.09em;color:#777;margin-bottom:.55rem}
+.node-list{margin:0;padding-left:1.1rem;font-size:.82rem;line-height:1.8;color:#444}
+.node-status{font-size:.76rem;color:#777;line-height:1.5}
+.selection-summary{padding:1rem 1.4rem;background:#fafafa;border-top:1px solid #eee;font-size:.75rem;color:#666}
+
+.model-workspace{display:grid;grid-template-columns:1fr 1fr;min-height:620px}
+.sim-panel{min-width:0;border-right:1px solid #e5e5e5}
+.sim-panel:last-child{border-right:none}
+.panel-header{padding:1.25rem;border-bottom:1px solid #e5e5e5}
+.panel-header h3{margin:0 0 .25rem;font-size:1rem}
+.panel-header span{font-size:.82rem;color:#777}
+.panel-body{padding:1.25rem}
+.panel-full{grid-column:1/-1;border-top:1px solid #e5e5e5}
+.input-group{margin-bottom:1.15rem}
+.input-group>label:first-child{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#777;margin-bottom:.45rem}
+.input-group input,.input-group select,.deep-input{width:100%;box-sizing:border-box;padding:.75rem .8rem;border:1px solid #d4d4d4;border-radius:7px;background:#fff;font:inherit}
+.input-group input:focus,.input-group select:focus,.deep-input:focus{outline:none;border-color:#111}
+.input-help{font-size:.78rem;color:#888;margin-top:.35rem;line-height:1.4}
+.data-type{display:inline-block;margin-top:.3rem;padding:.15rem .45rem;border:1px solid #ddd;border-radius:4px;font-size:.65rem;letter-spacing:.05em;text-transform:uppercase;color:#777}
+.input-section-divider{border-top:1px solid #e5e5e5;margin:1.5rem 0 1.25rem;padding-top:1.25rem}
+.input-section-title{display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
+.input-section-description{display:block;font-size:.78rem;color:#777;margin-top:.25rem;line-height:1.45}
+.system-options{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem}
+.system-option{display:flex;align-items:center;gap:.6rem;padding:.55rem;border:1px solid #ededed;border-radius:6px;background:#fafafa;cursor:pointer}
+.system-option:hover{background:#f4f4f4}
+.system-option input{width:auto;margin:0}
+.system-option span{font-size:.78rem;color:#444}
+.file-input{padding:.65rem!important}
+
+.controls{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.control-button{border:1px solid #cfcfcf;background:#fff;border-radius:7px;padding:.75rem 1rem;font:inherit;cursor:pointer;transition:opacity .2s ease,background .2s ease}
+.control-button.primary{background:#111;color:#fff;border-color:#111}
+.control-button:hover{opacity:.85}
+.control-button:disabled{opacity:.45;cursor:wait}
+
+.ai-message{background:#f2f2f2;border-radius:10px;padding:1rem;line-height:1.55;margin-bottom:1rem}
+.ai-message strong{display:block;margin-bottom:.5rem}
+.ai-question{font-size:.95rem;line-height:1.5;margin-bottom:1.25rem}
+.ai-log{margin-top:1.5rem;border-top:1px solid #eee;padding-top:1rem}
+.ai-log-item{font-size:.8rem;color:#777;margin-bottom:.6rem}
+.prms-analysis-item{padding:.85rem 0;border-bottom:1px solid #e5e5e5}
+.prms-analysis-item:last-child{border-bottom:none}
+.prms-analysis-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:#777;margin-bottom:.35rem}
+.prms-analysis-text{font-size:.94rem;line-height:1.55;color:#222}
+
+.derived-card{border:1px solid #e0e0e0;padding:1rem;margin-top:1rem;background:#fafafa}
+.derived-card-title,.analytics-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#777;margin-bottom:.75rem}
+.derived-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.derived-value{font-size:1.05rem;font-weight:600}
+.derived-label{font-size:.72rem;color:#777;line-height:1.35}
+.experimental-note{margin-top:1rem;padding:.85rem;border-left:2px solid #999;font-size:.74rem;color:#777;line-height:1.5}
+
+.scenario-table-wrap{overflow-x:auto}
+.scenario-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.scenario-table th,.scenario-table td{padding:.68rem .5rem;border-bottom:1px solid #e8e8e8;text-align:right;white-space:nowrap}
+.scenario-table th:first-child,.scenario-table td:first-child{text-align:left}
+.scenario-table th{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:#777;font-weight:600}
+.scenario-table td{font-variant-numeric:tabular-nums}
+.scenario-table .best{font-weight:700;background:#f3f3f3}
+.scenario-table .score-row td{font-weight:700;border-top:1px solid #111}
+.table-unit{display:block;font-size:.62rem;font-weight:400;color:#999;margin-top:.1rem}
+
+.analytics-card{margin-top:1.5rem;border-top:1px solid #ddd;padding-top:1.25rem}
+.analytics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ddd;border:1px solid #ddd}
+.analytics-item{background:#fff;padding:.85rem}
+.analytics-category{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:#777;margin-bottom:.35rem}
+.analytics-main{font-size:.88rem;font-weight:600;line-height:1.35}
+.analytics-sub{font-size:.72rem;color:#777;line-height:1.4;margin-top:.25rem}
+
+.scenario-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ddd;border:1px solid #ddd;margin-top:2rem}
+.scenario-card{background:#fff;padding:1.25rem}
+.scenario-card h4{margin:0 0 .35rem;font-size:1rem}
+.scenario-card .scenario-type{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#276b4b;margin-bottom:.75rem}
+.scenario-card p{font-size:.82rem;color:#777;line-height:1.45;margin-bottom:1rem}
+.scenario-card ul{margin:0;padding-left:1rem;font-size:.8rem;line-height:1.7}
+.ai-strategy{margin-top:.3rem;color:#555;font-size:.78rem;line-height:1.45}
+
+.pattern-section,.report-section,.deep-section{border-top:1px solid #e5e5e5;padding:2rem 1.25rem}
+.section-kicker{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#777;margin-bottom:.45rem}
+.pattern-section h3,.report-section h3,.deep-section h3{margin:.1rem 0 .55rem;font-family:Georgia,serif;font-size:1.35rem}
+.section-description{max-width:75ch;color:#666;line-height:1.55}
+.pattern-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem}
+.pattern-card{border:1px solid #ddd;padding:1rem;background:#fff}
+.pattern-index{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.68rem;color:#777}
+.pattern-card h4{margin:.45rem 0;font-family:Georgia,serif;font-size:1rem}
+.pattern-card p{font-size:.8rem;color:#555;line-height:1.5;margin:0}
+.pattern-strength{margin-top:.75rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:#777}
+.pattern-bar{height:3px;background:#e5e5e5;margin-top:.35rem}
+.pattern-bar span{display:block;height:100%;background:#222;width:50%}
+
+.conclusion{margin-top:1.25rem;border:1px solid #111;padding:1.25rem;background:#fff}
+.conclusion-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#777;margin-bottom:.45rem}
+.conclusion h4{font-family:Georgia,serif;margin:0 0 .65rem;font-size:1.2rem}
+.conclusion p{max-width:75ch;line-height:1.55;margin:0;color:#333}
+.conclusion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.conclusion-cell{border-top:1px solid #ddd;padding-top:.7rem}
+.conclusion-cell strong{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#777;margin-bottom:.3rem}
+.conclusion-cell span{font-size:.8rem;line-height:1.45;color:#444}
+
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.25rem}
+.report-box{border:1px solid #ddd;padding:1rem;background:#fafafa}
+.report-box h4{margin:0 0 .6rem;font-size:.85rem}
+.report-box p,.report-box li{font-size:.8rem;line-height:1.5;color:#555}
+.report-box ul{padding-left:1rem}
+.report-output{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;line-height:1.55;color:#333;background:#fafafa;border:1px solid #ddd;padding:1rem;max-height:420px;overflow:auto;margin-top:1rem}
+
+.deep-shell{border:1px solid #ddd;background:#fff;margin-top:1.25rem}
+.deep-messages{min-height:240px;max-height:420px;overflow:auto;padding:1rem}
+.deep-message{max-width:80%;padding:.75rem .9rem;border-radius:8px;margin-bottom:.75rem;font-size:.82rem;line-height:1.5}
+.deep-message.system{background:#f2f2f2}
+.deep-message.user{margin-left:auto;background:#111;color:#fff}
+.deep-input-row{display:grid;grid-template-columns:1fr auto;gap:.6rem;padding:1rem;border-top:1px solid #ddd}
+.deep-status{font-size:.7rem;color:#777;padding:0 1rem 1rem}
+
+.recommendation{margin-top:2rem;border:1px solid #111;padding:1.5rem;background:#fff}
+.recommendation-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:#777;margin-bottom:.5rem}
+.recommendation h3{margin:0 0 .75rem;font-size:1.4rem}
+.recommendation p{margin:0;max-width:70ch;line-height:1.55}
+.confidence{margin-top:1rem;font-size:.82rem;color:#666}
+
+@media(max-width:1100px){
+  .graph-workspace{grid-template-columns:1fr}
+  .graph-panel{border-right:none;border-bottom:1px solid #e5e5e5}
+  .model-workspace{grid-template-columns:1fr}
+  .sim-panel{border-right:none;border-bottom:1px solid #e5e5e5}
+  .panel-full{grid-column:auto}
+  .analytics-grid{grid-template-columns:1fr 1fr}
+  .scenario-cards,.pattern-grid{grid-template-columns:1fr}
+  .report-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .simulator-topbar{align-items:flex-start;gap:.7rem;flex-direction:column}
+  .simulator-meta{gap:.8rem}
+  .graph-svg{height:560px}
+  .system-options,.derived-grid,.analytics-grid,.conclusion-grid{grid-template-columns:1fr}
+  .deep-input-row{grid-template-columns:1fr}
+  .deep-message{max-width:92%}
 }
-
-
-/* =========================================================
-   AI STRATEGIES
-   ========================================================= */
-
-.ai-strategy {
-
-    margin-top: .3rem;
-    color: #555;
-    font-size: .78rem;
-    line-height: 1.45;
-
-}
-
-
-/* =========================================================
-   DERIVED DATA
-   ========================================================= */
-
-.derived-card {
-
-    border: 1px solid #e0e0e0;
-    padding: 1rem;
-    margin-top: 1rem;
-    background: #fafafa;
-
-}
-
-.derived-card-title {
-
-    font-size: .72rem;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: #777;
-    margin-bottom: .75rem;
-
-}
-
-.derived-grid {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: .75rem;
-
-}
-
-.derived-value {
-
-    font-size: 1.05rem;
-    font-weight: 600;
-
-}
-
-.derived-label {
-
-    font-size: .72rem;
-    color: #777;
-    line-height: 1.35;
-
-}
-
-
-/* =========================================================
-   SCENARIO RESULTS TABLE
-   ========================================================= */
-
-.scenario-table-wrap {
-
-    overflow-x: auto;
-
-}
-
-.scenario-table {
-
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .78rem;
-
-}
-
-.scenario-table th,
-.scenario-table td {
-
-    padding: .68rem .5rem;
-    border-bottom: 1px solid #e8e8e8;
-    text-align: right;
-    white-space: nowrap;
-
-}
-
-.scenario-table th:first-child,
-.scenario-table td:first-child {
-
-    text-align: left;
-
-}
-
-.scenario-table th {
-
-    font-size: .68rem;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: #777;
-    font-weight: 600;
-
-}
-
-.scenario-table td {
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-.scenario-table .best {
-
-    font-weight: 700;
-    background: #f3f3f3;
-
-}
-
-.scenario-table .score-row td {
-
-    font-weight: 700;
-    border-top: 1px solid #111;
-
-}
-
-.table-unit {
-
-    display: block;
-    font-size: .62rem;
-    font-weight: 400;
-    color: #999;
-    margin-top: .1rem;
-
-}
-
-
-/* =========================================================
-   ANALYTICAL OUTPUTS
-   ========================================================= */
-
-.analytics-card {
-
-    margin-top: 1.5rem;
-    border-top: 1px solid #ddd;
-    padding-top: 1.25rem;
-
-}
-
-.analytics-title {
-
-    font-size: .72rem;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: #777;
-    margin-bottom: 1rem;
-
-}
-
-.analytics-grid {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: #ddd;
-    border: 1px solid #ddd;
-
-}
-
-.analytics-item {
-
-    background: #fff;
-    padding: .85rem;
-
-}
-
-.analytics-category {
-
-    font-size: .65rem;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: #777;
-    margin-bottom: .35rem;
-
-}
-
-.analytics-main {
-
-    font-size: .88rem;
-    font-weight: 600;
-    line-height: 1.35;
-
-}
-
-.analytics-sub {
-
-    font-size: .72rem;
-    color: #777;
-    line-height: 1.4;
-    margin-top: .25rem;
-
-}
-
-
-/* =========================================================
-   SCENARIO CARDS
-   ========================================================= */
-
-.scenario-cards {
-
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 1px;
-    background: #ddd;
-    border: 1px solid #ddd;
-    margin-top: 2rem;
-
-}
-
-.scenario-card {
-
-    background: #fff;
-    padding: 1.25rem;
-
-}
-
-.scenario-card h4 {
-
-    margin: 0 0 .35rem;
-    font-size: 1rem;
-
-}
-
-.scenario-card .scenario-type {
-
-    font-size: .68rem;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: #276b4b;
-    margin-bottom: .75rem;
-
-}
-
-.scenario-card p {
-
-    font-size: .82rem;
-    color: #777;
-    line-height: 1.45;
-    margin-bottom: 1rem;
-
-}
-
-.scenario-card ul {
-
-    margin: 0;
-    padding-left: 1rem;
-    font-size: .8rem;
-    line-height: 1.7;
-
-}
-
-
-/* =========================================================
-   RECOMMENDATION
-   ========================================================= */
-
-.recommendation {
-
-    margin-top: 2rem;
-    border: 1px solid #111;
-    padding: 1.5rem;
-    background: #fff;
-
-}
-
-.recommendation-label {
-
-    font-size: .72rem;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    color: #777;
-    margin-bottom: .5rem;
-
-}
-
-.recommendation h3 {
-
-    margin: 0 0 .75rem;
-    font-size: 1.4rem;
-
-}
-
-.recommendation p {
-
-    margin: 0;
-    max-width: 70ch;
-    line-height: 1.55;
-
-}
-
-.confidence {
-
-    margin-top: 1rem;
-    font-size: .82rem;
-    color: #666;
-
-}
-
-
-/* =========================================================
-   EXPERIMENTAL NOTE
-   ========================================================= */
-
-.experimental-note {
-
-    margin-top: 1rem;
-    padding: .85rem;
-    border-left: 2px solid #999;
-    font-size: .74rem;
-    color: #777;
-    line-height: 1.5;
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width:1100px) {
-
-    .simulator-workspace {
-
-        grid-template-columns: 1fr 1fr;
-
-    }
-
-    .sim-panel:nth-child(2) {
-
-        border-right: none;
-
-    }
-
-    .sim-panel:nth-child(3) {
-
-        grid-column: 1 / -1;
-        border-top: 1px solid #e5e5e5;
-
-    }
-
-}
-
-
-@media (max-width:700px) {
-
-    .simulator-workspace {
-
-        grid-template-columns: 1fr;
-
-    }
-
-    .sim-panel,
-    .sim-panel:nth-child(2) {
-
-        border-right: none;
-        border-bottom: 1px solid #e5e5e5;
-
-    }
-
-    .sim-panel:nth-child(3) {
-
-        grid-column: auto;
-        border-top: none;
-
-    }
-
-    .scenario-cards {
-
-        grid-template-columns: 1fr;
-
-    }
-
-    .analytics-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
-    .derived-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
-    .simulator-topbar {
-
-        align-items: flex-start;
-        gap: .5rem;
-        flex-direction: column;
-
-    }
-
-}
-
 </style>
-
 </head>
 
-
 <body>
-
-
 <nav id="main-nav"></nav>
 
-
 <main>
-
-
-<!-- =======================================================
-     INTRO
-     ======================================================= -->
-
 <section>
-
 <div class="container simulator-intro">
-
-<p class="section-label">
-    PRMS AI DISCOVERY — EXPERIMENTAL INTERFACE
-</p>
-
-<h1>
-    PRMS Simulator · v1.0
-</h1>
-
-<p class="lead">
-    Architectural scenario simulation and decision support.
-</p>
-
-<p>
-    Test alternative architectural strategies, compare their
-    predicted performance, and identify the most suitable
-    intervention pathway under defined project conditions.
-</p>
-
+<p class="section-label">PRMS AI DISCOVERY — EXPERIMENTAL INTERFACE</p>
+<h1>PRMS Simulator · v2.1</h1>
+<p class="lead">Architectural simulation, knowledge-graph reasoning, pattern discovery and deep interaction with the simulated project.</p>
+<p>PRMS Simulator builds a project model from architectural, environmental and human variables, tests alternative scenarios, searches for relationships and patterns, generates a structured conclusion, and allows the user to interrogate the simulated world after the report has been produced.</p>
 </div>
-
 </section>
 
-
-<!-- =======================================================
-     SIMULATOR
-     ======================================================= -->
-
 <section>
-
 <div class="container">
-
 <div class="simulator-shell">
 
-
-<!-- TOP BAR -->
-
 <div class="simulator-topbar">
-
-<span class="simulator-brand">
-    PRMS SIMULATOR
-</span>
-
-<span class="simulator-status">
-    Experimental simulation mode · v1.0
-</span>
-
+  <div class="simulator-meta">
+    <div class="meta-item"><span class="meta-label">Project ID</span><span class="meta-value" id="projectId">PRMS-SIM-001</span></div>
+    <div class="meta-item"><span class="meta-label">Graph ID</span><span class="meta-value" id="graphId">PRMS-GRAPH-001</span></div>
+    <div class="meta-item"><span class="meta-label">Nodes</span><span class="meta-value" id="nodeCount">22</span></div>
+  </div>
+  <label class="meta-item" style="cursor:pointer">
+    <input type="checkbox" id="focusSelection">
+    <span>Focus on selection</span>
+  </label>
 </div>
 
+<div class="pipeline" id="pipeline">
+  <span class="pipeline-step active" data-stage="project">Project</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="model">Model</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="scenario">Scenario</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="simulation">Simulation</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="comparison">Comparison</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="pattern">Pattern</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="conclusion">Conclusion</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="report">Report</span><span class="pipeline-arrow">→</span>
+  <span class="pipeline-step" data-stage="deep">Deep Interaction</span>
+</div>
 
-<!-- =====================================================
-     THREE PANELS
-     ===================================================== -->
+<!-- =======================================================
+     KNOWLEDGE GRAPH — FIRST
+     ======================================================= -->
+<div class="graph-workspace">
+  <div class="graph-panel">
+    <div class="graph-toolbar">
+      <span class="graph-title">Project knowledge graph · interactive model</span>
+      <div class="graph-controls">
+        <button class="graph-button" id="resetGraphButton" type="button">Reset graph</button>
+      </div>
+    </div>
+    <svg id="knowledgeGraph" class="graph-svg" viewBox="0 0 900 680" aria-label="PRMS project knowledge graph"></svg>
+    <div class="graph-legend">
+      <span class="legend-item"><span class="legend-dot legend-architecture"></span>Architecture</span>
+      <span class="legend-item"><span class="legend-dot legend-performance"></span>Performance</span>
+      <span class="legend-item"><span class="legend-dot legend-human"></span>Human</span>
+      <span class="legend-item"><span class="legend-dot legend-context"></span>Context</span>
+    </div>
+  </div>
 
-<div class="simulator-workspace">
+  <aside class="node-panel">
+    <div class="node-panel-header">
+      <div class="eyebrow">Selected node</div>
+      <h2 id="selectedNodeName">PROJECT</h2>
+      <span class="node-badge" id="selectedNodeType">Project model</span>
+    </div>
+    <div class="node-panel-body">
+      <p class="node-description" id="selectedNodeDescription">The loaded project model — the object every simulated scenario is tested against.</p>
+      <div class="node-section">
+        <div class="node-section-title">Connected variables</div>
+        <ul class="node-list" id="selectedNodeConnections"></ul>
+      </div>
+      <div class="node-section">
+        <div class="node-section-title">Simulation role</div>
+        <div class="node-status" id="selectedNodeRole">Reference state for scenario generation, comparison and pattern detection.</div>
+      </div>
+    </div>
+    <div class="selection-summary" id="selectionSummary">Select a node to inspect its role in the project model.</div>
+  </aside>
+</div>
 
-
-<!-- =====================================================
-     PANEL 01 — PROJECT
-     ===================================================== -->
+<!-- =======================================================
+     PROJECT MODEL + PRMS AI
+     ======================================================= -->
+<div class="model-workspace">
 
 <div class="sim-panel">
-
-
-<div class="panel-header">
-
-<h3>
-    Project
-</h3>
-
-<span>
-    Define the known project conditions
-</span>
-
-</div>
-
-
+<div class="panel-header"><h3>Project Model</h3><span>Define the known project conditions</span></div>
 <div class="panel-body">
 
-
-<!-- PROJECT TYPE -->
-
 <div class="input-group">
-
-<label>
-    Project type
-</label>
-
+<label>Project type</label>
 <select id="projectType">
-
-<option>Residential</option>
-<option>Multifamily</option>
-<option>Commercial</option>
-<option>Office</option>
-<option>Educational</option>
-<option>Industrial</option>
-<option>Public</option>
-<option>Other</option>
-
+<option>Residential</option><option>Multifamily</option><option>Commercial</option><option>Office</option><option>Educational</option><option>Industrial</option><option>Public</option><option>Other</option>
 </select>
-
 </div>
-
-
-<!-- LOCATION -->
 
 <div class="input-group">
-
-<label>
-    Location
-</label>
-
-<input
-    id="location"
-    type="text"
-    value="Querétaro, México"
-    placeholder="City, State, Country"
-/>
-
-<div class="input-help">
-    Project location
+<label>Architecture plan / geometry</label>
+<input class="file-input" id="architectureFile" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf,.ifc,.dwg,.dxf">
+<div class="input-help" id="fileStatus">Optional input. File is staged for the project model; geometry interpretation requires a dedicated geometry engine.</div>
 </div>
-
-</div>
-
-
-<!-- AREA -->
 
 <div class="input-group">
-
-<label>
-    Floor area
-</label>
-
-<input
-    id="area"
-    type="number"
-    value="250"
-    min="20"
-    step="1"
-/>
-
-<div class="input-help">
-    m²
+<label>Location</label>
+<input id="location" type="text" value="Querétaro, México" placeholder="City, State, Country">
+<div class="input-help">Project location</div>
 </div>
-
-</div>
-
-
-<!-- OCCUPANTS -->
 
 <div class="input-group">
-
-<label>
-    Occupants
-</label>
-
-<input
-    id="occupants"
-    type="number"
-    value="4"
-    min="1"
-    step="1"
-/>
-
-<div class="input-help">
-    Number of regular occupants
+<label>Floor area</label>
+<input id="area" type="number" value="250" min="20" step="1">
+<div class="input-help">m²</div>
 </div>
-
-</div>
-
-
-<!-- REFERENCE YEAR -->
 
 <div class="input-group">
-
-<label>
-    Reference year
-</label>
-
-<input
-    id="referenceYear"
-    type="number"
-    value="2026"
-    min="2000"
-    max="2100"
-    step="1"
-/>
-
-<div class="input-help">
-    Year corresponding to the measured data
+<label>Occupants</label>
+<input id="occupants" type="number" value="4" min="1" step="1">
+<div class="input-help">Number of regular occupants</div>
 </div>
 
+<div class="input-group">
+<label>Reference year</label>
+<input id="referenceYear" type="number" value="2026" min="2000" max="2100" step="1">
+<div class="input-help">Year corresponding to measured or reference data</div>
 </div>
-
-
-<!-- =================================================
-     SITE ORIENTATION
-     ================================================= -->
 
 <div class="input-section-divider">
-
-<span class="input-section-title">
-    Site & orientation
-</span>
-
-<span class="input-section-description">
-    Basic geometric relationship between access,
-    building orientation and environmental response.
-</span>
-
+<span class="input-section-title">Site & orientation</span>
+<span class="input-section-description">Basic geometric relationship between access, building orientation and environmental response.</span>
 </div>
 
-
 <div class="input-group">
-
-<label>
-    Main access orientation
-</label>
-
+<label>Main access orientation</label>
 <select id="mainAccess">
-
-<option value="N">North</option>
-<option value="NE" selected>Northeast</option>
-<option value="E">East</option>
-<option value="SE">Southeast</option>
-<option value="S">South</option>
-<option value="SW">Southwest</option>
-<option value="W">West</option>
-<option value="NW">Northwest</option>
-
+<option value="N">North</option><option value="NE" selected>Northeast</option><option value="E">East</option><option value="SE">Southeast</option><option value="S">South</option><option value="SW">Southwest</option><option value="W">West</option><option value="NW">Northwest</option>
 </select>
-
-<div class="input-help">
-    Orientation of the principal site or building access.
 </div>
-
-</div>
-
 
 <div class="input-group">
-
-<label>
-    Building orientation
-</label>
-
+<label>Building orientation</label>
 <select id="buildingOrientation">
-
-<option value="N">North</option>
-<option value="NE" selected>Northeast</option>
-<option value="E">East</option>
-<option value="SE">Southeast</option>
-<option value="S">South</option>
-<option value="SW">Southwest</option>
-<option value="W">West</option>
-<option value="NW">Northwest</option>
-
+<option value="N">North</option><option value="NE" selected>Northeast</option><option value="E">East</option><option value="SE">Southeast</option><option value="S">South</option><option value="SW">Southwest</option><option value="W">West</option><option value="NW">Northwest</option>
 </select>
-
-<div class="input-help">
-    Primary orientation of the building.
 </div>
-
-</div>
-
-
-<!-- =================================================
-     CURRENT CONDITION
-     ================================================= -->
 
 <div class="input-section-divider">
-
-<span class="input-section-title">
-    Current condition
-</span>
-
-<span class="input-section-description">
-    Measured or evaluated project performance.
-</span>
-
+<span class="input-section-title">Current condition</span>
+<span class="input-section-description">Measured or evaluated project performance.</span>
 </div>
-
-
-<!-- ENERGY -->
 
 <div class="input-group">
-
-<label>
-    Energy consumption
-</label>
-
-<input
-    id="energy"
-    type="number"
-    value="145"
-    min="0"
-    step="1"
-/>
-
-<div class="input-help">
-    kWh/m²·year · Measured project consumption
+<label>Energy consumption</label>
+<input id="energy" type="number" value="145" min="0" step="1">
+<div class="input-help">kWh/m²·year</div><span class="data-type">Measured</span>
 </div>
-
-<span class="data-type">
-    Measured
-</span>
-
-</div>
-
-
-<!-- WATER -->
 
 <div class="input-group">
-
-<label>
-    Water consumption
-</label>
-
-<input
-    id="water"
-    type="number"
-    value="210"
-    min="0"
-    step="1"
-/>
-
-<div class="input-help">
-    L/person·day · Measured occupant consumption
+<label>Water consumption</label>
+<input id="water" type="number" value="210" min="0" step="1">
+<div class="input-help">L/person·day</div><span class="data-type">Measured</span>
 </div>
-
-<span class="data-type">
-    Measured
-</span>
-
-</div>
-
-
-<!-- COMFORT -->
 
 <div class="input-group">
-
-<label>
-    Thermal comfort
-</label>
-
-<input
-    id="comfort"
-    type="number"
-    value="75"
-    min="0"
-    max="100"
-    step="1"
-/>
-
-<div class="input-help">
-    % · Measured or evaluated comfort level
+<label>Thermal comfort</label>
+<input id="comfort" type="number" value="75" min="0" max="100" step="1">
+<div class="input-help">% · measured or evaluated</div><span class="data-type">Measured / Evaluated</span>
 </div>
-
-<span class="data-type">
-    Measured / Evaluated
-</span>
-
-</div>
-
-
-<!-- =================================================
-     RESOURCE SYSTEMS
-     ================================================= -->
 
 <div class="input-section-divider">
-
-<span class="input-section-title">
-    Renewable & resource systems
-</span>
-
-<span class="input-section-description">
-    Systems currently installed or available in the project.
-</span>
-
+<span class="input-section-title">Renewable & resource systems</span>
+<span class="input-section-description">Systems currently installed or available in the project.</span>
 </div>
-
-
-<div class="input-group">
 
 <div class="system-options">
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="pv"
-/>
-
-<span>
-    Photovoltaic solar panels
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="solarWater"
-/>
-
-<span>
-    Solar water heater
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="rainwater"
-/>
-
-<span>
-    Rainwater harvesting
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="greywater"
-/>
-
-<span>
-    Greywater reuse
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="blackwater"
-/>
-
-<span>
-    Blackwater treatment
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="battery"
-/>
-
-<span>
-    Battery storage
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="evCharging"
-/>
-
-<span>
-    EV charging
-</span>
-
-</label>
-
-
-<label class="system-option">
-
-<input
-    type="checkbox"
-    id="otherSystem"
-/>
-
-<span>
-    Other
-</span>
-
-</label>
-
+<label class="system-option"><input type="checkbox" id="pv"><span>Photovoltaic solar panels</span></label>
+<label class="system-option"><input type="checkbox" id="solarWater"><span>Solar water heater</span></label>
+<label class="system-option"><input type="checkbox" id="rainwater"><span>Rainwater harvesting</span></label>
+<label class="system-option"><input type="checkbox" id="greywater"><span>Greywater reuse</span></label>
+<label class="system-option"><input type="checkbox" id="blackwater"><span>Blackwater treatment</span></label>
+<label class="system-option"><input type="checkbox" id="battery"><span>Battery storage</span></label>
+<label class="system-option"><input type="checkbox" id="evCharging"><span>EV charging</span></label>
+<label class="system-option"><input type="checkbox" id="otherSystem"><span>Other</span></label>
 </div>
-
-</div>
-
-
-<!-- RUN -->
 
 <div class="controls">
-
-<button
-    id="runSimulationButton"
-    class="control-button primary"
-    type="button"
->
-    Run Simulation →
-</button>
-
+<button id="runSimulationButton" class="control-button primary" type="button">Run Simulation →</button>
 </div>
-
-
 </div>
-
 </div>
-
-
-<!-- =====================================================
-     PANEL 02 — PRMS AI
-     ===================================================== -->
 
 <div class="sim-panel">
-
-
-<div class="panel-header">
-
-<h3>
-    PRMS AI
-</h3>
-
-<span>
-    Scenario reasoning
-</span>
-
-</div>
-
-
+<div class="panel-header"><h3>PRMS AI</h3><span>Scenario reasoning and uncertainty reduction</span></div>
 <div class="panel-body">
 
-
 <div class="ai-message">
-
-<strong>
-    Simulation objective
-</strong>
-
-Compare three architectural strategies against the
-current measured baseline and estimate their predicted
-performance consequences.
-
+<strong>Simulation objective</strong>
+Construct a project model, compare predefined intervention pathways, identify relationships and discover experimental patterns before generating a conclusion.
 </div>
 
-
-<div
-    class="ai-question"
-    id="aiQuestion"
->
-
-What would happen if the project progressively moved
-from passive architectural optimization toward an
-integrated metabolic strategy?
-
-</div>
-
+<div class="ai-question" id="aiQuestion">PRMS AI will progressively identify the relationships that matter most to the current project and reduce uncertainty through additional inputs.</div>
 
 <div class="input-group">
-
-<label>
-    Simulation strategy
-</label>
-
+<label>Simulation strategy</label>
 <select id="strategy">
-
-<option value="balanced">
-    Balanced performance
-</option>
-
-<option value="energy">
-    Energy optimization
-</option>
-
-<option value="water">
-    Water optimization
-</option>
-
-<option value="comfort">
-    Comfort optimization
-</option>
-
-<option value="autonomous">
-    Resource autonomy
-</option>
-
+<option value="balanced">Balanced performance</option>
+<option value="energy">Energy optimization</option>
+<option value="water">Water optimization</option>
+<option value="comfort">Comfort optimization</option>
+<option value="autonomous">Resource autonomy</option>
 </select>
-
 </div>
-
 
 <div class="ai-message">
-
-<strong>
-    PRMS reasoning
-</strong>
-
-The simulator constructs three intervention pathways:
-Passive, Integrated and Metabolic. Existing resource
-systems are treated as part of the baseline condition
-before additional interventions are estimated.
-
+<strong>Reasoning architecture</strong>
+Architecture defines the physical system. Performance agents evaluate consequences. Human variables describe operation. Context agents describe environmental and regulatory conditions. The pattern engine searches relationships across these domains.
 </div>
-
-
-<!-- DERIVED DATA -->
 
 <div class="derived-card">
-
-<div class="derived-card-title">
-    PRMS Derived Baseline
-</div>
-
-
+<div class="derived-card-title">PRMS Derived Baseline</div>
 <div class="derived-grid">
-
-
-<div>
-
-<div
-    class="derived-value"
-    id="annualEnergy"
->
-    36,250
+<div><div class="derived-value" id="annualEnergy">36,250</div><div class="derived-label">Estimated annual energy · kWh/year</div></div>
+<div><div class="derived-value" id="annualWater">306,600</div><div class="derived-label">Estimated annual water · L/year</div></div>
+<div><div class="derived-value" id="carbonEstimate">14,500</div><div class="derived-label">Estimated operational carbon · kgCO₂e/year</div></div>
+<div><div class="derived-value" id="areaIntensity">145</div><div class="derived-label">Energy intensity · kWh/m²·year</div></div>
+</div>
+<div class="experimental-note">Derived values are interface-development estimates. Validated climate, energy, water, daylight, CFD, carbon and financial engines are required for authoritative results.</div>
 </div>
 
-<div class="derived-label">
-    Estimated annual energy · kWh/year
+<div class="ai-log" id="aiLog">
+<div class="ai-log-item">System ready.</div>
+<div class="ai-log-item">Project model initialized.</div>
+<div class="ai-log-item">Waiting for simulation.</div>
+</div>
+</div>
 </div>
 
-</div>
-
-
-<div>
-
-<div
-    class="derived-value"
-    id="annualWater"
->
-    306,600
-</div>
-
-<div class="derived-label">
-    Estimated annual water · L/year
-</div>
-
-</div>
-
-
-<div>
-
-<div
-    class="derived-value"
-    id="carbonEstimate"
->
-    14,500
-</div>
-
-<div class="derived-label">
-    Estimated operational carbon · kgCO₂e/year
-</div>
-
-</div>
-
-
-<div>
-
-<div
-    class="derived-value"
-    id="areaIntensity"
->
-    145
-</div>
-
-<div class="derived-label">
-    Energy intensity · kWh/m²·year
-</div>
-
-</div>
-
-</div>
-
-
-<div class="experimental-note">
-
-Carbon is an experimental derived estimate based on
-energy consumption and a provisional emission factor.
-Final PRMS implementation will use validated,
-location-specific factors.
-
-</div>
-
-</div>
-
-
-<div
-    class="ai-log"
-    id="aiLog"
->
-
-<div class="ai-log-item">
-    System ready.
-</div>
-
-<div class="ai-log-item">
-    Measured baseline parameters loaded.
-</div>
-
-<div class="ai-log-item">
-    Waiting for simulation.
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     PANEL 03 — RESULTS
-     ===================================================== -->
-
-<div class="sim-panel">
-
-
-<div class="panel-header">
-
-<h3>
-    Scenario Results
-</h3>
-
-<span>
-    Comparative performance
-</span>
-
-</div>
-
-
+<!-- RESULTS -->
+<div class="sim-panel panel-full">
+<div class="panel-header"><h3>Scenario Results</h3><span>Comparative performance</span></div>
 <div class="panel-body">
 
-
 <div class="scenario-table-wrap">
-
 <table class="scenario-table">
-
-<thead>
-
-<tr>
-
-<th>
-    Indicator
-</th>
-
-<th>
-    Baseline
-</th>
-
-<th>
-    Option A
-</th>
-
-<th>
-    Option B
-</th>
-
-<th>
-    Option C
-</th>
-
-</tr>
-
-</thead>
-
-
+<thead><tr><th>Indicator</th><th>Baseline</th><th>Option A</th><th>Option B</th><th>Option C</th></tr></thead>
 <tbody>
-
-
-<tr>
-
-<td>
-    Energy
-    <span class="table-unit">
-        kWh/m²·year
-    </span>
-</td>
-
-<td id="baselineEnergy">
-    145
-</td>
-
-<td id="energyA">
-    119
-</td>
-
-<td id="energyB">
-    103
-</td>
-
-<td id="energyC">
-    91
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    Water
-    <span class="table-unit">
-        L/person·day
-    </span>
-</td>
-
-<td id="baselineWater">
-    210
-</td>
-
-<td id="waterA">
-    164
-</td>
-
-<td id="waterB">
-    130
-</td>
-
-<td id="waterC">
-    112
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    Thermal comfort
-    <span class="table-unit">
-        %
-    </span>
-</td>
-
-<td id="baselineComfort">
-    75
-</td>
-
-<td id="comfortA">
-    82
-</td>
-
-<td id="comfortB">
-    88
-</td>
-
-<td id="comfortC">
-    92
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    Carbon
-    <span class="table-unit">
-        kgCO₂e/m²·year
-    </span>
-</td>
-
-<td id="baselineCarbon">
-    58.0
-</td>
-
-<td id="carbonA">
-    47.6
-</td>
-
-<td id="carbonB">
-    41.2
-</td>
-
-<td id="carbonC">
-    34.8
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    Resource autonomy
-    <span class="table-unit">
-        %
-    </span>
-</td>
-
-<td id="baselineAutonomy">
-    0
-</td>
-
-<td id="autonomyA">
-    18
-</td>
-
-<td id="autonomyB">
-    42
-</td>
-
-<td id="autonomyC">
-    68
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    Initial intervention
-</td>
-
-<td>
-    —
-</td>
-
-<td id="investmentA">
-    $
-</td>
-
-<td id="investmentB">
-    $$
-</td>
-
-<td id="investmentC">
-    $$$
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    Indicative ROI
-    <span class="table-unit">
-        years
-    </span>
-</td>
-
-<td>
-    —
-</td>
-
-<td id="roiA">
-    8.2
-</td>
-
-<td id="roiB">
-    6.9
-</td>
-
-<td id="roiC">
-    7.4
-</td>
-
-</tr>
-
-
-<tr class="score-row">
-
-<td>
-    PRMS Score
-</td>
-
-<td id="scoreBaseline">
-    0.60
-</td>
-
-<td id="scoreA">
-    0.68
-</td>
-
-<td id="scoreB">
-    0.76
-</td>
-
-<td id="scoreC">
-    0.82
-</td>
-
-</tr>
-
-
+<tr><td>Energy<span class="table-unit">kWh/m²·year</span></td><td id="baselineEnergy">145</td><td id="energyA">119</td><td id="energyB">103</td><td id="energyC">91</td></tr>
+<tr><td>Water<span class="table-unit">L/person·day</span></td><td id="baselineWater">210</td><td id="waterA">164</td><td id="waterB">130</td><td id="waterC">112</td></tr>
+<tr><td>Thermal comfort<span class="table-unit">%</span></td><td id="baselineComfort">75</td><td id="comfortA">82</td><td id="comfortB">88</td><td id="comfortC">92</td></tr>
+<tr><td>Carbon<span class="table-unit">kgCO₂e/m²·year</span></td><td id="baselineCarbon">58.0</td><td id="carbonA">47.6</td><td id="carbonB">41.2</td><td id="carbonC">34.8</td></tr>
+<tr><td>Resource autonomy<span class="table-unit">%</span></td><td id="baselineAutonomy">0</td><td id="autonomyA">18</td><td id="autonomyB">42</td><td id="autonomyC">68</td></tr>
+<tr><td>Initial intervention</td><td>—</td><td id="investmentA">$</td><td id="investmentB">$$</td><td id="investmentC">$$$</td></tr>
+<tr><td>Indicative ROI<span class="table-unit">years</span></td><td>—</td><td id="roiA">8.2</td><td id="roiB">6.9</td><td id="roiC">7.4</td></tr>
+<tr class="score-row"><td>PRMS Score</td><td id="scoreBaseline">0.60</td><td id="scoreA">0.68</td><td id="scoreB">0.76</td><td id="scoreC">0.82</td></tr>
 </tbody>
-
 </table>
-
 </div>
-
-
-<!-- =====================================================
-     ANALYTICAL OUTPUTS
-     ===================================================== -->
 
 <div class="analytics-card">
-
-<div class="analytics-title">
-    Analytical Outputs
-</div>
-
-
+<div class="analytics-title">Analytical Outputs</div>
 <div class="analytics-grid">
-
-
-<!-- CLIMATE -->
-
-<div class="analytics-item">
-
-<div class="analytics-category">
-    Climate
+<div class="analytics-item"><div class="analytics-category">Climate</div><div class="analytics-main" id="climateLocation">Querétaro · Hot semi-arid</div><div class="analytics-sub" id="climateData">Solar exposure: High<br>Prevailing wind: NE → SW</div></div>
+<div class="analytics-item"><div class="analytics-category">Ventilation</div><div class="analytics-main" id="ventilationMain">Natural ventilation potential: High</div><div class="analytics-sub" id="ventilationData">Orientation response: Favorable</div></div>
+<div class="analytics-item"><div class="analytics-category">Renewables</div><div class="analytics-main" id="renewableMain">PV contribution: 68%</div><div class="analytics-sub" id="renewableData">Solar thermal: Available<br>Energy autonomy: 68%</div></div>
+<div class="analytics-item"><div class="analytics-category">Water</div><div class="analytics-main" id="waterMain">Rainwater recovery: 24%</div><div class="analytics-sub" id="waterData">Greywater recovery: 18%</div></div>
+<div class="analytics-item"><div class="analytics-category">Carbon</div><div class="analytics-main" id="carbonMain">Operational carbon reduction: 40%</div><div class="analytics-sub" id="carbonData">Relative to current measured condition.</div></div>
+<div class="analytics-item"><div class="analytics-category">Economics</div><div class="analytics-main" id="economicsMain">Estimated payback: 7.4 years</div><div class="analytics-sub" id="economicsData">Indicative scenario projection.</div></div>
 </div>
-
-<div
-    class="analytics-main"
-    id="climateLocation"
->
-    Querétaro · Hot semi-arid
-</div>
-
-<div
-    class="analytics-sub"
-    id="climateData"
->
-    Solar exposure: High<br>
-    Prevailing wind: NE → SW
 </div>
 
 </div>
-
-
-<!-- VENTILATION -->
-
-<div class="analytics-item">
-
-<div class="analytics-category">
-    Ventilation
+</div>
 </div>
 
-<div
-    class="analytics-main"
-    id="ventilationMain"
->
-    Natural ventilation potential: High
-</div>
-
-<div
-    class="analytics-sub"
-    id="ventilationData"
->
-    Orientation response: Favorable
-</div>
-
-</div>
-
-
-<!-- RENEWABLES -->
-
-<div class="analytics-item">
-
-<div class="analytics-category">
-    Renewables
-</div>
-
-<div
-    class="analytics-main"
-    id="renewableMain"
->
-    PV contribution: 68%
-</div>
-
-<div
-    class="analytics-sub"
-    id="renewableData"
->
-    Solar thermal: Available<br>
-    Energy autonomy: 68%
-</div>
-
-</div>
-
-
-<!-- WATER -->
-
-<div class="analytics-item">
-
-<div class="analytics-category">
-    Water
-</div>
-
-<div
-    class="analytics-main"
-    id="waterMain"
->
-    Rainwater recovery: 24%
-</div>
-
-<div
-    class="analytics-sub"
-    id="waterData"
->
-    Greywater recovery: 18%
-</div>
-
-</div>
-
-
-<!-- CARBON -->
-
-<div class="analytics-item">
-
-<div class="analytics-category">
-    Carbon
-</div>
-
-<div
-    class="analytics-main"
-    id="carbonMain"
->
-    Operational carbon reduction: 40%
-</div>
-
-<div
-    class="analytics-sub"
-    id="carbonData"
->
-    Relative to current measured condition.
-</div>
-
-</div>
-
-
-<!-- ECONOMICS -->
-
-<div class="analytics-item">
-
-<div class="analytics-category">
-    Economics
-</div>
-
-<div
-    class="analytics-main"
-    id="economicsMain"
->
-    Estimated payback: 7.4 years
-</div>
-
-<div
-    class="analytics-sub"
-    id="economicsData"
->
-    Indicative scenario projection.
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<div class="experimental-note">
-
-Scenario values are experimental projections for
-interface development. They are not yet outputs from
-validated climate, energy, water, CFD or financial
-simulation engines.
-
-</div>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- =====================================================
-     SCENARIO STRATEGIES
-     ===================================================== -->
-
-<div
-    style="
-        padding:2rem 1.25rem 0;
-    "
->
-
-<h3>
-    Scenario strategies
-</h3>
-
+<!-- SCENARIOS -->
+<div class="pattern-section" style="border-top:0">
+<div class="section-kicker">Scenario generation</div>
+<h3>Intervention pathways</h3>
+<p class="section-description">The simulator keeps the three predefined pathways stable so that comparisons remain interpretable. PRMS AI provides project-specific implementation proposals for each pathway.</p>
 
 <div class="scenario-cards">
-
-
-<!-- OPTION A -->
+<div class="scenario-card">
+<h4>Option A — Passive</h4><div class="scenario-type">Architecture-led intervention</div>
+<p>Improve building performance primarily through passive environmental strategies.</p>
+<ul>
+<li><strong>Improved envelope</strong><div class="ai-strategy" id="passiveEnvelope">PRMS AI proposal pending.</div></li>
+<li><strong>Solar protection</strong><div class="ai-strategy" id="passiveSolar">PRMS AI proposal pending.</div></li>
+<li><strong>Orientation response</strong><div class="ai-strategy" id="passiveOrientation">PRMS AI proposal pending.</div></li>
+<li><strong>Natural ventilation</strong><div class="ai-strategy" id="passiveVentilation">PRMS AI proposal pending.</div></li>
+<li><strong>Reduced cooling demand</strong><div class="ai-strategy" id="passiveCooling">PRMS AI proposal pending.</div></li>
+</ul>
+</div>
 
 <div class="scenario-card">
-
-<h4>
-    Option A — Passive
-</h4>
-
-<div class="scenario-type">
-    Architecture-led intervention
-</div>
-
-<p>
-Improve building performance primarily through
-architectural and passive environmental strategies.
-</p>
-
+<h4>Option B — Integrated</h4><div class="scenario-type">Architecture + efficient systems</div>
+<p>Combine passive strategies, efficient systems and renewable generation.</p>
 <ul>
-
-<li>
-    <strong>Improved envelope</strong>
-    <div class="ai-strategy" id="passiveEnvelope">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Solar protection</strong>
-    <div class="ai-strategy" id="passiveSolar">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Orientation response</strong>
-    <div class="ai-strategy" id="passiveOrientation">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Natural ventilation</strong>
-    <div class="ai-strategy" id="passiveVentilation">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Reduced cooling demand</strong>
-    <div class="ai-strategy" id="passiveCooling">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
+<li><strong>High-performance envelope</strong><div class="ai-strategy" id="integratedEnvelope">PRMS AI proposal pending.</div></li>
+<li><strong>Efficient HVAC</strong><div class="ai-strategy" id="integratedHVAC">PRMS AI proposal pending.</div></li>
+<li><strong>Photovoltaic generation</strong><div class="ai-strategy" id="integratedPV">PRMS AI proposal pending.</div></li>
+<li><strong>Solar thermal</strong><div class="ai-strategy" id="integratedSolar">PRMS AI proposal pending.</div></li>
+<li><strong>Water efficiency</strong><div class="ai-strategy" id="integratedWater">PRMS AI proposal pending.</div></li>
 </ul>
-
 </div>
-
-
-<!-- OPTION B -->
 
 <div class="scenario-card">
-
-<h4>
-    Option B — Integrated
-</h4>
-
-<div class="scenario-type">
-    Architecture + efficient systems
-</div>
-
-<p>
-Combine passive strategies, efficient building systems
-and renewable generation to balance performance and
-investment.
-</p>
-
+<h4>Option C — Metabolic</h4><div class="scenario-type">Integrated performance + resource autonomy</div>
+<p>Maximize environmental performance and resource autonomy through an integrated metabolic strategy.</p>
 <ul>
-
-<li>
-    <strong>High-performance envelope</strong>
-    <div class="ai-strategy" id="integratedEnvelope">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Efficient HVAC</strong>
-    <div class="ai-strategy" id="integratedHVAC">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Photovoltaic generation</strong>
-    <div class="ai-strategy" id="integratedPV">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Solar thermal</strong>
-    <div class="ai-strategy" id="integratedSolar">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Water efficiency</strong>
-    <div class="ai-strategy" id="integratedWater">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
+<li><strong>Advanced envelope</strong><div class="ai-strategy" id="metabolicEnvelope">PRMS AI proposal pending.</div></li>
+<li><strong>Passive + active systems</strong><div class="ai-strategy" id="metabolicSystems">PRMS AI proposal pending.</div></li>
+<li><strong>Renewable generation</strong><div class="ai-strategy" id="metabolicRenewable">PRMS AI proposal pending.</div></li>
+<li><strong>Water recovery and reuse</strong><div class="ai-strategy" id="metabolicWater">PRMS AI proposal pending.</div></li>
+<li><strong>Storage and adaptive operation</strong><div class="ai-strategy" id="metabolicStorage">PRMS AI proposal pending.</div></li>
 </ul>
-
 </div>
-
-
-<!-- OPTION C -->
-
-<div class="scenario-card">
-
-<h4>
-    Option C — Metabolic
-</h4>
-
-<div class="scenario-type">
-    Integrated performance + resource autonomy
 </div>
-
-<p>
-Maximize environmental performance and resource
-autonomy through an integrated metabolic strategy.
-</p>
-
-<ul>
-
-<li>
-    <strong>Advanced envelope</strong>
-    <div class="ai-strategy" id="metabolicEnvelope">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Passive + active systems</strong>
-    <div class="ai-strategy" id="metabolicSystems">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Renewable generation</strong>
-    <div class="ai-strategy" id="metabolicRenewable">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Water recovery and reuse</strong>
-    <div class="ai-strategy" id="metabolicWater">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-<li>
-    <strong>Storage and adaptive operation</strong>
-    <div class="ai-strategy" id="metabolicStorage">
-        PRMS AI proposal pending.
-    </div>
-</li>
-
-</ul>
-
-</div>
-
-
-</div>
-
-
-<!-- =====================================================
-     RECOMMENDATION
-     ===================================================== -->
 
 <div class="recommendation">
-
-<div class="recommendation-label">
-    PRMS Decision Support
+<div class="recommendation-label">PRMS Decision Support</div>
+<h3 id="recommendationTitle">Recommended scenario: Option C</h3>
+<p id="recommendationText">Run the simulation to generate a project-specific recommendation.</p>
+<div class="confidence">Decision confidence: <strong id="confidence">Pending</strong></div>
 </div>
-
-
-<h3 id="recommendationTitle">
-    Recommended scenario: Option C
-</h3>
-
-
-<p id="recommendationText">
-
-Option C produces the highest predicted overall
-performance through deeper integration of passive
-strategies, efficient systems and resource autonomy.
-
-</p>
-
-
-<div class="confidence">
-
-Decision confidence:
-<strong id="confidence">
-    Medium
-</strong>
-
-</div>
-
-</div>
-
 
 <div class="controls">
-
-<button
-    id="recalculateButton"
-    class="control-button primary"
-    type="button"
->
-    Recalculate Scenarios →
-</button>
-
-
-<button
-    id="resetButton"
-    class="control-button"
-    type="button"
->
-    Reset
-</button>
-
+<button id="recalculateButton" class="control-button primary" type="button">Recalculate + Analyze →</button>
+<button id="resetButton" class="control-button" type="button">Reset</button>
 </div>
-
-
 </div>
-
-
-</div>
-
 </section>
 
+<!-- PATTERN ENGINE -->
+<section>
+<div class="container">
+<div class="pattern-section" id="patternSection">
+<div class="section-kicker">Pattern Engine · experimental</div>
+<h3>Patterns discovered from the simulation</h3>
+<p class="section-description">The pattern engine does not claim causal truth. It identifies recurring relationships inside the current project model and scenario comparison that deserve validation through measured data or specialized simulation engines.</p>
 
-<!-- =======================================================
-     DECISION LOGIC
-     ======================================================= -->
+<div class="pattern-grid">
+<div class="pattern-card"><div class="pattern-index">PATTERN 01</div><h4 id="pattern1Title">Performance integration</h4><p id="pattern1Text">Run the simulation to detect the relationship between architectural intervention, performance and autonomy.</p><div class="pattern-strength">Signal strength <span id="pattern1Strength">—</span></div><div class="pattern-bar"><span id="pattern1Bar" style="width:0%"></span></div></div>
+<div class="pattern-card"><div class="pattern-index">PATTERN 02</div><h4 id="pattern2Title">Human–performance interaction</h4><p id="pattern2Text">Occupancy, schedules and comfort preferences can alter the performance interpretation of otherwise similar architectural strategies.</p><div class="pattern-strength">Signal strength <span id="pattern2Strength">—</span></div><div class="pattern-bar"><span id="pattern2Bar" style="width:0%"></span></div></div>
+<div class="pattern-card"><div class="pattern-index">PATTERN 03</div><h4 id="pattern3Title">Context dependency</h4><p id="pattern3Text">Climate and orientation can change the relative value of interventions.</p><div class="pattern-strength">Signal strength <span id="pattern3Strength">—</span></div><div class="pattern-bar"><span id="pattern3Bar" style="width:0%"></span></div></div>
+</div>
+
+<div class="conclusion">
+<div class="conclusion-label">Simulation conclusion</div>
+<h4 id="conclusionTitle">Awaiting simulation</h4>
+<p id="conclusionText">The conclusion will be generated after comparison and pattern detection.</p>
+<div class="conclusion-grid">
+<div class="conclusion-cell"><strong>Dominant pattern</strong><span id="conclusionPattern">—</span></div>
+<div class="conclusion-cell"><strong>Main trade-off</strong><span id="conclusionTradeoff">—</span></div>
+<div class="conclusion-cell"><strong>Next evidence</strong><span id="conclusionNext">—</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- REPORT -->
+<section>
+<div class="container">
+<div class="report-section" id="reportSection">
+<div class="section-kicker">Report Generation</div>
+<h3>PRMS Simulation Report</h3>
+<p class="section-description">The report converts the current model, comparison, patterns and conclusion into a traceable research artifact. It is intentionally explicit about assumptions and experimental status.</p>
+
+<div class="report-grid">
+<div class="report-box"><h4>Report contents</h4><ul><li>Project model</li><li>Knowledge graph summary</li><li>Baseline and scenario comparison</li><li>Detected patterns</li><li>Simulation conclusion</li><li>Uncertainty and next evidence</li></ul></div>
+<div class="report-box"><h4>Research status</h4><p id="reportStatus">No report generated yet.</p><div class="controls" style="margin-top:.75rem"><button id="generateReportButton" class="control-button primary" type="button">Generate Report →</button><button id="exportJSONButton" class="control-button" type="button">Export JSON</button></div></div>
+</div>
+<div id="reportOutput" class="report-output" hidden></div>
+</div>
+</div>
+</section>
+
+<!-- DEEP INTERACTION -->
+<section>
+<div class="container">
+<div class="deep-section" id="deepSection">
+<div class="section-kicker">Deep Interaction</div>
+<h3>Interrogate the simulated world</h3>
+<p class="section-description">After report generation, the user can ask PRMS AI questions about the simulated project. The model receives the project state, graph, scenario results, detected patterns and report conclusion as context.</p>
+
+<div class="deep-shell">
+<div class="deep-messages" id="deepMessages">
+<div class="deep-message system">Generate the report first. Then ask a question such as: “Why did Option C outperform Option B?” or “Which missing measurement could change the conclusion?”</div>
+</div>
+<div class="deep-input-row">
+<input id="deepInput" class="deep-input" type="text" placeholder="Ask the simulated world...">
+<button id="deepSendButton" class="control-button primary" type="button" disabled>Ask →</button>
+</div>
+<div class="deep-status" id="deepStatus">Deep Interaction locked until a report has been generated.</div>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</section>
 
 <section>
-
 <div class="container">
-
-<p class="section-label">
-    DECISION LOGIC
-</p>
-
-
-<h2>
-    From diagnosis to decision
-</h2>
-
-
-<p style="max-width:65ch;">
-
-PRMS Simulator compares alternative architectural
-strategies rather than producing a single deterministic
-answer. Each scenario represents a different intervention
-pathway and its predicted consequences.
-
-</p>
-
-
-<div
-    class="grid-2"
-    style="margin-top:2rem;"
->
-
-
-<div class="grid-cell">
-
-<h3>
-    Assess
-</h3>
-
-<p>
-Establish the measured baseline condition and identify
-the principal sources of uncertainty.
-</p>
-
+<p class="section-label">DECISION LOGIC</p>
+<h2>From project model to architectural knowledge</h2>
+<p style="max-width:70ch;">PRMS Simulator does not stop at a scenario score. Its intended research loop is: establish evidence → model relationships → simulate alternatives → compare consequences → detect patterns → formulate a conclusion → generate a report → interrogate the simulated world.</p>
+<div class="grid-2" style="margin-top:2rem;">
+<div class="grid-cell"><h3>Observe</h3><p>Collect architectural, environmental, human and contextual variables.</p></div>
+<div class="grid-cell"><h3>Model</h3><p>Represent the project as a connected knowledge structure.</p></div>
+<div class="grid-cell"><h3>Simulate</h3><p>Test alternative intervention pathways and estimate consequences.</p></div>
+<div class="grid-cell"><h3>Learn</h3><p>Search for patterns, expose uncertainty and identify the next evidence required.</p></div>
 </div>
-
-
-<div class="grid-cell">
-
-<h3>
-    Simulate
-</h3>
-
-<p>
-Test alternative architectural interventions and
-estimate their performance consequences.
-</p>
-
 </div>
-
-
-<div class="grid-cell">
-
-<h3>
-    Compare
-</h3>
-
-<p>
-Evaluate multiple scenarios across energy, water,
-comfort, carbon, resource autonomy, economy and
-overall PRMS performance.
-</p>
-
-</div>
-
-
-<div class="grid-cell">
-
-<h3>
-    Decide
-</h3>
-
-<p>
-Identify the most appropriate strategy according to
-project objectives, constraints and available evidence.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
 </section>
 
-
-<!-- =======================================================
-     FOOTER CTA
-     ======================================================= -->
-
 <div class="cta-block">
-
 <div class="container">
-
-<h2>
-    PRMS Knowledge Core
-</h2>
-
-<p>
-Simulation results can become evidence for the next stage:
-discovering patterns and generating architectural knowledge.
-</p>
-
-
+<h2>PRMS Knowledge Core</h2>
+<p>Simulation results can become evidence for the independent PRMS Knowledge Core, where patterns can later be compared across projects and contexts.</p>
 <div class="cta-links">
-
-<a
-    href="/ai-discovery/knowledge.html"
-    class="cta-link"
->
-    Explore Knowledge Core →
-</a>
-
-
-<a
-    href="/ai-discovery"
-    class="cta-link"
->
-    Back to AI Discovery
-</a>
-
+<a href="/ai-discovery/knowledge.html" class="cta-link">Explore Knowledge Core →</a>
+<a href="/ai-discovery" class="cta-link">Back to AI Discovery</a>
 </div>
-
 </div>
-
 </div>
-
-
 </main>
 
-
-<!-- =========================================================
-     FOOTER
-     ========================================================= -->
-
 <footer>
-
 <div class="ecosystem-footer">
-
-<span class="ecosystem-brand">
-    PEAR-ROI PRMS Architecture Lab ®
-</span>
-
-
+<span class="ecosystem-brand">PEAR-ROI PRMS Architecture Lab ®</span>
 <ul class="ecosystem-links">
-
-<li>
-
-<a
-    href="https://prms.systems"
-    target="_blank"
->
-    PRMS Architecture Lab
-</a>
-
-</li>
-
-
-<li>
-
-<a
-    href="https://pear-roi.com"
-    target="_blank"
->
-    PEAR-ROI Systems
-</a>
-
-</li>
-
-
-<li>
-
-<a
-    href="https://pear-roi.com/studio"
-    target="_blank"
->
-    PEAR-ROI Studio
-</a>
-
-</li>
-
+<li><a href="https://prms.systems" target="_blank">PRMS Architecture Lab</a></li>
+<li><a href="https://pear-roi.com" target="_blank">PEAR-ROI Systems</a></li>
+<li><a href="https://pear-roi.com/studio" target="_blank">PEAR-ROI Studio</a></li>
 </ul>
-
-
-<span class="ecosystem-copy">
-    © 2026 PRMS Architecture Lab · Querétaro, México
-</span>
-
+<span class="ecosystem-copy">© 2026 PRMS Architecture Lab · Querétaro, México</span>
 </div>
-
 </footer>
 
-
-<!-- =========================================================
-     PRMS SIMULATOR ENGINE v1.2
-     ========================================================= -->
-
 <script>
-
 /* =========================================================
-   PRMS SIMULATOR ENGINE
-   v1.2 — LOCAL SIMULATION + PRMS AI
-   ========================================================= */
-
-
-/* =========================================================
-   CONFIGURATION
+   PRMS SIMULATOR v2.1 ENGINE
+   Graph → Model → Scenario → Simulation → Pattern →
+   Conclusion → Report → Deep Interaction
    ========================================================= */
 
 const CARBON_FACTOR = 0.40;
-
 const ENERGY_REFERENCE = 200;
-
 const WATER_REFERENCE = 250;
-
-const PRMS_AI_WORKER =
-    "https://prms-ai-discovery.oadrianhg.workers.dev/";
-
+const PRMS_AI_WORKER = "https://prms-ai-discovery.oadrianhg.workers.dev/";
 const AI_TIMEOUT_MS = 30000;
 
-
-/* =========================================================
-   PERSISTENT AI STATE
-   ========================================================= */
-
 let simulatorResponseId = null;
-
 let simulatorHistory = [];
-
-
-/* =========================================================
-   SAFE DOM HELPERS
-   ========================================================= */
-
-function getElement(id) {
-
-    return document.getElementById(id);
-
-}
-
-
-function setText(id, value) {
-
-    const element =
-        getElement(id);
-
-    if (!element) {
-
-        console.warn(
-            "PRMS: Element not found:",
-            id
-        );
-
-        return;
-
-    }
-
-    element.innerHTML =
-        value === undefined ||
-        value === null
-            ? ""
-            : String(value);
-
-}
-
-
-function setValue(id, value) {
-
-    const element =
-        getElement(id);
-
-    if (element) {
-
-        element.value =
-            value;
-
-    }
-
-}
-
-
-function getNumber(
-    id,
-    fallback = 0
-) {
-
-    const element =
-        getElement(id);
-
-    if (!element) {
-
-        return fallback;
-
-    }
-
-    const value =
-        Number(element.value);
-
-    return Number.isFinite(value)
-        ? value
-        : fallback;
-
-}
-
-
-function getValue(
-    id,
-    fallback = ""
-) {
-
-    const element =
-        getElement(id);
-
-    if (!element) {
-
-        return fallback;
-
-    }
-
-    return element.value ||
-        fallback;
-
-}
-
-
-function isChecked(id) {
-
-    const element =
-        getElement(id);
-
-    return !!(
-        element &&
-        element.checked
-    );
-
-}
-
-
-function clamp(
-    value,
-    min,
-    max
-) {
-
-    return Math.max(
-        min,
-        Math.min(
-            max,
-            value
-        )
-    );
-
-}
-
-
-function round(value) {
-
-    return Math.round(
-        Number(value) || 0
-    );
-
-}
-
-
-function formatNumber(value) {
-
-    return Number(
-        value || 0
-    ).toLocaleString(
-        "en-US",
-        {
-            maximumFractionDigits: 0
-        }
-    );
-
-}
-
+let lastSimulation = null;
+let reportGenerated = false;
+let selectedNodeId = "project";
 
 /* =========================================================
-   HTML ESCAPING
+   KNOWLEDGE GRAPH MODEL
    ========================================================= */
 
-function escapeHTML(value) {
+const GRAPH = {
+  project: {
+    id:"project", label:"PROJECT", type:"root", x:450, y:340,
+    description:"The loaded project model — the object every simulated scenario is tested against.",
+    role:"Reference state for scenario generation, comparison and pattern detection.",
+    connections:["Architecture","Performance","Human","Context"]
+  },
+  architecture: {
+    id:"architecture", label:"ARCHITECTURE", type:"architecture", x:260, y:210,
+    description:"Physical and spatial structure of the project.",
+    role:"Defines the architectural variables against which performance consequences are evaluated.",
+    connections:["Geometry","Orientation","Envelope","Openings"]
+  },
+  performance: {
+    id:"performance", label:"PERFORMANCE", type:"performance", x:640, y:210,
+    description:"Computational performance layer containing the environmental evaluation engines.",
+    role:"Receives project, context and human inputs and produces performance indicators.",
+    connections:["Energy Agent","Water Agent","Comfort Agent","Daylight Agent","Ventilation Agent","Carbon Engine"]
+  },
+  human: {
+    id:"human", label:"HUMAN", type:"human", x:260, y:470,
+    description:"Behavioral and occupancy layer.",
+    role:"Represents the human variables that can mediate operational performance.",
+    connections:["Behavior","Schedules","Occupant Agent"]
+  },
+  context: {
+    id:"context", label:"CONTEXT", type:"context", x:640, y:470,
+    description:"Climate, site and regulatory conditions surrounding the project.",
+    role:"Defines environmental and institutional conditions that influence the simulation.",
+    connections:["Climate Agent","Solar Agent","Wind Agent","Regulation Agent"]
+  },
 
-    return String(value)
+  geometry:{id:"geometry",label:"Geometry",type:"architecture",x:110,y:235,description:"Project geometry and spatial dimensions.",role:"Feeds geometric relationships into the project model.",connections:["Area","Spatial relationships"]},
+  orientation:{id:"orientation",label:"Orientation",type:"architecture",x:150,y:165,description:"Primary building orientation and site relationship.",role:"Influences solar exposure, ventilation and environmental response.",connections:["Solar Agent","Wind Agent"]},
+  envelope:{id:"envelope",label:"Envelope",type:"architecture",x:205,y:105,description:"Building envelope properties.",role:"Influences thermal transfer, cooling demand and comfort.",connections:["Energy Agent","Comfort Agent"]},
+  openings:{id:"openings",label:"Openings",type:"architecture",x:300,y:90,description:"Window and opening configuration.",role:"Influences daylight, ventilation and solar gains.",connections:["Daylight Agent","Ventilation Agent","Comfort Agent"]},
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+  energy:{id:"energy",label:"Energy Agent",type:"performance",x:720,y:95,description:"Energy demand and energy-system reasoning.",role:"Evaluates energy consequences of architecture, systems, climate and occupancy.",connections:["Envelope","Climate Agent","Occupant Agent","Solar Agent"]},
+  waterAgent:{id:"waterAgent",label:"Water Agent",type:"performance",x:805,y:145,description:"Water demand, recovery and reuse reasoning.",role:"Evaluates potable demand and resource recovery pathways.",connections:["Occupant Agent","Rainwater","Greywater"]},
+  comfortAgent:{id:"comfortAgent",label:"Comfort Agent",type:"performance",x:850,y:220,description:"Thermal comfort reasoning.",role:"Evaluates comfort consequences of envelope, climate, schedules and operation.",connections:["Envelope","Climate Agent","Schedules"]},
+  daylightAgent:{id:"daylightAgent",label:"Daylight Agent",type:"performance",x:835,y:295,description:"Daylight and solar access reasoning.",role:"Evaluates daylight potential from geometry, openings and solar context.",connections:["Openings","Solar Agent"]},
+  ventilationAgent:{id:"ventilationAgent",label:"Ventilation Agent",type:"performance",x:770,y:350,description:"Natural and hybrid ventilation reasoning.",role:"Evaluates airflow potential using openings, orientation, wind and occupancy.",connections:["Openings","Wind Agent","Occupant Agent"]},
+  carbonEngine:{id:"carbonEngine",label:"Carbon Engine",type:"performance",x:690,y:400,description:"Operational carbon estimation layer.",role:"Transforms energy performance into an experimental carbon signal.",connections:["Energy Agent"]},
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+  behavior:{id:"behavior",label:"Behavior",type:"human",x:95,y:420,description:"Operational behavior and interaction with the building.",role:"Introduces behavioral variability into performance.",connections:["Energy Agent","Water Agent","Comfort Agent"]},
+  schedules:{id:"schedules",label:"Schedules",type:"human",x:135,y:510,description:"Occupancy and operation schedules.",role:"Defines temporal patterns of use.",connections:["Energy Agent","Comfort Agent","Daylight Agent"]},
+  occupantAgent:{id:"occupantAgent",label:"Occupant Agent",type:"human",x:255,y:565,description:"Occupancy representation inside the simulation.",role:"Connects number of occupants and behavior to resource demand and comfort.",connections:["Energy Agent","Water Agent","Comfort Agent"]},
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+  climateAgent:{id:"climateAgent",label:"Climate Agent",type:"context",x:700,y:520,description:"Climate context for the project location.",role:"Supplies experimental climate assumptions to the simulation.",connections:["Energy Agent","Comfort Agent"]},
+  solarAgent:{id:"solarAgent",label:"Solar Agent",type:"context",x:790,y:470,description:"Solar exposure and renewable-energy context.",role:"Connects orientation and solar availability with daylight and renewable potential.",connections:["Energy Agent","Daylight Agent"]},
+  windAgent:{id:"windAgent",label:"Wind Agent",type:"context",x:820,y:570,description:"Prevailing wind and ventilation context.",role:"Provides the contextual signal for natural ventilation reasoning.",connections:["Ventilation Agent"]},
+  regulationAgent:{id:"regulationAgent",label:"Regulation Agent",type:"context",x:570,y:565,description:"Regulatory and planning constraints.",role:"Represents regulatory information that can constrain project decisions.",connections:["Project requirements"]}
+};
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+const GRAPH_EDGES = [
+  ["project","architecture"],["project","performance"],["project","human"],["project","context"],
+  ["architecture","geometry"],["architecture","orientation"],["architecture","envelope"],["architecture","openings"],
+  ["performance","energy"],["performance","waterAgent"],["performance","comfortAgent"],["performance","daylightAgent"],["performance","ventilationAgent"],["performance","carbonEngine"],
+  ["human","behavior"],["human","schedules"],["human","occupantAgent"],
+  ["context","climateAgent"],["context","solarAgent"],["context","windAgent"],["context","regulationAgent"]
+];
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+const TYPE_COLOR = {
+  architecture:"#222",
+  performance:"#27754f",
+  human:"#ad642e",
+  context:"#346694",
+  root:"#111"
+};
 
+function graphNeighbors(id){
+  const set = new Set();
+  GRAPH_EDGES.forEach(([a,b])=>{
+    if(a===id)set.add(b);
+    if(b===id)set.add(a);
+  });
+  return [...set];
 }
 
+function renderGraph(){
+  const svg = document.getElementById("knowledgeGraph");
+  if(!svg)return;
+  svg.innerHTML = "";
+
+  const ns = "http://www.w3.org/2000/svg";
+  const selectedNeighbors = new Set([selectedNodeId,...graphNeighbors(selectedNodeId)]);
+
+  GRAPH_EDGES.forEach(([a,b])=>{
+    const na=GRAPH[a], nb=GRAPH[b];
+    const line=document.createElementNS(ns,"line");
+    line.setAttribute("x1",na.x); line.setAttribute("y1",na.y);
+    line.setAttribute("x2",nb.x); line.setAttribute("y2",nb.y);
+    line.setAttribute("class","graph-edge"+(selectedNeighbors.has(a)&&selectedNeighbors.has(b)?" active":""));
+    svg.appendChild(line);
+  });
+
+  Object.values(GRAPH).forEach(n=>{
+    const g=document.createElementNS(ns,"g");
+    const isSelected=n.id===selectedNodeId;
+    const focused=document.getElementById("focusSelection")?.checked;
+    g.setAttribute("class","graph-node "+n.type+(isSelected?" selected":"")+(focused&&!selectedNeighbors.has(n.id)?" dimmed":""));
+    g.dataset.id=n.id;
+    g.addEventListener("click",()=>selectNode(n.id));
+
+    const circle=document.createElementNS(ns,"circle");
+    circle.setAttribute("cx",n.x); circle.setAttribute("cy",n.y);
+    circle.setAttribute("r",n.type==="root"?24:(n.type==="architecture"||n.type==="performance"||n.type==="human"||n.type==="context" ? 18:9));
+    circle.setAttribute("stroke",TYPE_COLOR[n.type]);
+    if(n.type==="root")circle.setAttribute("fill","#111");
+    g.appendChild(circle);
+
+    const text=document.createElementNS(ns,"text");
+    text.setAttribute("x",n.x);
+    text.setAttribute("y",n.y+(n.type==="root"?39:29));
+    text.setAttribute("text-anchor","middle");
+    text.setAttribute("class","node-label");
+    text.textContent=n.label;
+    g.appendChild(text);
+
+    svg.appendChild(g);
+  });
+}
+
+function selectNode(id){
+  selectedNodeId=id;
+  const n=GRAPH[id];
+  if(!n)return;
+  document.getElementById("selectedNodeName").textContent=n.label;
+  document.getElementById("selectedNodeType").textContent=n.type==="root"?"Project model":n.type;
+  document.getElementById("selectedNodeDescription").textContent=n.description;
+  document.getElementById("selectedNodeRole").textContent=n.role;
+  const ul=document.getElementById("selectedNodeConnections");
+  ul.innerHTML="";
+  n.connections.forEach(c=>{const li=document.createElement("li");li.textContent=c;ul.appendChild(li);});
+  document.getElementById("selectionSummary").textContent = `${n.label} · ${graphNeighbors(id).length} graph connection${graphNeighbors(id).length===1?"":"s"} in the current project model.`;
+  renderGraph();
+}
+
+function updatePipeline(stage){
+  const order=["project","model","scenario","simulation","comparison","pattern","conclusion","report","deep"];
+  const index=order.indexOf(stage);
+  document.querySelectorAll(".pipeline-step").forEach(el=>{
+    const i=order.indexOf(el.dataset.stage);
+    el.classList.toggle("active",i<=index);
+  });
+}
 
 /* =========================================================
-   LOGGING
+   DOM HELPERS
    ========================================================= */
 
-function clearLog() {
+function getElement(id){return document.getElementById(id)}
+function setText(id,value){const e=getElement(id);if(e)e.textContent=value==null?"":String(value)}
+function setHTML(id,value){const e=getElement(id);if(e)e.innerHTML=value==null?"":String(value)}
+function setValue(id,value){const e=getElement(id);if(e)e.value=value}
+function getNumber(id,fallback=0){const e=getElement(id);const n=e?Number(e.value):NaN;return Number.isFinite(n)?n:fallback}
+function getValue(id,fallback=""){const e=getElement(id);return e&&e.value?e.value:fallback}
+function isChecked(id){const e=getElement(id);return !!(e&&e.checked)}
+function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+function round(v){return Math.round(Number(v)||0)}
+function formatNumber(v){return Number(v||0).toLocaleString("en-US",{maximumFractionDigits:0})}
+function escapeHTML(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 
-    const log =
-        getElement("aiLog");
+function clearLog(){const e=getElement("aiLog");if(e)e.innerHTML=""}
+function addLog(message){const e=getElement("aiLog");if(!e)return;const d=document.createElement("div");d.className="ai-log-item";d.textContent="• "+message;e.appendChild(d)}
 
-    if (!log) {
-
-        return;
-
-    }
-
-    log.innerHTML = "";
-
+function setSimulationButtons(disabled){
+  ["runSimulationButton","recalculateButton","resetButton","generateReportButton","exportJSONButton"].forEach(id=>{
+    const b=getElement(id);if(b)b.disabled=disabled;
+  });
 }
-
-
-function addLog(message) {
-
-    const log =
-        getElement("aiLog");
-
-    if (!log) {
-
-        return;
-
-    }
-
-    const item =
-        document.createElement("div");
-
-    item.className =
-        "ai-log-item";
-
-    item.textContent =
-        "• " +
-        String(message);
-
-    log.appendChild(item);
-
-}
-
 
 /* =========================================================
-   BUTTON STATE
+   PROJECT MODEL
    ========================================================= */
 
-function setSimulationButtons(
-    disabled
-) {
-
-    const ids = [
-
-        "runSimulationButton",
-
-        "recalculateButton",
-
-        "resetButton"
-
-    ];
-
-
-    ids.forEach(
-        function(id) {
-
-            const button =
-                getElement(id);
-
-            if (button) {
-
-                button.disabled =
-                    disabled;
-
-            }
-
-        }
-    );
-
+function getSimulatorProject(){
+  return {
+    id:getElement("projectId")?.textContent||"PRMS-SIM-001",
+    graph_id:getElement("graphId")?.textContent||"PRMS-GRAPH-001",
+    type:getValue("projectType","Residential"),
+    architecture_file:getElement("architectureFile")?.files?.[0]?.name||null,
+    location:getValue("location","Unknown location"),
+    area:getNumber("area",0),
+    occupants:getNumber("occupants",1),
+    reference_year:getNumber("referenceYear",2026),
+    main_access:getValue("mainAccess","N"),
+    building_orientation:getValue("buildingOrientation","N"),
+    energy:getNumber("energy",0),
+    water:getNumber("water",0),
+    comfort:getNumber("comfort",0),
+    strategy:getValue("strategy","balanced"),
+    systems:{
+      pv:isChecked("pv"),solarWater:isChecked("solarWater"),rainwater:isChecked("rainwater"),
+      greywater:isChecked("greywater"),blackwater:isChecked("blackwater"),battery:isChecked("battery"),
+      evCharging:isChecked("evCharging"),other:isChecked("otherSystem")
+    }
+  };
 }
-
 
 /* =========================================================
-   PROJECT STATE
+   CLIMATE / ORIENTATION
    ========================================================= */
 
-function getSimulatorProject() {
-
-    return {
-
-        id:
-            "PRMS-SIM-001",
-
-        type:
-            getValue(
-                "projectType",
-                "Residential"
-            ),
-
-        location:
-            getValue(
-                "location",
-                "Unknown location"
-            ),
-
-        area:
-            getNumber(
-                "area",
-                0
-            ),
-
-        occupants:
-            getNumber(
-                "occupants",
-                1
-            ),
-
-        reference_year:
-            getNumber(
-                "referenceYear",
-                2026
-            ),
-
-        main_access:
-            getValue(
-                "mainAccess",
-                "N"
-            ),
-
-        building_orientation:
-            getValue(
-                "buildingOrientation",
-                "N"
-            ),
-
-        energy:
-            getNumber(
-                "energy",
-                0
-            ),
-
-        water:
-            getNumber(
-                "water",
-                0
-            ),
-
-        comfort:
-            getNumber(
-                "comfort",
-                0
-            ),
-
-        strategy:
-            getValue(
-                "strategy",
-                "balanced"
-            ),
-
-        systems: {
-
-            pv:
-                isChecked("pv"),
-
-            solarWater:
-                isChecked("solarWater"),
-
-            rainwater:
-                isChecked("rainwater"),
-
-            greywater:
-                isChecked("greywater"),
-
-            blackwater:
-                isChecked("blackwater"),
-
-            battery:
-                isChecked("battery"),
-
-            evCharging:
-                isChecked("evCharging"),
-
-            other:
-                isChecked("otherSystem")
-
-        }
-
-    };
-
+function getClimateProfile(location){
+  const t=String(location).toLowerCase();
+  if(t.includes("querétaro")||t.includes("queretaro"))return{name:"Querétaro · Hot semi-arid",solar:"High",wind:"NE → SW"};
+  if(t.includes("mexico")||t.includes("méxico"))return{name:"Mexico · Regional reference",solar:"Moderate–High",wind:"Regional reference"};
+  return{name:location+" · Experimental reference",solar:"Requires climate engine",wind:"Requires climate engine"};
 }
-
+function getOrientationFactor(o){return({N:.70,NE:.95,E:.85,SE:.90,S:.75,SW:.70,W:.55,NW:.75}[o]||.70)}
+function getAccessFactor(o){return({N:.90,NE:1,E:.95,SE:.95,S:.85,SW:.80,W:.70,NW:.85}[o]||.85)}
+function getOrientationQuality(o,a){return clamp(1-Math.abs(getOrientationFactor(o)-getAccessFactor(a)),0,1)}
 
 /* =========================================================
-   PRMS AI CONNECTION
+   EXPERIMENTAL SCORE / ROI
    ========================================================= */
 
-async function callPRMSAI(
-    message = "",
-    simulationResults = null
-) {
-
-    const project =
-        getSimulatorProject();
-
-
-    const payload = {
-
-        request_type:
-            "simulation",
-
-        action:
-            "simulation",
-
-        project:
-            project,
-
-        simulation_results:
-            simulationResults,
-
-        history:
-            simulatorHistory,
-
-        message:
-            message,
-
-        previous_response_id:
-            simulatorResponseId
-
-    };
-
-
-    addLog(
-        "Connecting to PRMS AI..."
-    );
-
-
-    const controller =
-        new AbortController();
-
-
-    const timeout =
-        setTimeout(
-            function() {
-
-                controller.abort();
-
-            },
-            AI_TIMEOUT_MS
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                PRMS_AI_WORKER,
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Accept":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            payload
-                        ),
-
-                    signal:
-                        controller.signal
-
-                }
-            );
-
-
-        const rawText =
-            await response.text();
-
-
-        let data;
-
-
-        try {
-
-            data =
-                rawText
-                    ? JSON.parse(
-                        rawText
-                    )
-                    : {};
-
-        }
-        catch (parseError) {
-
-            console.error(
-                "PRMS AI RAW RESPONSE:",
-                rawText
-            );
-
-            throw new Error(
-                "PRMS AI returned invalid JSON."
-            );
-
-        }
-
-
-        if (!response.ok) {
-
-            throw new Error(
-
-                data &&
-                data.details
-
-                    ? data.details
-
-                    : data &&
-                      data.error
-
-                        ? data.error
-
-                        : data &&
-                          data.message
-
-                            ? data.message
-
-                            : "PRMS AI request failed."
-
-            );
-
-        }
-
-
-        if (
-            data &&
-            data.response_id
-        ) {
-
-            simulatorResponseId =
-                data.response_id;
-
-        }
-
-
-        if (
-            data &&
-            data.response
-        ) {
-
-            simulatorHistory.push({
-
-                role:
-                    "assistant",
-
-                content:
-                    data.response
-
-            });
-
-        }
-
-
-        addLog(
-            "PRMS AI response received."
-        );
-
-
-        return data;
-
-    }
-    catch (error) {
-
-        console.error(
-            "PRMS AI ERROR:",
-            error
-        );
-
-
-        if (
-            error &&
-            error.name ===
-            "AbortError"
-        ) {
-
-            return {
-
-                error:
-                    "PRMS AI request timed out after 30 seconds."
-
-            };
-
-        }
-
-
-        return {
-
-            error:
-
-                error &&
-                error.message
-
-                    ? error.message
-
-                    : "Unknown PRMS AI error."
-
-        };
-
-    }
-    finally {
-
-        clearTimeout(
-            timeout
-        );
-
-    }
-
+function calculatePRMSScore(energy,water,comfort,carbon,baselineCarbon,autonomy){
+  const e=clamp(1-energy/ENERGY_REFERENCE,0,1);
+  const w=clamp(1-water/WATER_REFERENCE,0,1);
+  const c=clamp(comfort/100,0,1);
+  const co=baselineCarbon>0?clamp(1-carbon/(baselineCarbon*1.5),0,1):0;
+  const a=clamp(autonomy/100,0,1);
+  return clamp(e*.25+w*.15+c*.25+co*.15+a*.20,0,1);
 }
-
-
-/* =========================================================
-   UPDATE AI STRATEGY CARDS
-   ========================================================= */
-
-function updateAIStrategyCards(
-    strategies
-) {
-
-    if (
-        !strategies ||
-        typeof strategies !==
-        "object"
-    ) {
-
-        return;
-
-    }
-
-
-    const passive =
-        strategies.passive || {};
-
-    const integrated =
-        strategies.integrated || {};
-
-    const metabolic =
-        strategies.metabolic || {};
-
-
-    const mapping = {
-
-        passiveEnvelope:
-            passive.envelope,
-
-        passiveSolar:
-            passive.solar,
-
-        passiveOrientation:
-            passive.orientation,
-
-        passiveVentilation:
-            passive.ventilation,
-
-        passiveCooling:
-            passive.cooling,
-
-
-        integratedEnvelope:
-            integrated.envelope,
-
-        integratedHVAC:
-            integrated.hvac,
-
-        integratedPV:
-            integrated.pv,
-
-        integratedSolar:
-            integrated.solar,
-
-        integratedWater:
-            integrated.water,
-
-
-        metabolicEnvelope:
-            metabolic.envelope,
-
-        metabolicSystems:
-            metabolic.systems,
-
-        metabolicRenewable:
-            metabolic.renewable,
-
-        metabolicWater:
-            metabolic.water,
-
-        metabolicStorage:
-            metabolic.storage
-
-    };
-
-
-    Object.keys(mapping).forEach(
-        function(id) {
-
-            const element =
-                getElement(id);
-
-            const value =
-                mapping[id];
-
-
-            if (
-                element &&
-                value !== undefined &&
-                value !== null &&
-                String(value).trim() !== ""
-            ) {
-
-                element.textContent =
-                    String(value);
-
-            }
-
-        }
-    );
-
+function calculateROI(baseE,scenarioE,baseW,scenarioW,scenario,systems){
+  const energySavings=Math.max(0,baseE-scenarioE);
+  const waterSavings=Math.max(0,baseW-scenarioW);
+  const performance=(energySavings/Math.max(baseE,1))*.65+(waterSavings/Math.max(baseW,1))*.35;
+  const baseROI={A:8.2,B:6.9,C:7.4}[scenario]||7.4;
+  let adj=0;
+  if(systems.pv)adj-=.25;
+  if(systems.rainwater)adj-=.15;
+  if(systems.greywater)adj-=.10;
+  return Math.max(2,baseROI-performance*1.5+adj);
 }
-
-
-/* =========================================================
-   UPDATE AI ANALYSIS
-   ========================================================= */
-
-function updateAIAnalysis(
-    analysis
-) {
-
-    if (
-        !analysis ||
-        typeof analysis !==
-        "object"
-    ) {
-
-        setText(
-            "aiQuestion",
-            "PRMS AI completed the simulation analysis."
-        );
-
-        return;
-
-    }
-
-
-    const finding =
-        analysis.finding
-            ? String(
-                analysis.finding
-            )
-            : "No architectural finding generated.";
-
-
-    const tradeoff =
-        analysis.tradeoff
-            ? String(
-                analysis.tradeoff
-            )
-            : "No principal performance trade-off identified.";
-
-
-    const nextInput =
-        analysis.next_input
-            ? String(
-                analysis.next_input
-            )
-            : "No additional input identified.";
-
-
-    setText(
-
-        "aiQuestion",
-
-        `
-
-        <div class="prms-analysis">
-
-
-            <div class="prms-analysis-item">
-
-                <div class="prms-analysis-label">
-                    KEY FINDING
-                </div>
-
-                <div class="prms-analysis-text">
-                    ${escapeHTML(finding)}
-                </div>
-
-            </div>
-
-
-            <div class="prms-analysis-item">
-
-                <div class="prms-analysis-label">
-                    PERFORMANCE TRADE-OFF
-                </div>
-
-                <div class="prms-analysis-text">
-                    ${escapeHTML(tradeoff)}
-                </div>
-
-            </div>
-
-
-            <div class="prms-analysis-item">
-
-                <div class="prms-analysis-label">
-                    NEXT INPUT
-                </div>
-
-                <div class="prms-analysis-text">
-                    ${escapeHTML(nextInput)}
-                </div>
-
-            </div>
-
-
-        </div>
-
-        `
-
-    );
-
-}
-
 
 /* =========================================================
    LOCAL SIMULATION
    ========================================================= */
 
-async function runSimulation(
-    connectAI = false
-) {
+async function runSimulation(connectAI=false){
+  setSimulationButtons(true);
+  clearLog();
+  updatePipeline("project");
+  addLog("PRMS Simulator started.");
 
-    console.log(
-        "PRMS SIMULATOR: runSimulation() started",
-        {
-            connectAI
-        }
+  try{
+    const area=Math.max(0,getNumber("area",0));
+    const occupants=Math.max(1,getNumber("occupants",1));
+    const energy=Math.max(0,getNumber("energy",0));
+    const water=Math.max(0,getNumber("water",0));
+    const comfort=clamp(getNumber("comfort",0),0,100);
+    const location=getValue("location","Unknown location");
+    const access=getValue("mainAccess","N");
+    const orientation=getValue("buildingOrientation","N");
+    const strategy=getValue("strategy","balanced");
+    const systems=getSimulatorProject().systems;
+
+    updatePipeline("model");
+    addLog("Project model loaded.");
+
+    const annualEnergy=energy*area;
+    const annualWater=water*occupants*365;
+    const annualCarbon=annualEnergy*CARBON_FACTOR;
+    const carbonIntensity=area>0?annualCarbon/area:0;
+    const orientationQuality=getOrientationQuality(orientation,access);
+    const climate=getClimateProfile(location);
+
+    addLog("Architecture, human and context variables linked.");
+    updatePipeline("scenario");
+
+    const baseAutonomy=clamp(
+      (systems.pv?12:0)+(systems.solarWater?8*.35:0)+(systems.rainwater?12*.25:0)+
+      (systems.greywater?10*.20:0)+(systems.blackwater?8*.15:0)+(systems.battery?8*.20:0),0,100
     );
 
-
-    setSimulationButtons(
-        true
-    );
-
-
-    clearLog();
-
-
-    addLog(
-        "PRMS Simulator started."
-    );
-
-
-    try {
-
-
-        /* =================================================
-           PROJECT DATA
-           ================================================= */
-
-        const area =
-            Math.max(
-                0,
-                getNumber(
-                    "area",
-                    0
-                )
-            );
-
-
-        const occupants =
-            Math.max(
-                1,
-                getNumber(
-                    "occupants",
-                    1
-                )
-            );
-
-
-        const energy =
-            Math.max(
-                0,
-                getNumber(
-                    "energy",
-                    0
-                )
-            );
-
-
-        const water =
-            Math.max(
-                0,
-                getNumber(
-                    "water",
-                    0
-                )
-            );
-
-
-        const comfort =
-            clamp(
-                getNumber(
-                    "comfort",
-                    0
-                ),
-                0,
-                100
-            );
-
-
-        const location =
-            getValue(
-                "location",
-                "Unknown location"
-            );
-
-
-        const access =
-            getValue(
-                "mainAccess",
-                "N"
-            );
-
-
-        const orientation =
-            getValue(
-                "buildingOrientation",
-                "N"
-            );
-
-
-        const strategy =
-            getValue(
-                "strategy",
-                "balanced"
-            );
-
-
-        addLog(
-            "Measured project baseline loaded."
-        );
-
-
-        /* =================================================
-           RESOURCE SYSTEMS
-           ================================================= */
-
-        const systems = {
-
-            pv:
-                isChecked("pv"),
-
-            solarWater:
-                isChecked("solarWater"),
-
-            rainwater:
-                isChecked("rainwater"),
-
-            greywater:
-                isChecked("greywater"),
-
-            blackwater:
-                isChecked("blackwater"),
-
-            battery:
-                isChecked("battery"),
-
-            evCharging:
-                isChecked("evCharging"),
-
-            other:
-                isChecked("otherSystem")
-
-        };
-
-
-        addLog(
-            "Existing renewable and resource systems identified."
-        );
-
-
-        /* =================================================
-           DERIVED BASELINE
-           ================================================= */
-
-        const annualEnergy =
-            energy *
-            area;
-
-
-        const annualWater =
-            water *
-            occupants *
-            365;
-
-
-        const annualCarbon =
-            annualEnergy *
-            CARBON_FACTOR;
-
-
-        const carbonIntensity =
-            area > 0
-
-                ? annualCarbon /
-                  area
-
-                : 0;
-
-
-        /* =================================================
-           ORIENTATION
-           ================================================= */
-
-        const orientationFactor =
-            getOrientationFactor(
-                orientation
-            );
-
-
-        const orientationQuality =
-            getOrientationQuality(
-                orientation,
-                access
-            );
-
-
-        addLog(
-            "Site orientation and access relationship analyzed."
-        );
-
-
-        /* =================================================
-           CLIMATE
-           ================================================= */
-
-        const climate =
-            getClimateProfile(
-                location
-            );
-
-
-        addLog(
-            "Climate reference profile loaded."
-        );
-
-
-        /* =================================================
-           EXISTING SYSTEM CONTRIBUTION
-           ================================================= */
-
-        const existingPV =
-            systems.pv
-                ? 12
-                : 0;
-
-
-        const existingSolarThermal =
-            systems.solarWater
-                ? 8
-                : 0;
-
-
-        const existingRainwater =
-            systems.rainwater
-                ? 12
-                : 0;
-
-
-        const existingGreywater =
-            systems.greywater
-                ? 10
-                : 0;
-
-
-        const existingBlackwater =
-            systems.blackwater
-                ? 8
-                : 0;
-
-
-        const existingBattery =
-            systems.battery
-                ? 8
-                : 0;
-
-
-        /* =================================================
-           BASE AUTONOMY
-           ================================================= */
-
-        let baselineAutonomy =
-
-            existingPV +
-
-            existingSolarThermal *
-            .35 +
-
-            existingRainwater *
-            .25 +
-
-            existingGreywater *
-            .20 +
-
-            existingBlackwater *
-            .15 +
-
-            existingBattery *
-            .20;
-
-
-        baselineAutonomy =
-            clamp(
-                baselineAutonomy,
-                0,
-                100
-            );
-
-
-        /* =================================================
-           SCENARIO BASE
-           ================================================= */
-
-        let aEnergy =
-            energy *
-            .82;
-
-
-        let bEnergy =
-            energy *
-            .71;
-
-
-        let cEnergy =
-            energy *
-            .64;
-
-
-        let aWater =
-            water *
-            .78;
-
-
-        let bWater =
-            water *
-            .62;
-
-
-        let cWater =
-            water *
-            .55;
-
-
-        let aComfort =
-            comfort +
-            7;
-
-
-        let bComfort =
-            comfort +
-            13;
-
-
-        let cComfort =
-            comfort +
-            18;
-
-
-        /* =================================================
-           ORIENTATION EFFECT
-           ================================================= */
-
-        const orientationBonus =
-            orientationFactor *
-            .025;
-
-
-        aEnergy *=
-            1 -
-            orientationBonus;
-
-
-        bEnergy *=
-            1 -
-            orientationBonus *
-            1.15;
-
-
-        cEnergy *=
-            1 -
-            orientationBonus *
-            1.30;
-
-
-        aComfort +=
-            orientationQuality *
-            1.5;
-
-
-        bComfort +=
-            orientationQuality *
-            2;
-
-
-        cComfort +=
-            orientationQuality *
-            2.5;
-
-
-        /* =================================================
-           STRATEGY MODIFIERS
-           ================================================= */
-
-        if (
-            strategy ===
-            "energy"
-        ) {
-
-            aEnergy *=
-                .96;
-
-            bEnergy *=
-                .92;
-
-            cEnergy *=
-                .87;
-
-        }
-
-
-        if (
-            strategy ===
-            "water"
-        ) {
-
-            aWater *=
-                .94;
-
-            bWater *=
-                .88;
-
-            cWater *=
-                .80;
-
-        }
-
-
-        if (
-            strategy ===
-            "comfort"
-        ) {
-
-            aComfort +=
-                2;
-
-            bComfort +=
-                4;
-
-            cComfort +=
-                6;
-
-        }
-
-
-        if (
-            strategy ===
-            "autonomous"
-        ) {
-
-            cEnergy *=
-                .90;
-
-            cWater *=
-                .88;
-
-            cComfort +=
-                3;
-
-        }
-
-
-        /* =================================================
-           EXISTING SYSTEM EFFECTS
-           ================================================= */
-
-        if (systems.pv) {
-
-            aEnergy *=
-                .96;
-
-            bEnergy *=
-                .92;
-
-            cEnergy *=
-                .88;
-
-        }
-
-
-        if (systems.solarWater) {
-
-            bEnergy *=
-                .96;
-
-            cEnergy *=
-                .93;
-
-        }
-
-
-        if (systems.rainwater) {
-
-            aWater *=
-                .96;
-
-            bWater *=
-                .92;
-
-            cWater *=
-                .88;
-
-        }
-
-
-        if (systems.greywater) {
-
-            bWater *=
-                .94;
-
-            cWater *=
-                .88;
-
-        }
-
-
-        if (systems.blackwater) {
-
-            cWater *=
-                .94;
-
-        }
-
-
-        if (systems.battery) {
-
-            bEnergy *=
-                .98;
-
-            cEnergy *=
-                .95;
-
-        }
-
-
-        /* =================================================
-           LIMITS
-           ================================================= */
-
-        aComfort =
-            clamp(
-                aComfort,
-                0,
-                100
-            );
-
-
-        bComfort =
-            clamp(
-                bComfort,
-                0,
-                100
-            );
-
-
-        cComfort =
-            clamp(
-                cComfort,
-                0,
-                100
-            );
-
-
-        /* =================================================
-           RESOURCE AUTONOMY
-           ================================================= */
-
-        let autonomyA =
-            baselineAutonomy +
-            18;
-
-
-        let autonomyB =
-            baselineAutonomy +
-            42;
-
-
-        let autonomyC =
-            baselineAutonomy +
-            68;
-
-
-        autonomyA -=
-            baselineAutonomy *
-            .30;
-
-
-        autonomyB -=
-            baselineAutonomy *
-            .35;
-
-
-        autonomyC -=
-            baselineAutonomy *
-            .40;
-
-
-        autonomyA =
-            clamp(
-                autonomyA,
-                0,
-                100
-            );
-
-
-        autonomyB =
-            clamp(
-                autonomyB,
-                0,
-                100
-            );
-
-
-        autonomyC =
-            clamp(
-                autonomyC,
-                0,
-                100
-            );
-
-
-        /* =================================================
-           CARBON
-           ================================================= */
-
-        const baselineCarbon =
-            carbonIntensity;
-
-
-        const carbonA =
-            aEnergy *
-            CARBON_FACTOR;
-
-
-        const carbonB =
-            bEnergy *
-            CARBON_FACTOR;
-
-
-        const carbonC =
-            cEnergy *
-            CARBON_FACTOR;
-
-
-        /* =================================================
-           PRMS EXPERIMENTAL SCORES
-           ================================================= */
-
-        const baselineScore =
-            calculatePRMSScore(
-                energy,
-                water,
-                comfort,
-                baselineCarbon,
-                baselineCarbon,
-                baselineAutonomy
-            );
-
-
-        const scoreA =
-            calculatePRMSScore(
-                aEnergy,
-                aWater,
-                aComfort,
-                carbonA,
-                baselineCarbon,
-                autonomyA
-            );
-
-
-        const scoreB =
-            calculatePRMSScore(
-                bEnergy,
-                bWater,
-                bComfort,
-                carbonB,
-                baselineCarbon,
-                autonomyB
-            );
-
-
-        const scoreC =
-            calculatePRMSScore(
-                cEnergy,
-                cWater,
-                cComfort,
-                carbonC,
-                baselineCarbon,
-                autonomyC
-            );
-
-
-        /* =================================================
-           ROI
-           ================================================= */
-
-        const roiA =
-            calculateROI(
-                energy,
-                aEnergy,
-                water,
-                aWater,
-                "A",
-                systems
-            );
-
-
-        const roiB =
-            calculateROI(
-                energy,
-                bEnergy,
-                water,
-                bWater,
-                "B",
-                systems
-            );
-
-
-        const roiC =
-            calculateROI(
-                energy,
-                cEnergy,
-                water,
-                cWater,
-                "C",
-                systems
-            );
-
-
-        /* =================================================
-           DERIVED DATA
-           ================================================= */
-
-        setText(
-            "annualEnergy",
-            formatNumber(
-                annualEnergy
-            )
-        );
-
-
-        setText(
-            "annualWater",
-            formatNumber(
-                annualWater
-            )
-        );
-
-
-        setText(
-            "carbonEstimate",
-            formatNumber(
-                annualCarbon
-            )
-        );
-
-
-        setText(
-            "areaIntensity",
-            round(
-                energy
-            )
-        );
-
-
-        /* =================================================
-           BASELINE TABLE
-           ================================================= */
-
-        setText(
-            "baselineEnergy",
-            round(
-                energy
-            )
-        );
-
-
-        setText(
-            "baselineWater",
-            round(
-                water
-            )
-        );
-
-
-        setText(
-            "baselineComfort",
-            round(
-                comfort
-            )
-        );
-
-
-        setText(
-            "baselineCarbon",
-            baselineCarbon.toFixed(
-                1
-            )
-        );
-
-
-        setText(
-            "baselineAutonomy",
-            round(
-                baselineAutonomy
-            )
-        );
-
-
-        /* =================================================
-           OPTION A
-           ================================================= */
-
-        setText(
-            "energyA",
-            round(
-                aEnergy
-            )
-        );
-
-
-        setText(
-            "waterA",
-            round(
-                aWater
-            )
-        );
-
-
-        setText(
-            "comfortA",
-            round(
-                aComfort
-            )
-        );
-
-
-        setText(
-            "carbonA",
-            carbonA.toFixed(
-                1
-            )
-        );
-
-
-        setText(
-            "autonomyA",
-            round(
-                autonomyA
-            )
-        );
-
-
-        setText(
-            "roiA",
-            roiA.toFixed(
-                1
-            )
-        );
-
-
-        /* =================================================
-           OPTION B
-           ================================================= */
-
-        setText(
-            "energyB",
-            round(
-                bEnergy
-            )
-        );
-
-
-        setText(
-            "waterB",
-            round(
-                bWater
-            )
-        );
-
-
-        setText(
-            "comfortB",
-            round(
-                bComfort
-            )
-        );
-
-
-        setText(
-            "carbonB",
-            carbonB.toFixed(
-                1
-            )
-        );
-
-
-        setText(
-            "autonomyB",
-            round(
-                autonomyB
-            )
-        );
-
-
-        setText(
-            "roiB",
-            roiB.toFixed(
-                1
-            )
-        );
-
-
-        /* =================================================
-           OPTION C
-           ================================================= */
-
-        setText(
-            "energyC",
-            round(
-                cEnergy
-            )
-        );
-
-
-        setText(
-            "waterC",
-            round(
-                cWater
-            )
-        );
-
-
-        setText(
-            "comfortC",
-            round(
-                cComfort
-            )
-        );
-
-
-        setText(
-            "carbonC",
-            carbonC.toFixed(
-                1
-            )
-        );
-
-
-        setText(
-            "autonomyC",
-            round(
-                autonomyC
-            )
-        );
-
-
-        setText(
-            "roiC",
-            roiC.toFixed(
-                1
-            )
-        );
-
-
-        /* =================================================
-           SCORES
-           ================================================= */
-
-        setText(
-            "scoreBaseline",
-            baselineScore.toFixed(
-                2
-            )
-        );
-
-
-        setText(
-            "scoreA",
-            scoreA.toFixed(
-                2
-            )
-        );
-
-
-        setText(
-            "scoreB",
-            scoreB.toFixed(
-                2
-            )
-        );
-
-
-        setText(
-            "scoreC",
-            scoreC.toFixed(
-                2
-            )
-        );
-
-
-        addLog(
-            "Energy, water, carbon and resource autonomy recalculated."
-        );
-
-
-        /* =================================================
-           ANALYTICS
-           ================================================= */
-
-        updateAnalytics(
-
-            location,
-
-            climate,
-
-            access,
-
-            orientation,
-
-            orientationQuality,
-
-            autonomyC,
-
-            annualEnergy,
-
-            annualWater,
-
-            carbonC,
-
-            roiC,
-
-            systems
-
-        );
-
-
-        /* =================================================
-           RECOMMENDATION
-           ================================================= */
-
-        const scores = [
-
-            scoreA,
-            scoreB,
-            scoreC
-
-        ];
-
-
-        const highest =
-            Math.max(
-                ...scores
-            );
-
-
-        const lowest =
-            Math.min(
-                ...scores
-            );
-
-
-        let recommendation =
-            "Option C";
-
-
-        if (
-            scoreA ===
-            highest
-        ) {
-
-            recommendation =
-                "Option A";
-
-        }
-        else if (
-            scoreB ===
-            highest
-        ) {
-
-            recommendation =
-                "Option B";
-
-        }
-
-
-        const confidence =
-            getConfidence(
-                highest,
-                lowest
-            );
-
-
-        setText(
-            "recommendationTitle",
-            "Recommended scenario: " +
-            recommendation
-        );
-
-
-        setText(
-            "recommendationText",
-            generateRecommendation(
-                recommendation,
-                strategy,
-                roiA,
-                roiB,
-                roiC
-            )
-        );
-
-
-        setText(
-            "confidence",
-            confidence
-        );
-
-
-        addLog(
-            "PRMS comparative score calculated."
-        );
-
-
-        addLog(
-            "Recommendation generated: " +
-            recommendation
-        );
-
-
-        /* =================================================
-           SIMULATION OBJECT
-           ================================================= */
-
-        const simulationResults = {
-
-            project:
-                getSimulatorProject(),
-
-            climate:
-                climate,
-
-            orientation:
-                {
-
-                    access:
-                        access,
-
-                    building:
-                        orientation,
-
-                    quality:
-                        orientationQuality
-
-                },
-
-            baseline: {
-
-                energy:
-                    energy,
-
-                water:
-                    water,
-
-                comfort:
-                    comfort,
-
-                carbon:
-                    baselineCarbon,
-
-                autonomy:
-                    baselineAutonomy,
-
-                score:
-                    baselineScore
-
-            },
-
-            optionA: {
-
-                energy:
-                    aEnergy,
-
-                water:
-                    aWater,
-
-                comfort:
-                    aComfort,
-
-                carbon:
-                    carbonA,
-
-                autonomy:
-                    autonomyA,
-
-                roi:
-                    roiA,
-
-                score:
-                    scoreA
-
-            },
-
-            optionB: {
-
-                energy:
-                    bEnergy,
-
-                water:
-                    bWater,
-
-                comfort:
-                    bComfort,
-
-                carbon:
-                    carbonB,
-
-                autonomy:
-                    autonomyB,
-
-                roi:
-                    roiB,
-
-                score:
-                    scoreB
-
-            },
-
-            optionC: {
-
-                energy:
-                    cEnergy,
-
-                water:
-                    cWater,
-
-                comfort:
-                    cComfort,
-
-                carbon:
-                    carbonC,
-
-                autonomy:
-                    autonomyC,
-
-                roi:
-                    roiC,
-
-                score:
-                    scoreC
-
-            },
-
-            recommendation:
-                {
-
-                    scenario:
-                        recommendation,
-
-                    confidence:
-                        confidence
-
-                }
-
-        };
-
-
-        console.log(
-            "PRMS SIMULATOR: local simulation completed",
-            simulationResults
-        );
-
-
-        addLog(
-            "Local simulation completed successfully."
-        );
-
-
-        /* =================================================
-           LOCAL QUESTION
-           ================================================= */
-
-        setText(
-
-            "aiQuestion",
-
-            "Simulation completed. Compare the three intervention pathways and examine the trade-off between performance, resource autonomy, intervention intensity and economic return."
-
-        );
-
-
-        /* =================================================
-           AI CONNECTION
-           ================================================= */
-
-        if (
-            !connectAI
-        ) {
-
-            addLog(
-                "Waiting for PRMS AI analysis."
-            );
-
-
-            return simulationResults;
-
-        }
-
-
-        /* =================================================
-           AI ANALYSIS START
-           ================================================= */
-
-        setText(
-            "aiQuestion",
-            "PRMS AI is analyzing the simulation..."
-        );
-
-
-        addLog(
-            "Sending simulation results to PRMS AI."
-        );
-
-
-        /* =================================================
-           AI PROMPT
-           ================================================= */
-
-        const aiPrompt = `
-
-Analyze the current PRMS simulation.
-
-The simulator has already calculated three predefined
-architectural intervention pathways.
-
-Do NOT replace, rename or reorder the pathways.
-
-=========================================================
-OPTION A — PASSIVE
-=========================================================
-
-1. Improved envelope
-2. Solar protection
-3. Orientation response
-4. Natural ventilation
-5. Reduced cooling demand
-
-
-=========================================================
-OPTION B — INTEGRATED
-=========================================================
-
-1. High-performance envelope
-2. Efficient HVAC
-3. Photovoltaic generation
-4. Solar thermal
-5. Water efficiency
-
-
-=========================================================
-OPTION C — METABOLIC
-=========================================================
-
-1. Advanced envelope
-2. Passive + active systems
-3. Renewable generation
-4. Water recovery and reuse
-5. Storage and adaptive operation
-
-
-=========================================================
-STRATEGY PROPOSALS
-=========================================================
-
-For every predefined strategy item, explain HOW it could
-be implemented specifically for this project.
-
-Use:
-
-- project type
-- location
-- floor area
-- occupants
-- reference year
-- energy consumption
-- water consumption
-- thermal comfort
-- main access orientation
-- building orientation
-- climate profile
-- existing resource systems
-- simulation results
-- PRMS Score
-- resource autonomy
-- indicative ROI
-
-Each strategy item should be concise but useful.
-
-Prefer one concrete implementation recommendation.
-
-Do not repeat the same recommendation across multiple
-strategy items unless the project evidence requires it.
-
-Do not invent measurements.
-
-Do not invent climate data that is not supplied.
-
-Clearly distinguish evidence from inference.
-
-=========================================================
-ARCHITECTURAL ANALYSIS
-=========================================================
-
-After generating the strategy proposals, generate an
-architectural analysis of the simulation.
-
-The analysis MUST contain exactly three fields:
-
-1. finding
-2. tradeoff
-3. next_input
-
-
-FINDING
-
-Identify the most important architectural, environmental
-or performance finding emerging from the project data
-and comparison of the three scenarios.
-
-
-TRADEOFF
-
-Identify the most important trade-off between:
-
-- performance
-- intervention intensity
-- resource autonomy
-- economic return
-
-
-NEXT_INPUT
-
-Identify the most important missing, uncertain or
-unverified input that should be obtained before making
-a stronger architectural decision.
-
-
-IMPORTANT ANALYSIS RULES
-
-The analysis may be longer than the individual strategy
-proposals when additional explanation is necessary.
-
-It must remain project-specific.
-
-Do not repeat the strategy proposals.
-
-Do not introduce new measurements.
-
-Do not invent evidence.
-
-If important information is unknown, explicitly state:
-
-"Unknown"
-
-or
-
-"Needs verification."
-
-
-=========================================================
-OUTPUT FORMAT
-=========================================================
-
-Return ONLY valid JSON.
-
-Do not use markdown.
-
-Do not use code fences.
-
-Do not add an introduction.
-
-Do not add a conclusion.
-
-Use exactly this structure:
-
-{
-  "strategies": {
-    "passive": {
-      "envelope": "",
-      "solar": "",
-      "orientation": "",
-      "ventilation": "",
-      "cooling": ""
-    },
-    "integrated": {
-      "envelope": "",
-      "hvac": "",
-      "pv": "",
-      "solar": "",
-      "water": ""
-    },
-    "metabolic": {
-      "envelope": "",
-      "systems": "",
-      "renewable": "",
-      "water": "",
-      "storage": ""
-    }
-  },
-  "analysis": {
-    "finding": "",
-    "tradeoff": "",
-    "next_input": ""
+    let aEnergy=energy*.82,bEnergy=energy*.71,cEnergy=energy*.64;
+    let aWater=water*.78,bWater=water*.62,cWater=water*.55;
+    let aComfort=comfort+7,bComfort=comfort+13,cComfort=comfort+18;
+
+    const orientationBonus=getOrientationFactor(orientation)*.025;
+    aEnergy*=1-orientationBonus;
+    bEnergy*=1-orientationBonus*1.15;
+    cEnergy*=1-orientationBonus*1.30;
+    aComfort+=orientationQuality*1.5;bComfort+=orientationQuality*2;cComfort+=orientationQuality*2.5;
+
+    if(strategy==="energy"){aEnergy*=.96;bEnergy*=.92;cEnergy*=.87}
+    if(strategy==="water"){aWater*=.94;bWater*=.88;cWater*=.80}
+    if(strategy==="comfort"){aComfort+=2;bComfort+=4;cComfort+=6}
+    if(strategy==="autonomous"){cEnergy*=.90;cWater*=.88;cComfort+=3}
+
+    if(systems.pv){aEnergy*=.96;bEnergy*=.92;cEnergy*=.88}
+    if(systems.solarWater){bEnergy*=.96;cEnergy*=.93}
+    if(systems.rainwater){aWater*=.96;bWater*=.92;cWater*=.88}
+    if(systems.greywater){bWater*=.94;cWater*=.88}
+    if(systems.blackwater){cWater*=.94}
+    if(systems.battery){bEnergy*=.98;cEnergy*=.95}
+
+    aComfort=clamp(aComfort,0,100);bComfort=clamp(bComfort,0,100);cComfort=clamp(cComfort,0,100);
+
+    const autonomyA=clamp(baseAutonomy+18-baseAutonomy*.30,0,100);
+    const autonomyB=clamp(baseAutonomy+42-baseAutonomy*.35,0,100);
+    const autonomyC=clamp(baseAutonomy+68-baseAutonomy*.40,0,100);
+
+    const baselineCarbon=carbonIntensity;
+    const carbonA=aEnergy*CARBON_FACTOR;
+    const carbonB=bEnergy*CARBON_FACTOR;
+    const carbonC=cEnergy*CARBON_FACTOR;
+
+    const baselineScore=calculatePRMSScore(energy,water,comfort,baselineCarbon,baselineCarbon,baseAutonomy);
+    const scoreA=calculatePRMSScore(aEnergy,aWater,aComfort,carbonA,baselineCarbon,autonomyA);
+    const scoreB=calculatePRMSScore(bEnergy,bWater,bComfort,carbonB,baselineCarbon,autonomyB);
+    const scoreC=calculatePRMSScore(cEnergy,cWater,cComfort,carbonC,baselineCarbon,autonomyC);
+
+    const roiA=calculateROI(energy,aEnergy,water,aWater,"A",systems);
+    const roiB=calculateROI(energy,bEnergy,water,bWater,"B",systems);
+    const roiC=calculateROI(energy,cEnergy,water,cWater,"C",systems);
+
+    updatePipeline("simulation");
+    addLog("Scenario simulation completed.");
+
+    [
+      ["annualEnergy",formatNumber(annualEnergy)],["annualWater",formatNumber(annualWater)],
+      ["carbonEstimate",formatNumber(annualCarbon)],["areaIntensity",round(energy)],
+      ["baselineEnergy",round(energy)],["baselineWater",round(water)],["baselineComfort",round(comfort)],
+      ["baselineCarbon",baselineCarbon.toFixed(1)],["baselineAutonomy",round(baseAutonomy)],
+      ["energyA",round(aEnergy)],["waterA",round(aWater)],["comfortA",round(aComfort)],["carbonA",carbonA.toFixed(1)],["autonomyA",round(autonomyA)],["roiA",roiA.toFixed(1)],
+      ["energyB",round(bEnergy)],["waterB",round(bWater)],["comfortB",round(bComfort)],["carbonB",carbonB.toFixed(1)],["autonomyB",round(autonomyB)],["roiB",roiB.toFixed(1)],
+      ["energyC",round(cEnergy)],["waterC",round(cWater)],["comfortC",round(cComfort)],["carbonC",carbonC.toFixed(1)],["autonomyC",round(autonomyC)],["roiC",roiC.toFixed(1)],
+      ["scoreBaseline",baselineScore.toFixed(2)],["scoreA",scoreA.toFixed(2)],["scoreB",scoreB.toFixed(2)],["scoreC",scoreC.toFixed(2)]
+    ].forEach(([id,v])=>setText(id,v));
+
+    updateAnalytics(location,climate,access,orientation,orientationQuality,autonomyC,annualEnergy,annualWater,carbonC,roiC,systems);
+
+    updatePipeline("comparison");
+    const scores=[scoreA,scoreB,scoreC];
+    const highest=Math.max(...scores), lowest=Math.min(...scores);
+    const recommendation=highest===scoreA?"Option A":highest===scoreB?"Option B":"Option C";
+    const confidence=getConfidence(highest,lowest);
+    setText("recommendationTitle","Recommended scenario: "+recommendation);
+    setText("recommendationText",generateRecommendation(recommendation));
+    setText("confidence",confidence);
+
+    const simulationResults={
+      project:getSimulatorProject(),
+      graph:{id:getElement("graphId")?.textContent,nodes:Object.keys(GRAPH).length,selected_node:selectedNodeId,edges:GRAPH_EDGES.length},
+      climate,
+      orientation:{access,building:orientation,quality:orientationQuality},
+      baseline:{energy,water,comfort,carbon:baselineCarbon,autonomy:baseAutonomy,score:baselineScore},
+      optionA:{energy:aEnergy,water:aWater,comfort:aComfort,carbon:carbonA,autonomy:autonomyA,roi:roiA,score:scoreA},
+      optionB:{energy:bEnergy,water:bWater,comfort:bComfort,carbon:carbonB,autonomy:autonomyB,roi:roiB,score:scoreB},
+      optionC:{energy:cEnergy,water:cWater,comfort:cComfort,carbon:carbonC,autonomy:autonomyC,roi:roiC,score:scoreC},
+      recommendation:{scenario:recommendation,confidence}
+    };
+
+    lastSimulation=simulationResults;
+    updatePatterns(simulationResults);
+    updatePipeline("pattern");
+    updateConclusion(simulationResults);
+
+    setText("aiQuestion","Simulation completed. PRMS Pattern Engine has searched the current project model for relationships that may explain the comparative result.");
+    addLog("Pattern engine completed.");
+    addLog("Simulation conclusion generated.");
+
+    if(connectAI) await analyzeWithAI(simulationResults);
+    return simulationResults;
+
+  }catch(error){
+    console.error("PRMS SIMULATOR ERROR",error);
+    addLog("Simulation error: "+(error?.message||"Unknown error"));
+    setText("aiQuestion","PRMS Simulator error: "+(error?.message||"Unknown error"));
+    return null;
+  }finally{
+    setSimulationButtons(false);
   }
 }
 
-Return ONLY valid JSON.
-
-`;
-
-
-        /* =================================================
-           CALL PRMS AI
-           ================================================= */
-
-        const aiResult =
-            await callPRMSAI(
-                aiPrompt,
-                simulationResults
-            );
-
-
-        /* =================================================
-           AI ERROR
-           ================================================= */
-
-        if (
-            !aiResult ||
-            aiResult.error
-        ) {
-
-            const errorMessage =
-
-                aiResult &&
-                aiResult.error
-
-                    ? aiResult.error
-
-                    : "Unknown PRMS AI error.";
-
-
-            console.error(
-                "PRMS AI CONNECTION FAILED:",
-                errorMessage
-            );
-
-
-            addLog(
-                "PRMS AI connection failed: " +
-                errorMessage
-            );
-
-
-            /*
-             * IMPORTANT:
-             *
-             * The local simulation remains valid.
-             */
-
-            setText(
-
-                "aiQuestion",
-
-                "Local simulation completed successfully. " +
-                "PRMS AI could not complete the strategy analysis: " +
-                errorMessage
-
-            );
-
-
-            return simulationResults;
-
-        }
-
-
-        /* =================================================
-           EXTRACT AI RESPONSE
-           ================================================= */
-
-        let aiData = null;
-
-
-        if (
-            aiResult &&
-            typeof aiResult.response ===
-            "string"
-        ) {
-
-            let responseText =
-                aiResult.response.trim();
-
-
-            /*
-             * Remove markdown JSON fences
-             * if the model returns them.
-             */
-
-            responseText =
-                responseText
-
-                    .replace(
-                        /^```json\s*/i,
-                        ""
-                    )
-
-                    .replace(
-                        /^```\s*/i,
-                        ""
-                    )
-
-                    .replace(
-                        /\s*```$/i,
-                        ""
-                    )
-
-                    .trim();
-
-
-            try {
-
-                aiData =
-                    JSON.parse(
-                        responseText
-                    );
-
-            }
-            catch (error) {
-
-                console.error(
-                    "PRMS AI JSON PARSE ERROR:",
-                    error
-                );
-
-
-                console.error(
-                    "PRMS AI RESPONSE:",
-                    responseText
-                );
-
-
-                addLog(
-                    "PRMS AI returned a non-parseable JSON response."
-                );
-
-
-                setText(
-
-                    "aiQuestion",
-
-                    "Local simulation completed successfully. " +
-                    "PRMS AI returned a response that could not be parsed."
-
-                );
-
-
-                return simulationResults;
-
-            }
-
-        }
-        else if (
-            aiResult &&
-            aiResult.response &&
-            typeof aiResult.response ===
-            "object"
-        ) {
-
-            aiData =
-                aiResult.response;
-
-        }
-
-
-        /* =================================================
-           VALIDATE AI DATA
-           ================================================= */
-
-        if (
-            !aiData ||
-            typeof aiData !==
-            "object"
-        ) {
-
-            addLog(
-                "PRMS AI returned no usable analysis."
-            );
-
-
-            setText(
-
-                "aiQuestion",
-
-                "Local simulation completed successfully. " +
-                "PRMS AI returned no usable structured analysis."
-
-            );
-
-
-            return simulationResults;
-
-        }
-
-
-        /* =================================================
-           UPDATE STRATEGIES
-           ================================================= */
-
-        if (
-            aiData.strategies &&
-            typeof aiData.strategies ===
-            "object"
-        ) {
-
-            updateAIStrategyCards(
-                aiData.strategies
-            );
-
-
-            addLog(
-                "PRMS AI generated project-specific strategies."
-            );
-
-        }
-        else {
-
-            addLog(
-                "PRMS AI returned no strategy object."
-            );
-
-        }
-
-
-        /* =================================================
-           UPDATE ANALYSIS
-           ================================================= */
-
-        if (
-            aiData.analysis &&
-            typeof aiData.analysis ===
-            "object"
-        ) {
-
-            updateAIAnalysis(
-                aiData.analysis
-            );
-
-
-            addLog(
-                "PRMS AI analysis completed."
-            );
-
-        }
-        else {
-
-            setText(
-
-                "aiQuestion",
-
-                "PRMS AI completed the simulation but returned no structured analysis."
-
-            );
-
-
-            addLog(
-                "PRMS AI returned no structured analysis."
-            );
-
-        }
-
-
-        /* =================================================
-           FINAL DEBUG OUTPUT
-           ================================================= */
-
-        console.log(
-            "PRMS SIMULATOR: complete",
-            {
-
-                simulationResults:
-                    simulationResults,
-
-                aiData:
-                    aiData
-
-            }
-        );
-
-
-        return simulationResults;
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "PRMS SIMULATOR ERROR:",
-            error
-        );
-
-
-        addLog(
-
-            "Simulation error: " +
-
-            (
-                error &&
-                error.message
-
-                    ? error.message
-
-                    : "Unknown error"
-
-            )
-
-        );
-
-
-        setText(
-
-            "aiQuestion",
-
-            "PRMS Simulator error: " +
-
-            (
-                error &&
-                error.message
-
-                    ? error.message
-
-                    : "Unknown error"
-
-            )
-
-        );
-
-
-        return null;
-
-    }
-    finally {
-
-        setSimulationButtons(
-            false
-        );
-
-    }
-
-}
-
-
 /* =========================================================
-   CLIMATE PROFILE
+   PATTERN ENGINE
    ========================================================= */
 
-function getClimateProfile(
-    location
-) {
-
-    const text =
-        String(
-            location
-        ).toLowerCase();
-
-
-    if (
-        text.includes(
-            "querétaro"
-        ) ||
-        text.includes(
-            "queretaro"
-        )
-    ) {
-
-        return {
-
-            name:
-                "Querétaro · Hot semi-arid",
-
-            solar:
-                "High",
-
-            wind:
-                "NE → SW"
-
-        };
-
-    }
-
-
-    if (
-        text.includes(
-            "mexico"
-        ) ||
-        text.includes(
-            "méxico"
-        )
-    ) {
-
-        return {
-
-            name:
-                "Mexico · Regional reference",
-
-            solar:
-                "Moderate–High",
-
-            wind:
-                "Regional reference"
-
-        };
-
-    }
-
-
-    return {
-
-        name:
-            location +
-            " · Experimental reference",
-
-        solar:
-            "Requires climate engine",
-
-        wind:
-            "Requires climate engine"
-
-    };
-
+function setPattern(i,title,text,strength){
+  setText("pattern"+i+"Title",title);
+  setText("pattern"+i+"Text",text);
+  setText("pattern"+i+"Strength",Math.round(strength)+"%");
+  const bar=getElement("pattern"+i+"Bar");if(bar)bar.style.width=Math.round(strength)+"%";
 }
 
+function updatePatterns(r){
+  const b=r.baseline,a=r.optionA,c=r.optionC;
+  const energyGain=clamp((b.energy-c.energy)/Math.max(b.energy,1)*100,0,100);
+  const waterGain=clamp((b.water-c.water)/Math.max(b.water,1)*100,0,100);
+  const autonomyGain=clamp(c.autonomy,0,100);
+
+  setPattern(1,
+    "Integration increases the combined signal",
+    `Option C reduces energy by ${Math.round(energyGain)}% relative to the measured baseline while increasing resource autonomy to ${Math.round(c.autonomy)}%. The current model therefore shows a relationship between intervention depth and integrated performance.`,
+    clamp(energyGain*.55+autonomyGain*.45,0,100)
+  );
+
+  const humanSensitivity=clamp(50+(100-b.comfort)*.5,0,100);
+  setPattern(2,
+    "Human variables remain a source of uncertainty",
+    `The current model includes ${r.project.occupants} occupants and a ${r.project.comfort}% comfort baseline, but behavior and schedules are not measured. The apparent scenario advantage should therefore be treated as conditional on human operation.`,
+    humanSensitivity
+  );
+
+  const contextStrength=clamp(r.orientation.quality*100,0,100);
+  setPattern(3,
+    "Performance is context-dependent",
+    `The current orientation/access relationship has a compatibility signal of ${Math.round(r.orientation.quality*100)}%. This suggests that solar, wind and opening strategies should be validated against location-specific climate data before treating the pattern as causal.`,
+    contextStrength
+  );
+}
+
+function updateConclusion(r){
+  const dominant=r.optionC.score>=r.optionB.score&&r.optionC.score>=r.optionA.score?"Integrated metabolic performance":"Comparative scenario advantage";
+  const tradeoff=`${r.recommendation.scenario} reaches the highest experimental PRMS Score (${r.recommendation.scenario==="Option A"?r.optionA.score.toFixed(2):r.recommendation.scenario==="Option B"?r.optionB.score.toFixed(2):r.optionC.score.toFixed(2)}) but requires greater intervention intensity as the strategy moves toward resource autonomy.`;
+  const next="Validated climate data, hourly energy/water measurements, occupancy schedules and project geometry are the highest-value missing evidence.";
+  setText("conclusionTitle",r.recommendation.scenario+" is currently favored by the experimental model");
+  setText("conclusionText",`The simulation suggests that ${dominant.toLowerCase()} is associated with the strongest combined performance in this project model. This is an inference from the current scenario equations, not a validated physical simulation.`);
+  setText("conclusionPattern",dominant);
+  setText("conclusionTradeoff",tradeoff);
+  setText("conclusionNext",next);
+  updatePipeline("conclusion");
+}
 
 /* =========================================================
-   ORIENTATION
+   ANALYTICS
    ========================================================= */
 
-function getOrientationFactor(
-    orientation
-) {
+function updateAnalytics(location,climate,access,orientation,orientationQuality,autonomy,annualEnergy,annualWater,carbonC,roiC,systems){
+  setText("climateLocation",climate.name);
+  setHTML("climateData","Solar exposure: "+escapeHTML(climate.solar)+"<br>Prevailing wind: "+escapeHTML(climate.wind));
 
-    const values = {
+  const vp=orientationQuality>=.90?"High":orientationQuality>=.75?"Moderate":"Limited";
+  const or=orientationQuality>=.90?"Favorable":orientationQuality>=.75?"Moderately favorable":"Requires optimization";
+  setText("ventilationMain","Natural ventilation potential: "+vp);
+  setHTML("ventilationData","Orientation response: "+or+"<br>Access: "+access+" · Building: "+orientation);
 
-        N:
-            .70,
+  const pv=systems.pv?68:(autonomy>=60?55:autonomy>=40?35:18);
+  setText("renewableMain","PV contribution: "+pv+"%");
+  setHTML("renewableData","Solar thermal: "+(systems.solarWater||autonomy>=40?"Available":"Potential")+"<br>Energy autonomy: "+Math.round(autonomy)+"%");
 
-        NE:
-            .95,
+  setText("waterMain","Rainwater recovery: "+(systems.rainwater?24:(autonomy>=50?20:12))+"%");
+  setText("waterData","Greywater recovery: "+(systems.greywater?18:(autonomy>=50?15:8))+"%");
 
-        E:
-            .85,
-
-        SE:
-            .90,
-
-        S:
-            .75,
-
-        SW:
-            .70,
-
-        W:
-            .55,
-
-        NW:
-            .75
-
-    };
-
-
-    return (
-
-        values[orientation] ||
-        .70
-
-    );
-
+  const baselineEnergy=getNumber("energy",0);
+  const carbonReduction=baselineEnergy>0?(1-carbonC/(baselineEnergy*CARBON_FACTOR))*100:0;
+  setText("carbonMain","Operational carbon reduction: "+Math.max(0,Math.round(carbonReduction))+"%");
+  setText("carbonData","Relative to current measured condition.");
+  setText("economicsMain","Estimated payback: "+roiC.toFixed(1)+" years");
+  setText("economicsData","Indicative Option C projection.");
 }
 
+function generateRecommendation(scenario){
+  if(scenario==="Option A")return"Option A provides the strongest fit when lower intervention intensity and architecture-led strategies are prioritized. Its principal advantage is reduced implementation complexity.";
+  if(scenario==="Option B")return"Option B provides a balanced relationship between performance, systems integration and economic return. It is appropriate when substantial improvement is required without maximizing intervention.";
+  return"Option C provides the highest predicted integrated performance by combining passive strategies, efficient systems, renewable generation and resource recovery. Its principal trade-off is greater intervention intensity and investment.";
+}
+function getConfidence(highest,lowest){const d=highest-lowest;return d>=.15?"High":d>=.07?"Medium":"Low"}
 
 /* =========================================================
-   ACCESS
+   PRMS AI
    ========================================================= */
 
-function getAccessFactor(
-    access
-) {
-
-    const values = {
-
-        N:
-            .90,
-
-        NE:
-            1.00,
-
-        E:
-            .95,
-
-        SE:
-            .95,
-
-        S:
-            .85,
-
-        SW:
-            .80,
-
-        W:
-            .70,
-
-        NW:
-            .85
-
-    };
-
-
-    return (
-
-        values[access] ||
-        .85
-
-    );
-
+async function callPRMSAI(message="",simulationResults=null){
+  const payload={
+    request_type:"simulation",
+    action:"simulation",
+    project:getSimulatorProject(),
+    graph:{nodes:GRAPH,edges:GRAPH_EDGES,selected_node:selectedNodeId},
+    simulation_results:simulationResults,
+    history:simulatorHistory,
+    message,
+    previous_response_id:simulatorResponseId
+  };
+  addLog("Connecting to PRMS AI...");
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),AI_TIMEOUT_MS);
+  try{
+    const response=await fetch(PRMS_AI_WORKER,{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify(payload),signal:controller.signal
+    });
+    const raw=await response.text();
+    let data={};
+    try{data=raw?JSON.parse(raw):{}}catch(e){throw new Error("PRMS AI returned invalid JSON.")}
+    if(!response.ok)throw new Error(data.details||data.error||data.message||"PRMS AI request failed.");
+    if(data.response_id)simulatorResponseId=data.response_id;
+    if(data.response)simulatorHistory.push({role:"assistant",content:data.response});
+    addLog("PRMS AI response received.");
+    return data;
+  }catch(error){
+    return {error:error?.name==="AbortError"?"PRMS AI request timed out after 30 seconds.":(error?.message||"Unknown PRMS AI error.")};
+  }finally{clearTimeout(timeout)}
 }
 
+async function analyzeWithAI(simulationResults){
+  updatePipeline("comparison");
+  setText("aiQuestion","PRMS AI is analyzing the project graph, scenario comparison and experimental patterns...");
+  const prompt=`Analyze this PRMS Simulator v2.1 project.
+
+The graph is an architectural knowledge graph with four domains:
+ARCHITECTURE, PERFORMANCE, HUMAN, CONTEXT.
+
+The simulation has already calculated the predefined pathways:
+A Passive, B Integrated, C Metabolic.
+
+Do not replace or reorder those pathways.
+
+Use the project evidence, graph relationships, scenario results and experimental patterns.
+Clearly distinguish evidence, inference and unknowns.
+Do not invent measurements or claim validated physical simulation.
+
+Return ONLY valid JSON:
+{
+ "strategies":{
+  "passive":{"envelope":"","solar":"","orientation":"","ventilation":"","cooling":""},
+  "integrated":{"envelope":"","hvac":"","pv":"","solar":"","water":""},
+  "metabolic":{"envelope":"","systems":"","renewable":"","water":"","storage":""}
+ },
+ "analysis":{"finding":"","tradeoff":"","next_input":""}
+}`;
+  const result=await callPRMSAI(prompt,simulationResults);
+  if(!result||result.error){addLog("PRMS AI analysis unavailable: "+(result?.error||"Unknown error"));return}
+  let data=null;
+  try{
+    let text=typeof result.response==="string"?result.response.trim():"";
+    text=text.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/\s*```$/i,"").trim();
+    data=typeof result.response==="object"?result.response:JSON.parse(text);
+  }catch(e){addLog("PRMS AI response could not be parsed.");return}
+  updateAIStrategyCards(data?.strategies);
+  updateAIAnalysis(data?.analysis);
+  if(data?.analysis?.finding)setText("conclusionText",data.analysis.finding);
+  if(data?.analysis?.tradeoff)setText("conclusionTradeoff",data.analysis.tradeoff);
+  if(data?.analysis?.next_input)setText("conclusionNext",data.analysis.next_input);
+  updatePipeline("conclusion");
+}
+
+function updateAIStrategyCards(s){
+  if(!s)return;
+  const p=s.passive||{},i=s.integrated||{},m=s.metabolic||{};
+  const map={
+    passiveEnvelope:p.envelope,passiveSolar:p.solar,passiveOrientation:p.orientation,passiveVentilation:p.ventilation,passiveCooling:p.cooling,
+    integratedEnvelope:i.envelope,integratedHVAC:i.hvac,integratedPV:i.pv,integratedSolar:i.solar,integratedWater:i.water,
+    metabolicEnvelope:m.envelope,metabolicSystems:m.systems,metabolicRenewable:m.renewable,metabolicWater:m.water,metabolicStorage:m.storage
+  };
+  Object.entries(map).forEach(([id,v])=>{if(v!=null&&String(v).trim())setText(id,v)});
+}
+
+function updateAIAnalysis(a){
+  if(!a)return;
+  const html=`<div class="prms-analysis-item"><div class="prms-analysis-label">KEY FINDING</div><div class="prms-analysis-text">${escapeHTML(a.finding||"Unknown")}</div></div>
+  <div class="prms-analysis-item"><div class="prms-analysis-label">PERFORMANCE TRADE-OFF</div><div class="prms-analysis-text">${escapeHTML(a.tradeoff||"Unknown")}</div></div>
+  <div class="prms-analysis-item"><div class="prms-analysis-label">NEXT INPUT</div><div class="prms-analysis-text">${escapeHTML(a.next_input||"Needs verification.")}</div></div>`;
+  setHTML("aiQuestion",html);
+  addLog("PRMS AI generated project-specific analysis.");
+}
 
 /* =========================================================
-   ORIENTATION QUALITY
+   REPORT GENERATION
    ========================================================= */
 
-function getOrientationQuality(
-    orientation,
-    access
-) {
-
-    const building =
-        getOrientationFactor(
-            orientation
-        );
-
-
-    const entrance =
-        getAccessFactor(
-            access
-        );
-
-
-    const compatibility =
-        1 -
-        Math.abs(
-            building -
-            entrance
-        );
-
-
-    return clamp(
-        compatibility,
-        0,
-        1
-    );
-
+function buildReportObject(){
+  if(!lastSimulation)return null;
+  return {
+    report_id:"PRMS-REPORT-"+new Date().toISOString().replace(/\D/g,"").slice(0,14),
+    generated_at:new Date().toISOString(),
+    simulator_version:"2.1",
+    status:"Experimental research output",
+    project:lastSimulation.project,
+    knowledge_graph:{
+      id:lastSimulation.graph.id,
+      nodes:lastSimulation.graph.nodes,
+      edges:lastSimulation.graph.edges,
+      selected_node:lastSimulation.graph.selected_node
+    },
+    simulation:lastSimulation,
+    patterns:[
+      {id:"PATTERN-01",title:getElement("pattern1Title")?.textContent,text:getElement("pattern1Text")?.textContent,strength:getElement("pattern1Strength")?.textContent},
+      {id:"PATTERN-02",title:getElement("pattern2Title")?.textContent,text:getElement("pattern2Text")?.textContent,strength:getElement("pattern2Strength")?.textContent},
+      {id:"PATTERN-03",title:getElement("pattern3Title")?.textContent,text:getElement("pattern3Text")?.textContent,strength:getElement("pattern3Strength")?.textContent}
+    ],
+    conclusion:{
+      title:getElement("conclusionTitle")?.textContent,
+      text:getElement("conclusionText")?.textContent,
+      dominant_pattern:getElement("conclusionPattern")?.textContent,
+      tradeoff:getElement("conclusionTradeoff")?.textContent,
+      next_evidence:getElement("conclusionNext")?.textContent
+    }
+  };
 }
 
+function generateReport(){
+  if(!lastSimulation){
+    addLog("Run the simulation before generating a report.");
+    return;
+  }
+  const report=buildReportObject();
+  reportGenerated=true;
+  const output=document.getElementById("reportOutput");
+  output.hidden=false;
+  output.textContent=
+`PRMS SIMULATOR v2.1
+REPORT STATUS: EXPERIMENTAL RESEARCH OUTPUT
+REPORT ID: ${report.report_id}
+
+PROJECT
+${report.project.type} · ${report.project.location}
+Area: ${report.project.area} m²
+Occupants: ${report.project.occupants}
+Reference year: ${report.project.reference_year}
+
+KNOWLEDGE GRAPH
+Graph ID: ${report.knowledge_graph.id}
+Nodes: ${report.knowledge_graph.nodes}
+Edges: ${report.knowledge_graph.edges}
+Selected node: ${report.knowledge_graph.selected_node}
+
+SCENARIO COMPARISON
+Baseline Score: ${report.simulation.baseline.score.toFixed(2)}
+Option A Score: ${report.simulation.optionA.score.toFixed(2)}
+Option B Score: ${report.simulation.optionB.score.toFixed(2)}
+Option C Score: ${report.simulation.optionC.score.toFixed(2)}
+Recommendation: ${report.simulation.recommendation.scenario}
+Confidence: ${report.simulation.recommendation.confidence}
+
+PATTERNS
+1. ${report.patterns[0].title} — ${report.patterns[0].strength}
+${report.patterns[0].text}
+
+2. ${report.patterns[1].title} — ${report.patterns[1].strength}
+${report.patterns[1].text}
+
+3. ${report.patterns[2].title} — ${report.patterns[2].strength}
+${report.patterns[2].text}
+
+CONCLUSION
+${report.conclusion.title}
+${report.conclusion.text}
+
+DOMINANT PATTERN
+${report.conclusion.dominant_pattern}
+
+MAIN TRADE-OFF
+${report.conclusion.tradeoff}
+
+NEXT EVIDENCE
+${report.conclusion.next_evidence}
+
+NOTE
+This report contains experimental scenario projections and pattern inferences.
+It is not a substitute for validated energy, daylight, CFD, water, carbon,
+occupancy or financial simulation.`;
+  setText("reportStatus","Report generated from the current project model, graph, simulation, patterns and conclusion.");
+  document.getElementById("deepSendButton").disabled=false;
+  setText("deepStatus","Deep Interaction active. The simulated project and report are now available as context.");
+  addDeepMessage("system","Report generated. The simulated world is now available for deep interaction.");
+  updatePipeline("report");
+  addLog("Report generated.");
+}
+
+function exportJSON(){
+  const report=buildReportObject();
+  if(!report){addLog("Run the simulation before exporting.");return}
+  const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=(report.report_id||"prms-report")+".json";
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
 
 /* =========================================================
-   PRMS EXPERIMENTAL SCORE
+   DEEP INTERACTION
    ========================================================= */
 
-function calculatePRMSScore(
-    energy,
-    water,
-    comfort,
-    carbon,
-    baselineCarbon,
-    autonomy
-) {
-
-    const energyPerformance =
-        clamp(
-
-            1 -
-            (
-                energy /
-                ENERGY_REFERENCE
-            ),
-
-            0,
-            1
-
-        );
-
-
-    const waterPerformance =
-        clamp(
-
-            1 -
-            (
-                water /
-                WATER_REFERENCE
-            ),
-
-            0,
-            1
-
-        );
-
-
-    const comfortPerformance =
-        clamp(
-
-            comfort /
-            100,
-
-            0,
-            1
-
-        );
-
-
-    const carbonPerformance =
-
-        baselineCarbon > 0
-
-            ? clamp(
-
-                1 -
-                (
-                    carbon /
-                    (
-                        baselineCarbon *
-                        1.5
-                    )
-                ),
-
-                0,
-                1
-
-            )
-
-            : 0;
-
-
-    const autonomyPerformance =
-        clamp(
-
-            autonomy /
-            100,
-
-            0,
-            1
-
-        );
-
-
-    const score =
-
-        (
-
-            energyPerformance *
-            .25
-
-            +
-
-            waterPerformance *
-            .15
-
-            +
-
-            comfortPerformance *
-            .25
-
-            +
-
-            carbonPerformance *
-            .15
-
-            +
-
-            autonomyPerformance *
-            .20
-
-        );
-
-
-    return clamp(
-        score,
-        0,
-        1
-    );
-
+function addDeepMessage(role,text){
+  const box=document.getElementById("deepMessages");
+  const div=document.createElement("div");
+  div.className="deep-message "+role;
+  div.textContent=text;
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
 }
 
+async function deepInteraction(){
+  const input=getElement("deepInput");
+  const button=getElement("deepSendButton");
+  const q=input.value.trim();
+  if(!q||!reportGenerated||!lastSimulation)return;
+  addDeepMessage("user",q);
+  input.value="";
+  button.disabled=true;
+  setText("deepStatus","PRMS AI is interrogating the current simulated world...");
+  updatePipeline("deep");
 
-/* =========================================================
-   ROI
-   ========================================================= */
+  const report=buildReportObject();
+  const prompt=`You are PRMS AI Deep Interaction.
 
-function calculateROI(
-    baselineEnergy,
-    scenarioEnergy,
-    baselineWater,
-    scenarioWater,
-    scenario,
-    systems
-) {
+The report has already been generated. Answer the user's question using ONLY the supplied project model, knowledge graph, simulation results, patterns and report context.
 
-    const energySavings =
-        Math.max(
+Important:
+- Distinguish calculated scenario output from experimental pattern inference.
+- Do not invent measurements.
+- If the requested fact is not present, say "Unknown" or "Needs verification."
+- Explain relationships when useful.
+- You may reason across Architecture, Performance, Human and Context.
+- Do not pretend the current heuristic simulator is a validated physics engine.
 
-            0,
+USER QUESTION:
+${q}
 
-            baselineEnergy -
-            scenarioEnergy
+REPORT CONTEXT:
+${JSON.stringify(report)}
 
-        );
+Return a concise but technically useful answer in plain text.`;
 
-
-    const waterSavings =
-        Math.max(
-
-            0,
-
-            baselineWater -
-            scenarioWater
-
-        );
-
-
-    const performance =
-
-        (
-
-            energySavings /
-            Math.max(
-                baselineEnergy,
-                1
-            )
-
-        ) *
-
-        .65
-
-        +
-
-        (
-
-            waterSavings /
-            Math.max(
-                baselineWater,
-                1
-            )
-
-        ) *
-
-        .35;
-
-
-    let baseROI;
-
-
-    if (
-        scenario ===
-        "A"
-    ) {
-
-        baseROI =
-            8.2;
-
-    }
-    else if (
-        scenario ===
-        "B"
-    ) {
-
-        baseROI =
-            6.9;
-
-    }
-    else {
-
-        baseROI =
-            7.4;
-
-    }
-
-
-    let existingAdjustment =
-        0;
-
-
-    if (systems.pv) {
-
-        existingAdjustment -=
-            .25;
-
-    }
-
-
-    if (systems.rainwater) {
-
-        existingAdjustment -=
-            .15;
-
-    }
-
-
-    if (systems.greywater) {
-
-        existingAdjustment -=
-            .10;
-
-    }
-
-
-    const result =
-
-        baseROI -
-
-        (
-            performance *
-            1.5
-        )
-
-        +
-
-        existingAdjustment;
-
-
-    return Math.max(
-        2,
-        result
-    );
-
+  const result=await callPRMSAI(prompt,lastSimulation);
+  if(result?.error){
+    addDeepMessage("system","PRMS AI could not answer: "+result.error);
+    setText("deepStatus","Deep Interaction unavailable for this request.");
+  }else{
+    const answer=typeof result.response==="string"?result.response:JSON.stringify(result.response);
+    addDeepMessage("system",answer);
+    setText("deepStatus","Deep Interaction active.");
+  }
+  button.disabled=false;
 }
-
-
-/* =========================================================
-   ANALYTICAL OUTPUTS
-   ========================================================= */
-
-function updateAnalytics(
-
-    location,
-
-    climate,
-
-    access,
-
-    orientation,
-
-    orientationQuality,
-
-    autonomy,
-
-    annualEnergy,
-
-    annualWater,
-
-    carbonC,
-
-    roiC,
-
-    systems
-
-) {
-
-    setText(
-        "climateLocation",
-        climate.name
-    );
-
-
-    setText(
-
-        "climateData",
-
-        "Solar exposure: " +
-        climate.solar +
-        "<br>Prevailing wind: " +
-        climate.wind
-
-    );
-
-
-    const ventilationPotential =
-
-        orientationQuality >=
-        .90
-
-            ? "High"
-
-            : orientationQuality >=
-              .75
-
-                ? "Moderate"
-
-                : "Limited";
-
-
-    const orientationResponse =
-
-        orientationQuality >=
-        .90
-
-            ? "Favorable"
-
-            : orientationQuality >=
-              .75
-
-                ? "Moderately favorable"
-
-                : "Requires optimization";
-
-
-    setText(
-
-        "ventilationMain",
-
-        "Natural ventilation potential: " +
-        ventilationPotential
-
-    );
-
-
-    setText(
-
-        "ventilationData",
-
-        "Orientation response: " +
-        orientationResponse +
-        "<br>Access: " +
-        access +
-        " · Building: " +
-        orientation
-
-    );
-
-
-    let pvContribution =
-
-        systems.pv
-
-            ? 68
-
-            : 0;
-
-
-    if (!systems.pv) {
-
-        pvContribution =
-
-            autonomy >=
-            60
-
-                ? 55
-
-                : autonomy >=
-                  40
-
-                    ? 35
-
-                    : 18;
-
-    }
-
-
-    setText(
-
-        "renewableMain",
-
-        "PV contribution: " +
-        pvContribution +
-        "%"
-
-    );
-
-
-    const solarThermal =
-
-        systems.solarWater ||
-        autonomy >=
-        40
-
-            ? "Available"
-
-            : "Potential";
-
-
-    setText(
-
-        "renewableData",
-
-        "Solar thermal: " +
-        solarThermal +
-        "<br>Energy autonomy: " +
-        Math.round(
-            autonomy
-        ) +
-        "%"
-
-    );
-
-
-    const rainwaterRecovery =
-
-        systems.rainwater
-
-            ? 24
-
-            : autonomy >=
-              50
-
-                ? 20
-
-                : 12;
-
-
-    const greywaterRecovery =
-
-        systems.greywater
-
-            ? 18
-
-            : autonomy >=
-              50
-
-                ? 15
-
-                : 8;
-
-
-    setText(
-
-        "waterMain",
-
-        "Rainwater recovery: " +
-        rainwaterRecovery +
-        "%"
-
-    );
-
-
-    setText(
-
-        "waterData",
-
-        "Greywater recovery: " +
-        greywaterRecovery +
-        "%"
-
-    );
-
-
-    const baselineEnergy =
-        getNumber(
-            "energy",
-            0
-        );
-
-
-    const carbonReduction =
-
-        baselineEnergy > 0
-
-            ? (
-
-                1 -
-
-                (
-
-                    carbonC /
-                    (
-                        baselineEnergy *
-                        CARBON_FACTOR
-                    )
-
-                )
-
-            ) *
-
-            100
-
-            : 0;
-
-
-    setText(
-
-        "carbonMain",
-
-        "Operational carbon reduction: " +
-
-        Math.max(
-
-            0,
-
-            Math.round(
-                carbonReduction
-            )
-
-        ) +
-
-        "%"
-
-    );
-
-
-    setText(
-
-        "carbonData",
-
-        "Relative to current measured condition."
-
-    );
-
-
-    setText(
-
-        "economicsMain",
-
-        "Estimated payback: " +
-        roiC.toFixed(
-            1
-        ) +
-        " years"
-
-    );
-
-
-    setText(
-
-        "economicsData",
-
-        "Indicative Option C projection."
-
-    );
-
-}
-
-
-/* =========================================================
-   RECOMMENDATION
-   ========================================================= */
-
-function generateRecommendation(
-
-    scenario,
-
-    strategy,
-
-    roiA,
-
-    roiB,
-
-    roiC
-
-) {
-
-    if (
-        scenario ===
-        "Option A"
-    ) {
-
-        return (
-
-            "Option A provides the strongest fit when " +
-
-            "lower intervention intensity and architectural " +
-
-            "strategies are prioritized. Its principal " +
-
-            "advantage is reduced implementation complexity " +
-
-            "and comparatively lower investment."
-
-        );
-
-    }
-
-
-    if (
-        scenario ===
-        "Option B"
-    ) {
-
-        return (
-
-            "Option B provides a balanced relationship " +
-
-            "between performance, systems integration and " +
-
-            "economic return. It is particularly appropriate " +
-
-            "when the project seeks substantial performance " +
-
-            "improvement without maximizing intervention."
-
-        );
-
-    }
-
-
-    return (
-
-        "Option C provides the highest predicted integrated " +
-
-        "performance by combining passive strategies, " +
-
-        "efficient systems, renewable generation and " +
-
-        "resource recovery. Its principal trade-off is " +
-
-        "greater intervention intensity and investment."
-
-    );
-
-}
-
-
-/* =========================================================
-   CONFIDENCE
-   ========================================================= */
-
-function getConfidence(
-    highest,
-    lowest
-) {
-
-    const difference =
-        highest -
-        lowest;
-
-
-    if (
-        difference >=
-        .15
-    ) {
-
-        return "High";
-
-    }
-
-
-    if (
-        difference >=
-        .07
-    ) {
-
-        return "Medium";
-
-    }
-
-
-    return "Low";
-
-}
-
 
 /* =========================================================
    RESET
    ========================================================= */
 
-function resetSimulation() {
-
-    setValue(
-        "projectType",
-        "Residential"
-    );
-
-
-    setValue(
-        "location",
-        "Querétaro, México"
-    );
-
-
-    setValue(
-        "area",
-        250
-    );
-
-
-    setValue(
-        "occupants",
-        4
-    );
-
-
-    setValue(
-        "referenceYear",
-        2026
-    );
-
-
-    setValue(
-        "mainAccess",
-        "NE"
-    );
-
-
-    setValue(
-        "buildingOrientation",
-        "NE"
-    );
-
-
-    setValue(
-        "energy",
-        145
-    );
-
-
-    setValue(
-        "water",
-        210
-    );
-
-
-    setValue(
-        "comfort",
-        75
-    );
-
-
-    setValue(
-        "strategy",
-        "balanced"
-    );
-
-
-    [
-
-        "pv",
-
-        "solarWater",
-
-        "rainwater",
-
-        "greywater",
-
-        "blackwater",
-
-        "battery",
-
-        "evCharging",
-
-        "otherSystem"
-
-    ].forEach(
-
-        function(id) {
-
-            const element =
-                getElement(id);
-
-            if (element) {
-
-                element.checked =
-                    false;
-
-            }
-
-        }
-
-    );
-
-
-    /*
-     * Reset the conversational AI state.
-     *
-     * This is important because a reset represents
-     * a new simulation rather than a continuation.
-     */
-
-    simulatorResponseId =
-        null;
-
-    simulatorHistory =
-        [];
-
-
-    setText(
-
-        "aiQuestion",
-
-        "What would happen if the project progressively moved from passive architectural optimization toward an integrated metabolic strategy?"
-
-    );
-
-
-    clearLog();
-
-
-    addLog(
-        "System reset."
-    );
-
-
-    addLog(
-        "Measured baseline parameters loaded."
-    );
-
-
-    addLog(
-        "Waiting for simulation."
-    );
-
-
-    runSimulation(
-        false
-    );
-
+function resetSimulation(){
+  setValue("projectType","Residential");setValue("location","Querétaro, México");setValue("area",250);
+  setValue("occupants",4);setValue("referenceYear",2026);setValue("mainAccess","NE");setValue("buildingOrientation","NE");
+  setValue("energy",145);setValue("water",210);setValue("comfort",75);setValue("strategy","balanced");
+  ["pv","solarWater","rainwater","greywater","blackwater","battery","evCharging","otherSystem"].forEach(id=>{const e=getElement(id);if(e)e.checked=false});
+  const file=getElement("architectureFile");if(file)file.value="";
+  setText("fileStatus","Optional input. File is staged for the project model; geometry interpretation requires a dedicated geometry engine.");
+  simulatorResponseId=null;simulatorHistory=[];lastSimulation=null;reportGenerated=false;
+  selectedNodeId="project";selectNode("project");
+  getElement("reportOutput").hidden=true;
+  setText("reportStatus","No report generated yet.");
+  getElement("deepMessages").innerHTML='<div class="deep-message system">Generate the report first. Then ask a question such as: “Why did Option C outperform Option B?”</div>';
+  getElement("deepSendButton").disabled=true;
+  setText("deepStatus","Deep Interaction locked until a report has been generated.");
+  clearLog();addLog("System reset.");addLog("Project model initialized.");addLog("Waiting for simulation.");
+  runSimulation(false);
 }
 
-
 /* =========================================================
-   INITIALIZATION
+   EVENTS
    ========================================================= */
 
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function() {
-
-        console.log(
-            "PRMS SIMULATOR: DOM ready"
-        );
-
-
-        const runButton =
-            getElement(
-                "runSimulationButton"
-            );
-
-
-        const recalculateButton =
-            getElement(
-                "recalculateButton"
-            );
-
-
-        const resetButton =
-            getElement(
-                "resetButton"
-            );
-
-
-        /*
-         * Explicit event listeners.
-         *
-         * This removes the dependency on inline onclick
-         * handlers and makes the interface easier to maintain.
-         */
-
-        if (runButton) {
-
-            runButton.addEventListener(
-
-                "click",
-
-                function() {
-
-                    runSimulation(
-                        true
-                    );
-
-                }
-
-            );
-
-        }
-
-
-        if (recalculateButton) {
-
-            recalculateButton.addEventListener(
-
-                "click",
-
-                function() {
-
-                    runSimulation(
-                        true
-                    );
-
-                }
-
-            );
-
-        }
-
-
-        if (resetButton) {
-
-            resetButton.addEventListener(
-
-                "click",
-
-                function() {
-
-                    resetSimulation();
-
-                }
-
-            );
-
-        }
-
-
-        /*
-         * Initial LOCAL simulation.
-         *
-         * AI is intentionally NOT called automatically.
-         */
-
-        runSimulation(
-            false
-        );
-
-    }
-
-);
-
-
-/* =========================================================
-   GLOBAL ERROR REPORTING
-   ========================================================= */
-
-window.addEventListener(
-
-    "error",
-
-    function(event) {
-
-        console.error(
-
-            "PRMS GLOBAL ERROR:",
-
-            event.error ||
-            event.message
-
-        );
-
-
-        addLog(
-            "JavaScript error detected. Check browser console."
-        );
-
-    }
-
-);
-
-
-window.addEventListener(
-
-    "unhandledrejection",
-
-    function(event) {
-
-        console.error(
-
-            "PRMS UNHANDLED PROMISE:",
-
-            event.reason
-
-        );
-
-
-        addLog(
-            "Unhandled simulation error detected."
-        );
-
-    }
-
-);
-
+document.addEventListener("DOMContentLoaded",()=>{
+  renderGraph();
+  selectNode("project");
+
+  getElement("focusSelection")?.addEventListener("change",renderGraph);
+  getElement("resetGraphButton")?.addEventListener("click",()=>{selectedNodeId="project";selectNode("project")});
+
+  getElement("architectureFile")?.addEventListener("change",e=>{
+    const f=e.target.files?.[0];
+    setText("fileStatus",f?`${f.name} · ${Math.round(f.size/1024)} KB staged for the project model. Geometry interpretation requires a dedicated geometry engine.`:"Optional input. File is staged for the project model; geometry interpretation requires a dedicated geometry engine.");
+  });
+
+  getElement("runSimulationButton")?.addEventListener("click",()=>runSimulation(true));
+  getElement("recalculateButton")?.addEventListener("click",()=>runSimulation(true));
+  getElement("resetButton")?.addEventListener("click",resetSimulation);
+  getElement("generateReportButton")?.addEventListener("click",generateReport);
+  getElement("exportJSONButton")?.addEventListener("click",exportJSON);
+  getElement("deepSendButton")?.addEventListener("click",deepInteraction);
+  getElement("deepInput")?.addEventListener("keydown",e=>{if(e.key==="Enter")deepInteraction()});
+
+  runSimulation(false);
+});
+
+window.addEventListener("error",e=>{console.error("PRMS GLOBAL ERROR",e.error||e.message);addLog("JavaScript error detected. Check browser console.")});
+window.addEventListener("unhandledrejection",e=>{console.error("PRMS UNHANDLED PROMISE",e.reason);addLog("Unhandled simulation error detected.")});
 </script>
 
-
 <script src="/nav.js"></script>
-
-
 </body>
-
 </html>
