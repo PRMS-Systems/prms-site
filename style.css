@@ -1339,3 +1339,94 @@ footer {
   font-size: 10.5px;
 
 }
+
+/* =====================================================
+   PRMS AI — SIMULATOR HEADER OVERRIDE
+   ===================================================== */
+
+.prms-ai-header{
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  width:100%;
+  min-height:82px;
+  padding:0;
+  background:#fff !important;
+  border-bottom:1px solid #dedede;
+}
+
+.prms-ai-header .prms-ai-nav{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:0 4.5vw;
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.prms-ai-header .prms-ai-links{
+  position:static !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  width:auto !important;
+  height:auto !important;
+  min-height:82px !important;
+  margin:0;
+  padding:0 !important;
+  display:flex !important;
+  align-items:center;
+  justify-content:flex-end;
+  gap:0;
+  background:transparent !important;
+  border:0 !important;
+  backdrop-filter:none !important;
+}
+
+.prms-ai-header .prms-ai-links a{
+  position:relative;
+  display:flex;
+  align-items:center;
+  min-height:82px;
+  padding:0 1.15rem;
+  border:0;
+  color:#171717;
+  text-decoration:none;
+  font:500 .78rem/1 Arial,sans-serif;
+  white-space:nowrap;
+}
+
+.prms-ai-header .prms-ai-links a:hover{
+  color:#000;
+  background:#fafafa;
+}
+
+.prms-ai-header .prms-ai-links a.active{
+  font-weight:700;
+}
+
+.prms-ai-header .prms-ai-links a.active::after{
+  content:"";
+  position:absolute;
+  left:1.15rem;
+  right:1.15rem;
+  bottom:0;
+  height:2px;
+  background:#3f8b63;
+}
+
+.prms-ai-header .prms-ai-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:0;
+  padding:0;
+  margin:0;
+  flex-shrink:0;
+  color:#111;
+  text-decoration:none;
+}
