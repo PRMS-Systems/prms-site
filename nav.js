@@ -48,11 +48,6 @@
 
 <a class="nav-logo" href="/">
   <img src="/logoch.png" alt="PRMS Architecture Lab">
-
-  <span class="nav-logo-text">
-    <span class="nav-logo-name">PRMS Architecture Lab</span>
-    <span class="nav-logo-subtitle">Performance-Regulated Metabolic System</span>
-  </span>
 </a>
 
       <!-- MOBILE MENU BUTTON -->
