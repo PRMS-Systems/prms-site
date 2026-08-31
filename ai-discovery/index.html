@@ -19,6 +19,7 @@
     --green:#3f8b63;
     --blue:#3e70a8;
     --orange:#c56b32;
+    --purple:#7657a8;
     --max-width:1380px;
     --radius:10px;
 }
@@ -117,7 +118,7 @@ h3{font-size:20px;line-height:1.2;margin-bottom:10px}
     width:min(calc(100% - 48px),var(--max-width));
     min-height:650px;margin:0 auto;
     display:grid;grid-template-columns:minmax(0,1fr) minmax(540px,700px);
-    gap:55px;align-items:center;padding:55px 0 35px
+    gap:55px;align-items:center;padding:45px 0 30px
 }
 .prms-ai-hero-copy{padding:25px 0 35px}
 .prms-ai-kicker{
@@ -146,32 +147,33 @@ h3{font-size:20px;line-height:1.2;margin-bottom:10px}
 }
 
 /* =========================================================
-   THREE ENGINES PANEL
+   FOUR ENGINES PANEL
    ========================================================= */
 .prms-ai-panel{
     background:linear-gradient(145deg,#10161b,#161c21);
-    color:#fff;border-radius:18px;padding:30px 28px 26px;
+    color:#fff;border-radius:18px;padding:26px 28px 24px;
     box-shadow:0 20px 60px rgba(0,0,0,.12)
 }
-.prms-ai-panel-head{text-align:center;margin-bottom:20px}
+.prms-ai-panel-head{text-align:center;margin-bottom:16px}
 .prms-ai-panel-title{
     font-size:23px;font-weight:650;letter-spacing:-.02em;margin-bottom:2px
 }
 .prms-ai-panel-sub{font-size:14px;color:#c9cdd0}
 .prms-ai-engine{
-    display:grid;grid-template-columns:118px 1fr 48px;
-    align-items:center;gap:20px;padding:17px 16px;
+    display:grid;grid-template-columns:105px 1fr 48px;
+    align-items:center;gap:18px;padding:14px 16px;
     border:1px solid rgba(255,255,255,.22);border-radius:15px;
-    margin-top:13px;min-height:142px
+    margin-top:11px;min-height:116px
 }
 .prms-ai-engine-icon{
-    width:92px;height:92px;border:1px solid currentColor;
+    width:78px;height:78px;border:1px solid currentColor;
     border-radius:50%;display:grid;place-items:center;
-    font-size:31px;margin:auto
+    font-size:28px;margin:auto
 }
 .prms-ai-engine.green{color:#64bf82}
 .prms-ai-engine.blue{color:#6d9ed5}
 .prms-ai-engine.orange{color:#e1874d}
+.prms-ai-engine.purple{color:#a98bd2}
 .prms-ai-engine-copy{color:#fff}
 .prms-ai-engine-number{
     font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:1px
@@ -179,7 +181,7 @@ h3{font-size:20px;line-height:1.2;margin-bottom:10px}
 .prms-ai-engine-name{
     font-size:21px;font-weight:650;letter-spacing:-.02em;margin-bottom:4px
 }
-.prms-ai-engine-desc{font-size:13px;line-height:1.45;color:#d5d8da}
+.prms-ai-engine-desc{font-size:13px;line-height:1.42;color:#d5d8da}
 .prms-ai-engine-arrow{
     width:42px;height:42px;border-radius:50%;
     display:grid;place-items:center;background:currentColor;
@@ -188,6 +190,7 @@ h3{font-size:20px;line-height:1.2;margin-bottom:10px}
 .prms-ai-engine.green .prms-ai-engine-arrow{background:#4da86b}
 .prms-ai-engine.blue .prms-ai-engine-arrow{background:#4e82b8}
 .prms-ai-engine.orange .prms-ai-engine-arrow{background:#cb6d34}
+.prms-ai-engine.purple .prms-ai-engine-arrow{background:#7657a8}
 
 /* =========================================================
    OBSERVE → LEARN STRIP
@@ -375,6 +378,7 @@ footer{border-top:1px solid var(--line);padding:35px 0}.footer-content{display:f
             <a href="/ai-discovery/#analyze">Diagnostic</a>
             <a href="/ai-discovery/simulator.html">Simulator</a>
             <a href="/ai-discovery/knowledge.html">Knowledge</a>
+            <a href="#idea">Idea</a>
             <a class="lab-link" href="https://prms.systems/">PRMS Architecture Lab</a>
         </nav>
     </div>
@@ -416,7 +420,7 @@ footer{border-top:1px solid var(--line);padding:35px 0}.footer-content{display:f
             <div class="prms-ai-panel-head">
                 <div class="prms-ai-panel-title">EXPLORE PRMS AI</div>
                 <div class="prms-ai-panel-sub">
-                    Three integrated engines. One intelligence system.
+                    Four integrated engines. One intelligence system.
                 </div>
             </div>
 
@@ -454,9 +458,23 @@ footer{border-top:1px solid var(--line);padding:35px 0}.footer-content{display:f
                     <div class="prms-ai-engine-number">03</div>
                     <div class="prms-ai-engine-name">KNOWLEDGE</div>
                     <div class="prms-ai-engine-desc">
-                        Discover urban patterns.<br>
+                        Discover patterns.<br>
                         Identify relationships and patterns across
                         projects, neighborhoods and urban systems.
+                    </div>
+                </div>
+                <div class="prms-ai-engine-arrow">→</div>
+            </a>
+
+            <a class="prms-ai-engine purple" id="idea" href="#idea">
+                <div class="prms-ai-engine-icon">✦</div>
+                <div class="prms-ai-engine-copy">
+                    <div class="prms-ai-engine-number">04</div>
+                    <div class="prms-ai-engine-name">IDEA</div>
+                    <div class="prms-ai-engine-desc">
+                        Develop what doesn't exist.<br>
+                        AI-powered technology discovery for the built
+                        environment — from idea to validated technology.
                     </div>
                 </div>
                 <div class="prms-ai-engine-arrow">→</div>
