@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRMS Technology Discovery — From Idea to Validated Technology</title>
+<meta name="description" content="PRMS Technology Discovery — AI-powered infrastructure for technology discovery and development, from idea to validated technology.">
+<meta name="theme-color" content="#111318">
+
+<style>
+:root{
+    --bg:#ffffff;
+    --surface:#f6f6f5;
+    --surface-2:#fbfbfa;
+    --ink:#111214;
+    --muted:#62656a;
+    --soft:#8a8d92;
+    --line:#dedfe1;
+    --dark:#11151a;
+    --dark-2:#171c22;
+    --blue:#547ca8;
+    --violet:#7657a8;
+    --violet-soft:#a28acb;
+    --green:#4f8b69;
+    --max:1380px;
+    --radius:16px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(calc(100% - 48px),var(--max));margin:0 auto}
+.section{padding:120px 0}
+.eyebrow{
+    margin-bottom:18px;
+    color:var(--muted);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.17em;
+    text-transform:uppercase
+}
+h1,h2,h3,p{margin-top:0}
+h1{
+    margin-bottom:26px;
+    max-width:980px;
+    font-size:clamp(58px,7.5vw,108px);
+    line-height:.9;
+    letter-spacing:-.065em;
+    font-weight:650
+}
+h2{
+    margin-bottom:24px;
+    max-width:900px;
+    font-size:clamp(38px,5vw,64px);
+    line-height:.98;
+    letter-spacing:-.045em;
+    font-weight:620
+}
+h3{
+    margin-bottom:9px;
+    font-size:21px;
+    line-height:1.15;
+    letter-spacing:-.02em
+}
+.lead{
+    max-width:790px;
+    color:#33363a;
+    font-size:21px;
+    line-height:1.5
+}
+.body-text{
+    max-width:740px;
+    color:#5b5e63;
+    font-size:17px;
+    line-height:1.65
+}
+.small{font-size:12px;color:var(--soft)}
+.rule{width:48px;border-top:2px solid var(--ink);margin:28px 0}
+
+/* HEADER */
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid rgba(220,221,223,.9);
+    background:rgba(255,255,255,.93);
+    backdrop-filter:blur(16px)
+}
+.nav{
+    min-height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+    width:38px;height:38px;
+    display:grid;place-items:center;
+    border:1.4px solid #151515;
+    font-size:11px;font-weight:800;
+    letter-spacing:-.08em
+}
+.brand-name{font-size:22px;font-weight:750;letter-spacing:-.045em;line-height:1}
+.brand-sub{
+    margin-top:5px;
+    color:#686b70;
+    font-size:8px;
+    letter-spacing:.18em;
+    line-height:1;
+}
+.nav-links{display:flex;align-items:center;gap:0}
+.nav-links a{
+    padding:0 20px;
+    border-right:1px solid #d2d3d5;
+    font-size:13px;
+    font-weight:550
+}
+.nav-links a:last-child{border-right:0}
+.nav-links a:hover{color:#666}
+.nav-cta{
+    margin-left:18px;
+    padding:10px 17px;
+    border-radius:7px;
+    background:#111;
+    color:#fff!important;
+    border:1px solid #111
+}
+.nav-cta:hover{background:#292929}
+
+/* HERO */
+.hero{
+    position:relative;
+    overflow:hidden;
+    min-height:760px;
+    display:flex;
+    align-items:center;
+    background:
+        radial-gradient(circle at 80% 45%,rgba(118,87,168,.10),transparent 28%),
+        linear-gradient(180deg,#fff 0%,#fbfbfb 100%);
+    border-bottom:1px solid var(--line)
+}
+.hero-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+    width:min(calc(100% - 48px),var(--max));
+    margin:0 auto;
+    padding:80px 0
+}
+.hero-copy{padding:25px 0}
+.hero-kicker{
+    margin-bottom:22px;
+    color:#666;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase
+}
+.hero h1{max-width:760px}
+.hero-title-accent{color:var(--violet)}
+.hero-tagline{
+    margin-bottom:27px;
+    font-size:clamp(25px,3vw,38px);
+    line-height:1.05;
+    letter-spacing:-.035em;
+    font-weight:600
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.button{
+    min-height:47px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 21px;
+    border:1px solid #181818;
+    border-radius:7px;
+    background:#111;
+    color:#fff;
+    font-size:13px;
+    font-weight:650;
+    transition:.2s ease
+}
+.button:hover{transform:translateY(-1px);background:#292929}
+.button.secondary{background:#fff;color:#111;border-color:#bbb}
+.button.secondary:hover{background:#f5f5f5}
+
+/* HERO DISCOVERY FIELD */
+.discovery-field{
+    position:relative;
+    min-height:520px;
+    border:1px solid #d8d9dc;
+    border-radius:24px;
+    overflow:hidden;
+    background:
+        linear-gradient(rgba(118,87,168,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(118,87,168,.035) 1px,transparent 1px),
+        #fafafa;
+    background-size:42px 42px;
+    box-shadow:0 24px 70px rgba(0,0,0,.07)
+}
+.discovery-field::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 50% 48%,rgba(118,87,168,.15),transparent 18%),
+        radial-gradient(circle at 22% 25%,rgba(84,124,168,.09),transparent 17%),
+        radial-gradient(circle at 80% 76%,rgba(79,139,105,.08),transparent 17%)
+}
+.field-label{
+    position:absolute;
+    top:22px;left:24px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.14em;
+    color:#76797e;
+    text-transform:uppercase
+}
+.field-status{
+    position:absolute;
+    right:22px;top:20px;
+    display:flex;align-items:center;gap:7px;
+    font-size:10px;color:#777
+}
+.status-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--violet)
+}
+.node{
+    position:absolute;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:108px;
+    min-height:44px;
+    padding:0 15px;
+    border:1px solid #c8c9cc;
+    border-radius:9px;
+    background:rgba(255,255,255,.91);
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.09em
+}
+.node.idea{
+    left:50%;top:42%;
+    transform:translate(-50%,-50%);
+    min-width:128px;
+    min-height:58px;
+    border-color:rgba(118,87,168,.75);
+    color:var(--violet);
+    font-size:12px
+}
+.node.question{left:14%;top:20%}
+.node.research{right:11%;top:23%}
+.node.evidence{left:10%;bottom:22%}
+.node.hypothesis{right:10%;bottom:21%}
+.node.validation{left:50%;bottom:8%;transform:translateX(-50%)}
+.field-svg{
+    position:absolute;inset:0;width:100%;height:100%;z-index:1
+}
+.field-footer{
+    position:absolute;
+    left:24px;right:24px;bottom:20px;
+    display:flex;justify-content:space-between;
+    color:#85888d;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase
+}
+
+/* PROBLEM */
+.problem{background:var(--surface)}
+.problem-grid{
+    display:grid;
+    grid-template-columns:.72fr 1.28fr;
+    gap:90px;
+    align-items:start
+}
+.fragmented{
+    margin-top:40px;
+    border-top:1px solid #cfd0d2;
+    border-bottom:1px solid #cfd0d2
+}
+.fragmented-step{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    align-items:center;
+    min-height:48px;
+    border-bottom:1px solid #ddd;
+    font-size:12px
+}
+.fragmented-step:last-child{border-bottom:0}
+.fragmented-number{color:#999;font-size:10px}
+.fragmented-label{font-weight:650;letter-spacing:.05em}
+.problem-system{
+    margin-top:44px;
+    padding:35px;
+    border:1px solid #d3d4d6;
+    border-radius:14px;
+    background:#fff
+}
+.system-label{
+    margin-bottom:24px;
+    color:var(--violet);
+    font-size:11px;
+    font-weight:750;
+    letter-spacing:.14em
+}
+.system-flow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px
+}
+.system-flow span{
+    padding:8px 11px;
+    border:1px solid #d0d1d4;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:650
+}
+.system-flow b{color:#aaa;font-weight:400}
+
+/* ARCHITECTURE */
+.architecture{background:#fff}
+.architecture-header{max-width:800px;margin-bottom:55px}
+.loop-visual{
+    position:relative;
+    min-height:680px;
+    display:grid;
+    place-items:center;
+    border:1px solid #d7d8da;
+    border-radius:20px;
+    background:#fafafa;
+    overflow:hidden
+}
+.loop-visual::before{
+    content:"";
+    position:absolute;
+    width:510px;height:510px;
+    border:1px solid rgba(118,87,168,.28);
+    border-radius:50%
+}
+.loop-visual::after{
+    content:"";
+    position:absolute;
+    width:320px;height:320px;
+    border:1px dashed rgba(118,87,168,.32);
+    border-radius:50%
+}
+.loop-center{
+    position:relative;
+    z-index:3;
+    width:165px;height:165px;
+    display:grid;place-items:center;
+    border:1px solid rgba(118,87,168,.65);
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 15px 40px rgba(0,0,0,.06);
+    text-align:center
+}
+.loop-center strong{font-size:13px;letter-spacing:.1em}
+.loop-center span{display:block;margin-top:4px;color:#777;font-size:10px}
+.loop-item{
+    position:absolute;
+    z-index:4;
+    width:125px;
+    padding:11px 7px;
+    border:1px solid #d2d3d5;
+    border-radius:8px;
+    background:rgba(255,255,255,.95);
+    text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.04)
+}
+.loop-item small{display:block;margin-bottom:3px;color:#999;font-size:9px}
+.loop-item strong{font-size:10px;letter-spacing:.07em}
+.li1{top:6%;left:50%;transform:translateX(-50%)}
+.li2{top:15%;right:12%}
+.li3{top:43%;right:3%}
+.li4{bottom:15%;right:12%}
+.li5{bottom:6%;left:50%;transform:translateX(-50%)}
+.li6{bottom:15%;left:12%}
+.li7{top:43%;left:3%}
+.li8{top:15%;left:12%}
+.li9{top:31%;left:50%;transform:translateX(-50%);margin-top:-215px}
+.li10{top:31%;right:50%;transform:translateX(50%);margin-top:215px}
+.loop-caption{
+    margin-top:22px;
+    text-align:center;
+    color:#777;
+    font-size:13px
+}
+
+/* ENGINES */
+.engines{background:var(--dark);color:#fff}
+.engines .eyebrow{color:#9da3aa}
+.engines h2{max-width:760px}
+.engines-intro{max-width:720px;color:#b9bec4;font-size:17px}
+.engine-grid{
+    margin-top:60px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid rgba(255,255,255,.18);
+    border-left:1px solid rgba(255,255,255,.18)
+}
+.engine{
+    min-height:300px;
+    padding:30px;
+    border-right:1px solid rgba(255,255,255,.18);
+    border-bottom:1px solid rgba(255,255,255,.18);
+    position:relative;
+    overflow:hidden
+}
+.engine::after{
+    content:"";
+    position:absolute;
+    width:130px;height:130px;
+    right:-45px;bottom:-45px;
+    border:1px solid rgba(118,87,168,.35);
+    border-radius:50%
+}
+.engine-number{
+    margin-bottom:48px;
+    color:#888f97;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.14em
+}
+.engine-name{font-size:22px;font-weight:620;margin-bottom:14px}
+.engine p{max-width:310px;color:#aeb4ba;font-size:13px;line-height:1.6}
+.engine-accent{
+    position:absolute;
+    left:30px;
+    top:30px;
+    width:30px;
+    border-top:2px solid var(--violet)
+}
+
+/* HUMAN AI */
+.human-ai{background:var(--surface)}
+.human-ai-grid{
+    display:grid;
+    grid-template-columns:1fr 180px 1fr;
+    gap:25px;
+    align-items:stretch;
+    margin-top:55px
+}
+.actor{
+    padding:40px;
+    border:1px solid #d4d5d7;
+    border-radius:14px;
+    background:#fff
+}
+.actor h3{font-size:26px}
+.actor ul{
+    margin:28px 0 0;
+    padding:0;
+    list-style:none
+}
+.actor li{
+    padding:10px 0;
+    border-bottom:1px solid #e5e5e6;
+    color:#555;
+    font-size:14px
+}
+.actor li:last-child{border-bottom:0}
+.actor.human h3{color:#333}
+.actor.ai h3{color:var(--violet)}
+.discovery-core{
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(118,87,168,.45);
+    border-radius:14px;
+    background:linear-gradient(180deg,#fff,#f7f3fb);
+    text-align:center
+}
+.discovery-core strong{
+    display:block;
+    color:var(--violet);
+    font-size:15px;
+    letter-spacing:.12em
+}
+.discovery-core span{display:block;margin-top:8px;color:#777;font-size:11px}
+
+/* EVIDENCE */
+.evidence{background:#fff}
+.evidence-grid{
+    margin-top:55px;
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line)
+}
+.evidence-item{
+    min-height:155px;
+    padding:24px 16px;
+    border-right:1px solid var(--line)
+}
+.evidence-item:last-child{border-right:0}
+.evidence-index{color:#aaa;font-size:9px;margin-bottom:25px}
+.evidence-name{font-size:13px;font-weight:700;letter-spacing:.06em}
+.evidence-item:nth-child(1) .evidence-name{color:#333}
+.evidence-item:nth-child(2) .evidence-name{color:var(--green)}
+.evidence-item:nth-child(3) .evidence-name{color:#557aa1}
+.evidence-item:nth-child(4) .evidence-name{color:var(--violet)}
+.evidence-item:nth-child(5) .evidence-name{color:#916f42}
+.evidence-item:nth-child(6) .evidence-name{color:#9a6655}
+.evidence-item:nth-child(7) .evidence-name{color:#8a6262}
+.evidence-item:nth-child(8) .evidence-name{color:#777}
+.trace{
+    margin-top:42px;
+    padding:30px;
+    border-left:3px solid var(--violet);
+    background:var(--surface);
+    font-size:15px;
+    color:#4d5055
+}
+
+/* GRAPH */
+.graph-section{background:var(--surface)}
+.graph-shell{
+    position:relative;
+    min-height:570px;
+    margin-top:55px;
+    border:1px solid #d3d4d7;
+    border-radius:18px;
+    overflow:hidden;
+    background:
+        linear-gradient(rgba(17,18,20,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(17,18,20,.035) 1px,transparent 1px),
+        #fbfbfb;
+    background-size:36px 36px
+}
+.graph-svg{position:absolute;inset:0;width:100%;height:100%}
+.graph-node{
+    position:absolute;
+    z-index:3;
+    min-width:116px;
+    padding:12px 14px;
+    border:1px solid #cfd0d3;
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+    text-align:center
+}
+.graph-node strong{display:block;font-size:11px;letter-spacing:.06em}
+.graph-node small{display:block;margin-top:3px;color:#888;font-size:9px}
+.g1{left:7%;top:18%}.g2{left:26%;top:39%}.g3{left:45%;top:16%}
+.g4{left:44%;top:66%}.g5{right:24%;top:36%}.g6{right:6%;top:18%}
+.g7{right:7%;bottom:17%}.g8{left:22%;bottom:12%}
+.graph-note{
+    position:absolute;
+    left:24px;bottom:20px;
+    color:#888;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase
+}
+
+/* WORKSPACE */
+.workspace{background:#fff}
+.workspace-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:80px;
+    align-items:center
+}
+.workspace-card{
+    border:1px solid #cfd0d2;
+    border-radius:15px;
+    overflow:hidden;
+    background:#f7f7f7;
+    box-shadow:0 20px 55px rgba(0,0,0,.08)
+}
+.workspace-bar{
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    border-bottom:1px solid #d7d8da;
+    background:#fff
+}
+.workspace-brand{font-size:11px;font-weight:700;letter-spacing:.08em}
+.workspace-state{font-size:9px;color:var(--violet)}
+.workspace-body{
+    display:grid;
+    grid-template-columns:210px 1fr;
+    min-height:510px
+}
+.workspace-sidebar{
+    padding:22px 17px;
+    border-right:1px solid #d7d8da;
+    background:#f1f1f0
+}
+.side-title{font-size:9px;font-weight:700;color:#888;letter-spacing:.1em;margin-bottom:14px}
+.side-item{
+    padding:9px 8px;
+    border-radius:5px;
+    font-size:10px;
+    color:#666
+}
+.side-item.active{background:#fff;color:#111;font-weight:700}
+.workspace-main{padding:25px;background:#fafafa}
+.mock-label{font-size:9px;color:#8a8d91;letter-spacing:.1em;text-transform:uppercase}
+.mock-title{margin:5px 0 22px;font-size:22px;font-weight:650;letter-spacing:-.035em}
+.question-box{
+    padding:16px;
+    border:1px solid #d7d8da;
+    border-radius:8px;
+    background:#fff
+}
+.question-box p{margin:6px 0 0;font-size:12px;color:#4f5257}
+.hypotheses{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px
+}
+.hypothesis{
+    min-height:90px;
+    padding:12px;
+    border:1px solid #d5d6d8;
+    border-radius:7px;
+    background:#fff
+}
+.hypothesis strong{font-size:10px}
+.hypothesis span{display:block;margin-top:9px;color:#6b6e73;font-size:10px;line-height:1.45}
+.next-experiment{
+    margin-top:18px;
+    padding:16px;
+    border:1px solid rgba(118,87,168,.35);
+    border-radius:8px;
+    background:#faf7fd
+}
+.next-experiment p{margin:5px 0 0;color:#555;font-size:11px}
+.mock-stats{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px
+}
+.mock-stat{
+    padding:12px;
+    border:1px solid #ddd;
+    background:#fff;
+    border-radius:7px
+}
+.mock-stat b{display:block;font-size:15px}.mock-stat span{color:#888;font-size:9px}
+
+/* IDEA TO TECHNOLOGY */
+.idea-flow{background:var(--dark);color:#fff}
+.idea-flow .eyebrow{color:#999fa6}
+.idea-flow h2{max-width:760px}
+.flow{
+    margin-top:65px;
+    display:grid;
+    grid-template-columns:repeat(11,1fr);
+    align-items:center
+}
+.flow-item{text-align:center}
+.flow-item strong{
+    display:block;
+    min-height:44px;
+    padding:13px 7px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:7px;
+    background:rgba(255,255,255,.03);
+    font-size:9px;
+    letter-spacing:.07em
+}
+.flow-arrow{text-align:center;color:#777;font-size:14px}
+.flow-item:last-child strong{
+    border-color:rgba(118,87,168,.75);
+    color:#c2a9e5;
+    background:rgba(118,87,168,.08)
+}
+.flow-caption{margin-top:25px;color:#969ca3;font-size:13px;text-align:center}
+
+/* DISCOVERY PROJECT */
+.project{background:var(--surface)}
+.project-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:start
+}
+.project-list{
+    margin-top:35px;
+    border-top:1px solid #d2d3d5
+}
+.project-row{
+    display:grid;
+    grid-template-columns:35px 1fr;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid #dedfe1
+}
+.project-row span{color:#aaa;font-size:10px}
+.project-row strong{font-size:13px}
+.project-statement{
+    padding:45px;
+    border:1px solid #d0d1d3;
+    border-radius:16px;
+    background:#fff
+}
+.project-statement .big{
+    margin:0 0 22px;
+    font-size:clamp(30px,3.5vw,48px);
+    line-height:1.03;
+    letter-spacing:-.045em
+}
+.project-statement .big em{font-style:normal;color:var(--violet)}
+.project-statement p{color:#666;font-size:15px}
+
+/* ORIGIN */
+.origin{background:#fff}
+.origin-flow{
+    margin-top:55px;
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line)
+}
+.origin-item{
+    position:relative;
+    min-height:150px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px 8px;
+    border-right:1px solid var(--line);
+    text-align:center
+}
+.origin-item:last-child{border-right:0}
+.origin-item strong{font-size:12px;letter-spacing:.06em}
+.origin-item:not(:last-child)::after{
+    content:"→";
+    position:absolute;
+    right:-7px;
+    color:#999;
+    z-index:2
+}
+
+/* METHODOLOGY */
+.methodology{background:var(--surface)}
+.method-loop{
+    margin-top:50px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border-top:1px solid #d0d1d3;
+    border-left:1px solid #d0d1d3
+}
+.method-step{
+    min-height:130px;
+    padding:24px;
+    border-right:1px solid #d0d1d3;
+    border-bottom:1px solid #d0d1d3;
+    background:#fff
+}
+.method-step:nth-child(4),.method-step:nth-child(5){background:#faf8fd}
+.method-step small{display:block;color:#999;font-size:9px;margin-bottom:20px}
+.method-step strong{font-size:13px;letter-spacing:.06em}
+.method-step.learn strong{color:var(--violet)}
+.method-return{
+    margin-top:25px;
+    text-align:center;
+    color:#777;
+    font-size:12px
+}
+
+/* STACK */
+.stack{background:#fff}
+.stack-diagram{
+    max-width:760px;
+    margin:55px auto 0
+}
+.stack-layer{
+    min-height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #d3d4d7;
+    border-bottom:0;
+    background:#fafafa;
+    font-size:12px;
+    font-weight:650;
+    letter-spacing:.07em
+}
+.stack-layer:first-child{border-radius:10px 10px 0 0}
+.stack-layer:last-child{border-bottom:1px solid #d3d4d7;border-radius:0 0 10px 10px}
+.stack-arrow{text-align:center;height:22px;color:#aaa;font-size:11px;line-height:22px}
+.stack-layer:nth-child(1),.stack-layer:nth-child(2),.stack-layer:nth-child(3){background:#f8f4fc}
+.conceptual{
+    margin-top:18px;
+    text-align:center;
+    color:#888;
+    font-size:10px;
+    letter-spacing:.1em;
+    text-transform:uppercase
+}
+
+/* VISION */
+.vision{
+    padding:150px 0;
+    text-align:center;
+    background:
+        radial-gradient(circle at 50% 45%,rgba(118,87,168,.10),transparent 27%),
+        #11151a;
+    color:#fff
+}
+.vision h2{margin-left:auto;margin-right:auto;max-width:1000px}
+.vision p{max-width:760px;margin:0 auto 35px;color:#aeb4bb;font-size:17px}
+.vision .button{background:#fff;color:#111;border-color:#fff}
+.vision .button:hover{background:#eee}
+
+/* FOOTER */
+footer{
+    border-top:1px solid #d7d8da;
+    padding:35px 0;
+    background:#fff
+}
+.footer{
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+    color:#707378;
+    font-size:11px
+}
+.footer strong{color:#222}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+    .nav-links a{padding:0 11px}
+    .nav-cta{margin-left:10px}
+    .hero-grid,.problem-grid,.workspace-grid,.project-grid{grid-template-columns:1fr;gap:50px}
+    .hero{min-height:auto}
+    .discovery-field{max-width:760px}
+    .engine-grid{grid-template-columns:1fr 1fr}
+    .evidence-grid{grid-template-columns:repeat(4,1fr)}
+    .evidence-item:nth-child(4){border-right:0}
+    .origin-flow{grid-template-columns:repeat(4,1fr)}
+    .origin-item:nth-child(4){border-right:0}
+    .origin-item:nth-child(-n+4){border-bottom:1px solid var(--line)}
+    .flow{grid-template-columns:repeat(6,1fr);gap:12px}
+    .flow-item:nth-child(1){grid-column:1}.flow-item:nth-child(2){grid-column:2}
+}
+@media(max-width:850px){
+    .nav{min-height:72px}
+    .nav-links{display:none}
+    .section{padding:90px 0}
+    .human-ai-grid{grid-template-columns:1fr}
+    .discovery-core{min-height:120px}
+    .loop-visual{min-height:620px}
+    .engine-grid{grid-template-columns:1fr}
+    .evidence-grid{grid-template-columns:repeat(2,1fr)}
+    .evidence-item:nth-child(2n){border-right:0}
+    .evidence-item:nth-child(-n+6){border-bottom:1px solid var(--line)}
+    .origin-flow{grid-template-columns:repeat(2,1fr)}
+    .origin-item:nth-child(2n){border-right:0}
+    .origin-item:nth-child(-n+6){border-bottom:1px solid var(--line)}
+    .method-loop{grid-template-columns:repeat(2,1fr)}
+    .method-step:nth-child(2n){border-right:1px solid #d0d1d3}
+    .flow{grid-template-columns:repeat(3,1fr)}
+    .flow-arrow{display:none}
+}
+@media(max-width:600px){
+    .container,.hero-grid{width:min(calc(100% - 30px),var(--max))}
+    .section{padding:75px 0}
+    h1{font-size:clamp(48px,15vw,72px)}
+    h2{font-size:clamp(34px,11vw,48px)}
+    .lead{font-size:18px}
+    .hero-grid{padding:55px 0}
+    .discovery-field{min-height:430px;border-radius:16px}
+    .node{min-width:88px;font-size:8px}
+    .node.idea{min-width:108px}
+    .loop-visual{min-height:560px}
+    .loop-visual::before{width:350px;height:350px}
+    .loop-visual::after{width:225px;height:225px}
+    .loop-item{width:92px;padding:9px 4px}
+    .loop-item strong{font-size:8px}
+    .li1{top:8%}.li2{top:18%;right:4%}.li3{top:43%;right:0}.li4{bottom:18%;right:4%}
+    .li5{bottom:8%}.li6{bottom:18%;left:4%}.li7{top:43%;left:0}.li8{top:18%;left:4%}
+    .li9,.li10{display:none}
+    .loop-center{width:125px;height:125px}
+    .loop-center strong{font-size:10px}
+    .workspace-body{grid-template-columns:1fr}
+    .workspace-sidebar{display:none}
+    .workspace-main{padding:16px}
+    .hypotheses{grid-template-columns:1fr}
+    .mock-stats{grid-template-columns:1fr 1fr 1fr}
+    .evidence-grid{grid-template-columns:1fr}
+    .evidence-item{border-right:0!important;border-bottom:1px solid var(--line)}
+    .origin-flow{grid-template-columns:1fr}
+    .origin-item{border-right:0!important;border-bottom:1px solid var(--line)}
+    .origin-item:last-child{border-bottom:0}
+    .origin-item::after{display:none}
+    .method-loop{grid-template-columns:1fr}
+    .method-step{border-right:1px solid #d0d1d3!important}
+    .flow{grid-template-columns:1fr 1fr}
+    .flow-item strong{min-height:auto}
+    .footer{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav">
+        <a class="brand" href="/ai-discovery/">
+            <div class="brand-mark">PRMS</div>
+            <div>
+                <div class="brand-name">PRMS Technology Discovery</div>
+                <div class="brand-sub">PRMS ARCHITECTURE LAB</div>
+            </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Technology Discovery">
+            <a href="#architecture">Methodology</a>
+            <a href="#knowledge">Knowledge</a>
+            <a href="#applications">Applications</a>
+            <a href="#research">Research</a>
+            <a href="https://prms.systems/">PRMS Architecture Lab</a>
+            <a class="nav-cta" href="#discovery-project">Start Discovery</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-grid">
+        <div class="hero-copy">
+            <div class="hero-kicker">PRMS Architecture Lab · Emerging Research Infrastructure</div>
+
+            <h1>
+                PRMS Technology
+                <span class="hero-title-accent">Discovery</span>
+            </h1>
+
+            <div class="hero-tagline">From Idea to Validated Technology.</div>
+
+            <p class="lead">
+                A human-AI platform for exploring problems, developing hypotheses,
+                designing solutions, running experiments, and building validated
+                technological knowledge.
+            </p>
+
+            <div class="hero-actions">
+                <a class="button" href="#discovery-project">Start Discovery →</a>
+                <a class="button secondary" href="#architecture">Explore the Methodology</a>
+            </div>
+        </div>
+
+        <div class="discovery-field" aria-label="Conceptual discovery field">
+            <div class="field-label">Conceptual Discovery Environment</div>
+            <div class="field-status"><span class="status-dot"></span>Human + AI</div>
+
+            <svg class="field-svg" viewBox="0 0 700 520" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id="lineA" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#547ca8" stop-opacity=".28"/>
+                        <stop offset=".55" stop-color="#7657a8" stop-opacity=".62"/>
+                        <stop offset="1" stop-color="#4f8b69" stop-opacity=".22"/>
+                    </linearGradient>
+                </defs>
+                <path d="M105 115 C220 145 285 210 350 250 C425 295 500 155 600 125" fill="none" stroke="url(#lineA)" stroke-width="1.4"/>
+                <path d="M105 390 C190 315 280 325 350 250 C420 180 520 335 600 385" fill="none" stroke="url(#lineA)" stroke-width="1.2"/>
+                <path d="M150 105 C225 240 280 265 350 250 C440 230 480 205 565 385" fill="none" stroke="url(#lineA)" stroke-width="1"/>
+                <path d="M105 115 C195 275 235 390 350 250 C470 115 520 250 600 125" fill="none" stroke="#7657a8" stroke-opacity=".16" stroke-width="1"/>
+                <circle cx="350" cy="250" r="7" fill="#7657a8" fill-opacity=".16"/>
+                <circle cx="350" cy="250" r="2.5" fill="#7657a8"/>
+            </svg>
+
+            <div class="node question">QUESTION</div>
+            <div class="node research">RESEARCH</div>
+            <div class="node idea">IDEA</div>
+            <div class="node evidence">EVIDENCE</div>
+            <div class="node hypothesis">HYPOTHESIS</div>
+            <div class="node validation">VALIDATION</div>
+
+            <div class="field-footer">
+                <span>Knowledge</span>
+                <span>Hypotheses</span>
+                <span>Experiments</span>
+                <span>Learning</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section problem">
+    <div class="container problem-grid">
+        <div>
+            <div class="eyebrow">The problem</div>
+            <h2>Ideas are everywhere. Structured discovery is not.</h2>
+            <p class="body-text">
+                Developing a new technology often means moving between disconnected
+                tools, sources, simulations, experiments and documents. The reasoning
+                trail becomes fragmented and difficult to preserve.
+            </p>
+        </div>
+
+        <div>
+            <div class="fragmented" aria-label="Fragmented technology development process">
+                <div class="fragmented-step"><span class="fragmented-number">01</span><span class="fragmented-label">IDEA</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">02</span><span class="fragmented-label">SEARCH</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">03</span><span class="fragmented-label">PAPERS</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">04</span><span class="fragmented-label">PATENTS</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">05</span><span class="fragmented-label">NOTES</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">06</span><span class="fragmented-label">SIMULATION</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">07</span><span class="fragmented-label">EXPERIMENT</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">08</span><span class="fragmented-label">DATA</span></div>
+                <div class="fragmented-step"><span class="fragmented-number">09</span><span class="fragmented-label">ANALYSIS</span></div>
+            </div>
+
+            <div class="problem-system">
+                <div class="system-label">PRMS TECHNOLOGY DISCOVERY</div>
+                <div class="system-flow">
+                    <span>IDEA</span><b>→</b>
+                    <span>DISCOVERY PROJECT</span><b>→</b>
+                    <span>RESEARCH</span><b>→</b>
+                    <span>HYPOTHESIS</span><b>→</b>
+                    <span>DEVELOPMENT</span><b>→</b>
+                    <span>VALIDATION</span><b>→</b>
+                    <span>KNOWLEDGE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DISCOVERY ARCHITECTURE -->
+<section class="section architecture" id="architecture">
+    <div class="container">
+        <div class="architecture-header">
+            <div class="eyebrow">The discovery architecture</div>
+            <h2>An iterative discovery system.</h2>
+            <p class="body-text">
+                Discovery is not a linear sequence. Every result can modify the next
+                question, the next hypothesis or the next experiment.
+            </p>
+        </div>
+
+        <div class="loop-visual">
+            <div class="loop-center">
+                <div>
+                    <strong>DISCOVERY</strong>
+                    <span>Iterative system</span>
+                </div>
+            </div>
+
+            <div class="loop-item li1"><small>01</small><strong>OBSERVE</strong></div>
+            <div class="loop-item li2"><small>02</small><strong>EXPLORE</strong></div>
+            <div class="loop-item li3"><small>03</small><strong>RESEARCH</strong></div>
+            <div class="loop-item li4"><small>04</small><strong>HYPOTHESIZE</strong></div>
+            <div class="loop-item li5"><small>05</small><strong>DESIGN</strong></div>
+            <div class="loop-item li6"><small>06</small><strong>SIMULATE</strong></div>
+            <div class="loop-item li7"><small>07</small><strong>EXPERIMENT</strong></div>
+            <div class="loop-item li8"><small>08</small><strong>MEASURE</strong></div>
+            <div class="loop-item li9"><small>09</small><strong>VERIFY</strong></div>
+            <div class="loop-item li10"><small>10</small><strong>LEARN</strong></div>
+        </div>
+
+        <div class="loop-caption">LEARN → OBSERVE · The result becomes the starting point for the next discovery.</div>
+    </div>
+</section>
+
+<!-- SIX ENGINES -->
+<section class="section engines">
+    <div class="container">
+        <div class="eyebrow">System architecture</div>
+        <h2>Six intelligence engines.</h2>
+        <p class="engines-intro">
+            Conceptual components of a future technology discovery environment.
+            Each engine performs a distinct role within one continuous research system.
+        </p>
+
+        <div class="engine-grid">
+            <article class="engine">
+                <div class="engine-accent"></div>
+                <div class="engine-number">01 — KNOWLEDGE ENGINE</div>
+                <div class="engine-name">Knowledge Engine</div>
+                <p>Scientific literature, patents, technical documentation, datasets and structured knowledge.</p>
+            </article>
+
+            <article class="engine">
+                <div class="engine-accent"></div>
+                <div class="engine-number">02 — RESEARCH ENGINE</div>
+                <div class="engine-name">Research Engine</div>
+                <p>Explores the state of the art, relationships, contradictions, limitations and knowledge gaps.</p>
+            </article>
+
+            <article class="engine">
+                <div class="engine-accent"></div>
+                <div class="engine-number">03 — HYPOTHESIS ENGINE</div>
+                <div class="engine-name">Hypothesis Engine</div>
+                <p>Generates, compares, critiques and tracks explicit hypotheses and their supporting evidence.</p>
+            </article>
+
+            <article class="engine">
+                <div class="engine-accent"></div>
+                <div class="engine-number">04 — DESIGN ENGINE</div>
+                <div class="engine-name">Design Engine</div>
+                <p>Transforms hypotheses into concepts, architectures, parameters and alternative technological solutions.</p>
+            </article>
+
+            <article class="engine">
+                <div class="engine-accent"></div>
+                <div class="engine-number">05 — SIMULATION & EXPERIMENT</div>
+                <div class="engine-name">Simulation & Experiment Engine</div>
+                <p>Designs computational simulations and experiments to test competing hypotheses.</p>
+            </article>
+
+            <article class="engine">
+                <div class="engine-accent"></div>
+                <div class="engine-number">06 — KNOWLEDGE EVOLUTION</div>
+                <div class="engine-name">Knowledge Evolution Engine</div>
+                <p>Converts validated results into structured, reusable knowledge and feeds future discovery cycles.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- HUMAN + AI -->
+<section class="section human-ai">
+    <div class="container">
+        <div class="eyebrow">Human + AI</div>
+        <h2>Not AI replacing the researcher. AI expanding the researcher.</h2>
+        <p class="body-text">
+            PRMS Technology Discovery is designed as a human-AI system. Humans define
+            objectives, context, constraints and decisions. AI expands exploration,
+            analysis, comparison and iteration.
+        </p>
+
+        <div class="human-ai-grid">
+            <div class="actor human">
+                <h3>HUMAN</h3>
+                <ul>
+                    <li>Intuition</li>
+                    <li>Creativity</li>
+                    <li>Domain knowledge</li>
+                    <li>Judgment</li>
+                    <li>Objectives</li>
+                    <li>Constraints</li>
+                    <li>Decisions</li>
+                </ul>
+            </div>
+
+            <div class="discovery-core">
+                <div>
+                    <strong>DISCOVERY</strong>
+                    <span>Human + AI</span>
+                </div>
+            </div>
+
+            <div class="actor ai">
+                <h3>AI</h3>
+                <ul>
+                    <li>Search</li>
+                    <li>Synthesis</li>
+                    <li>Reasoning</li>
+                    <li>Pattern discovery</li>
+                    <li>Hypothesis generation</li>
+                    <li>Simulation</li>
+                    <li>Analysis & iteration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EVIDENCE -->
+<section class="section evidence" id="knowledge">
+    <div class="container">
+        <div class="eyebrow">Evidence model</div>
+        <h2>Evidence before conclusions.</h2>
+        <p class="body-text">
+            A discovery system must distinguish what is known from what is inferred.
+            Conclusions should remain traceable to their evidence and method of verification.
+        </p>
+
+        <div class="evidence-grid">
+            <div class="evidence-item"><div class="evidence-index">01</div><div class="evidence-name">FACT</div></div>
+            <div class="evidence-item"><div class="evidence-index">02</div><div class="evidence-name">EVIDENCE</div></div>
+            <div class="evidence-item"><div class="evidence-index">03</div><div class="evidence-name">OBSERVATION</div></div>
+            <div class="evidence-item"><div class="evidence-index">04</div><div class="evidence-name">INFERENCE</div></div>
+            <div class="evidence-item"><div class="evidence-index">05</div><div class="evidence-name">HYPOTHESIS</div></div>
+            <div class="evidence-item"><div class="evidence-index">06</div><div class="evidence-name">ASSUMPTION</div></div>
+            <div class="evidence-item"><div class="evidence-index">07</div><div class="evidence-name">SPECULATION</div></div>
+            <div class="evidence-item"><div class="evidence-index">08</div><div class="evidence-name">UNKNOWN</div></div>
+        </div>
+
+        <div class="trace">
+            Every important claim should be traceable to a source, dataset, experiment,
+            simulation, observation or measurement. <strong>The system must never present
+            an inference as a verified fact.</strong>
+        </div>
+    </div>
+</section>
+
+<!-- KNOWLEDGE GRAPH -->
+<section class="section graph-section">
+    <div class="container">
+        <div class="eyebrow">Knowledge architecture</div>
+        <h2>A living knowledge graph.</h2>
+        <p class="body-text">
+            Research objects become connected rather than isolated: papers, patents,
+            datasets, hypotheses, experiments, simulations, designs, measurements and results.
+        </p>
+
+        <div class="graph-shell" id="research">
+            <svg class="graph-svg" viewBox="0 0 1000 570" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id="graphLine" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#547ca8" stop-opacity=".35"/>
+                        <stop offset=".5" stop-color="#7657a8" stop-opacity=".65"/>
+                        <stop offset="1" stop-color="#4f8b69" stop-opacity=".35"/>
+                    </linearGradient>
+                </defs>
+                <path d="M130 145 L310 225 L500 135 L720 210 L870 135" stroke="url(#graphLine)" stroke-width="1.5" fill="none"/>
+                <path d="M130 145 L250 465 L500 135 L720 210 L850 455" stroke="url(#graphLine)" stroke-width="1" fill="none"/>
+                <path d="M310 225 L440 455 L720 210" stroke="url(#graphLine)" stroke-width="1.4" fill="none"/>
+                <path d="M500 135 L440 455 L850 455" stroke="url(#graphLine)" stroke-width="1" fill="none"/>
+                <path d="M130 145 L500 135 L850 455" stroke="#7657a8" stroke-opacity=".13" stroke-width="1" fill="none"/>
+                <circle cx="500" cy="135" r="6" fill="#7657a8" fill-opacity=".15"/>
+            </svg>
+
+            <div class="graph-node g1"><strong>PROBLEM</strong><small>research question</small></div>
+            <div class="graph-node g2"><strong>RESEARCH</strong><small>papers · patents</small></div>
+            <div class="graph-node g3"><strong>EVIDENCE</strong><small>sources · datasets</small></div>
+            <div class="graph-node g4"><strong>HYPOTHESIS</strong><small>H1 · H2 · H3</small></div>
+            <div class="graph-node g5"><strong>EXPERIMENT</strong><small>test protocol</small></div>
+            <div class="graph-node g6"><strong>RESULT</strong><small>measured output</small></div>
+            <div class="graph-node g7"><strong>VALIDATION</strong><small>verified state</small></div>
+            <div class="graph-node g8"><strong>KNOWLEDGE</strong><small>reusable record</small></div>
+
+            <div class="graph-note">Conceptual knowledge graph · research objects + relationships</div>
+        </div>
+    </div>
+</section>
+
+<!-- DISCOVERY WORKSPACE -->
+<section class="section workspace" id="applications">
+    <div class="container workspace-grid">
+        <div>
+            <div class="eyebrow">Future interface</div>
+            <h2>A workspace built around discovery, not conversation.</h2>
+            <p class="body-text">
+                The following interface is a conceptual representation of a future
+                Discovery Project. It does not imply that every function shown is currently implemented.
+            </p>
+            <div class="rule"></div>
+            <p class="small">CONCEPTUAL DISCOVERY WORKSPACE</p>
+        </div>
+
+        <div class="workspace-card">
+            <div class="workspace-bar">
+                <div class="workspace-brand">PRMS TECHNOLOGY DISCOVERY</div>
+                <div class="workspace-state">RESEARCH MODE · CONCEPTUAL</div>
+            </div>
+
+            <div class="workspace-body">
+                <aside class="workspace-sidebar">
+                    <div class="side-title">DISCOVERY PROJECT</div>
+                    <div class="side-item active">Overview</div>
+                    <div class="side-item">Research</div>
+                    <div class="side-item">Evidence</div>
+                    <div class="side-item">Hypotheses</div>
+                    <div class="side-item">Designs</div>
+                    <div class="side-item">Simulations</div>
+                    <div class="side-item">Experiments</div>
+                    <div class="side-item">Results</div>
+                    <div class="side-item">Validation</div>
+                    <div class="side-item">Knowledge</div>
+                </aside>
+
+                <div class="workspace-main">
+                    <div class="mock-label">Project</div>
+                    <div class="mock-title">Solar Thermal Storage System</div>
+
+                    <div class="question-box">
+                        <div class="mock-label">Research Question</div>
+                        <p>How can thermal losses be reduced without increasing system mass?</p>
+                    </div>
+
+                    <div style="margin-top:18px" class="mock-label">Active Hypotheses</div>
+                    <div class="hypotheses">
+                        <div class="hypothesis">
+                            <strong>H1 — Insulation geometry</strong>
+                            <span>Change geometry to reduce conductive losses.</span>
+                        </div>
+                        <div class="hypothesis">
+                            <strong>H2 — Phase-change material</strong>
+                            <span>Use thermal storage material to alter loss behavior.</span>
+                        </div>
+                        <div class="hypothesis">
+                            <strong>H3 — Layered barrier</strong>
+                            <span>Combine layers with different thermal properties.</span>
+                        </div>
+                    </div>
+
+                    <div class="next-experiment">
+                        <div class="mock-label">Next Experiment</div>
+                        <p>Compare H1 / H2 / H3 under identical thermal conditions.</p>
+                    </div>
+
+                    <div class="mock-stats">
+                        <div class="mock-stat"><b>12</b><span>Sources</span></div>
+                        <div class="mock-stat"><b>3</b><span>Hypotheses</span></div>
+                        <div class="mock-stat"><b>2</b><span>Gaps</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- IDEA TO TECHNOLOGY -->
+<section class="section idea-flow">
+    <div class="container">
+        <div class="eyebrow">From idea to technology</div>
+        <h2>A structured path from a question to something that can be tested.</h2>
+
+        <div class="flow" aria-label="Idea to technology sequence">
+            <div class="flow-item"><strong>IDEA</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>QUESTION</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>KNOWLEDGE</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>HYPOTHESIS</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>DESIGN</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>SIMULATION</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>EXPERIMENT</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>MEASUREMENT</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>VALIDATION</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>TECHNOLOGY</strong></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item"><strong>KNOWLEDGE</strong></div>
+        </div>
+
+        <div class="flow-caption">The final knowledge feeds the next discovery cycle.</div>
+    </div>
+</section>
+
+<!-- DISCOVERY PROJECT -->
+<section class="section project" id="discovery-project">
+    <div class="container project-grid">
+        <div>
+            <div class="eyebrow">The fundamental unit</div>
+            <h2>The Discovery Project.</h2>
+            <p class="body-text">
+                PRMS Technology Discovery is organized around persistent research projects
+                that preserve questions, evidence, hypotheses, experiments, results and validation.
+            </p>
+
+            <div class="project-list">
+                <div class="project-row"><span>01</span><strong>Problem</strong></div>
+                <div class="project-row"><span>02</span><strong>Research Question</strong></div>
+                <div class="project-row"><span>03</span><strong>Knowledge</strong></div>
+                <div class="project-row"><span>04</span><strong>Evidence</strong></div>
+                <div class="project-row"><span>05</span><strong>Hypotheses</strong></div>
+                <div class="project-row"><span>06</span><strong>Designs</strong></div>
+                <div class="project-row"><span>07</span><strong>Simulations</strong></div>
+                <div class="project-row"><span>08</span><strong>Experiments</strong></div>
+                <div class="project-row"><span>09</span><strong>Results</strong></div>
+                <div class="project-row"><span>10</span><strong>Validation</strong></div>
+                <div class="project-row"><span>11</span><strong>Knowledge Record</strong></div>
+            </div>
+        </div>
+
+        <div class="project-statement">
+            <p class="big">
+                Discovery is not a conversation.
+                <em>It is a structured research process.</em>
+            </p>
+            <p>
+                The conversation can be an interface. It is not the underlying unit of knowledge.
+                The Discovery Project preserves the evolving state of a technological investigation
+                and creates a traceable bridge between ideas, evidence, hypotheses, experiments and results.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="section origin">
+    <div class="container">
+        <div class="eyebrow">Application domains</div>
+        <h2>Architecture is the origin. Discovery is the direction.</h2>
+        <p class="body-text">
+            PRMS Technology Discovery begins in architecture and the built environment,
+            where PRMS already has a research foundation, but its underlying discovery architecture
+            is intended to extend across technological domains.
+        </p>
+
+        <div class="origin-flow">
+            <div class="origin-item"><strong>ARCHITECTURE</strong></div>
+            <div class="origin-item"><strong>CONSTRUCTION</strong></div>
+            <div class="origin-item"><strong>ENGINEERING</strong></div>
+            <div class="origin-item"><strong>ENERGY</strong></div>
+            <div class="origin-item"><strong>MATERIALS</strong></div>
+            <div class="origin-item"><strong>ROBOTICS</strong></div>
+            <div class="origin-item"><strong>AI & EMERGING TECHNOLOGIES</strong></div>
+        </div>
+    </div>
+</section>
+
+<!-- PRMS ORIGIN -->
+<section class="section origin" style="background:var(--surface)">
+    <div class="container">
+        <div class="eyebrow">PRMS origin</div>
+        <h2>Born from PRMS Architecture Lab.</h2>
+        <p class="body-text">
+            PRMS Technology Discovery extends the research philosophy of PRMS Architecture Lab
+            from measurable architectural systems toward intelligent systems for technology discovery and development.
+        </p>
+
+        <div class="origin-flow">
+            <div class="origin-item"><strong>ARCHITECTURE</strong></div>
+            <div class="origin-item"><strong>SYSTEMS</strong></div>
+            <div class="origin-item"><strong>MEASUREMENT</strong></div>
+            <div class="origin-item"><strong>DATA</strong></div>
+            <div class="origin-item"><strong>INTELLIGENCE</strong></div>
+            <div class="origin-item"><strong>DISCOVERY</strong></div>
+            <div class="origin-item"><strong>TECHNOLOGY</strong></div>
+        </div>
+    </div>
+</section>
+
+<!-- PRMS DISCOVERY LOOP -->
+<section class="section methodology">
+    <div class="container">
+        <div class="eyebrow">Methodology</div>
+        <h2>PRMS Discovery Loop.</h2>
+        <p class="body-text">
+            The PRMS Discovery Loop is the iterative methodology underlying PRMS Technology Discovery.
+            It is a methodological layer, not the product name.
+        </p>
+
+        <div class="method-loop">
+            <div class="method-step"><small>01</small><strong>OBSERVE</strong></div>
+            <div class="method-step"><small>02</small><strong>EXPLORE</strong></div>
+            <div class="method-step"><small>03</small><strong>HYPOTHESIZE</strong></div>
+            <div class="method-step"><small>04</small><strong>DESIGN</strong></div>
+            <div class="method-step"><small>05</small><strong>SIMULATE</strong></div>
+            <div class="method-step"><small>06</small><strong>EXPERIMENT</strong></div>
+            <div class="method-step"><small>07</small><strong>MEASURE</strong></div>
+            <div class="method-step"><small>08</small><strong>VERIFY</strong></div>
+            <div class="method-step"><small>09</small><strong>LEARN</strong></div>
+            <div class="method-step learn"><small>10</small><strong>→ OBSERVE</strong></div>
+        </div>
+
+        <div class="method-return">The loop closes because learning changes what is observed next.</div>
+    </div>
+</section>
+
+<!-- TECHNOLOGY STACK -->
+<section class="section stack">
+    <div class="container">
+        <div class="eyebrow">Conceptual system architecture</div>
+        <h2>The infrastructure beneath discovery.</h2>
+        <p class="body-text">
+            A future implementation may combine models, agents, retrieval, knowledge graphs,
+            scientific search, simulation, experimentation and validation. This diagram is conceptual
+            and does not claim that all components are currently implemented.
+        </p>
+
+        <div class="stack-diagram">
+            <div class="stack-layer">AI MODELS</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">AI AGENTS</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">RAG</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">KNOWLEDGE GRAPH</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">SCIENTIFIC SEARCH</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">SIMULATION</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">EXPERIMENTATION</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">DATA</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">VALIDATION</div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer">KNOWLEDGE CORE</div>
+        </div>
+
+        <div class="conceptual">Conceptual system architecture · research roadmap</div>
+    </div>
+</section>
+
+<!-- FUTURE VISION -->
+<section class="vision">
+    <div class="container">
+        <div class="eyebrow">Future vision</div>
+        <h2>A new infrastructure for technological discovery.</h2>
+        <p>
+            The next generation of technological development will not depend only on better tools.
+            It will depend on systems capable of connecting knowledge, hypotheses, experiments,
+            measurements and learning into continuous discovery processes.
+        </p>
+
+        <p style="font-size:22px;color:#fff;font-weight:600;">
+            You don't need to know which AI tool to use.<br>
+            You need to know what you want to discover.
+        </p>
+
+        <a class="button" href="#discovery-project">PRMS Technology Discovery →</a>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer">
+        <div><strong>PRMS Architecture Lab ®</strong></div>
+        <div>PRMS Technology Discovery · AI Technology Discovery & Development Platform</div>
+        <div>From Idea to Validated Technology.</div>
+    </div>
+</footer>
+
+</body>
+</html>
