@@ -27,8 +27,8 @@
     { href: '/contributions', label: 'Contributions' },
     // NEW — PRMS AI RESEARCH INFRASTRUCTURE
     { href: '/ai-discovery', label: 'AI Discovery' },
-
     { href: '/about', label: 'About' },
+    { href: '/institution.html', label: 'Institution' },
   ];
 
   // ─────────────────────────────────────
