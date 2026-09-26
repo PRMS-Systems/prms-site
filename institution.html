@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Institution — PRMS Architecture Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f3ee;
+    --ink:#1c1c1a;
+    --green:#2f4a3b;
+    --green-soft:#4c6a58;
+    --line:#dedad0;
+    --muted:#63615a;
+    --card:#efece4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* NAV */
+  header.nav{
+    display:flex;align-items:center;gap:38px;
+    padding:22px 56px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:0.08em;
+    font-size:13px;
+    color:var(--green);
+    font-weight:500;
+  }
+  .brand .mark{
+    width:26px;height:26px;border:1.5px solid var(--ink);
+    border-radius:4px;display:flex;align-items:center;justify-content:center;
+    font-size:9px;font-weight:700;letter-spacing:0;
+  }
+  nav.links{display:flex;gap:30px;flex-wrap:wrap;}
+  nav.links a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;letter-spacing:0.06em;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  nav.links a:hover{color:var(--ink);}
+  nav.links a.current{color:var(--green);}
+
+  /* HERO */
+  .hero{padding:110px 56px 70px;max-width:980px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;letter-spacing:0.14em;color:var(--green-soft);
+    margin-bottom:34px;
+  }
+  .eyebrow .rule{width:36px;height:1px;background:var(--green-soft);}
+  h1.title{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:clamp(48px,7vw,84px);
+    line-height:1.02;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  h1.title em{
+    font-style:italic;
+    color:var(--green);
+    font-weight:500;
+    display:block;
+  }
+  .hero p{
+    font-size:18px;line-height:1.65;color:var(--muted);
+    max-width:640px;margin:28px 0 0;
+  }
+
+  /* SECTIONS */
+  main{padding:0 56px 120px;max-width:980px;}
+  section.block{padding:64px 0;border-top:1px solid var(--line);}
+  .block-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;color:var(--green-soft);letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .block-title{
+    font-family:'Inter',sans-serif;font-weight:600;
+    font-size:13px;letter-spacing:0.14em;color:var(--ink);
+    text-transform:uppercase;margin-bottom:36px;
+  }
+
+  /* field list */
+  dl.fields{display:grid;grid-template-columns:220px 1fr;row-gap:26px;column-gap:24px;}
+  dl.fields dt{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.05em;
+    color:var(--muted);padding-top:2px;
+  }
+  dl.fields dd{margin:0;font-size:17px;line-height:1.55;color:var(--ink);}
+  dl.fields dd.muted{color:var(--muted);font-size:15px;}
+
+  /* pill row (identifier links) */
+  .pill-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;}
+  .pill{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;
+    border:1px solid var(--line);padding:9px 16px;border-radius:3px;color:var(--green);
+    background:var(--card);
+  }
+  .pill:hover{border-color:var(--green-soft);}
+
+  /* structure grid */
+  .struct-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .struct-cell{background:var(--bg);padding:28px 24px;min-height:120px;}
+  .struct-cell h4{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:500;
+    font-size:20px;color:var(--green);margin:0 0 8px;
+  }
+  .struct-cell p{font-size:14px;color:var(--muted);line-height:1.5;margin:0;}
+
+  /* timeline */
+  .timeline{
+    display:flex;align-items:center;flex-wrap:wrap;gap:0;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;
+    color:var(--ink);margin-bottom:30px;
+  }
+  .timeline .step{
+    padding:10px 16px;border:1px solid var(--line);border-radius:3px;background:var(--card);
+  }
+  .timeline .arrow{color:var(--green-soft);padding:0 10px;font-size:13px;}
+  .timeline-note{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:19px;color:var(--green);line-height:1.5;max-width:620px;
+  }
+
+  /* evidence table */
+  table.evidence{width:100%;border-collapse:collapse;font-size:15px;}
+  table.evidence th{
+    text-align:left;font-family:'Inter',sans-serif;font-weight:600;
+    font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);
+    padding:12px 0;border-bottom:1px solid var(--line);
+  }
+  table.evidence td{padding:16px 0;border-bottom:1px solid var(--line);}
+  table.evidence tr:last-child td{border-bottom:none;}
+  .status{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;
+    padding:5px 11px;border-radius:20px;display:inline-block;
+  }
+  .status.established{background:#e4ece5;color:#2f4a3b;}
+  .status.active{background:#e4ece5;color:#2f4a3b;}
+  .status.process{background:#f2ecd9;color:#8a6d1f;}
+  .status.developing{background:#eeece6;color:#6b6a62;}
+
+  /* documents */
+  .doc-list{display:flex;flex-direction:column;}
+  .doc-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 0;border-bottom:1px solid var(--line);
+  }
+  .doc-row:last-child{border-bottom:none;}
+  .doc-row .name{font-size:17px;color:var(--ink);}
+  .doc-row .tag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
+    letter-spacing:0.06em;
+  }
+  .doc-note{margin-top:26px;font-size:14px;color:var(--muted);font-style:italic;}
+
+  /* contact / footer */
+  footer{
+    padding:70px 56px 60px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;
+  }
+  footer .brand-col h3{
+    font-family:'Playfair Display',serif;font-weight:600;font-size:22px;margin:0 0 8px;
+  }
+  footer .brand-col p{margin:0;color:var(--muted);font-size:14px;}
+  footer .contact-col{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.04em;}
+  footer .contact-col div{margin-bottom:8px;}
+
+  @media (max-width:820px){
+    header.nav{padding:18px 24px;gap:20px;}
+    .hero{padding:70px 24px 50px;}
+    main{padding:0 24px 80px;}
+    dl.fields{grid-template-columns:1fr;row-gap:6px;}
+    dl.fields dt{padding-top:14px;}
+    .struct-grid{grid-template-columns:1fr 1fr;}
+    footer{padding:50px 24px 40px;}
+  }
+  @media (max-width:520px){
+    .struct-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="/">
+    <span class="mark">PR<br>MS</span>
+    PRMS ARCHITECTURE LAB
+  </a>
+  <nav class="links">
+    <a href="/methodology/">METHODOLOGY</a>
+    <a href="/framework/">FRAMEWORK</a>
+    <a href="/applications/">APPLICATIONS</a>
+    <a href="/publications/">PUBLICATIONS</a>
+    <a href="/renewable-horizons/">RENEWABLE HORIZONS</a>
+    <a href="/system-atlas/">SYSTEM ATLAS</a>
+    <a href="/prms-score/">PRMS SCORE</a>
+    <a href="/contributions/">CONTRIBUTIONS</a>
+    <a href="/ai-discovery/">AI DISCOVERY</a>
+    <a href="/about/">ABOUT</a>
+    <a href="/institution/" class="current">INSTITUTION</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow"><span class="rule"></span> INSTITUTIONAL RECORD</div>
+  <h1 class="title">Institution<em>al Identity</em></h1>
+  <p>Independent research initiative focused on architecture, performance, systems and research-based knowledge.</p>
+</section>
+
+<main>
+
+  <!-- 01 -->
+  <section class="block">
+    <div class="block-num">01</div>
+    <div class="block-title">Institutional Identity</div>
+    <dl class="fields">
+      <dt>Official Name</dt><dd>PRMS Architecture Lab</dd>
+      <dt>Definition</dt><dd>Independent research initiative dedicated to the development of knowledge at the intersection of architecture, performance, environmental systems, data and technology.</dd>
+      <dt>Established</dt><dd>2024</dd>
+      <dt>Location</dt><dd>Querétaro, Mexico</dd>
+      <dt>Research Framework</dt><dd>PRMS — Performance Regulated Metabolic System</dd>
+      <dt>Institutional Status</dt><dd class="muted">Independent research initiative — institutional registration in progress.</dd>
+    </dl>
+  </section>
+
+  <!-- 02 -->
+  <section class="block">
+    <div class="block-num">02</div>
+    <div class="block-title">Research Organization Identity</div>
+    <dl class="fields">
+      <dt>Registry</dt><dd>ROR — Research Organization Registry</dd>
+      <dt>Status</dt><dd class="muted">Registration in progress</dd>
+      <dt>ROR ID</dt><dd class="muted">To be assigned</dd>
+      <dt>Researcher</dt><dd>Oscar Hernández García</dd>
+      <dt>ORCID</dt><dd>0009-0005-2474-4834</dd>
+      <dt>Persistent Records</dt><dd class="muted">Zenodo / DOI · ResearchGate</dd>
+    </dl>
+    <div class="pill-row">
+      <a class="pill" href="#">ROR</a>
+      <a class="pill" href="https://orcid.org/0009-0005-2474-4834">ORCID</a>
+      <a class="pill" href="#">ZENODO</a>
+      <a class="pill" href="#">RESEARCHGATE</a>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="block">
+    <div class="block-num">03</div>
+    <div class="block-title">Institutional Structure</div>
+    <div class="struct-grid">
+      <div class="struct-cell"><h4>Research</h4><p>Research activities and projects.</p></div>
+      <div class="struct-cell"><h4>People</h4><p>Researchers, collaborators and contributors.</p></div>
+      <div class="struct-cell"><h4>Network</h4><p>Academic and research relationships.</p></div>
+      <div class="struct-cell"><h4>Infrastructure</h4><p>Physical and digital research infrastructure.</p></div>
+      <div class="struct-cell"><h4>Documentation</h4><p>Institutional and research records.</p></div>
+      <div class="struct-cell"><h4>Continuity</h4><p>Long-term development of the Lab.</p></div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="block">
+    <div class="block-num">04</div>
+    <div class="block-title">Institutional Development</div>
+    <div class="timeline">
+      <span class="step">IDENTITY</span><span class="arrow">→</span>
+      <span class="step">REGISTRATION</span><span class="arrow">→</span>
+      <span class="step">RESEARCH ACTIVITY</span><span class="arrow">→</span>
+      <span class="step">INFRASTRUCTURE</span><span class="arrow">→</span>
+      <span class="step">NETWORK</span><span class="arrow">→</span>
+      <span class="step">CONTINUITY</span>
+    </div>
+    <p class="timeline-note">A progressive process from research initiative to an identifiable and sustainable research organization.</p>
+  </section>
+
+  <!-- 05 -->
+  <section class="block">
+    <div class="block-num">05</div>
+    <div class="block-title">Institutional Evidence</div>
+    <table class="evidence">
+      <tr><th>Element</th><th>Status</th></tr>
+      <tr><td>Identity</td><td><span class="status established">Established</span></td></tr>
+      <tr><td>Research</td><td><span class="status active">Active</span></td></tr>
+      <tr><td>ORCID</td><td><span class="status established">Established</span></td></tr>
+      <tr><td>DOI / Zenodo</td><td><span class="status active">Active</span></td></tr>
+      <tr><td>ROR</td><td><span class="status process">In process</span></td></tr>
+      <tr><td>Network</td><td><span class="status developing">Developing</span></td></tr>
+      <tr><td>Infrastructure</td><td><span class="status developing">Developing</span></td></tr>
+      <tr><td>Continuity</td><td><span class="status developing">Developing</span></td></tr>
+    </table>
+  </section>
+
+  <!-- 06 -->
+  <section class="block">
+    <div class="block-num">06</div>
+    <div class="block-title">Institutional Documents</div>
+    <div class="doc-list">
+      <div class="doc-row"><span class="name">Institutional Definition</span><span class="tag">PDF</span></div>
+      <div class="doc-row"><span class="name">Research Agenda</span><span class="tag">PDF</span></div>
+      <div class="doc-row"><span class="name">Institutional Records</span><span class="tag">PDF</span></div>
+    </div>
+    <p class="doc-note">Additional documents will be published as the institutional record develops.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="brand-col">
+    <h3>PRMS Architecture Lab</h3>
+    <p>Querétaro, Mexico</p>
+  </div>
+  <div class="contact-col">
+    <div>Research inquiries</div>
+    <div>Academic collaboration</div>
+    <div>Institutional correspondence</div>
+  </div>
+</footer>
+
+</body>
+</html>
