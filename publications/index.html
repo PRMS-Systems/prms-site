@@ -3,377 +3,950 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Publications — PRMS</title>
-  <meta name="description" content="Research publications, DOIs, and academic output from the PRMS research programme." />
+
+  <meta name="description" content="Research publications, DOIs, and academic output from the PRMS Architecture Lab." />
+
   <link rel="stylesheet" href="/style.css" />
+
+  <!-- FEATURED PUBLICATION STYLES -->
+  <style>
+
+    /* HERO TWO-COLUMN LAYOUT */
+
+    .publications-hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .publications-hero-copy {
+      max-width: 650px;
+    }
+
+    /* FEATURED PUBLICATION */
+
+    .featured-publication {
+      display: grid;
+      grid-template-columns: minmax(130px, 0.85fr) 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.5rem;
+      border: 1px solid var(--gray-200);
+      background: #ffffff;
+      max-width: 540px;
+    }
+
+    .featured-cover {
+      width: 100%;
+      display: block;
+      height: auto;
+      object-fit: contain;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease;
+    }
+
+    .featured-cover:hover {
+      transform: translateY(-4px);
+    }
+
+    .featured-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green-700, #286b49);
+      margin-bottom: 1rem;
+    }
+
+    .featured-title {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 0.8rem;
+    }
+
+    .featured-subtitle {
+      font-size: 0.76rem;
+      line-height: 1.6;
+      color: var(--gray-500);
+      margin-bottom: 1rem;
+    }
+
+    .featured-author {
+      font-size: 0.78rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 0.35rem;
+    }
+
+    .featured-meta {
+      font-family: var(--mono);
+      font-size: 0.59rem;
+      line-height: 1.7;
+      color: var(--gray-500);
+      margin-bottom: 1.2rem;
+    }
+
+    .featured-doi-status {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: var(--green-700, #286b49);
+      margin-bottom: 1rem;
+    }
+
+    /* BUTTONS */
+
+    .featured-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .featured-btn {
+      display: block;
+      text-align: center;
+      padding: 0.85rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .featured-btn-primary {
+      background: var(--green-700, #286b49);
+      color: #ffffff;
+      border: 1px solid var(--green-700, #286b49);
+    }
+
+    .featured-btn-primary:hover {
+      background: #174a32;
+      border-color: #174a32;
+    }
+
+    .featured-btn-secondary {
+      background: transparent;
+      color: var(--black);
+      border: 1px solid var(--gray-300, #d5d5d5);
+    }
+
+    .featured-btn-secondary:hover {
+      border-color: var(--green-700, #286b49);
+      color: var(--green-700, #286b49);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .publications-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .featured-publication {
+        max-width: 620px;
+      }
+
+    }
+
+    @media (max-width: 520px) {
+
+      .featured-publication {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.2rem;
+      }
+
+      .featured-cover {
+        max-width: 260px;
+        margin: 0 auto;
+      }
+
+      .featured-title {
+        font-size: 1.5rem;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 <body>
 
 <nav id="main-nav"></nav>
 
 <main>
 
+<!-- HERO / FEATURED PUBLICATION -->
+
 <div class="hero">
+
   <div class="container">
 
-    <p class="hero-label">Research Output</p>
+    <div class="publications-hero-grid">
 
-    <h1>
-      Publications &<br>
-      <em>Research</em>
-    </h1>
-    <p class="hero-manifesto">
-      PRMS Architecture Lab develops cumulative research carefully aligned with an operational vision of the built environment.
-    </p>
-    <p class="hero-framework">
-      Each publication contributes to a long-term intellectual-operational framework integrating architecture, energy, data, and measurable environmental performance.
-    </p>
-    <p class="hero-meta">
-      Peer-reviewed articles, working papers, and preprints from the PRMS research programme. All publications are indexed with DOIs and linked to the author’s ORCID record.
-    </p>
+      <!-- LEFT COLUMN -->
+
+      <div class="publications-hero-copy">
+
+        <p class="hero-label">Research Output</p>
+
+        <h1>
+          Publications &<br>
+          <em>Research</em>
+        </h1>
+
+        <p class="hero-manifesto">
+          PRMS Architecture Lab develops cumulative research carefully aligned with an operational vision of the built environment.
+        </p>
+
+        <p class="hero-framework">
+          Each publication contributes to a long-term intellectual-operational framework integrating architecture, energy, data, and measurable environmental performance.
+        </p>
+
+        <p class="hero-meta">
+          Peer-reviewed articles, working papers, and preprints from the PRMS research programme. Published research outputs are indexed with DOIs and linked to the author’s ORCID record.
+        </p>
+
+      </div>
+
+
+      <!-- RIGHT COLUMN / FEATURED PUBLICATION -->
+
+      <div class="featured-publication">
+
+        <div>
+
+          <img
+            src="/publications/2027.png"
+            alt="The World in Symbols 2027 — PRMS Architecture Lab"
+            class="featured-cover"
+            loading="eager"
+          />
+
+        </div>
+
+        <div>
+
+          <p class="featured-label">
+            Featured Publication
+          </p>
+
+          <h2 class="featured-title">
+            THE WORLD IN SYMBOLS 2027
+          </h2>
+
+          <p class="featured-subtitle">
+            Architecture · Technology · Energy · Economy · Society
+          </p>
+
+          <p class="featured-author">
+            <strong>Oscar Adrián Hernández García</strong>
+          </p>
+
+          <p class="featured-author">
+            PRMS Architecture Lab
+          </p>
+
+          <p class="featured-meta">
+            PRMS WORKING PAPERS<br>
+            VOLUME 1 · NO. 09 · 2026<br>
+            RENEWABLE HORIZONS COLLECTION
+          </p>
+
+          <span class="featured-doi-status">
+            ● DOI REGISTERED
+          </span>
+
+          <div class="featured-actions">
+
+            <a
+              href="https://zenodo.org/records/24355342/files/09%20PRMS%20The%20World%20in%20Symbols%202027.pdf?download=1"
+              target="_blank"
+              class="featured-btn featured-btn-primary"
+            >
+              DOWNLOAD PDF ↓
+            </a>
+
+            <a
+              href="https://doi.org/10.5281/zenodo.24355342"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="featured-btn featured-btn-secondary"
+            >
+              VIEW DOI ↗
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
+
 </div>
 
-  <!-- AUTHOR IDENTITY -->
-  <section>
-    <div class="container">
-      <p class="section-label" data-num="—">Author Identity</p>
-      <div style="display:flex; gap:4rem; flex-wrap:wrap; align-items:flex-start;">
-        <div>
-          <h3 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gray-500); margin-bottom:1rem;">RESEARCH DIRECTOR</h3>
-          <p style="font-family:var(--serif); font-size:1.5rem; font-weight:400; color:var(--black); margin-bottom:0.25rem;">Oscar A. Hernández García</p>
-          <p style="font-size:0.9rem; color:var(--gray-500); margin-bottom:1rem;">Director PRMS Architecture Lab  — Querétaro, México</p>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-            <a href="https://orcid.org/0009-0005-2474-4834" target="_blank" class="link-arrow" style="font-size:0.7rem;">ORCID 0009-0005-2474-4834</a>
-            <a href="https://zenodo.org/search?q=hernandez+garcia+prms" target="_blank" class="link-arrow" style="font-size:0.7rem;">Zenodo Profile</a>
-          </div>
-        </div>
-        <div>
-          <h3 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gray-500); margin-bottom:1rem;">Research Areas</h3>
-          <ul style="list-style:none; font-size:0.9rem; color:var(--gray-700); line-height:2;">
-            <li>Energy and Environmental Regulation Systems</li>
-            <li>Metabolic Architecture</li>
-            <li>Performance Measurement</li>
-            <li>Data-Driven Systems</li>
-            <li>Applied Prototyping</li>
-            <li>Urban Metabolism and Distributed Urban Systems</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- DOCUMENTOS DOI -->
+<!-- AUTHOR IDENTITY -->
+
 <section>
+
   <div class="container">
-    <p class="section-label" data-num="01">Preprints & Working Papers</p>
+
+    <p class="section-label" data-num="—">Author Identity</p>
+
+    <div style="display:flex; gap:4rem; flex-wrap:wrap; align-items:flex-start;">
+
+      <div>
+
+        <h3 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gray-500); margin-bottom:1rem;">
+          RESEARCH DIRECTOR
+        </h3>
+
+        <p style="font-family:var(--serif); font-size:1.5rem; font-weight:400; color:var(--black); margin-bottom:0.25rem;">
+          Oscar A. Hernández García
+        </p>
+
+        <p style="font-size:0.9rem; color:var(--gray-500); margin-bottom:1rem;">
+          Director PRMS Architecture Lab — Querétaro, México
+        </p>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+
+          <a href="https://orcid.org/0009-0005-2474-4834" target="_blank" class="link-arrow" style="font-size:0.7rem;">
+            ORCID 0009-0005-2474-4834
+          </a>
+
+          <a href="https://zenodo.org/search?q=hernandez+garcia+prms" target="_blank" class="link-arrow" style="font-size:0.7rem;">
+            Zenodo Profile
+          </a>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <h3 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gray-500); margin-bottom:1rem;">
+          Research Areas
+        </h3>
+
+        <ul style="list-style:none; font-size:0.9rem; color:var(--gray-700); line-height:2;">
+
+          <li>Energy and Environmental Regulation Systems</li>
+          <li>Metabolic Architecture</li>
+          <li>Performance Measurement</li>
+          <li>Data-Driven Systems</li>
+          <li>Applied Prototyping</li>
+          <li>Urban Metabolism and Distributed Urban Systems</li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DOCUMENTOS DOI -->
+
+<section>
+
+  <div class="container">
+
+    <p class="section-label" data-num="01">
+      Preprints & Working Papers
+    </p>
+
 
     <!-- 1 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 01</p>
-        <p class="pub-title">PRMS — Arquitectura Metabólica Medible: Manifiesto y Diagrama Fundamental</p>
-        <p class="pub-meta">Hernández García, O.A. — 2025 — Zenodo Repository</p>
+
+        <p class="pub-title">
+          PRMS — Arquitectura Metabólica Medible: Manifiesto y Diagrama Fundamental
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2025 — Zenodo Repository
+        </p>
+
         <p class="pub-text">
           PRMS (Measurable Metabolic Architecture) is a distributed architectural framework that defines the minimum habitable unit as a measurable, autonomous node capable of producing, regulating, measuring, and deciding its own resource flows.
         </p>
+
         <p class="pub-text">
           The system is structured around four primary flows — energy, water, air, and data — understood not as isolated infrastructures but as continuous, interacting metabolic processes.
         </p>
+
         <p class="pub-text">
           PRMS is proposed as an open, scalable, and measurable architectural system intended for validation, replication, and future standardization.
         </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.21479654" target="_blank" class="pub-doi">
         DOI: 10.5281/zenodo.21479654 →
       </a>
+
     </div>
 
+
     <!-- 2 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 02</p>
-        <p class="pub-title">Genealogía, Crítica y Superación Disciplinar</p>
-        <p class="pub-meta">Hernández García, O.A. — 2025 — Zenodo Repository</p>
+
+        <p class="pub-title">
+          Genealogía, Crítica y Superación Disciplinar
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2025 — Zenodo Repository
+        </p>
+
         <p class="pub-text">
           This document establishes the critical and historical positioning of the PRMS system within architectural thought.
         </p>
+
         <p class="pub-text">
           It identifies a structural limitation in existing systems: the absence of an operational, autonomous, measurable architectural unit.
         </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.21479888" target="_blank" class="pub-doi">
         DOI: 10.5281/zenodo.21479888 →
       </a>
+
     </div>
 
+
     <!-- 3 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 03</p>
-        <p class="pub-title">Sistema Universal PRMS — Libro Blanco (v1.1)</p>
-        <p class="pub-meta">Hernández García, O.A. — 2025 — Zenodo Repository</p>
+
+        <p class="pub-title">
+          Sistema Universal PRMS — Libro Blanco (v1.1)
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2025 — Zenodo Repository
+        </p>
+
         <p class="pub-text">
           The PRMS Universal System introduces a new architectural paradigm based on autonomous metabolic units.
         </p>
+
         <p class="pub-text">
           PRMS defines architecture as a scalable system—from node to city—driven by measurable performance.
         </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.21479943" target="_blank" class="pub-doi">
         DOI: 10.5281/zenodo.21479943 →
       </a>
+
     </div>
 
+
     <!-- 4 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 04</p>
-        <p class="pub-title">Los cuatro postulados funcionales del sistema PEAR-ROI</p>
-        <p class="pub-meta">Hernández García, O.A. — 2025 — Zenodo Repository</p>
+
+        <p class="pub-title">
+          Los cuatro postulados funcionales del sistema PEAR-ROI
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2025 — Zenodo Repository
+        </p>
+
         <p class="pub-text">
           This document establishes the four functional postulates that define the conceptual and operational foundation of the PEAR-ROI system.
         </p>
+
         <p class="pub-text">
           It proposes a shift toward autonomous, distributed, and regenerative architectural systems.
         </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.21480009" target="_blank" class="pub-doi">
-        DOI: 10.5281/zenodo.2148009 →
+        DOI: 10.5281/zenodo.21480009 →
       </a>
+
     </div>
 
+
     <!-- 5 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 05</p>
-        <p class="pub-title">Estrategias de Modernización en Capas para Viviendas Existentes:
-        Optimización del Rendimiento y Evaluación del Retorno de la Inversión</p>
-        <p class="pub-meta">Hernández García, O.A. — 2026 — Zenodo Repository</p>
-        <p class="pub-text">
-          This working paper presents a layered modernization strategy for existing
-        residential buildings that improves energy performance, operational
-        efficiency, and economic feasibility through progressive interventions.
+
+        <p class="pub-title">
+          Estrategias de Modernización en Capas para Viviendas Existentes: Optimización del Rendimiento y Evaluación del Retorno de la Inversión
         </p>
-        <p class="pub-text">
-          The proposed methodology evaluates retrofit actions according to their
-        performance impact and return on investment, providing a practical framework
-        for decision-making in residential renovation projects.
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026 — Zenodo Repository
         </p>
+
+        <p class="pub-text">
+          This working paper presents a layered modernization strategy for existing residential buildings that improves energy performance, operational efficiency, and economic feasibility through progressive interventions.
+        </p>
+
+        <p class="pub-text">
+          The proposed methodology evaluates retrofit actions according to their performance impact and return on investment, providing a practical framework for decision-making in residential renovation projects.
+        </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.20453228" target="_blank" class="pub-doi">
         DOI: 10.5281/zenodo.20453228 →
       </a>
+
     </div>
 
+
     <!-- 6 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 06</p>
-        <p class="pub-title">The PRMS Confidence Factor (Factor C): Quantifying
-            Confidence in Verified Performance</p>
-        <p class="pub-meta">Hernández García, O.A. — 2026 — Zenodo Repository</p>
-        <p class="pub-text">
-          This working paper introduces the PRMS Confidence Factor (Factor C),
-            a verification coefficient designed to quantify the reliability of
-            measured performance data within the PRMS evaluation framework.
+
+        <p class="pub-title">
+          The PRMS Confidence Factor (Factor C): Quantifying Confidence in Verified Performance
         </p>
-        <p class="pub-text">
-          The proposed model integrates data quality, measurement traceability,
-            monitoring continuity, and verification procedures into a single
-            confidence coefficient that complements the PRMS Score and improves
-            the comparability of building performance assessments.
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026 — Zenodo Repository
         </p>
+
+        <p class="pub-text">
+          This working paper introduces the PRMS Confidence Factor (Factor C), a verification coefficient designed to quantify the reliability of measured performance data within the PRMS evaluation framework.
+        </p>
+
+        <p class="pub-text">
+          The proposed model integrates data quality, measurement traceability, monitoring continuity, and verification procedures into a single confidence coefficient that complements the PRMS Score and improves the comparability of building performance assessments.
+        </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.21480479" target="_blank" class="pub-doi">
         DOI: 10.5281/zenodo.21480479 →
       </a>
+
     </div>
-  
+
+
     <!-- 7 -->
+
     <div class="pub-entry">
+
       <div class="pub-content">
+
         <p class="pub-type">Preprint — Zenodo 07</p>
-        <p class="pub-title">PRMS Score™ — Sistema de Certificación del Rendimiento Metabólico</p>
-        <p class="pub-meta">Hernández García, O.A. — 2026 — Zenodo Repository</p>
-        <p class="pub-text">
-          This working paper introduces the PRMS Score™, a performance-based
-            certification framework designed to evaluate buildings according to
-            measurable metabolic performance rather than prescriptive design
-            criteria.
+
+        <p class="pub-title">
+          PRMS Score™ — Sistema de Certificación del Rendimiento Metabólico
         </p>
-        <p class="pub-text">
-          The system integrates energy, water, environmental quality,
-            operational intelligence, resilience, and economic performance into a
-            unified methodology that enables transparent comparison, verification,
-            and continuous improvement throughout the building lifecycle.
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026 — Zenodo Repository
         </p>
+
+        <p class="pub-text">
+          This working paper introduces the PRMS Score™, a performance-based certification framework designed to evaluate buildings according to measurable metabolic performance rather than prescriptive design criteria.
+        </p>
+
+        <p class="pub-text">
+          The system integrates energy, water, environmental quality, operational intelligence, resilience, and economic performance into a unified methodology that enables transparent comparison, verification, and continuous improvement throughout the building lifecycle.
+        </p>
+
       </div>
+
       <a href="https://doi.org/10.5281/zenodo.21481220" target="_blank" class="pub-doi">
         DOI: 10.5281/zenodo.21481220 →
       </a>
+
     </div>
+
+    <!-- 8: THE WORLD IN SYMBOLS -->
+
+    <div class="pub-entry">
+
+      <div class="pub-content">
+
+        <p class="pub-type">Annual Global Outlook — Zenodo 08</p>
+
+        <p class="pub-title">
+          THE WORLD IN SYMBOLS 2027
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026 — PRMS Architecture Lab
+        </p>
+
+        <p class="pub-text">
+          An annual outlook examining ten global transformations expected to shape 2027, including energy security, financial markets, artificial intelligence, climate change, energy transition, architecture, geopolitics, urban resilience and human habitat.
+        </p>
+
+      </div>
+
+      <a href="https://doi.org/10.5281/zenodo.24355342" target="_blank" class="pub-doi">
+        DOI: 10.5281/zenodo.24355342 →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
-  
+
+
 <!-- ENVIADOS A REVISTAS INDEXADAS -->
-  <section>
-    <div class="container">
-      <p class="section-label" data-num="02">Submitted — Under Review</p>
 
-      <div class="pub-entry">
-        <div>
-          <p class="pub-type">Journal Article — Revista AUS (Chile) — Submitted 2025</p>
-          <p class="pub-title">Arquitectura Metabólica Medible: El sistema PRMS como marco conceptual para la evaluación del desempeño en tiempo real</p>
-          <p class="pub-meta">Hernández García, O.A. — Revista AUS, Universidad Austral de Chile — Q3 2026 (expected)</p>
-          <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">Empirical validation of PRMS using first-year operational data from SmartLiving Milenio III (QRO-01 IoT dataset). Primary submission in the Latin American indexed journal track.</p>
-        </div>
-        <a href="https://doi.org/10.5281/zenodo.19476935" target="_blank" class="pub-doi">Preprint DOI →</a>
+<section>
+
+  <div class="container">
+
+    <p class="section-label" data-num="02">
+      Submitted — Under Review
+    </p>
+
+    <div class="pub-entry">
+
+      <div>
+
+        <p class="pub-type">
+          Journal Article — Revista AUS (Chile) — Submitted 2025
+        </p>
+
+        <p class="pub-title">
+          Arquitectura Metabólica Medible: El sistema PRMS como marco conceptual para la evaluación del desempeño en tiempo real
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — Revista AUS, Universidad Austral de Chile — Q3 2026 (expected)
+        </p>
+
+        <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">
+          Empirical validation of PRMS using first-year operational data from SmartLiving Milenio III (QRO-01 IoT dataset). Primary submission in the Latin American indexed journal track.
+        </p>
+
       </div>
 
-      <div class="pub-entry">
-        <div>
-          <p class="pub-type">Journal Article — Bitácora Urbano Territorial — Submitted 2025</p>
-          <p class="pub-title">PRMS como sistema de evaluación para arquitectura de alto desempeño: posicionamiento crítico histórico</p>
-          <p class="pub-meta">Hernández García, O.A. — Bitácora Urbano Territorial, UNAL — 2026 (expected)</p>
-          <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">Historical critical positioning of PRMS within the lineage of architectural systems thinking — from Howard's Garden City through Cedric Price's Fun Palace and Japanese Metabolism.</p>
-        </div>
-        <span class="pub-doi" style="color:var(--gray-500);">Under review</span>
-      </div>
+      <a href="https://doi.org/10.5281/zenodo.19476935" target="_blank" class="pub-doi">
+        Preprint DOI →
+      </a>
+
     </div>
-  </section>
-
-  <!-- Publicaciones  por publicar -->
-  <section>
-    <div class="container">
-      <p class="section-label" data-num="03">In Preparation — 2026</p>
 
 
+    <div class="pub-entry">
 
-<div class="pub-entry">
-        <div>
-          <p class="pub-type">PREPRINT — ZENODO 08</p>
-          <p class="pub-title">Architecture of distributed data platforms for real-time monitoring of building-scale metabolic systems
-           </p>
-          <p class="pub-meta">Hernández García, O.A. — 2026–2027</p>
-          <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">Development of a data infrastructure integrating IoT acquisition, processing pipelines, and feedback visualization for continuous performance tracking in distributed building networks.
-           </p>
-        </div>
-        <span class="pub-doi" style="color:var(--gray-500);">In preparation</span>
+      <div>
+
+        <p class="pub-type">
+          Journal Article — Bitácora Urbano Territorial — Submitted 2025
+        </p>
+
+        <p class="pub-title">
+          PRMS como sistema de evaluación para arquitectura de alto desempeño: posicionamiento crítico histórico
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — Bitácora Urbano Territorial, UNAL — 2026 (expected)
+        </p>
+
+        <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">
+          Historical critical positioning of PRMS within the lineage of architectural systems thinking — from Howard's Garden City through Cedric Price's Fun Palace and Japanese Metabolism.
+        </p>
+
       </div>
 
-<div class="pub-entry">
-        <div>
-          <p class="pub-type">PREPRINT — ZENODO 09</p>
-          <p class="pub-title">Urban metabolism and node-based aggregation models: from building units to block-scale energy networks
-           </p>
-          <p class="pub-meta">Hernández García, O.A. — 2026–2027</p>
-          <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">This work introduces a scalable aggregation model to simulate emergent behaviors in interconnected building systems, focusing on surplus exchange and collective resilience.
-           </p>
-        </div>
-        <span class="pub-doi" style="color:var(--gray-500);">In preparation</span>
-      </div>
+      <span class="pub-doi" style="color:var(--gray-500);">
+        Under review
+      </span>
 
-<div class="pub-entry">
-        <div>
-          <p class="pub-type">PREPRINT — ZENODO 10</p>
-          <p class="pub-title">Measurement and verification of energy and water performance gaps in high-efficiency buildings: an IPMVP-based case study
-           </p>
-          <p class="pub-meta">Hernández García, O.A. — 2026–2027</p>
-          <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">A formal M&V framework is applied to compare modeled vs. measured performance, identifying deviations and calibration strategies in real operational conditions.
-           </p>
-        </div>
-        <span class="pub-doi" style="color:var(--gray-500);">In preparation</span>
-      </div>
-
-   
-      
-      <!-- el que sigue -->
     </div>
-  </section>
 
-  
-  <!-- CONFERENCE TRACK -->
-  <section>
-    <div class="container">
-      <p class="section-label" data-num="04">Conference & Events Track</p>
-      <p style="max-width:60ch; margin-bottom:1rem;">Target conference venues for PRMS international presentation — 2027–2028 horizon.</p>
-      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-        <span class="tag">PLEA — Passive and Low Energy Architecture</span>
-        <span class="tag">SB — Sustainable Buildings</span>
-        <span class="tag">IBPSA — Building Performance Simulation</span>
-        <span class="tag">PLEA Latin America</span>
+  </div>
+
+</section>
+
+
+<!-- IN PREPARATION -->
+
+<section>
+
+  <div class="container">
+
+    <p class="section-label" data-num="03">
+      In Preparation — 2026
+    </p>
+
+
+    <div class="pub-entry">
+
+      <div>
+
+        <p class="pub-type">PREPRINT — ZENODO 09</p>
+
+        <p class="pub-title">
+          Architecture of distributed data platforms for real-time monitoring of building-scale metabolic systems
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026–2027
+        </p>
+
+        <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">
+          Development of a data infrastructure integrating IoT acquisition, processing pipelines, and feedback visualization for continuous performance tracking in distributed building networks.
+        </p>
+
       </div>
-    </div>
-  </section>
 
-     <!--  AQUÍ VA EL SUBNAV -->
+      <span class="pub-doi" style="color:var(--gray-500);">
+        In preparation
+      </span>
+
+    </div>
+
+
+    <div class="pub-entry">
+
+      <div>
+
+        <p class="pub-type">PREPRINT — ZENODO 10</p>
+
+        <p class="pub-title">
+          Urban metabolism and node-based aggregation models: from building units to block-scale energy networks
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026–2027
+        </p>
+
+        <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">
+          This work introduces a scalable aggregation model to simulate emergent behaviors in interconnected building systems, focusing on surplus exchange and collective resilience.
+        </p>
+
+      </div>
+
+      <span class="pub-doi" style="color:var(--gray-500);">
+        In preparation
+      </span>
+
+    </div>
+
+
+    <div class="pub-entry">
+
+      <div>
+
+        <p class="pub-type">PREPRINT — ZENODO 11</p>
+
+        <p class="pub-title">
+          Measurement and verification of energy and water performance gaps in high-efficiency buildings: an IPMVP-based case study
+        </p>
+
+        <p class="pub-meta">
+          Hernández García, O.A. — 2026–2027
+        </p>
+
+        <p style="font-size:0.88rem; color:var(--gray-500); margin-top:0.5rem; max-width:55ch;">
+          A formal M&V framework is applied to compare modeled vs. measured performance, identifying deviations and calibration strategies in real operational conditions.
+        </p>
+
+      </div>
+
+      <span class="pub-doi" style="color:var(--gray-500);">
+        In preparation
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONFERENCE TRACK -->
+
+<section>
+
+  <div class="container">
+
+    <p class="section-label" data-num="04">
+      Conference & Events Track
+    </p>
+
+    <p style="max-width:60ch; margin-bottom:1rem;">
+      Target conference venues for PRMS international presentation — 2027–2028 horizon.
+    </p>
+
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+
+      <span class="tag">PLEA — Passive and Low Energy Architecture</span>
+      <span class="tag">SB — Sustainable Buildings</span>
+      <span class="tag">IBPSA — Building Performance Simulation</span>
+      <span class="tag">PLEA Latin America</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SYSTEM NAVIGATION -->
 
 <section class="subnav-framework">
+
   <div class="container">
-    <p class="section-label" data-num="10">System Navigation</p>
-    <h2 class="subnav-title">Navigate the PRMS system</h2>
+
+    <p class="section-label" data-num="10">
+      System Navigation
+    </p>
+
+    <h2 class="subnav-title">
+      Navigate the PRMS system
+    </h2>
+
     <div class="subnav-links">
+
       <a href="/principles" class="subnav-link">Principles →</a>
       <a href="/taxonomy" class="subnav-link">Taxonomy →</a>
       <a href="/metrics" class="subnav-link">Metrics →</a>
       <a href="/publications" class="subnav-link active">Publications →</a>
+
     </div>
+
   </div>
+
 </section>
 
 </main>
 
-  <!-- ECOSYSTEM FOOTER -->
+
+<!-- ECOSYSTEM FOOTER -->
+
 <footer>
+
   <div class="ecosystem-footer">
+
     <span class="ecosystem-brand">
       PEAR-ROI PRMS Architecture Lab ®
     </span>
+
     <ul class="ecosystem-links">
+
       <li>
         <a href="https://prms.systems" target="_blank">
           PRMS Architecture Lab
         </a>
       </li>
+
       <li>
         <a href="https://pear-roi.com" target="_blank">
           PEAR-ROI Systems
         </a>
       </li>
+
       <li>
         <a href="https://pear-roi.com/studio" target="_blank">
           PEAR-ROI Studio
         </a>
       </li>
+
     </ul>
+
     <span class="ecosystem-copy">
       © 2026 PRMS Architecture Lab · Querétaro, México
     </span>
+
   </div>
+
 </footer>
+
 
 <script>
 function updateCountdown() {
+
   const countdownEl = document.getElementById("countdown-paper05");
+
   if (!countdownEl) return;
+
   const releaseDate = new Date("2026-05-29T19:00:00-06:00");
+
   const now = new Date();
+
   const diff = releaseDate - now;
+
   if (diff <= 0) {
+
     countdownEl.innerHTML = "DOI Release Available";
+
     return;
+
   }
+
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
   countdownEl.innerHTML =
-  `⏳ ${days} days · ${hours} hours · ${minutes} minutes`;
+    `⏳ ${days} days · ${hours} hours · ${minutes} minutes`;
+
 }
+
 updateCountdown();
+
 setInterval(updateCountdown, 60000);
 </script>
-  
+
+
 <script src="/nav.js"></script>
+
 </body>
 </html>
